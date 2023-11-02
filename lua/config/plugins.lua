@@ -126,6 +126,7 @@ return {
     {
         -- dir = "~/Git/vim-clips",
         "Warbacon/vim-clips",
+        enabled = false,
         ft = "clips"
     },
 
@@ -137,6 +138,8 @@ return {
         opts = {
             ensure_installed = {
                 "lua-language-server",
+                "bash-language-server",
+                "ruff-lsp",
                 "pyright",
                 "clangd",
                 "shellcheck",
@@ -186,6 +189,17 @@ return {
             end
 
             lspconfig.pyright.setup({})
+            lspconfig.ruff_lsp.setup({
+                init_options = {
+                    settings = {
+                        -- Any extra CLI arguments for `ruff` go here.
+                        args = {
+                            "--ignore",
+                            "405, 406"
+                        }
+                    }
+                }
+            })
             lspconfig.lua_ls.setup({
                 settings = {
                     Lua = {

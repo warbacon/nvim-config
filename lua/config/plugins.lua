@@ -195,7 +195,7 @@ return {
                         -- Any extra CLI arguments for `ruff` go here.
                         args = {
                             "--ignore",
-                            "405, 406"
+                            "405"
                         }
                     }
                 }

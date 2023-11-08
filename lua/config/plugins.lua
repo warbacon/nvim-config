@@ -4,35 +4,17 @@ return {
         "catppuccin/nvim",
         name = "catppuccin",
         priority = 1000,
-        config = function()
+        init = function()
             vim.cmd.colorscheme("catppuccin")
             vim.opt.cursorline = true
             vim.api.nvim_set_hl(0, "CursorLine", { bg = "None" })
         end,
     },
 
-    -- INDENT BLANKLINE
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        enabled = false,
-        event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            scope = { enabled = false },
-        },
-    },
-
-    -- INDENT-O-MATIC
-    {
-        "Darazaki/indent-o-matic",
-        event = { "BufReadPre", "BufNewFile" },
-        opts = {}
-    },
-
     -- GITSIGNS
     {
         "lewis6991/gitsigns.nvim",
-        event = { "BufReadPre", "BufNewFile" },
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         opts = {},
     },
 
@@ -45,72 +27,92 @@ return {
         end,
     },
 
-    -- FTERM
-    {
-        "numToStr/fterm.nvim",
-        keys = {
-            { '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>',            mode = "n" },
-            { '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', mode = "t" },
-            { '<A-g>', mode = "n" }
-        },
-        config = function()
-            local fterm = require("FTerm")
-
-            fterm.setup({
-                cmd = os.getenv("SHELL") or "pwsh -NoLogo" or "powershell -NoLogo"
-            })
-
-            if vim.fn.executable('gitui') == 1 then
-                local gitui = fterm:new({
-                    ft = 'fterm_gitui',
-                    cmd = "gitui"
-                })
-
-                vim.keymap.set({ 'n', 't' }, '<A-g>', function()
-                    gitui:toggle()
-                end)
-            end
-        end,
-    },
+    -- -- FTERM
+    -- {
+    --     "numToStr/fterm.nvim",
+    --     keys = {
+    --         { '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>',            mode = "n" },
+    --         { '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', mode = "t" },
+    --         { '<A-g>', mode = "n" }
+    --     },
+    --     config = function()
+    --         local fterm = require("FTerm")
+    --
+    --         fterm.setup({
+    --             cmd = os.getenv("SHELL") or "pwsh -NoLogo" or "powershell -NoLogo"
+    --         })
+    --
+    --         if vim.fn.executable('gitui') == 1 then
+    --             local gitui = fterm:new({
+    --                 ft = 'fterm_gitui',
+    --                 cmd = "gitui"
+    --             })
+    --
+    --             vim.keymap.set({ 'n', 't' }, '<A-g>', function()
+    --                 gitui:toggle()
+    --             end)
+    --         end
+    --     end,
+    -- },
 
     -- COMMENTS
     {
-        "numToStr/Comment.nvim",
-        event = { "BufReadPost", "BufNewFile" },
-        opts = {},
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        lazy = true,
+        opts = {
+            enable_autocmd = false,
+        },
+    },
+    {
+        "echasnovski/mini.comment",
+        event = "VeryLazy",
+        opts = {
+            options = {
+                custom_commentstring = function()
+                    return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo
+                        .commentstring
+                end,
+            },
+        },
     },
 
     -- TREESITTER
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        event = { "BufReadPost", "BufNewFile" },
+        event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
+        cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
         config = function()
             require("nvim-treesitter.configs").setup({
+                highlight = { enable = true, },
+                indent = { enable = true },
                 ensure_installed = {
                     "bash",
                     "c",
                     "cpp",
                     "diff",
-                    "gitignore",
+                    "html",
                     "javascript",
+                    "svelte",
+                    "jsdoc",
                     "json",
+                    "jsonc",
                     "lua",
+                    "luadoc",
+                    "luap",
                     "markdown",
                     "markdown_inline",
                     "python",
                     "query",
+                    "regex",
                     "toml",
+                    "tsx",
+                    "typescript",
                     "vim",
                     "vimdoc",
                     "xml",
                     "yaml",
                 },
-                highlight = {
-                    enable = true,
-                    additional_vim_regex_highlighting = false,
-                },
-                auto_install = false,
             })
         end,
     },
@@ -119,7 +121,7 @@ return {
     {
         "fladson/vim-kitty",
         ft = "kitty",
-        enabled = not (jit.os:find("Windows") or vim.fn.has("wsl") == 1)
+        enabled = not os.getenv("TERM") == "xterm-kitty"
     },
 
     -- CLIPS
@@ -172,7 +174,7 @@ return {
             "williamboman/mason-lspconfig.nvim",
             "folke/neodev.nvim",
         },
-        ft = { "python", "sh", "lua", "c", "cpp" },
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         config = function()
             -- Setup mason-lspconfig.
             require("mason-lspconfig").setup()
@@ -203,6 +205,9 @@ return {
             lspconfig.lua_ls.setup({
                 settings = {
                     Lua = {
+                        workspace = {
+                            checkThirdParty = "Disable"
+                        },
                         diagnostics = {
                             disable = {
                                 "missing-fields",
@@ -254,40 +259,33 @@ return {
 
     -- COMPLETIONS
     {
+        "L3MON4D3/LuaSnip",
+        opts = {
+            history = true,
+            delete_check_events = "TextChanged",
+        },
+        -- stylua: ignore
+        keys = {
+            {
+                "<tab>",
+                function()
+                    return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+                end,
+                expr = true,
+                silent = true,
+                mode = "i",
+            },
+            { "<tab>",   function() require("luasnip").jump(1) end,  mode = "s" },
+            { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+        },
+    },
+    {
         "hrsh7th/nvim-cmp",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "saadparwaiz1/cmp_luasnip",
-            {
-                "L3MON4D3/LuaSnip",
-                keys = {
-                    {
-                        "<tab>",
-                        function()
-                            return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-                        end,
-                        expr = true,
-                        silent = true,
-                        mode = "i",
-                    },
-                    {
-                        "<tab>",
-                        function()
-                            require("luasnip").jump(1)
-                        end,
-                        mode = "s",
-                    },
-                    {
-                        "<s-tab>",
-                        function()
-                            require("luasnip").jump(-1)
-                        end,
-                        mode = { "i", "s" },
-                    },
-                },
-            },
         },
         event = "InsertEnter",
         config = function()

@@ -191,9 +191,9 @@ return {
         },
         keys = {
             { "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>", mode = "n" },
-            { "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>",  mode = "n" },
-            { "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>",    mode = "n" },
-            { "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>",  mode = "n" },
+            { "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", mode = "n" },
+            { "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", mode = "n" },
+            { "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", mode = "n" },
         },
     },
 
@@ -204,7 +204,7 @@ return {
             "mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "folke/neodev.nvim",
-            "b0o/schemastore.nvim"
+            "b0o/schemastore.nvim",
         },
         event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         config = function()
@@ -255,18 +255,18 @@ return {
             capabilities.textDocument.completion.completionItem.snippetSupport = true
 
             lspconfig.html.setup({
-                capabilities = capabilities
+                capabilities = capabilities,
             })
 
             lspconfig.cssls.setup({
-                capabilities = capabilities
+                capabilities = capabilities,
             })
 
             lspconfig.jsonls.setup({
                 capabilities = capabilities,
                 settings = {
                     json = {
-                        schemas = require('schemastore').json.schemas(),
+                        schemas = require("schemastore").json.schemas(),
                         validate = { enable = true },
                     },
                 },

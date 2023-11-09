@@ -4,10 +4,19 @@ return {
         "catppuccin/nvim",
         name = "catppuccin",
         priority = 1000,
+        opts = {
+            custom_highlights = function()
+                return {
+                    CursorLine = { bg = "None" },
+                }
+            end,
+            integrations = {
+                mason = true,
+            },
+        },
         init = function()
             vim.cmd.colorscheme("catppuccin")
             vim.opt.cursorline = true
-            vim.api.nvim_set_hl(0, "CursorLine", { bg = "None" })
         end,
     },
 
@@ -69,8 +78,8 @@ return {
         opts = {
             options = {
                 custom_commentstring = function()
-                    return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo
-                        .commentstring
+                    return require("ts_context_commentstring.internal").calculate_commentstring()
+                        or vim.bo.commentstring
                 end,
             },
         },
@@ -83,8 +92,9 @@ return {
         event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
         cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
         config = function()
+            require("nvim-treesitter.install").prefer_git = false
             require("nvim-treesitter.configs").setup({
-                highlight = { enable = true, },
+                highlight = { enable = true },
                 indent = { enable = true },
                 ensure_installed = {
                     "bash",
@@ -121,7 +131,7 @@ return {
     {
         "fladson/vim-kitty",
         ft = "kitty",
-        enabled = not os.getenv("TERM") == "xterm-kitty"
+        enabled = os.getenv("TERM") == "xterm-kitty",
     },
 
     -- CLIPS
@@ -129,7 +139,7 @@ return {
         -- dir = "~/Git/vim-clips",
         "Warbacon/vim-clips",
         enabled = false,
-        ft = "clips"
+        ft = "clips",
     },
 
     -- MASON
@@ -142,6 +152,10 @@ return {
                 "lua-language-server",
                 "bash-language-server",
                 "ruff-lsp",
+                "svelte-language-server",
+                "json-lsp",
+                "html-lsp",
+                "css-lsp",
                 "pyright",
                 "clangd",
                 "shellcheck",
@@ -164,6 +178,23 @@ return {
                 ensure_installed()
             end
         end,
+    },
+
+    -- TELESCOPE
+    {
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.4",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons",
+            { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+        },
+        keys = {
+            { "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>", mode = "n" },
+            { "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", mode = "n" },
+            { "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", mode = "n" },
+            { "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", mode = "n" },
+        },
     },
 
     -- LSPCONFIG
@@ -191,22 +222,26 @@ return {
             end
 
             lspconfig.pyright.setup({})
+            lspconfig.svelte.setup({})
+            lspconfig.html.setup({})
+            lspconfig.jsonls.setup({})
+            lspconfig.cssls.setup({})
             lspconfig.ruff_lsp.setup({
                 init_options = {
                     settings = {
                         -- Any extra CLI arguments for `ruff` go here.
                         args = {
                             "--ignore",
-                            "405"
-                        }
-                    }
-                }
+                            "405",
+                        },
+                    },
+                },
             })
             lspconfig.lua_ls.setup({
                 settings = {
                     Lua = {
                         workspace = {
-                            checkThirdParty = "Disable"
+                            checkThirdParty = "Disable",
                         },
                         diagnostics = {
                             disable = {

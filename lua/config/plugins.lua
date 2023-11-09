@@ -253,13 +253,16 @@ return {
             --Enable (broadcasting) snippet capability for completion
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.completion.completionItem.snippetSupport = true
+
             lspconfig.html.setup({
                 capabilities = capabilities
             })
+
             lspconfig.cssls.setup({
                 capabilities = capabilities
             })
-            require('lspconfig').jsonls.setup {
+
+            lspconfig.jsonls.setup({
                 capabilities = capabilities,
                 settings = {
                     json = {
@@ -267,7 +270,7 @@ return {
                         validate = { enable = true },
                     },
                 },
-            }
+            })
 
             -- Global mappings.
             -- See `:help vim.diagnostic.*` for documentation on any of the below functions

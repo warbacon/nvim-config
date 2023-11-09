@@ -224,8 +224,6 @@ return {
 
             lspconfig.pyright.setup({})
             lspconfig.svelte.setup({})
-            lspconfig.html.setup({})
-            lspconfig.cssls.setup({})
             lspconfig.ruff_lsp.setup({
                 init_options = {
                     settings = {
@@ -255,6 +253,12 @@ return {
             --Enable (broadcasting) snippet capability for completion
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.completion.completionItem.snippetSupport = true
+            lspconfig.html.setup({
+                capabilities = capabilities
+            })
+            lspconfig.cssls.setup({
+                capabilities = capabilities
+            })
             require('lspconfig').jsonls.setup {
                 capabilities = capabilities,
                 settings = {

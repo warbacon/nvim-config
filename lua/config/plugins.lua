@@ -191,9 +191,9 @@ return {
         },
         keys = {
             { "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>", mode = "n" },
-            { "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", mode = "n" },
-            { "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", mode = "n" },
-            { "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", mode = "n" },
+            { "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>",  mode = "n" },
+            { "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>",    mode = "n" },
+            { "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>",  mode = "n" },
         },
     },
 
@@ -204,6 +204,7 @@ return {
             "mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "folke/neodev.nvim",
+            "b0o/schemastore.nvim"
         },
         event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         config = function()
@@ -224,7 +225,6 @@ return {
             lspconfig.pyright.setup({})
             lspconfig.svelte.setup({})
             lspconfig.html.setup({})
-            lspconfig.jsonls.setup({})
             lspconfig.cssls.setup({})
             lspconfig.ruff_lsp.setup({
                 init_options = {
@@ -251,6 +251,15 @@ return {
                     },
                 },
             })
+
+            require('lspconfig').jsonls.setup {
+                settings = {
+                    json = {
+                        schemas = require('schemastore').json.schemas(),
+                        validate = { enable = true },
+                    },
+                },
+            }
 
             -- Global mappings.
             -- See `:help vim.diagnostic.*` for documentation on any of the below functions

@@ -85,6 +85,45 @@ return {
         },
     },
 
+    -- CONFORM -----------------------------------------------------------------
+    {
+        "stevearc/conform.nvim",
+        cmd = { "ConformInfo" },
+        keys = {
+            {
+                -- Customize or remove this keymap to your liking
+                "<leader>f",
+                function()
+                    require("conform").format({ async = true, lsp_fallback = true })
+                end,
+                mode = "",
+                desc = "Format buffer",
+            },
+        },
+        -- Everything in opts will be passed to setup()
+        opts = {
+            -- Define your formatters
+            formatters_by_ft = {
+                lua = { "stylua" },
+                sh = { "shfmt" },
+                javascript = { "prettier" },
+                css = { "prettier" },
+                svelte = { "prettier" },
+                html = { "prettier" },
+                json = { "prettier" },
+            },
+            -- Customize formatters
+            formatters = {
+                shfmt = {
+                    prepend_args = { "-i", "2", "-ci", "-bn" },
+                },
+            },
+        },
+        init = function()
+            -- If you want the formatexpr, here is the place to set it
+            vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+        end,
+    },
     -- TREESITTER
     {
         "nvim-treesitter/nvim-treesitter",
@@ -152,6 +191,10 @@ return {
                 "lua-language-server",
                 "bash-language-server",
                 "ruff-lsp",
+                "stylua",
+                "eslint-lsp",
+                "shfmt",
+                "prettier",
                 "svelte-language-server",
                 "json-lsp",
                 "html-lsp",
@@ -224,6 +267,7 @@ return {
 
             lspconfig.pyright.setup({})
             lspconfig.svelte.setup({})
+            lspconfig.eslint.setup({})
             lspconfig.ruff_lsp.setup({
                 init_options = {
                     settings = {
@@ -304,9 +348,6 @@ return {
                     vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
                     vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
                     vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-                    vim.keymap.set("n", "<space>f", function()
-                        vim.lsp.buf.format({ async = true })
-                    end, opts)
                 end,
             })
         end,

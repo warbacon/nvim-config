@@ -1,5 +1,5 @@
 return {
-    -- CATPPUCCIN
+    -- CATPPUCCIN --------------------------------------------------------------
     {
         "catppuccin/nvim",
         name = "catppuccin",
@@ -20,14 +20,14 @@ return {
         end,
     },
 
-    -- GITSIGNS
+    -- GITSIGNS ----------------------------------------------------------------
     {
         "lewis6991/gitsigns.nvim",
         event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         opts = {},
     },
 
-    -- MARKDOWN-PREVIEW
+    -- MARKDOWN-PREVIEW --------------------------------------------------------
     {
         "iamcco/markdown-preview.nvim",
         ft = "markdown",
@@ -36,35 +36,35 @@ return {
         end,
     },
 
-    -- -- FTERM
-    -- {
-    --     "numToStr/fterm.nvim",
-    --     keys = {
-    --         { '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>',            mode = "n" },
-    --         { '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', mode = "t" },
-    --         { '<A-g>', mode = "n" }
-    --     },
-    --     config = function()
-    --         local fterm = require("FTerm")
-    --
-    --         fterm.setup({
-    --             cmd = os.getenv("SHELL") or "pwsh -NoLogo" or "powershell -NoLogo"
-    --         })
-    --
-    --         if vim.fn.executable('gitui') == 1 then
-    --             local gitui = fterm:new({
-    --                 ft = 'fterm_gitui',
-    --                 cmd = "gitui"
-    --             })
-    --
-    --             vim.keymap.set({ 'n', 't' }, '<A-g>', function()
-    --                 gitui:toggle()
-    --             end)
-    --         end
-    --     end,
-    -- },
+    -- FTERM -------------------------------------------------------------------
+    {
+        "numToStr/fterm.nvim",
+        keys = {
+            { "<A-i>", '<CMD>lua require("FTerm").toggle()<CR>', mode = "n" },
+            { "<A-i>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', mode = "t" },
+            { "<A-g>", mode = "n" },
+        },
+        config = function()
+            local fterm = require("FTerm")
 
-    -- COMMENTS
+            fterm.setup({
+                cmd = os.getenv("SHELL") or "pwsh -NoLogo" or "powershell -NoLogo",
+            })
+
+            if vim.fn.executable("gitui") == 1 then
+                local gitui = fterm:new({
+                    ft = "fterm_gitui",
+                    cmd = "gitui",
+                })
+
+                vim.keymap.set({ "n", "t" }, "<A-g>", function()
+                    gitui:toggle()
+                end)
+            end
+        end,
+    },
+
+    -- COMMENTS ----------------------------------------------------------------
     {
         "JoosepAlviste/nvim-ts-context-commentstring",
         lazy = true,
@@ -124,7 +124,8 @@ return {
             vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
         end,
     },
-    -- TREESITTER
+
+    -- TREESITTER --------------------------------------------------------------
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
@@ -133,8 +134,11 @@ return {
         config = function()
             require("nvim-treesitter.install").prefer_git = false
             require("nvim-treesitter.configs").setup({
-                highlight = { enable = true },
                 indent = { enable = true },
+                highlight = {
+                    enable = true,
+                    additional_vim_regex_highlighting = false,
+                },
                 ensure_installed = {
                     "bash",
                     "c",
@@ -166,22 +170,21 @@ return {
         end,
     },
 
-    -- KITTY CONFIG HIGHLIGHTING
+    -- KITTY CONFIG HIGHLIGHTING -----------------------------------------------
     {
         "fladson/vim-kitty",
         ft = "kitty",
         enabled = os.getenv("TERM") == "xterm-kitty",
     },
 
-    -- CLIPS
+    -- CLIPS -------------------------------------------------------------------
     {
-        -- dir = "~/Git/vim-clips",
         "Warbacon/vim-clips",
-        enabled = false,
         ft = "clips",
+        enabled = false,
     },
 
-    -- MASON
+    -- MASON -------------------------------------------------------------------
     {
         "williamboman/mason.nvim",
         cmd = "Mason",
@@ -223,7 +226,7 @@ return {
         end,
     },
 
-    -- TELESCOPE
+    -- TELESCOPE ---------------------------------------------------------------
     {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.4",
@@ -240,7 +243,7 @@ return {
         },
     },
 
-    -- LSPCONFIG
+    -- LSPCONFIG ---------------------------------------------------------------
     {
         "neovim/nvim-lspconfig",
         dependencies = {
@@ -353,7 +356,7 @@ return {
         end,
     },
 
-    -- COMPLETIONS
+    -- COMPLETIONS -------------------------------------------------------------
     {
         "L3MON4D3/LuaSnip",
         opts = {

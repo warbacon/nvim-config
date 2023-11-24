@@ -19,6 +19,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local plugins = require("config.plugins")
 local opts = {
 	install = {
 		colorscheme = { "kanagawa", "catppuccin", "habamax" },
@@ -28,7 +29,7 @@ local opts = {
 	},
 }
 
-require("lazy").setup("plugins", opts)
+require("lazy").setup(plugins, opts)
 -- LAZY[END] -------------------------------------------------------------------
 
 -- Fix clipboard in WSL

@@ -64,23 +64,13 @@ return {
 
 	-- COMMENTS ----------------------------------------------------------------
 	{
-		"JoosepAlviste/nvim-ts-context-commentstring",
-		lazy = true,
-		opts = {
-			enable_autocmd = false,
+		"numToStr/Comment.nvim",
+		keys = {
+			{ "gcc", mode = "n" },
+			{ "gc", mode = "v" },
+			{ "gb", mode = "v" },
 		},
-	},
-	{
-		"echasnovski/mini.comment",
-		event = "VeryLazy",
-		opts = {
-			options = {
-				custom_commentstring = function()
-					return require("ts_context_commentstring.internal").calculate_commentstring()
-						or vim.bo.commentstring
-				end,
-			},
-		},
+		opts = {},
 	},
 
 	-- CONFORM -----------------------------------------------------------------

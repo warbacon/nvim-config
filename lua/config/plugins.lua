@@ -3,17 +3,18 @@ return {
 	{
 		"rebelot/kanagawa.nvim",
 		priority = 1000,
-		opts = {
-			compile = true,
-			overrides = function()
-				return {
-					CursorLine = { bg = "None" },
-				}
-			end,
-		},
-		init = function()
-			vim.cmd.colorscheme("kanagawa")
+		config = function()
+			require("kanagawa").setup({
+				compile = true,
+				overrides = function()
+					return {
+						CursorLine = { bg = "None" },
+					}
+				end,
+			})
+			vim.cmd("colorscheme kanagawa")
 			vim.opt.cursorline = true
+			vim.opt.colorcolumn = "80"
 		end,
 	},
 
@@ -120,31 +121,21 @@ return {
 			require("nvim-treesitter.install").prefer_git = false
 			require("nvim-treesitter.configs").setup({
 				indent = { enable = true },
-				highlight = {
-					enable = true,
-					additional_vim_regex_highlighting = false,
-				},
+				highlight = { enable = true },
 				ensure_installed = {
 					"bash",
 					"c",
 					"cpp",
-					"diff",
-					"go",
-					"json",
 					"lua",
-					"luadoc",
-					"luap",
 					"markdown",
 					"markdown_inline",
 					"python",
 					"query",
-					"regex",
 					"rust",
 					"svelte",
-					"toml",
 					"vim",
 					"vimdoc",
-					"xml",
+					"json",
 					"yaml",
 				},
 			})
@@ -233,7 +224,6 @@ return {
 			"mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			{ "folke/neodev.nvim", opts = {} },
-			{ "j-hui/fidget.nvim", opts = {} },
 		},
 		config = function()
 			-- Setup mason-lspconfig.

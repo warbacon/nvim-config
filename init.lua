@@ -5,7 +5,7 @@ vim.g.maplocalleader = "\\"
 -- Load config
 require("config")
 
--- LAZY[START] ------------------------------------------------------------------
+-- Lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -19,18 +19,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Load plugins
 local plugins = require("config.plugins")
-local opts = {
-	install = {
-		colorscheme = { "kanagawa", "catppuccin", "habamax" },
-	},
-	change_detection = {
-		notify = false,
-	},
-}
-
-require("lazy").setup(plugins, opts)
--- LAZY[END] -------------------------------------------------------------------
+require("lazy").setup(plugins)
 
 -- Fix clipboard in WSL
 if vim.fn.has("wsl") == 1 then

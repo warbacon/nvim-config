@@ -43,6 +43,3 @@ vim.opt.updatetime = 200
 
 -- Decrease keymap timeout length
 vim.opt.timeoutlen = 300
-
--- Sets the colorcolumn to 80 characters
-vim.opt.colorcolumn = "80"

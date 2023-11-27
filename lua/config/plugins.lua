@@ -28,13 +28,17 @@ return {
 	-- OIL.NVIM ----------------------------------------------------------------
 	{
 		"stevearc/oil.nvim",
-		opts = {
-			delete_to_trash = true,
-		},
+		lazy = false,
 		keys = {
 			{ "-", "<CMD>Oil<CR>", mode = "n" },
 		},
-		lazy = false,
+		config = function()
+			local opts = {}
+			if vim.fn.has("win32") == 0 then
+				opts.delete_to_trash = true
+			end
+			require("oil").setup(opts)
+		end,
 	},
 
 	-- MARKDOWN-PREVIEW --------------------------------------------------------

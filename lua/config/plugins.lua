@@ -25,6 +25,18 @@ return {
 		opts = {},
 	},
 
+	-- OIL.NVIM ----------------------------------------------------------------
+	{
+		"stevearc/oil.nvim",
+		opts = {
+			delete_to_trash = true,
+		},
+		keys = {
+			{ "-", "<CMD>Oil<CR>", mode = "n" },
+		},
+		lazy = false,
+	},
+
 	-- MARKDOWN-PREVIEW --------------------------------------------------------
 	{
 		"iamcco/markdown-preview.nvim",

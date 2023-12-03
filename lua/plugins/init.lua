@@ -127,11 +127,15 @@ return {
 			require("nvim-treesitter.install").prefer_git = false
 			require("nvim-treesitter.configs").setup({
 				indent = { enable = true },
-				highlight = { enable = true },
+				highlight = {
+					enable = true,
+					additional_vim_regex_highlighting = false,
+				},
 				ensure_installed = {
 					"bash",
 					"c",
 					"cpp",
+					"json",
 					"lua",
 					"markdown",
 					"markdown_inline",
@@ -141,8 +145,9 @@ return {
 					"svelte",
 					"vim",
 					"vimdoc",
-					"json",
 					"yaml",
+					"css",
+					"typescript",
 				},
 			})
 		end,

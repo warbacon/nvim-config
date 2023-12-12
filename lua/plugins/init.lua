@@ -62,7 +62,7 @@ return {
 			local fterm = require("FTerm")
 
 			fterm.setup({
-				cmd = os.getenv("SHELL") or "pwsh -NoLogo" or "powershell -NoLogo",
+				cmd = os.getenv("SHELL") or "pwsh -NoLogo",
 			})
 
 			if vim.fn.executable("gitui") == 1 then
@@ -86,7 +86,7 @@ return {
 			{ "gc", mode = "v" },
 			{ "gb", mode = "v" },
 		},
-		opts = {},
+		opts = { mappings = { extra = false } },
 	},
 
 	-- CONFORM -----------------------------------------------------------------
@@ -135,6 +135,8 @@ return {
 					"bash",
 					"c",
 					"cpp",
+					"css",
+					"javascript",
 					"json",
 					"lua",
 					"markdown",
@@ -143,11 +145,10 @@ return {
 					"query",
 					"rust",
 					"svelte",
+					"typescript",
 					"vim",
 					"vimdoc",
 					"yaml",
-					"css",
-					"typescript",
 				},
 			})
 		end,
@@ -252,10 +253,7 @@ return {
 			lspconfig.ruff_lsp.setup({
 				init_options = {
 					settings = {
-						args = {
-							"--ignore",
-							"405",
-						},
+						args = { "--ignore", "405" },
 					},
 				},
 			})
@@ -263,14 +261,8 @@ return {
 			lspconfig.lua_ls.setup({
 				settings = {
 					Lua = {
-						workleader = {
-							checkThirdParty = "Disable",
-						},
-						diagnostics = {
-							disable = {
-								"missing-fields",
-							},
-						},
+						workleader = { checkThirdParty = "Disable" },
+						diagnostics = { disable = { "missing-fields" } },
 					},
 				},
 			})

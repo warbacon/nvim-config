@@ -6,6 +6,8 @@ return {
 		config = function()
 			require("kanagawa").setup({
 				compile = true,
+				commentStyle = { italic = false },
+				keywordStyle = { italic = false },
 				overrides = function()
 					return {
 						CursorLine = { bg = "None" },
@@ -126,7 +128,6 @@ return {
 		config = function()
 			require("nvim-treesitter.install").prefer_git = false
 			require("nvim-treesitter.configs").setup({
-				indent = { enable = true },
 				highlight = {
 					enable = true,
 					additional_vim_regex_highlighting = false,

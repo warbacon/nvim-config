@@ -3,7 +3,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- Load options
-require("config.options")
+require("options")
 
 -- Lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -24,7 +24,7 @@ local plugins = require("plugins")
 require("lazy").setup(plugins)
 
 -- Load keymaps
-require("config.keymaps")
+require("keymaps")
 
 -- Fix clipboard in WSL
 if vim.fn.has("wsl") == 1 then

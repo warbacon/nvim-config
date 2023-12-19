@@ -254,7 +254,7 @@ return {
 			lspconfig.ruff_lsp.setup({
 				init_options = {
 					settings = {
-						args = { "--ignore", "405" },
+						args = { "--ignore", "F405" },
 					},
 				},
 			})

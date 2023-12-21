@@ -21,19 +21,4 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local plugins = require("plugins")
-
-local opts = {
-    install = {
-        colorscheme = { "kanagawa", "habamax" },
-    },
-    performance = {
-        disabled_plugins = {
-            "matchparen",
-        },
-    },
-}
-
-if tonumber(vim.inspect(vim.version().minor)) >= 8 then
-    require("lazy").setup(plugins, opts)
-end
+require("lazy").setup(require("plugins"))

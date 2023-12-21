@@ -106,11 +106,6 @@ return {
 		opts = { mappings = { extra = false } },
 	},
 	{
-		"utilyre/sentiment.nvim",
-		event = { "VeryLazy" },
-		opts = {},
-	},
-	{
 		"fladson/vim-kitty",
 		ft = "kitty",
 		enabled = os.getenv("TERM") == "xterm-kitty",

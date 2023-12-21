@@ -77,8 +77,8 @@ return {
 	{
 		"echasnovski/mini.move",
 		keys = {
-			{ "<M-j>" },
-			{ "<M-k>" },
+			{ "<M-j>", mode = { "n", "v", "i" } },
+			{ "<M-k>", mode = { "n", "v", "i" } },
 		},
 		version = "*",
 		opts = {},

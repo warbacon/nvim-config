@@ -1,45 +1,39 @@
 -- Set leader-key to space
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
 
--- Load options
+-- Options
 require("options")
+
+-- Keymaps
+require("keymaps")
 
 -- Lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable",
-		lazypath,
-	})
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Load plugins
 local plugins = require("plugins")
-require("lazy").setup(plugins)
 
--- Load keymaps
-require("keymaps")
+local opts = {
+    install = {
+        colorscheme = { "kanagawa", "habamax" },
+    },
+    performance = {
+        disabled_plugins = {
+            "matchparen",
+        },
+    },
+}
 
--- Fix clipboard in WSL
-if vim.fn.has("wsl") == 1 then
-	vim.cmd([[
-    let g:clipboard = {
-                \   'name': 'WslClipboard',
-                \   'copy': {
-                \      '+': 'clip.exe',
-                \      '*': 'clip.exe',
-                \    },
-                \   'paste': {
-                \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-                \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-                \   },
-                \   'cache_enabled': 0,
-                \ }
-    ]])
+if tonumber(vim.inspect(vim.version().minor)) >= 8 then
+    require("lazy").setup(plugins, opts)
 end

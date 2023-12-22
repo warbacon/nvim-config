@@ -18,41 +18,6 @@ return {
 		end,
 	},
 	{
-		"L3MON4D3/LuaSnip",
-		build = (not jit.os:find("Windows"))
-				and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
-			or nil,
-		opts = {
-			history = true,
-			delete_check_events = "TextChanged",
-		},
-		keys = {
-			{
-				"<tab>",
-				function()
-					return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-				end,
-				expr = true,
-				silent = true,
-				mode = "i",
-			},
-			{
-				"<tab>",
-				function()
-					require("luasnip").jump(1)
-				end,
-				mode = "s",
-			},
-			{
-				"<s-tab>",
-				function()
-					require("luasnip").jump(-1)
-				end,
-				mode = { "i", "s" },
-			},
-		},
-	},
-	{
 		"lewis6991/gitsigns.nvim",
 		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 		opts = {
@@ -73,15 +38,6 @@ return {
 		build = function()
 			vim.fn["mkdp#util#install"]()
 		end,
-	},
-	{
-		"echasnovski/mini.move",
-		keys = {
-			{ "<M-j>", mode = { "n", "v", "i" } },
-			{ "<M-k>", mode = { "n", "v", "i" } },
-		},
-		version = "*",
-		opts = {},
 	},
 	{
 		"stevearc/oil.nvim",
@@ -290,6 +246,41 @@ return {
 		config = function(_, opts)
 			require("conform").setup(opts)
 		end,
+	},
+	{
+		"L3MON4D3/LuaSnip",
+		build = (not jit.os:find("Windows"))
+				and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
+			or nil,
+		opts = {
+			history = true,
+			delete_check_events = "TextChanged",
+		},
+		keys = {
+			{
+				"<tab>",
+				function()
+					return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+				end,
+				expr = true,
+				silent = true,
+				mode = "i",
+			},
+			{
+				"<tab>",
+				function()
+					require("luasnip").jump(1)
+				end,
+				mode = "s",
+			},
+			{
+				"<s-tab>",
+				function()
+					require("luasnip").jump(-1)
+				end,
+				mode = { "i", "s" },
+			},
+		},
 	},
 	{
 		"hrsh7th/nvim-cmp",

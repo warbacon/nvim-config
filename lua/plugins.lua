@@ -67,6 +67,10 @@ return {
 		enabled = os.getenv("TERM") == "xterm-kitty",
 	},
 	{
+		"warbacon/vim-clips",
+		ft = "clips",
+	},
+	{
 		"nvim-treesitter/nvim-treesitter",
 		event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
 		build = ":TSUpdate",
@@ -108,8 +112,7 @@ return {
 		end,
 	},
 	{
-		"kylechui/nvim-surround",
-		version = "*", -- Use for stability; omit to use `main` branch for the latest features
+		"echasnovski/mini.surround",
 		event = "VeryLazy",
 		opts = {},
 	},

@@ -7,7 +7,7 @@
 1. Install dependencies:
 
     ```sh
-    sudo pacman -S unzip nodejs-lts-iron npm gcc fd
+    sudo pacman -S unzip nodejs-lts-iron npm gcc
     ```
 
 2. Clone the repository:

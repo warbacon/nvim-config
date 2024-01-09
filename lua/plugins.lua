@@ -40,18 +40,6 @@ return {
 		end,
 	},
 	{
-		"stevearc/oil.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = function()
-			local opts = {}
-			if vim.fn.has("win32") == 0 then
-				opts.delete_to_trash = true
-			end
-			require("oil").setup(opts)
-			vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-		end,
-	},
-	{
 		"numToStr/Comment.nvim",
 		keys = {
 			{ "gcc", mode = "n" },

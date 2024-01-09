@@ -39,3 +39,6 @@ vim.opt.signcolumn = "yes"
 
 -- 80ch column
 vim.opt.colorcolumn = "80"
+
+-- Disable banner in netrw
+vim.g.netrw_banner = 0

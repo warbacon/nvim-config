@@ -255,7 +255,7 @@ return {
 	},
 	{
 		"mrcjkb/rustaceanvim",
-        enabled = vim.fn.executable("rust-analyzer"),
+        enabled = vim.fn.executable("rust-analyzer") == 1,
 		version = "^3",
 		ft = { "rust" },
 	},

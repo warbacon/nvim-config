@@ -67,6 +67,8 @@ return {
 			ensure_installed = {
 				"bash",
 				"c",
+				"cpp",
+				"go",
 				"javascript",
 				"jsdoc",
 				"json",
@@ -78,12 +80,11 @@ return {
 				"python",
 				"query",
 				"regex",
+				"rust",
 				"toml",
 				"vim",
 				"vimdoc",
 				"yaml",
-				"go",
-				"rust",
 			},
 			highlight = { enable = true },
 			indent = { enable = true },
@@ -115,6 +116,28 @@ return {
 		"echasnovski/mini.surround",
 		event = "VeryLazy",
 		opts = {},
+	},
+	{
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.5",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope-fzy-native.nvim",
+			"nvim-tree/nvim-web-devicons",
+		},
+		keys = {
+			{
+				"<C-p>",
+				function()
+					require("telescope.builtin").find_files()
+				end,
+				mode = "n",
+			},
+		},
+		opts = {},
+		config = function()
+			require("telescope").load_extension("fzy_native")
+		end,
 	},
 	{
 
@@ -158,6 +181,7 @@ return {
 			{ "folke/neodev.nvim", opts = {} },
 			"mason.nvim",
 			"neovim/nvim-lspconfig",
+			{ "j-hui/fidget.nvim", opts = {} },
 		},
 		opts = {},
 		config = function()
@@ -260,9 +284,7 @@ return {
 	},
 	{
 		"L3MON4D3/LuaSnip",
-		build = (not jit.os:find("Windows"))
-				and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
-			or nil,
+		build = not jit.os:find("Windows") and "make install_jsregexp",
 		opts = {
 			history = true,
 			delete_check_events = "TextChanged",
@@ -295,7 +317,7 @@ return {
 	},
 	{
 		"hrsh7th/nvim-cmp",
-		version = false, -- last release is way too old
+		version = false,
 		event = "InsertEnter",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",

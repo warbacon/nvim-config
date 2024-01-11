@@ -19,7 +19,7 @@ return {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+		event = { "LazyFile" },
 		opts = {
 			signs = {
 				add = { text = "▎" },
@@ -60,43 +60,55 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
+		version = false,
+		event = { "LazyFile", "VeryLazy" },
 		build = ":TSUpdate",
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = {
-					"bash",
-					"c",
-					"cpp",
-					"json",
-					"lua",
-					"luadoc",
-					"luap",
-					"markdown",
-					"markdown_inline",
-					"python",
-					"query",
-					"regex",
-					"toml",
-					"vim",
-					"vimdoc",
-					"yaml",
-					"javascript",
+		opts = {
+			ensure_installed = {
+				"bash",
+				"c",
+				"javascript",
+				"jsdoc",
+				"json",
+				"lua",
+				"luadoc",
+				"luap",
+				"markdown",
+				"markdown_inline",
+				"python",
+				"query",
+				"regex",
+				"toml",
+				"vim",
+				"vimdoc",
+				"yaml",
+				"go",
+				"rust",
+			},
+			highlight = { enable = true },
+			indent = { enable = true },
+			incremental_selection = {
+				enable = true,
+				keymaps = {
+					init_selection = "<C-space>",
+					node_incremental = "<C-space>",
+					scope_incremental = false,
+					node_decremental = "<bs>",
 				},
-				highlight = {
-					enable = true,
-					additional_vim_regex_highlighting = false,
-				},
-				incremental_selection = {
-					enable = true,
-					keymaps = {
-						init_selection = "<C-space>",
-						node_incremental = "<C-space>",
-						scope_incremental = false,
-						node_decremental = "<bs>",
-					},
-				},
-			})
+			},
+		},
+		config = function(_, opts)
+			if type(opts.ensure_installed) == "table" then
+				local added = {}
+				opts.ensure_installed = vim.tbl_filter(function(lang)
+					if added[lang] then
+						return false
+					end
+					added[lang] = true
+					return true
+				end, opts.ensure_installed)
+			end
+			require("nvim-treesitter.configs").setup(opts)
 		end,
 	},
 	{
@@ -105,19 +117,20 @@ return {
 		opts = {},
 	},
 	{
+
 		"williamboman/mason.nvim",
 		cmd = "Mason",
 		build = ":MasonUpdate",
 		opts = {
 			ensure_installed = {
-				"lua-language-server",
 				"bash-language-server",
-				"ruff-lsp",
-				"stylua",
-				"shfmt",
-				"pyright",
 				"clangd",
+				"lua-language-server",
+				"pyright",
+				"ruff-lsp",
 				"shellcheck",
+				"shfmt",
+				"stylua",
 			},
 		},
 		config = function(_, opts)
@@ -139,13 +152,14 @@ return {
 		end,
 	},
 	{
-		"neovim/nvim-lspconfig",
+		"williamboman/mason-lspconfig.nvim",
+		event = "LazyFile",
 		dependencies = {
 			{ "folke/neodev.nvim", opts = {} },
-			"williamboman/mason-lspconfig.nvim",
 			"mason.nvim",
+			"neovim/nvim-lspconfig",
 		},
-		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+		opts = {},
 		config = function()
 			-- Setup mason-lspconfig.
 			require("mason-lspconfig").setup()

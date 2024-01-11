@@ -254,6 +254,12 @@ return {
 		end,
 	},
 	{
+		"mrcjkb/rustaceanvim",
+        enabled = vim.fn.executable("rust-analyzer"),
+		version = "^3",
+		ft = { "rust" },
+	},
+	{
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
 		cmd = { "ConformInfo" },

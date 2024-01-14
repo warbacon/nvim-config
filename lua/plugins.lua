@@ -5,8 +5,6 @@ return {
 		config = function()
 			require("kanagawa").setup({
 				compile = true,
-				commentStyle = { italic = false },
-				keywordStyle = { italic = false },
 				overrides = function()
 					return {
 						CursorLine = { bg = "None" },
@@ -86,8 +84,10 @@ return {
 				"vimdoc",
 				"yaml",
 			},
-			highlight = { enable = true },
-			indent = { enable = true },
+			highlight = {
+				enable = true,
+				additional_vim_regex_highlighting = false,
+			},
 			incremental_selection = {
 				enable = true,
 				keymaps = {
@@ -255,7 +255,7 @@ return {
 	},
 	{
 		"mrcjkb/rustaceanvim",
-        enabled = vim.fn.executable("rust-analyzer") == 1,
+		enabled = vim.fn.executable("rust-analyzer") == 1,
 		version = "^3",
 		ft = { "rust" },
 	},

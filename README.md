@@ -19,7 +19,7 @@
 ### Other
 
 > [!IMPORTANT]
-> You need to have these packages installed ``unzip nodejs npm gcc g++ make``
+> You need to have these packages installed ``unzip nodejs npm gcc g++``
 
 Clone the repository:
 

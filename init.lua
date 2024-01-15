@@ -1,5 +1,6 @@
 -- Set leader-key to space
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Options
 require("options")
@@ -21,6 +22,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazyfile")
+require("lazy").setup("plugins", {
+	install = { colorscheme = { "kanagawa", "habamax" } },
+	change_detection = { notify = false },
+})
 
-require("lazy").setup("plugins", { change_detection = { notify = false } })
+-- Autocmds
+require("autocmds")

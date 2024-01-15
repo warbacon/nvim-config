@@ -17,7 +17,7 @@ return {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-		event = { "LazyFile" },
+		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 		opts = {
 			signs = {
 				add = { text = "▎" },
@@ -59,7 +59,7 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		version = false,
-		event = { "LazyFile", "VeryLazy" },
+		event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
 		build = ":TSUpdate",
 		opts = {
 			ensure_installed = {
@@ -175,13 +175,13 @@ return {
 		end,
 	},
 	{
-		"williamboman/mason-lspconfig.nvim",
-		event = "LazyFile",
+		"neovim/nvim-lspconfig",
+		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 		dependencies = {
 			{ "folke/neodev.nvim", opts = {} },
-			"mason.nvim",
-			"neovim/nvim-lspconfig",
 			{ "j-hui/fidget.nvim", opts = {} },
+			"williamboman/mason-lspconfig.nvim",
+			"mason.nvim",
 		},
 		opts = {},
 		config = function()
@@ -213,6 +213,7 @@ return {
 					Lua = {
 						workleader = { checkThirdParty = "Disable" },
 						diagnostics = { disable = { "missing-fields" } },
+						completion = { callSnippet = "Replace" },
 					},
 				},
 			})

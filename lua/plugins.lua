@@ -5,6 +5,8 @@ return {
 		config = function()
 			require("kanagawa").setup({
 				compile = true,
+				commentStyle = { italic = false },
+				keywordStyle = { italic = false },
 				overrides = function()
 					return {
 						CursorLine = { bg = "None" },

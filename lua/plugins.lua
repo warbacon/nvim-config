@@ -106,30 +106,23 @@ return {
 		end,
 	},
 	{
-		"echasnovski/mini.surround",
-		event = "VeryLazy",
-		opts = {},
-	},
-	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.5",
+		branch = "0.1.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope-fzy-native.nvim",
+			"natecraddock/telescope-zf-native.nvim",
 			"nvim-tree/nvim-web-devicons",
 		},
+        -- stylua: ignore
 		keys = {
-			{
-				"<C-p>",
-				function()
-					require("telescope.builtin").find_files()
-				end,
-				mode = "n",
-			},
+			{ "<Leader>ff", function() require("telescope.builtin").find_files() end, mode = "n", },
+			{ "<Leader>fb", function() require("telescope.builtin").buffers() end, mode = "n", },
+			{ "<Leader>fg", function() require("telescope.builtin").live_grep() end, mode = "n", },
+			{ "<Leader>fh", function() require("telescope.builtin").help_tags() end, mode = "n", },
 		},
 		opts = {},
 		config = function()
-			require("telescope").load_extension("fzy_native")
+			require("telescope").load_extension("zf-native")
 		end,
 	},
 	{
@@ -259,7 +252,7 @@ return {
 		cmd = { "ConformInfo" },
 		keys = {
 			{
-				"<Leader>f",
+				"<Leader>bf",
 				function()
 					require("conform").format({ async = true, lsp_fallback = true })
 				end,

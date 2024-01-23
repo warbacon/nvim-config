@@ -60,7 +60,6 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
-		version = false,
 		event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
 		build = ":TSUpdate",
 		opts = {
@@ -310,7 +309,6 @@ return {
 	},
 	{
 		"hrsh7th/nvim-cmp",
-		version = false,
 		event = "InsertEnter",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",

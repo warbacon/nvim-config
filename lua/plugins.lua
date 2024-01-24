@@ -177,37 +177,32 @@ return {
 			require("mason-lspconfig").setup()
 
 			-- Setup language servers.
-			local lspconfig = require("lspconfig")
-
-			-- Python
-			lspconfig.pyright.setup({})
-			lspconfig.ruff_lsp.setup({
-				init_options = {
+			local servers = {
+				pyright = {},
+				ruff_lsp = {
+					init_options = {
+						settings = {
+							args = { "--ignore", "F405" },
+						},
+					},
+				},
+				svelte = {},
+				bashls = {},
+				clangd = {},
+				lua_ls = {
 					settings = {
-						args = { "--ignore", "F405" },
+						Lua = {
+							workleader = { checkThirdParty = "Disable" },
+							diagnostics = { disable = { "missing-fields" } },
+							completion = { callSnippet = "Replace" },
+						},
 					},
 				},
-			})
+			}
 
-			-- Svelte
-			lspconfig.svelte.setup({})
-
-			-- Bash
-			lspconfig.bashls.setup({})
-
-			-- C/C++
-			lspconfig.clangd.setup({})
-
-			-- Lua
-			lspconfig.lua_ls.setup({
-				settings = {
-					Lua = {
-						workleader = { checkThirdParty = "Disable" },
-						diagnostics = { disable = { "missing-fields" } },
-						completion = { callSnippet = "Replace" },
-					},
-				},
-			})
+			for server, opts in pairs(servers) do
+				require("lspconfig")[server].setup(opts)
+			end
 
 			-- Global mappings.
 			-- See `:help vim.diagnostic.*` for documentation on any of the below functions

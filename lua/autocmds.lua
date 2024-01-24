@@ -9,6 +9,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("VimLeave", {
-    pattern = "*",
-    command=[[set guicursor= | call chansend(v:stderr, "\x1b[ q")]]
+	pattern = "*",
+	command = [[set guicursor= | call chansend(v:stderr, "\x1b[ q")]],
 })

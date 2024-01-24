@@ -229,9 +229,9 @@ return {
 				},
 			}
 
-            if not jit.os:find("Windows") then
-                servers.clangd = {}
-            end
+			if not jit.os:find("Windows") then
+				servers.clangd = {}
+			end
 
 			for server, opts in pairs(servers) do
 				require("lspconfig")[server].setup(opts)
@@ -353,7 +353,22 @@ return {
 		opts = function()
 			local cmp = require("cmp")
 			local defaults = require("cmp.config.default")()
+			local ELLIPSIS_CHAR = "…"
+			local LABEL_WIDTH = 30
 			return {
+				formatting = {
+					format = function(_, vim_item)
+						local label = vim_item.abbr
+						local truncated_label = vim.fn.strcharpart(label, 0, LABEL_WIDTH)
+						if truncated_label ~= label then
+							vim_item.abbr = truncated_label .. ELLIPSIS_CHAR
+						elseif string.len(label) < LABEL_WIDTH then
+							local padding = string.rep(" ", LABEL_WIDTH - string.len(label))
+							vim_item.abbr = label .. padding
+						end
+						return vim_item
+					end,
+				},
 				completion = {
 					completeopt = "menu,menuone,noinsert",
 				},

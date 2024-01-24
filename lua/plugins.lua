@@ -1,19 +1,49 @@
 return {
 	{
-		"rebelot/kanagawa.nvim",
+		"catppuccin/nvim",
+		name = "catppuccin",
 		priority = 1000,
-		config = function()
-			require("kanagawa").setup({
-				compile = true,
-				commentStyle = { italic = false },
-				keywordStyle = { italic = false },
-				overrides = function()
-					return {
-						CursorLine = { bg = "None" },
-					}
-				end,
-			})
-			vim.cmd.colorscheme("kanagawa")
+		opts = {
+			no_italic = true,
+			styles = {
+				booleans = { "bold" },
+			},
+			custom_highlights = function(colors)
+				return {
+					CursorLine = { bg = colors.none },
+					CursorLineNr = { fg = colors.mauve },
+				}
+			end,
+			integrations = {
+				fidget = true,
+				mason = true,
+				telescope = {
+					enabled = true,
+					style = "nvchad",
+				},
+				native_lsp = {
+					enabled = true,
+					virtual_text = {
+						errors = { "italic" },
+						hints = { "italic" },
+						warnings = { "italic" },
+						information = { "italic" },
+					},
+					underlines = {
+						errors = { "undercurl" },
+						hints = { "undercurl" },
+						warnings = { "undercurl" },
+						information = { "undercurl" },
+					},
+					inlay_hints = {
+						background = true,
+					},
+				},
+			},
+		},
+		config = function(_, opts)
+			require("catppuccin").setup(opts)
+			vim.cmd.colorscheme("catppuccin")
 			vim.opt.cursorline = true
 		end,
 	},

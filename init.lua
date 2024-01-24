@@ -23,7 +23,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins", {
-	install = { colorscheme = { "kanagawa", "habamax" } },
+	install = { colorscheme = { "catppuccin", "habamax" } },
 	change_detection = { notify = false },
 })
 

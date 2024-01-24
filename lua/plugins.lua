@@ -67,6 +67,7 @@ return {
 				"bash",
 				"c",
 				"cpp",
+				"css",
 				"fish",
 				"go",
 				"javascript",
@@ -81,7 +82,9 @@ return {
 				"query",
 				"regex",
 				"rust",
+				"svelte",
 				"toml",
+				"typescript",
 				"vim",
 				"vimdoc",
 				"yaml",
@@ -185,6 +188,9 @@ return {
 					},
 				},
 			})
+
+			-- Svelte
+			lspconfig.svelte.setup({})
 
 			-- Bash
 			lspconfig.bashls.setup({})

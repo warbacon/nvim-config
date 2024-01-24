@@ -218,7 +218,6 @@ return {
 				},
 				svelte = {},
 				bashls = {},
-				clangd = {},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -229,6 +228,10 @@ return {
 					},
 				},
 			}
+
+            if not jit.os:find("Windows") then
+                servers.clangd = {}
+            end
 
 			for server, opts in pairs(servers) do
 				require("lspconfig")[server].setup(opts)

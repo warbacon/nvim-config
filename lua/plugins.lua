@@ -5,9 +5,7 @@ return {
 		priority = 1000,
 		opts = {
 			no_italic = true,
-			styles = {
-				booleans = { "bold" },
-			},
+			styles = { booleans = { "bold" } },
 			custom_highlights = function(colors)
 				return {
 					CursorLine = { bg = colors.none },
@@ -17,10 +15,7 @@ return {
 			integrations = {
 				fidget = true,
 				mason = true,
-				telescope = {
-					enabled = true,
-					style = "nvchad",
-				},
+				telescope = { enabled = true },
 				native_lsp = {
 					enabled = true,
 					virtual_text = {
@@ -35,9 +30,7 @@ return {
 						warnings = { "undercurl" },
 						information = { "undercurl" },
 					},
-					inlay_hints = {
-						background = true,
-					},
+					inlay_hints = { background = true },
 				},
 			},
 		},
@@ -78,6 +71,18 @@ return {
 			{ "gb", mode = "v" },
 		},
 		opts = { mappings = { extra = false } },
+	},
+	{
+		"mikesmithgh/kitty-scrollback.nvim",
+		enabled = true,
+		lazy = true,
+		cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
+		event = { "User KittyScrollbackLaunch" },
+		version = "^4.0.0",
+		config = function()
+			vim.opt.signcolumn = "no"
+			require("kitty-scrollback").setup()
+		end,
 	},
 	{
 		"fladson/vim-kitty",
@@ -168,6 +173,7 @@ return {
 				"clangd",
 				"lua-language-server",
 				"pyright",
+				"svelte-language-server",
 				"ruff-lsp",
 				"shellcheck",
 				"shfmt",
@@ -209,15 +215,10 @@ return {
 			-- Setup language servers.
 			local servers = {
 				pyright = {},
-				ruff_lsp = {
-					init_options = {
-						settings = {
-							args = { "--ignore", "F405" },
-						},
-					},
-				},
+				ruff_lsp = {},
 				svelte = {},
 				bashls = {},
+				clangd = {},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -228,10 +229,6 @@ return {
 					},
 				},
 			}
-
-			if not jit.os:find("Windows") then
-				servers.clangd = {}
-			end
 
 			for server, opts in pairs(servers) do
 				require("lspconfig")[server].setup(opts)

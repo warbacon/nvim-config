@@ -45,6 +45,7 @@ return {
 		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 		keys = {
 			{ "<Leader>gp", "<cmd>Gitsigns preview_hunk_inline<cr>", mode = "n" },
+			{ "<Leader>gr", "<cmd>Gitsigns reset_hunk<cr>", mode = "n" },
 		},
 		opts = {},
 	},
@@ -148,14 +149,15 @@ return {
 		opts = {
 			ensure_installed = {
 				"bash-language-server",
+				"black",
 				"clangd",
+				"isort",
 				"lua-language-server",
 				"pyright",
-				"svelte-language-server",
-				"ruff-lsp",
 				"shellcheck",
 				"shfmt",
 				"stylua",
+				"svelte-language-server",
 			},
 		},
 		config = function(_, opts)
@@ -193,7 +195,6 @@ return {
 			-- Setup language servers.
 			local servers = {
 				pyright = {},
-				ruff_lsp = {},
 				svelte = {},
 				bashls = {},
 				clangd = {},
@@ -272,11 +273,11 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				sh = { "shfmt" },
+				python = { "isort", "black" },
 			},
 			formatters = {
-				shfmt = {
-					prepend_args = { "-i", "2", "-ci", "-bn" },
-				},
+				shfmt = { prepend_args = { "-i", "2", "-ci", "-bn" } },
+				isort = { prepend_args = { "--profile", "black" } },
 			},
 		},
 		config = function(_, opts)

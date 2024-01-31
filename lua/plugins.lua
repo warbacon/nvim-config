@@ -43,16 +43,10 @@ return {
 	{
 		"lewis6991/gitsigns.nvim",
 		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-		opts = {
-			signs = {
-				add = { text = "▎" },
-				change = { text = "▎" },
-				delete = { text = "" },
-				topdelete = { text = "" },
-				changedelete = { text = "▎" },
-				untracked = { text = "▎" },
-			},
+		keys = {
+			{ "<Leader>gp", "<cmd>Gitsigns preview_hunk_inline<cr>", mode = "n" },
 		},
+		opts = {},
 	},
 	{
 		"iamcco/markdown-preview.nvim",
@@ -73,25 +67,9 @@ return {
 		opts = { mappings = { extra = false } },
 	},
 	{
-		"mikesmithgh/kitty-scrollback.nvim",
-		enabled = true,
-		lazy = true,
-		cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
-		event = { "User KittyScrollbackLaunch" },
-		version = "^4.0.0",
-		config = function()
-			vim.opt.signcolumn = "no"
-			require("kitty-scrollback").setup()
-		end,
-	},
-	{
 		"fladson/vim-kitty",
 		ft = "kitty",
 		enabled = os.getenv("TERM") == "xterm-kitty",
-	},
-	{
-		"warbacon/vim-clips",
-		ft = "clips",
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -346,24 +324,26 @@ return {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"saadparwaiz1/cmp_luasnip",
+			"onsails/lspkind.nvim",
 		},
 		opts = function()
 			local cmp = require("cmp")
 			local defaults = require("cmp.config.default")()
-			local ELLIPSIS_CHAR = "…"
-			local LABEL_WIDTH = 30
 			return {
+				window = {
+					completion = {
+						side_padding = 0,
+					},
+				},
 				formatting = {
-					format = function(_, vim_item)
-						local label = vim_item.abbr
-						local truncated_label = vim.fn.strcharpart(label, 0, LABEL_WIDTH)
-						if truncated_label ~= label then
-							vim_item.abbr = truncated_label .. ELLIPSIS_CHAR
-						elseif string.len(label) < LABEL_WIDTH then
-							local padding = string.rep(" ", LABEL_WIDTH - string.len(label))
-							vim_item.abbr = label .. padding
-						end
-						return vim_item
+					fields = { "kind", "abbr", "menu" },
+					format = function(entry, vim_item)
+						local kind =
+							require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+						local strings = vim.split(kind.kind, "%s", { trimempty = true })
+						kind.kind = " " .. (strings[1] or "")
+
+						return kind
 					end,
 				},
 				completion = {

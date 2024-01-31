@@ -26,5 +26,8 @@ require("lazy").setup("plugins", {
 	change_detection = { notify = false },
 })
 
--- Autocmds
-require("autocmds")
+-- Fix cursor at leave
+vim.api.nvim_create_autocmd("VimLeave", {
+	pattern = "*",
+	command = [[set guicursor= | call chansend(v:stderr, "\x1b[ q")]],
+})

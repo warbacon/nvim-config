@@ -153,6 +153,7 @@ return {
 				"clangd",
 				"isort",
 				"lua-language-server",
+				"powershell-editor-services",
 				"pyright",
 				"shellcheck",
 				"shfmt",
@@ -194,10 +195,11 @@ return {
 
 			-- Setup language servers.
 			local servers = {
-				pyright = {},
-				svelte = {},
 				bashls = {},
 				clangd = {},
+				powershell_es = {},
+				pyright = {},
+				svelte = {},
 				lua_ls = {
 					settings = {
 						Lua = {

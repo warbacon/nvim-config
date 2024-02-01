@@ -196,7 +196,6 @@ return {
 			-- Setup language servers.
 			local servers = {
 				bashls = {},
-				clangd = {},
 				powershell_es = {},
 				pyright = {},
 				svelte = {},
@@ -210,6 +209,28 @@ return {
 					},
 				},
 			}
+
+			if not jit.os:find("Windows") then
+				servers.clangd = {
+					capabilities = {
+						offsetEncoding = { "utf-16" },
+					},
+					cmd = {
+						"clangd",
+						"--background-index",
+						"--clang-tidy",
+						"--header-insertion=iwyu",
+						"--completion-style=detailed",
+						"--function-arg-placeholders",
+						"--fallback-style=llvm",
+					},
+					init_options = {
+						usePlaceholders = true,
+						completeUnimported = true,
+						clangdFileStatus = true,
+					},
+				}
+			end
 
 			for server, opts in pairs(servers) do
 				require("lspconfig")[server].setup(opts)

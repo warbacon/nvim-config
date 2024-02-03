@@ -130,7 +130,7 @@ return {
 		branch = "0.1.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"natecraddock/telescope-zf-native.nvim",
+			"nvim-telescope/telescope-fzy-native.nvim",
 			"nvim-tree/nvim-web-devicons",
 		},
         -- stylua: ignore
@@ -140,9 +140,21 @@ return {
 			{ "<Leader>fg", function() require("telescope.builtin").live_grep() end, mode = "n", },
 			{ "<Leader>fh", function() require("telescope.builtin").help_tags() end, mode = "n", },
 		},
-		opts = {},
-		config = function()
-			require("telescope").load_extension("zf-native")
+		opts = {
+			defaults = {
+				prompt_prefix = " ",
+				selection_caret = "  ",
+				preview = false,
+			},
+			pickers = {
+				find_files = {
+					theme = "dropdown",
+				},
+            }
+		},
+		config = function(_, opts)
+			require("telescope").setup(opts)
+			require("telescope").load_extension("fzy_native")
 		end,
 	},
 
@@ -272,7 +284,7 @@ return {
 			}
 
 			if jit.os:find("Windows") then
-                servers.clangd = nil
+				servers.clangd = nil
 			end
 
 			for server, opts in pairs(servers) do

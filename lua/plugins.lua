@@ -1,4 +1,5 @@
 return {
+	-- Catppuccin
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
@@ -18,19 +19,12 @@ return {
 				telescope = { enabled = true },
 				native_lsp = {
 					enabled = true,
-					virtual_text = {
-						errors = { "italic" },
-						hints = { "italic" },
-						warnings = { "italic" },
-						information = { "italic" },
-					},
 					underlines = {
 						errors = { "undercurl" },
 						hints = { "undercurl" },
 						warnings = { "undercurl" },
 						information = { "undercurl" },
 					},
-					inlay_hints = { background = true },
 				},
 			},
 		},
@@ -40,6 +34,8 @@ return {
 			vim.opt.cursorline = true
 		end,
 	},
+
+	-- Gitsigns
 	{
 		"lewis6991/gitsigns.nvim",
 		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
@@ -49,6 +45,8 @@ return {
 		},
 		opts = {},
 	},
+
+	-- Markdown Preview
 	{
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -57,6 +55,8 @@ return {
 			vim.fn["mkdp#util#install"]()
 		end,
 	},
+
+	-- Comments
 	{
 		"numToStr/Comment.nvim",
 		keys = {
@@ -67,15 +67,20 @@ return {
 		},
 		opts = { mappings = { extra = false } },
 	},
+
+	-- Kitty syntax support
 	{
 		"fladson/vim-kitty",
 		ft = "kitty",
 		enabled = os.getenv("TERM") == "xterm-kitty",
 	},
+
+	-- Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
 		event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
 		build = ":TSUpdate",
+		main = "nvim-treesitter.configs",
 		opts = {
 			ensure_installed = {
 				"bash",
@@ -117,10 +122,9 @@ return {
 				},
 			},
 		},
-		config = function(_, opts)
-			require("nvim-treesitter.configs").setup(opts)
-		end,
 	},
+
+	-- Telescope
 	{
 		"nvim-telescope/telescope.nvim",
 		branch = "0.1.x",
@@ -141,6 +145,42 @@ return {
 			require("telescope").load_extension("zf-native")
 		end,
 	},
+
+	-- Conform
+	{
+		"stevearc/conform.nvim",
+		event = { "BufWritePre" },
+		cmd = { "ConformInfo" },
+		keys = {
+			{
+				"<Leader>bf",
+				function()
+					require("conform").format({ async = true, lsp_fallback = true })
+				end,
+			},
+		},
+		opts = {
+			formatters_by_ft = {
+				lua = { "stylua" },
+				sh = { "shfmt" },
+				python = { "isort", "black" },
+			},
+			formatters = {
+				shfmt = { prepend_args = { "-i", "2", "-ci", "-bn" } },
+				isort = { prepend_args = { "--profile", "black" } },
+			},
+		},
+	},
+
+	-- Rustaceanvim
+	{
+		"mrcjkb/rustaceanvim",
+		enabled = vim.fn.executable("rust-analyzer") == 1,
+		version = "^3",
+		ft = { "rust" },
+	},
+
+	-- Mason
 	{
 
 		"williamboman/mason.nvim",
@@ -179,6 +219,8 @@ return {
 			end
 		end,
 	},
+
+	-- Lspconfig
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
@@ -199,19 +241,7 @@ return {
 				powershell_es = {},
 				pyright = {},
 				svelte = {},
-				lua_ls = {
-					settings = {
-						Lua = {
-							workleader = { checkThirdParty = "Disable" },
-							diagnostics = { disable = { "missing-fields" } },
-							completion = { callSnippet = "Replace" },
-						},
-					},
-				},
-			}
-
-			if not jit.os:find("Windows") then
-				servers.clangd = {
+				clangd = {
 					capabilities = {
 						offsetEncoding = { "utf-16" },
 					},
@@ -229,7 +259,20 @@ return {
 						completeUnimported = true,
 						clangdFileStatus = true,
 					},
-				}
+				},
+				lua_ls = {
+					settings = {
+						Lua = {
+							workleader = { checkThirdParty = "Disable" },
+							diagnostics = { disable = { "missing-fields" } },
+							completion = { callSnippet = "Replace" },
+						},
+					},
+				},
+			}
+
+			if jit.os:find("Windows") then
+                servers.clangd = nil
 			end
 
 			for server, opts in pairs(servers) do
@@ -272,41 +315,8 @@ return {
 			})
 		end,
 	},
-	{
-		"mrcjkb/rustaceanvim",
-		enabled = vim.fn.executable("rust-analyzer") == 1,
-		version = "^3",
-		ft = { "rust" },
-	},
-	{
-		"stevearc/conform.nvim",
-		event = { "BufWritePre" },
-		cmd = { "ConformInfo" },
-		keys = {
-			{
-				"<Leader>bf",
-				function()
-					require("conform").format({ async = true, lsp_fallback = true })
-				end,
-				mode = "",
-				desc = "Format buffer",
-			},
-		},
-		opts = {
-			formatters_by_ft = {
-				lua = { "stylua" },
-				sh = { "shfmt" },
-				python = { "isort", "black" },
-			},
-			formatters = {
-				shfmt = { prepend_args = { "-i", "2", "-ci", "-bn" } },
-				isort = { prepend_args = { "--profile", "black" } },
-			},
-		},
-		config = function(_, opts)
-			require("conform").setup(opts)
-		end,
-	},
+
+	-- LuaSnip
 	{
 		"L3MON4D3/LuaSnip",
 		build = not jit.os:find("Windows") and "make install_jsregexp",
@@ -340,6 +350,8 @@ return {
 			},
 		},
 	},
+
+	-- Completions
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
@@ -352,7 +364,6 @@ return {
 		},
 		opts = function()
 			local cmp = require("cmp")
-			local defaults = require("cmp.config.default")()
 			return {
 				window = {
 					completion = {
@@ -405,14 +416,7 @@ return {
 				}, {
 					{ name = "buffer" },
 				}),
-				sorting = defaults.sorting,
 			}
-		end,
-		config = function(_, opts)
-			for _, source in ipairs(opts.sources) do
-				source.group_index = source.group_index or 1
-			end
-			require("cmp").setup(opts)
 		end,
 	},
 }

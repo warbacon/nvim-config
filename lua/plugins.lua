@@ -16,7 +16,6 @@ return {
 			integrations = {
 				fidget = true,
 				mason = true,
-				telescope = { enabled = true },
 				native_lsp = {
 					enabled = true,
 					underlines = {
@@ -92,6 +91,7 @@ return {
 				"javascript",
 				"jsdoc",
 				"json",
+				"jsonc",
 				"lua",
 				"luadoc",
 				"luap",
@@ -124,37 +124,43 @@ return {
 		},
 	},
 
-	-- Telescope
+	-- Fzf-lua
 	{
-		"nvim-telescope/telescope.nvim",
-		branch = "0.1.x",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope-fzy-native.nvim",
-			"nvim-tree/nvim-web-devicons",
-		},
-        -- stylua: ignore
+		"ibhagwan/fzf-lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		keys = {
-			{ "<Leader>ff", function() require("telescope.builtin").find_files() end, mode = "n", },
-			{ "<Leader>fb", function() require("telescope.builtin").buffers() end, mode = "n", },
-			{ "<Leader>fg", function() require("telescope.builtin").live_grep() end, mode = "n", },
-			{ "<Leader>fh", function() require("telescope.builtin").help_tags() end, mode = "n", },
-		},
-		opts = {
-			defaults = {
-				prompt_prefix = " ",
-				selection_caret = "  ",
-				preview = false,
+			{
+				"<Leader>ff",
+				function()
+					require("fzf-lua").files()
+				end,
+				mode = "n",
 			},
-			pickers = {
-				find_files = {
-					theme = "dropdown",
-				},
-            }
+			{
+				"<Leader>fg",
+				function()
+					require("fzf-lua").live_grep()
+				end,
+				mode = "n",
+			},
+			{
+				"<Leader>fh",
+				function()
+					require("fzf-lua").help_tags()
+				end,
+				mode = "n",
+			},
+			{
+				"<Leader>fb",
+				function()
+					require("fzf-lua").buffers()
+				end,
+				mode = "n",
+			},
 		},
-		config = function(_, opts)
-			require("telescope").setup(opts)
-			require("telescope").load_extension("fzy_native")
+
+		config = function()
+			require("fzf-lua").setup({ "telescope" })
 		end,
 	},
 
@@ -178,7 +184,7 @@ return {
 				python = { "isort", "black" },
 			},
 			formatters = {
-				shfmt = { prepend_args = { "-i", "2", "-ci", "-bn" } },
+				shfmt = { prepend_args = { "-i", "4", "-ci", "-bn" } },
 				isort = { prepend_args = { "--profile", "black" } },
 			},
 		},

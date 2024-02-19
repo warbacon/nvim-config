@@ -16,7 +16,7 @@
 To install them in arch linux you can use the following command:
 
 ```sh
-sudo pacman -S curl fzf gcc git make nvim npm python ripgrep unzip --needed
+sudo pacman -S curl fzf gcc git make neovim npm python ripgrep unzip --needed
 ```
 
 ## Installation

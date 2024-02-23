@@ -5,7 +5,6 @@ return {
 		name = "catppuccin",
 		priority = 1000,
 		opts = {
-			no_italic = true,
 			styles = { booleans = { "bold" } },
 			custom_highlights = function(colors)
 				return {
@@ -16,6 +15,7 @@ return {
 			integrations = {
 				fidget = true,
 				mason = true,
+				telescope = { enabled = true },
 				native_lsp = {
 					enabled = true,
 					underlines = {
@@ -124,21 +124,21 @@ return {
 		},
 	},
 
-	-- Fzf-lua
+	-- Telescope
 	{
-		"ibhagwan/fzf-lua",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		branch = "windows",
+		"nvim-telescope/telescope.nvim",
+		branch = "0.1.x",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons",
+		},
         -- stylua: ignore
 		keys = {
-			{ "<Leader>ff", function() require("fzf-lua").files() end, mode = "n" },
-			{ "<Leader>fg", function() require("fzf-lua").live_grep() end, mode = "n" },
-			{ "<Leader>fh", function() require("fzf-lua").help_tags() end, mode = "n" },
-			{ "<Leader>fb", function() require("fzf-lua").buffers() end, mode = "n" },
+			{ "<Leader>ff", function() require("telescope.builtin").find_files() end, mode = "n" },
+			{ "<Leader>fg", function() require("telescope.builtin").live_grep() end, mode = "n" },
+			{ "<Leader>fh", function() require("telescope.builtin").help_tags() end, mode = "n" },
+			{ "<Leader>fb", function() require("telescope.builtin").buffers() end, mode = "n" },
 		},
-		config = function()
-			require("fzf-lua").setup({ "telescope" })
-		end,
 	},
 
 	-- Conform

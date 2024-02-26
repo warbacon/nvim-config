@@ -87,9 +87,8 @@ return {
 				"cpp",
 				"css",
 				"fish",
-				"go",
+				"hyprlang",
 				"javascript",
-				"jsdoc",
 				"json",
 				"jsonc",
 				"lua",
@@ -97,13 +96,9 @@ return {
 				"luap",
 				"markdown",
 				"markdown_inline",
-				"python",
 				"query",
 				"regex",
-				"rust",
-				"svelte",
 				"toml",
-				"typescript",
 				"vim",
 				"vimdoc",
 				"yaml",
@@ -156,9 +151,13 @@ return {
 		},
 		opts = {
 			formatters_by_ft = {
+				javascript = { "biome" },
+				json = { "biome" },
+				jsonc = { "biome" },
 				lua = { "stylua" },
-				sh = { "shfmt" },
 				python = { "isort", "black" },
+				sh = { "shfmt" },
+				typescript = { "biome" },
 			},
 			formatters = {
 				shfmt = { prepend_args = { "-i", "4", "-ci", "-bn" } },
@@ -167,12 +166,20 @@ return {
 		},
 	},
 
-	-- Rustaceanvim
+	-- none-ls
 	{
-		"mrcjkb/rustaceanvim",
-		enabled = vim.fn.executable("rust-analyzer") == 1,
-		version = "^3",
-		ft = { "rust" },
+		"nvimtools/none-ls.nvim",
+		ft = { "fish", "markdown" },
+		config = function()
+			local null_ls = require("null-ls")
+
+			null_ls.setup({
+				sources = {
+					null_ls.builtins.diagnostics.fish,
+					null_ls.builtins.diagnostics.markdownlint,
+				},
+			})
+		end,
 	},
 
 	-- Mason
@@ -188,12 +195,13 @@ return {
 				"clangd",
 				"isort",
 				"lua-language-server",
+				"markdownlint",
 				"powershell-editor-services",
 				"pyright",
 				"shellcheck",
+				"biome",
 				"shfmt",
 				"stylua",
-				"svelte-language-server",
 			},
 		},
 		config = function(_, opts)
@@ -221,7 +229,7 @@ return {
 		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 		dependencies = {
 			{ "folke/neodev.nvim", opts = {} },
-			{ "j-hui/fidget.nvim", opts = {} },
+			-- { "j-hui/fidget.nvim", opts = {} },
 			"williamboman/mason-lspconfig.nvim",
 			"mason.nvim",
 		},
@@ -233,9 +241,10 @@ return {
 			-- Setup language servers.
 			local servers = {
 				bashls = {},
-				powershell_es = {},
+				powershell_es = {
+					settings = { powershell = { codeFormatting = { Preset = "Stroustrup" } } },
+				},
 				pyright = {},
-				svelte = {},
 				clangd = {
 					capabilities = {
 						offsetEncoding = { "utf-16" },

@@ -9,6 +9,10 @@ vim.opt.relativenumber = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
+-- Sets how neovim will display certain whitespace in the editor
+vim.opt.list = true
+vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
+
 -- Max number of entries in the completion menu
 vim.opt.pumheight = 10
 
@@ -20,9 +24,8 @@ vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 
--- Minimal number of lines/colums before and after the cursor
-vim.opt.scrolloff = 4
-vim.opt.sidescrolloff = 8
+-- Minimal number of colums before and after the cursor
+vim.opt.scrolloff = 10
 
 -- Enable undofile
 vim.opt.undofile = true

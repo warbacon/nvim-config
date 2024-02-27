@@ -272,7 +272,9 @@ return {
 				powershell_es = {
 					settings = {
 						powershell = {
-							codeFormatting = { Preset = "Stroustrup" },
+							codeFormatting = {
+								Preset = "OTBS",
+							},
 						},
 					},
 				},

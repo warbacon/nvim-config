@@ -151,17 +151,21 @@ return {
 		},
 		opts = {
 			formatters_by_ft = {
+				fish = { "fish_indent" },
 				javascript = { "biome" },
 				json = { "biome" },
 				jsonc = { "biome" },
 				lua = { "stylua" },
 				python = { "isort", "black" },
 				sh = { "shfmt" },
-				typescript = { "biome" },
 			},
 			formatters = {
 				shfmt = { prepend_args = { "-i", "4", "-ci", "-bn" } },
 				isort = { prepend_args = { "--profile", "black" } },
+				fish_indent = {
+					command = "fish_indent",
+					extra_args = "-w",
+				},
 			},
 		},
 	},
@@ -169,7 +173,7 @@ return {
 	-- none-ls
 	{
 		"nvimtools/none-ls.nvim",
-		ft = { "fish", "markdown" },
+		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 		config = function()
 			local null_ls = require("null-ls")
 
@@ -177,6 +181,7 @@ return {
 				sources = {
 					null_ls.builtins.diagnostics.fish,
 					null_ls.builtins.diagnostics.markdownlint,
+					null_ls.builtins.diagnostics.zsh,
 				},
 			})
 		end,
@@ -229,7 +234,6 @@ return {
 		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 		dependencies = {
 			{ "folke/neodev.nvim", opts = {} },
-			-- { "j-hui/fidget.nvim", opts = {} },
 			"williamboman/mason-lspconfig.nvim",
 			"mason.nvim",
 		},

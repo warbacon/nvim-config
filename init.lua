@@ -1,5 +1,6 @@
 -- Set leader-key to space
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Options
 require("options")
@@ -31,7 +32,17 @@ vim.api.nvim_create_autocmd("VimLeave", {
 	command = [[set guicursor= | call chansend(v:stderr, "\x1b[ q")]],
 })
 
+-- Remove traling whitespace on save
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+	pattern = { "*" },
+	callback = function()
+		local save_cursor = vim.fn.getpos(".")
+		vim.cmd([[%s/\s\+$//e]])
+		vim.fn.setpos(".", save_cursor)
+	end,
+})
+
 -- Add hyprlang filetype
 vim.filetype.add({
-	pattern = { [".*/hypr.*"] = "hyprlang" },
+	pattern = { [".*/hypr.*.conf"] = "hyprlang" },
 })

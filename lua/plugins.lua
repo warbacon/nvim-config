@@ -102,6 +102,7 @@ return {
 				"vim",
 				"vimdoc",
 				"yaml",
+				"python",
 			},
 			highlight = {
 				enable = true,
@@ -125,8 +126,10 @@ return {
 		branch = "0.1.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope-ui-select.nvim",
 			"nvim-tree/nvim-web-devicons",
 		},
+		event = "VeryLazy",
         -- stylua: ignore
 		keys = {
 			{ "<Leader>ff", function() require("telescope.builtin").find_files() end, mode = "n" },
@@ -134,6 +137,16 @@ return {
 			{ "<Leader>fh", function() require("telescope.builtin").help_tags() end, mode = "n" },
 			{ "<Leader>fb", function() require("telescope.builtin").buffers() end, mode = "n" },
 		},
+		config = function()
+			require("telescope").setup({
+				extensions = {
+					["ui-select"] = {
+						require("telescope.themes").get_dropdown(),
+					},
+				},
+			})
+			require("telescope").load_extension("ui-select")
+		end,
 	},
 
 	-- Conform
@@ -233,47 +246,41 @@ return {
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 		dependencies = {
-			{ "folke/neodev.nvim", opts = {} },
+			-- { "folke/neodev.nvim", opts = {} },
 			"williamboman/mason-lspconfig.nvim",
 			"mason.nvim",
+			{ "j-hui/fidget.nvim", opts = {} },
 		},
 		opts = {},
 		config = function()
-			-- Setup mason-lspconfig.
-			require("mason-lspconfig").setup()
+			-- Set lsp capabilities
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
+			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 			-- Setup language servers.
 			local servers = {
 				bashls = {},
 				powershell_es = {
-					settings = { powershell = { codeFormatting = { Preset = "Stroustrup" } } },
+					settings = {
+						powershell = {
+							codeFormatting = { Preset = "Stroustrup" },
+						},
+					},
 				},
 				pyright = {},
-				clangd = {
-					capabilities = {
-						offsetEncoding = { "utf-16" },
-					},
-					cmd = {
-						"clangd",
-						"--background-index",
-						"--clang-tidy",
-						"--header-insertion=iwyu",
-						"--completion-style=detailed",
-						"--function-arg-placeholders",
-						"--fallback-style=llvm",
-					},
-					init_options = {
-						usePlaceholders = true,
-						completeUnimported = true,
-						clangdFileStatus = true,
-					},
-				},
+				clangd = {},
 				lua_ls = {
 					settings = {
 						Lua = {
-							workleader = { checkThirdParty = "Disable" },
+							runtime = { version = "LuaJIT" },
+							workspace = {
+								checkThirdParty = false,
+								library = {
+									"${3rd}/luv/library",
+									unpack(vim.api.nvim_get_runtime_file("", true)),
+								},
+							},
 							diagnostics = { disable = { "missing-fields" } },
-							completion = { callSnippet = "Replace" },
 						},
 					},
 				},
@@ -283,9 +290,23 @@ return {
 				servers.clangd = nil
 			end
 
-			for server, opts in pairs(servers) do
-				require("lspconfig")[server].setup(opts)
-			end
+			-- Setup mason-lspconfig.
+			require("mason-lspconfig").setup({
+				handlers = {
+					function(server_name)
+						local server = servers[server_name] or {}
+						require("lspconfig")[server_name].setup({
+							cmd = server.cmd,
+							settings = server.settings,
+							filetypes = server.filetypes,
+							-- This handles overriding only values explicitly passed
+							-- by the server configuration above. Useful when disabling
+							-- certain features of an LSP (for example, turning off formatting for tsserver)
+							capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {}),
+						})
+					end,
+				},
+			})
 
 			-- Global mappings.
 			-- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -299,9 +320,6 @@ return {
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 				callback = function(ev)
-					-- Enable completion triggered by <c-x><c-o>
-					vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
 					-- Buffer local mappings.
 					-- See `:help vim.lsp.*` for documentation on any of the below functions
 					local opts = { buffer = ev.buf }
@@ -324,74 +342,32 @@ return {
 		end,
 	},
 
-	-- LuaSnip
-	{
-		"L3MON4D3/LuaSnip",
-		build = not jit.os:find("Windows") and "make install_jsregexp",
-		opts = {
-			history = true,
-			delete_check_events = "TextChanged",
-		},
-		keys = {
-			{
-				"<tab>",
-				function()
-					return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-				end,
-				expr = true,
-				silent = true,
-				mode = "i",
-			},
-			{
-				"<tab>",
-				function()
-					require("luasnip").jump(1)
-				end,
-				mode = "s",
-			},
-			{
-				"<s-tab>",
-				function()
-					require("luasnip").jump(-1)
-				end,
-				mode = { "i", "s" },
-			},
-		},
-	},
-
 	-- Completions
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
 		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
+			{
+				"L3MON4D3/LuaSnip",
+				build = (function()
+					if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
+						return
+					end
+					return "make install_jsregexp"
+				end)(),
+			},
 			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-path",
 			"saadparwaiz1/cmp_luasnip",
-			"onsails/lspkind.nvim",
 		},
 		opts = function()
 			local cmp = require("cmp")
+            local luasnip = require("luasnip")
+
+			luasnip.config.setup({})
+
 			return {
-				window = {
-					completion = {
-						side_padding = 0,
-					},
-				},
-				formatting = {
-					fields = { "kind", "abbr", "menu" },
-					format = function(entry, vim_item)
-						local kind = require("lspkind").cmp_format({
-							mode = "symbol_text",
-							maxwidth = 50,
-						})(entry, vim_item)
-
-						local strings = vim.split(kind.kind, "%s", { trimempty = true })
-						kind.kind = " " .. (strings[1] or "")
-
-						return kind
-					end,
-				},
 				completion = {
 					completeopt = "menu,menuone,noinsert",
 				},
@@ -416,6 +392,16 @@ return {
 						cmp.abort()
 						fallback()
 					end,
+					["<C-l>"] = cmp.mapping(function()
+						if luasnip.expand_or_locally_jumpable() then
+							luasnip.expand_or_jump()
+						end
+					end, { "i", "s" }),
+					["<C-h>"] = cmp.mapping(function()
+						if luasnip.locally_jumpable(-1) then
+							luasnip.jump(-1)
+						end
+					end, { "i", "s" }),
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },

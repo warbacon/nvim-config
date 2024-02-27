@@ -96,13 +96,13 @@ return {
 				"luap",
 				"markdown",
 				"markdown_inline",
+				"python",
 				"query",
 				"regex",
 				"toml",
 				"vim",
 				"vimdoc",
 				"yaml",
-				"python",
 			},
 			highlight = {
 				enable = true,
@@ -128,6 +128,13 @@ return {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-ui-select.nvim",
 			"nvim-tree/nvim-web-devicons",
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				build = "make",
+				cond = function()
+					return vim.fn.executable("make") == 1
+				end,
+			},
 		},
 		event = "VeryLazy",
         -- stylua: ignore
@@ -146,6 +153,7 @@ return {
 				},
 			})
 			require("telescope").load_extension("ui-select")
+			pcall(require("telescope").load_extension, "fzf")
 		end,
 	},
 
@@ -164,6 +172,8 @@ return {
 		},
 		opts = {
 			formatters_by_ft = {
+				c = { "clang_format" },
+				cpp = { "clang_format" },
 				fish = { "fish_indent" },
 				javascript = { "biome" },
 				json = { "biome" },
@@ -173,12 +183,13 @@ return {
 				sh = { "shfmt" },
 			},
 			formatters = {
-				shfmt = { prepend_args = { "-i", "4", "-ci", "-bn" } },
-				isort = { prepend_args = { "--profile", "black" } },
-				fish_indent = {
-					command = "fish_indent",
-					extra_args = "-w",
+				clang_format = {
+					prepend_args = {
+						"-style={IndentWidth: 4, BreakBeforeBraces: Linux}",
+					},
 				},
+				isort = { prepend_args = { "--profile", "black" } },
+				shfmt = { prepend_args = { "-i", "4", "-ci", "-bn" } },
 			},
 		},
 	},
@@ -209,7 +220,9 @@ return {
 		opts = {
 			ensure_installed = {
 				"bash-language-server",
+				"biome",
 				"black",
+				"clang-format",
 				"clangd",
 				"isort",
 				"lua-language-server",
@@ -217,7 +230,6 @@ return {
 				"powershell-editor-services",
 				"pyright",
 				"shellcheck",
-				"biome",
 				"shfmt",
 				"stylua",
 			},
@@ -246,12 +258,10 @@ return {
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 		dependencies = {
-			-- { "folke/neodev.nvim", opts = {} },
 			"williamboman/mason-lspconfig.nvim",
 			"mason.nvim",
 			{ "j-hui/fidget.nvim", opts = {} },
 		},
-		opts = {},
 		config = function()
 			-- Set lsp capabilities
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -259,7 +269,6 @@ return {
 
 			-- Setup language servers.
 			local servers = {
-				bashls = {},
 				powershell_es = {
 					settings = {
 						powershell = {
@@ -267,8 +276,6 @@ return {
 						},
 					},
 				},
-				pyright = {},
-				clangd = {},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -286,22 +293,20 @@ return {
 				},
 			}
 
-			if jit.os:find("Windows") then
-				servers.clangd = nil
-			end
-
 			-- Setup mason-lspconfig.
 			require("mason-lspconfig").setup({
 				handlers = {
 					function(server_name)
+						-- Disable clangd on Windows
+						if vim.fn.has("win32") == 1 and server_name == "clangd" then
+							return
+						end
+
 						local server = servers[server_name] or {}
 						require("lspconfig")[server_name].setup({
 							cmd = server.cmd,
 							settings = server.settings,
 							filetypes = server.filetypes,
-							-- This handles overriding only values explicitly passed
-							-- by the server configuration above. Useful when disabling
-							-- certain features of an LSP (for example, turning off formatting for tsserver)
 							capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {}),
 						})
 					end,
@@ -363,7 +368,7 @@ return {
 		},
 		opts = function()
 			local cmp = require("cmp")
-            local luasnip = require("luasnip")
+			local luasnip = require("luasnip")
 
 			luasnip.config.setup({})
 

@@ -59,6 +59,16 @@ return {
 		opts = { mappings = { extra = false } },
 	},
 
+	-- MarkdownPreview
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
+		build = function()
+			vim.fn["mkdp#util#install"]()
+		end,
+	},
+
 	-- Gitsigns
 	{
 		"lewis6991/gitsigns.nvim",
@@ -393,10 +403,22 @@ return {
 					["<c-n>"] = cmp.mapping.select_next_item(),
 					-- select the [p]revious item
 					["<c-p>"] = cmp.mapping.select_prev_item(),
-					-- accept ([y]es) the completion.
-					["<cr>"] = cmp.mapping.confirm({ select = true }),
 					-- manually trigger a completion from nvim-cmp.
 					["<c-space>"] = cmp.mapping.complete({}),
+					-- abort completion.
+					["<C-e>"] = cmp.mapping.abort(),
+					-- accept ([y]es) the completion.
+					["<cr>"] = cmp.mapping.confirm({ select = true }),
+					-- accept and replace.
+					["<s-cr>"] = cmp.mapping.confirm({
+						behavior = cmp.ConfirmBehavior.Replace,
+						select = true,
+					}),
+					-- abort complete and insert newline.
+					["<c-cr>"] = function(fallback)
+						cmp.abort()
+						fallback()
+					end,
 					-- <c-l> will move you to the right of each of the expansion locations.
 					-- <c-h> is similar, except moving you backwards.
 					["<c-l>"] = cmp.mapping(function()

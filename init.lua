@@ -8,6 +8,9 @@ require("options")
 -- Keymaps
 require("keymaps")
 
+-- Autocmds
+require("autocmds")
+
 -- Lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -18,23 +21,9 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Plugins
 require("lazy").setup("plugins", {
-	change_detection = { notify = false },
-})
-
--- Fix cursor at leave
-vim.api.nvim_create_autocmd("VimLeave", {
-	pattern = "*",
-	command = [[set guicursor= | call chansend(v:stderr, "\x1b[ q")]],
-})
-
--- Remove traling whitespace on save
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-	pattern = { "*" },
-	callback = function()
-		local save_cursor = vim.fn.getpos(".")
-		vim.cmd([[%s/\s\+$//e]])
-		vim.fn.setpos(".", save_cursor)
-	end,
+	change_detection = {
+		notify = false,
+	},
 })
 
 -- Add hyprlang filetype

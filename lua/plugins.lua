@@ -407,7 +407,7 @@ return {
 					["<c-space>"] = cmp.mapping.complete({}),
 					-- abort completion.
 					["<C-e>"] = cmp.mapping.abort(),
-					-- accept ([y]es) the completion.
+					-- accept the completion.
 					["<cr>"] = cmp.mapping.confirm({ select = true }),
 					-- accept and replace.
 					["<s-cr>"] = cmp.mapping.confirm({

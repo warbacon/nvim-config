@@ -5,7 +5,7 @@ return {
 		name = "catppuccin",
 		priority = 1000,
 		opts = {
-			styles = { booleans = { "bold" }, },
+			styles = { booleans = { "bold" } },
 			custom_highlights = function(colors)
 				return {
 					CursorLine = { bg = colors.none },
@@ -87,11 +87,12 @@ return {
 		},
 		opts = {
 			signs = {
-				add = { text = "+" },
-				change = { text = "~" },
-				delete = { text = "_" },
-				topdelete = { text = "‾" },
-				changedelete = { text = "~" },
+				add = { text = "▎" },
+				change = { text = "▎" },
+				delete = { text = "" },
+				topdelete = { text = "" },
+				changedelete = { text = "▎" },
+				untracked = { text = "▎" },
 			},
 		},
 	},
@@ -171,7 +172,7 @@ return {
 				auto_install = true,
 				highlight = {
 					enable = true,
-					additional_vim_regex_highlighting = false
+					additional_vim_regex_highlighting = false,
 				},
 				indent = { enable = true },
 			})

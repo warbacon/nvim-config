@@ -5,19 +5,17 @@ return {
 		name = "catppuccin",
 		priority = 1000,
 		opts = {
-			styles = { booleans = { "bold" } },
+			styles = { booleans = { "bold" }, },
 			custom_highlights = function(colors)
 				return {
-					cursorline = { bg = colors.none },
-					cursorlinenr = { fg = colors.mauve },
+					CursorLine = { bg = colors.none },
+					CursorLineNr = { fg = colors.mauve },
 				}
 			end,
 			integrations = {
 				fidget = true,
 				mason = true,
-				telescope = { enabled = true },
 				native_lsp = {
-					enabled = true,
 					underlines = {
 						errors = { "undercurl" },
 						hints = { "undercurl" },

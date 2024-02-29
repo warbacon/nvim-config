@@ -170,6 +170,7 @@ return {
 					"vimdoc",
 				},
 				auto_install = true,
+				ignore_install = { "ini", "rasi" },
 				highlight = {
 					enable = true,
 					additional_vim_regex_highlighting = false,

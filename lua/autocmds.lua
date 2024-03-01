@@ -13,3 +13,9 @@ vim.api.nvim_create_autocmd("VimLeave", {
 	pattern = "*",
 	command = [[set guicursor= | call chansend(v:stderr, "\x1b[ q")]],
 })
+
+-- Disable numbers and signcolumn in terminal
+vim.api.nvim_create_autocmd("TermOpen", {
+	pattern = "*",
+	command = [[setlocal nonumber norelativenumber signcolumn=no]],
+})

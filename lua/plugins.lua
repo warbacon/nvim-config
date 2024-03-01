@@ -314,7 +314,6 @@ return {
 						powershell = { codeFormatting = { Preset = "OTBS" } },
 					},
 				},
-
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -326,6 +325,7 @@ return {
 									unpack(vim.api.nvim_get_runtime_file("", true)),
 								},
 							},
+							completion = { callSnippet = "Replace" },
 							diagnostics = { disable = { "missing-fields" } },
 						},
 					},
@@ -335,6 +335,8 @@ return {
 			-- Ensure the servers and tools above are installed
 			require("mason").setup()
 
+			-- You can add other tools here that you want Mason to install
+			-- for you, so that they are available from within Neovim.
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"biome",
@@ -355,12 +357,8 @@ return {
 							return
 						end
 						local server = servers[server_name] or {}
-						require("lspconfig")[server_name].setup({
-							cmd = server.cmd,
-							settings = server.settings,
-							filetypes = server.filetypes,
-							capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {}),
-						})
+						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+						require("lspconfig")[server_name].setup(server)
 					end,
 				},
 			})
@@ -400,9 +398,9 @@ return {
 				},
 				completion = { completeopt = "menu,menuone,noinsert" },
 				mapping = cmp.mapping.preset.insert({
-					-- select the [n]ext item
+					-- select the [n]ext item.
 					["<c-n>"] = cmp.mapping.select_next_item(),
-					-- select the [p]revious item
+					-- select the [p]revious item.
 					["<c-p>"] = cmp.mapping.select_prev_item(),
 					-- manually trigger a completion from nvim-cmp.
 					["<c-space>"] = cmp.mapping.complete({}),

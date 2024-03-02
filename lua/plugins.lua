@@ -87,12 +87,11 @@ return {
 		},
 		opts = {
 			signs = {
-				add = { text = "▎" },
-				change = { text = "▎" },
-				delete = { text = "" },
-				topdelete = { text = "" },
-				changedelete = { text = "▎" },
-				untracked = { text = "▎" },
+				add = { text = "+" },
+				change = { text = "~" },
+				delete = { text = "_" },
+				topdelete = { text = "‾" },
+				changedelete = { text = "~" },
 			},
 		},
 	},
@@ -155,7 +154,6 @@ return {
 	-- Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
 		build = ":TSUpdate",
 		config = function()
 			require("nvim-treesitter.configs").setup({
@@ -238,7 +236,6 @@ return {
 	-- Lspconfig
 	{
 		"neovim/nvim-lspconfig",
-		event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
@@ -381,6 +378,7 @@ return {
 			},
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-emoji",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-buffer",
 		},
@@ -435,8 +433,11 @@ return {
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
 					{ name = "path" },
+					{ name = "emoji" },
 				}, {
 					{ name = "buffer" },
+					{ name = "path" },
+					{ name = "emoji" },
 				}),
 			})
 		end,

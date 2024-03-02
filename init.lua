@@ -26,7 +26,17 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Plugins
-require("lazy").setup("plugins", { change_detection = { notify = false, }, })
+require("lazy").setup("plugins", {
+	change_detection = { notify = false },
+	disabled_plugins = {
+		"gzip",
+		"matchit",
+		"tarPlugin",
+		"tohtml",
+		"tutor",
+		"zipPlugin",
+	},
+})
 
 -- Add hyprlang filetype
 vim.filetype.add({

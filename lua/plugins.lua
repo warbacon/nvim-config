@@ -433,7 +433,6 @@ return {
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
 					{ name = "path" },
-					{ name = "emoji" },
 				}, {
 					{ name = "buffer" },
 					{ name = "path" },

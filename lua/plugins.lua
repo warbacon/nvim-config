@@ -102,7 +102,7 @@ return {
 		event = "VeryLazy",
 		branch = "0.1.x",
 		dependencies = {
-			"nvim-lua/plenary.nvim",
+			{ "stevearc/dressing.nvim", opts = {} },
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
 				build = "make",
@@ -110,21 +110,12 @@ return {
 					return vim.fn.executable("make") == 1
 				end,
 			},
-			"nvim-telescope/telescope-ui-select.nvim",
 			"nvim-tree/nvim-web-devicons",
+			"nvim-lua/plenary.nvim",
 		},
 		config = function()
-			require("telescope").setup({
-				extensions = {
-					["ui-select"] = {
-						require("telescope.themes").get_dropdown(),
-					},
-				},
-			})
-
-			-- Enable telescope extensions, if they are installed
+			-- Enable native fzf if is installed
 			pcall(require("telescope").load_extension, "fzf")
-			require("telescope").load_extension("ui-select")
 
 			-- See `:help telescope.builtin`
 			local builtin = require("telescope.builtin")

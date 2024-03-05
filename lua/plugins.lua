@@ -145,6 +145,16 @@ return {
 		end,
 	},
 
+	-- nvim-highlight-colors
+	{
+		"brenoprata10/nvim-highlight-colors",
+		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+		opts = {
+			render = "virtual",
+			enable_named_colors = false,
+		},
+	},
+
 	-- Kitty config highlighting
 	{
 		"fladson/vim-kitty",

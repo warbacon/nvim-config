@@ -32,10 +32,21 @@ return {
 		end,
 	},
 
-	-- Mini.surround
+	-- Mini
+	{ "echasnovski/mini.surround", keys = { "s" }, opts = {} },
 	{
-		"echasnovski/mini.surround",
-		keys = { "s", mode = "n" },
+		"echasnovski/mini.comment",
+		keys = { { "gc", mode = { "n", "v" } } },
+		opts = {},
+	},
+	{
+		"echasnovski/mini.move",
+		keys = {
+			{ "<M-j>" },
+			{ "<M-k>" },
+			{ "<M-h>" },
+			{ "<M-l>" },
+		},
 		opts = {},
 	},
 
@@ -43,18 +54,6 @@ return {
 	{
 		"tpope/vim-sleuth",
 		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-	},
-
-	-- Comments
-	{
-		"numToStr/Comment.nvim",
-		keys = {
-			{ "gcc", mode = "n" },
-			{ "gc", mode = "v" },
-			{ "gbb", mode = "n" },
-			{ "gb", mode = "v" },
-		},
-		opts = { mappings = { extra = false } },
 	},
 
 	-- MarkdownPreview

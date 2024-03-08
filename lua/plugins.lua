@@ -35,6 +35,22 @@ return {
 	-- Mini
 	{ "echasnovski/mini.surround", keys = { "s" }, opts = {} },
 	{
+		"echasnovski/mini.files",
+		lazy = false,
+		keys = {
+			{
+				"-",
+				function()
+					MiniFiles.open()
+				end,
+				mode = "n",
+			},
+		},
+		opts = {
+			options = { permanent_delete = false },
+		},
+	},
+	{
 		"echasnovski/mini.comment",
 		keys = { { "gc", mode = { "n", "v" } } },
 		opts = {},
@@ -155,18 +171,28 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
+		event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter-textobjects",
+		},
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
-					"bash",
 					"c",
 					"cpp",
+					"diff",
+					"json",
+					"jsonc",
 					"lua",
 					"markdown",
 					"markdown_inline",
+					"python",
+					"query",
 					"regex",
+					"toml",
 					"vim",
 					"vimdoc",
+					"yaml",
 				},
 				auto_install = true,
 				ignore_install = { "ini", "rasi" },
@@ -175,6 +201,30 @@ return {
 					additional_vim_regex_highlighting = false,
 				},
 				indent = { enable = true },
+				incremental_selection = {
+					enable = true,
+					keymaps = {
+						init_selection = "<C-space>",
+						node_incremental = "<C-space>",
+						scope_incremental = false,
+						node_decremental = "<bs>",
+					},
+				},
+				textobjects = {
+					select = {
+						enable = true,
+						keymaps = {
+							["af"] = "@function.outer",
+							["if"] = "@function.inner",
+							["ap"] = "@parameter.outer",
+							["ip"] = "@parameter.inner",
+							["ac"] = "@conditional.outer",
+							["ic"] = "@conditional.inner",
+							["al"] = "@loop.outer",
+							["il"] = "@loop.inner",
+						},
+					},
+				},
 			})
 		end,
 	},
@@ -214,9 +264,6 @@ return {
 				c = { "clang_format" },
 				cpp = { "clang_format" },
 				fish = { "fish_indent" },
-				javascript = { "biome" },
-				json = { "biome" },
-				jsonc = { "biome" },
 				lua = { "stylua" },
 				python = { "isort", "black" },
 				sh = { "shfmt" },
@@ -336,7 +383,6 @@ return {
 			-- for you, so that they are available from within Neovim.
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
-				"biome",
 				"black",
 				"clang-format",
 				"isort",

@@ -32,37 +32,10 @@ return {
 		end,
 	},
 
-	-- Mini
-	{ "echasnovski/mini.surround", keys = { "s" }, opts = {} },
-	{
-		"echasnovski/mini.files",
-		lazy = false,
-		keys = {
-			{
-				"-",
-				function()
-					MiniFiles.open()
-				end,
-				mode = "n",
-			},
-		},
-		opts = {
-			options = { permanent_delete = false },
-		},
-	},
+	-- Mini.comment
 	{
 		"echasnovski/mini.comment",
 		keys = { { "gc", mode = { "n", "v" } } },
-		opts = {},
-	},
-	{
-		"echasnovski/mini.move",
-		keys = {
-			{ "<M-j>" },
-			{ "<M-k>" },
-			{ "<M-h>" },
-			{ "<M-l>" },
-		},
 		opts = {},
 	},
 

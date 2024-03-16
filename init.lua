@@ -37,8 +37,3 @@ require("lazy").setup("plugins", {
 		"zipPlugin",
 	},
 })
-
--- Add hyprlang filetype
-vim.filetype.add({
-	pattern = { [".*/hypr.*.conf"] = "hyprlang" },
-})

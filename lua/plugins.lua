@@ -149,6 +149,10 @@ return {
 			"nvim-treesitter/nvim-treesitter-textobjects",
 		},
 		config = function()
+			-- Add hyprlang filetype
+			vim.filetype.add({
+				pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+			})
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
 					"c",

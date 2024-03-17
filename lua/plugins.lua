@@ -91,19 +91,12 @@ return {
 		branch = "0.1.x",
 		dependencies = {
 			{ "stevearc/dressing.nvim", opts = {} },
-			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				build = "make",
-				cond = function()
-					return vim.fn.executable("make") == 1
-				end,
-			},
+			"natecraddock/telescope-zf-native.nvim",
 			"nvim-tree/nvim-web-devicons",
 			"nvim-lua/plenary.nvim",
 		},
 		config = function()
-			-- Enable native fzf if is installed
-			pcall(require("telescope").load_extension, "fzf")
+			require("telescope").load_extension("zf-native")
 
 			-- See `:help telescope.builtin`
 			local builtin = require("telescope.builtin")
@@ -137,6 +130,7 @@ return {
 	-- Kitty config highlighting
 	{
 		"fladson/vim-kitty",
+		enabled = os.getenv("TERM") == "xterm-kitty",
 		ft = "kitty",
 	},
 
@@ -242,7 +236,7 @@ return {
 				cpp = { "clang_format" },
 				fish = { "fish_indent" },
 				lua = { "stylua" },
-				python = { "isort", "black" },
+				python = { "ruff_format" },
 				sh = { "shfmt" },
 			},
 			formatters = {
@@ -251,7 +245,6 @@ return {
 						"-style={IndentWidth: 4, BreakBeforeBraces: Linux, AccessModifierOffset: -4}",
 					},
 				},
-				isort = { prepend_args = { "--profile", "black" } },
 				shfmt = { prepend_args = { "-i", "4", "-ci", "-bn" } },
 			},
 		},
@@ -329,7 +322,39 @@ return {
 			local servers = {
 				bashls = {},
 				pyright = {},
-				clangd = {},
+				clangd = {
+					root_dir = function(fname)
+						return require("lspconfig.util").root_pattern(
+							"Makefile",
+							"configure.ac",
+							"configure.in",
+							"config.h.in",
+							"meson.build",
+							"meson_options.txt",
+							"build.ninja"
+						)(fname) or require("lspconfig.util").root_pattern(
+							"compile_commands.json",
+							"compile_flags.txt"
+						)(fname) or require("lspconfig.util").find_git_ancestor(fname)
+					end,
+					capabilities = {
+						offsetEncoding = { "utf-16" },
+					},
+					cmd = {
+						"clangd",
+						"--background-index",
+						"--clang-tidy",
+						"--header-insertion=iwyu",
+						"--completion-style=detailed",
+						"--function-arg-placeholders",
+						"--fallback-style=llvm",
+					},
+					init_options = {
+						usePlaceholders = true,
+						completeUnimported = true,
+						clangdFileStatus = true,
+					},
+				},
 				powershell_es = {
 					settings = {
 						powershell = { codeFormatting = { Preset = "OTBS" } },
@@ -360,10 +385,9 @@ return {
 			-- for you, so that they are available from within Neovim.
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
-				"black",
 				"clang-format",
-				"isort",
 				"markdownlint",
+				"ruff",
 				"shellcheck",
 				"shfmt",
 				"stylua",

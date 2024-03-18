@@ -1,17 +1,4 @@
 return {
-	-- Neogit
-	{
-		"NeogitOrg/neogit",
-		dependencies = {
-			"nvim-lua/plenary.nvim", -- required
-			"sindrets/diffview.nvim", -- optional - Diff integration
-
-			-- Only one of these is needed, not both.
-			"nvim-telescope/telescope.nvim", -- optional
-		},
-		opts = {},
-	},
-
 	-- Catppuccin
 	{
 		"catppuccin/nvim",
@@ -43,6 +30,18 @@ return {
 			vim.cmd.colorscheme("catppuccin")
 			vim.opt.cursorline = true
 		end,
+	},
+
+	-- Neogit
+	{
+		"NeogitOrg/neogit",
+		cmd = { "Neogit", "NeogitResetState" },
+		keys = { { "<leader>gg", "<cmd>Neogit<cr>", mode = "n" } },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"sindrets/diffview.nvim",
+		},
+		opts = {},
 	},
 
 	-- Mini.comment

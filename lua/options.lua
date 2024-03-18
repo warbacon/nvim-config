@@ -5,6 +5,9 @@ vim.opt.shortmess:append("sI")
 vim.opt.number = true
 vim.opt.relativenumber = true
 
+-- Prettier diff char
+vim.opt.fillchars:append { diff = "╱" }
+
 -- Split below and right
 vim.opt.splitbelow = true
 vim.opt.splitright = true

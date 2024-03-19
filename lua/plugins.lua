@@ -493,7 +493,6 @@ return {
 					{ name = "path" },
 				}, {
 					{ name = "buffer" },
-					{ name = "path" },
 				}),
 			})
 		end,

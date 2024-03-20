@@ -159,6 +159,7 @@ return {
 			vim.filetype.add({
 				pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
 			})
+			---@diagnostic disable: missing-fields
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
 					"c",
@@ -269,6 +270,7 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			{ "folke/neodev.nvim", opts = {} },
 			{ "j-hui/fidget.nvim", opts = {} },
 		},
 		config = function()
@@ -334,39 +336,7 @@ return {
 			local servers = {
 				bashls = {},
 				pyright = {},
-				clangd = {
-					root_dir = function(fname)
-						return require("lspconfig.util").root_pattern(
-							"Makefile",
-							"configure.ac",
-							"configure.in",
-							"config.h.in",
-							"meson.build",
-							"meson_options.txt",
-							"build.ninja"
-						)(fname) or require("lspconfig.util").root_pattern(
-							"compile_commands.json",
-							"compile_flags.txt"
-						)(fname) or require("lspconfig.util").find_git_ancestor(fname)
-					end,
-					capabilities = {
-						offsetEncoding = { "utf-16" },
-					},
-					cmd = {
-						"clangd",
-						"--background-index",
-						"--clang-tidy",
-						"--header-insertion=iwyu",
-						"--completion-style=detailed",
-						"--function-arg-placeholders",
-						"--fallback-style=llvm",
-					},
-					init_options = {
-						usePlaceholders = true,
-						completeUnimported = true,
-						clangdFileStatus = true,
-					},
-				},
+				clangd = {},
 				powershell_es = {
 					settings = {
 						powershell = { codeFormatting = { Preset = "OTBS" } },
@@ -374,21 +344,17 @@ return {
 				},
 				lua_ls = {
 					settings = {
-						Lua = {
-							runtime = { version = "LuaJIT" },
-							workspace = {
-								checkThirdParty = false,
-								library = {
-									"${3rd}/luv/library",
-									unpack(vim.api.nvim_get_runtime_file("", true)),
-								},
-							},
-							completion = { callSnippet = "Replace" },
-							diagnostics = { disable = { "missing-fields" } },
-						},
+						Lua = { completion = { callSnippet = "Replace" }, },
 					},
 				},
 			}
+
+			if vim.fn.has("win32") == 1 then
+				servers.bashls = nil
+				servers.clangd = nil
+			else
+				servers.powershell_es = nil
+			end
 
 			-- Ensure the servers and tools above are installed
 			require("mason").setup()
@@ -409,9 +375,6 @@ return {
 			require("mason-lspconfig").setup({
 				handlers = {
 					function(server_name)
-						if vim.fn.has("win32") == 1 and server_name == "clangd" then
-							return
-						end
 						local server = servers[server_name] or {}
 						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
 						require("lspconfig")[server_name].setup(server)

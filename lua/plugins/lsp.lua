@@ -1,7 +1,7 @@
 local servers = {
     bashls = {},
     clangd = {},
-    pyright = {},
+    basedpyright = {},
     powershell_es = {
         settings = {
             powershell = { codeFormatting = { Preset = "OTBS" } },

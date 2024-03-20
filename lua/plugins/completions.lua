@@ -2,6 +2,7 @@ return {
 	-- LUASNIP ----------------------------------------------------------------
 	{
 		"L3MON4D3/LuaSnip",
+		lazy = true,
 		build = (function()
 			if require("util").on_windows or vim.fn.executable("make") == 0 then
 				return

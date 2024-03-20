@@ -25,7 +25,6 @@ return {
 				"toml",
 				"vim",
 				"vimdoc",
-				"xml",
 				"yaml",
 			},
 			indent = { enable = true },

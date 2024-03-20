@@ -3,6 +3,34 @@ return {
     {
         "lewis6991/gitsigns.nvim",
         event = "LazyFile",
+        keys = {
+            { "<leader>ghp", "<cmd>Gitsigns preview_hunk_inline<cr>", mode = "n" },
+            { "<leader>ghr", "<cmd>Gitsigns reset_hunk<cr>", mode = "n" },
+        },
+        opts = {
+            signs = {
+                add = { text = "▎" },
+                change = { text = "▎" },
+                delete = { text = "" },
+                topdelete = { text = "" },
+                changedelete = { text = "▎" },
+                untracked = { text = "▎" },
+            },
+        },
+    },
+
+    -- NEOGIT -----------------------------------------------------------------
+    {
+        "NeogitOrg/neogit",
+        cmd = { "Neogit", "NeogitResetState" },
+        keys = {
+            { "<leader>gg", "<cmd>Neogit<cr>", mode = "n" },
+        },
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "sindrets/diffview.nvim",
+            "nvim-telescope/telescope.nvim",
+        },
         opts = {},
     },
 

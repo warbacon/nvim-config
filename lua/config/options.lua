@@ -5,9 +5,6 @@ vim.opt.shortmess:append("sI")
 vim.opt.number = true
 vim.opt.relativenumber = true
 
--- Prettier diff char
-vim.opt.fillchars:append { diff = "╱" }
-
 -- Split below and right
 vim.opt.splitbelow = true
 vim.opt.splitright = true
@@ -17,7 +14,7 @@ vim.opt.list = true
 vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
 
 -- Max number of entries in the completion menu
-vim.opt.pumheight = 10
+vim.opt.pumheight = 6
 
 -- Disable line wrap
 vim.opt.wrap = false
@@ -48,12 +45,3 @@ vim.opt.signcolumn = "yes"
 
 -- 80ch column
 vim.opt.colorcolumn = "80"
-
--- Disable banner in netrw
-vim.g.netrw_banner = 0
-
--- Remove the "How-to disable mouse" menu item and the separator above it
-vim.cmd([[
-    aunmenu PopUp.How-to\ disable\ mouse
-    aunmenu PopUp.-1-
-]])

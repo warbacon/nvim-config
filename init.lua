@@ -2,38 +2,23 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Options
-require("options")
+-- Disable banner in netrw
+vim.g.netrw_banner = 0
 
--- Keymaps
-require("keymaps")
+-- Remove the "How-to disable mouse" menu item and the separator above it
+vim.cmd([[
+    aunmenu PopUp.How-to\ disable\ mouse
+    aunmenu PopUp.-1-
+]])
+
+-- Options
+require("config.options")
 
 -- Autocmds
-require("autocmds")
+require("config.autocmds")
 
--- Lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable",
-		lazypath,
-	})
-end
-vim.opt.rtp:prepend(lazypath)
+-- Keymaps
+require("config.keymaps")
 
 -- Plugins
-require("lazy").setup("plugins", {
-	change_detection = { notify = false },
-	disabled_plugins = {
-		"gzip",
-		"matchit",
-		"tarPlugin",
-		"tohtml",
-		"tutor",
-		"zipPlugin",
-	},
-})
+require("config.lazy")

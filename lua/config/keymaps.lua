@@ -11,3 +11,6 @@ vim.keymap.set("n", "<leader>yy", '<S-v>"+y')
 -- Miscellaneous
 vim.keymap.set("n", "q:", "<nop>", { noremap = true })
 vim.keymap.set("n", "Q", "<nop>", { noremap = true })
+
+-- Lazy.nvim
+vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>")

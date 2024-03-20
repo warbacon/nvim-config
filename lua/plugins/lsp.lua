@@ -37,6 +37,8 @@ return {
     -- MASON.NVIM -------------------------------------------------------------
     {
         "williamboman/mason.nvim",
+        lazy = false,
+        keys = { { "<leader>m", "<cmd>Mason<cr>", mode = "n" } },
         build = ":MasonUpdate",
         dependencies = {
             "WhoIsSethDaniel/mason-tool-installer.nvim",

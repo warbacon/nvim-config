@@ -162,9 +162,13 @@ return {
 			---@diagnostic disable: missing-fields
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
+					"bash",
 					"c",
 					"cpp",
+					"css",
 					"diff",
+					"fish",
+					"hyprlang",
 					"json",
 					"jsonc",
 					"lua",
@@ -178,8 +182,6 @@ return {
 					"vimdoc",
 					"yaml",
 				},
-				auto_install = true,
-				ignore_install = { "ini", "rasi" },
 				highlight = {
 					enable = true,
 					additional_vim_regex_highlighting = false,

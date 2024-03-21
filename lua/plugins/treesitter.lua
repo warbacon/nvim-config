@@ -1,3 +1,7 @@
+vim.filetype.add({
+    pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+})
+
 return {
     -- NVIM-TREESITTER --------------------------------------------------------
     {
@@ -43,9 +47,6 @@ return {
             },
         },
         config = function(_, opts)
-            vim.filetype.add({
-                pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
-            })
             require("nvim-treesitter.configs").setup(opts)
         end,
     },

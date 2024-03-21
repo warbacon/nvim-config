@@ -72,7 +72,7 @@ return {
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("UserLspConfig", {}),
                 callback = function(ev)
-                    vim.bo[ev.buf].formatexpr = nil  -- makes gq work
+                    vim.bo[ev.buf].formatexpr = nil -- makes gq work
                     local opts = { buffer = ev.buf }
                     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
                     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)

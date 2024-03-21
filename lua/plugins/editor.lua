@@ -65,8 +65,8 @@ return {
             user_default_options = {
                 names = false,
                 mode = "virtualtext",
-            }
-        }
+            },
+        },
     },
 
     -- VIM-KITTY --------------------------------------------------------------
@@ -81,7 +81,11 @@ return {
         "nvim-telescope/telescope.nvim",
         branch = "0.1.x",
         dependencies = {
-            "nvim-telescope/telescope-fzy-native.nvim",
+            {
+                "nvim-telescope/telescope-fzf-native.nvim",
+                build = "make",
+                enabled = vim.fn.executable("make") == 1,
+            },
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons",
         },
@@ -116,7 +120,7 @@ return {
             },
         },
         config = function()
-            require("telescope").load_extension("fzy_native")
+            pcall(require("telescope").load_extension, "fzf")
         end,
     },
 }

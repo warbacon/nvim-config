@@ -63,45 +63,6 @@ return {
         opts = {},
     },
 
-    -- MARKDOWN-PREVIEW.NVIM --------------------------------------------------
-    {
-        "iamcco/markdown-preview.nvim",
-        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-        ft = { "markdown" },
-        build = function()
-            vim.fn["mkdp#util#install"]()
-        end,
-    },
-
-    -- COMMENT.NVIM -----------------------------------------------------------
-    {
-        "numToStr/Comment.nvim",
-        keys = {
-            { "gc", mode = { "n", "v" } },
-            { "gb", mode = { "n", "v" } },
-        },
-        opts = { mappings = { extra = false } },
-    },
-
-    -- NVIM-COLORIZER.LUA -----------------------------------------------------
-    {
-        "NvChad/nvim-colorizer.lua",
-        event = "LazyFile",
-        opts = {
-            user_default_options = {
-                names = false,
-                mode = "virtualtext",
-            },
-        },
-    },
-
-    -- VIM-KITTY --------------------------------------------------------------
-    {
-        "fladson/vim-kitty",
-        enabled = os.getenv("TERM") == "xterm-kitty",
-        ft = "kitty",
-    },
-
     -- TELESCOPE.NVIM ---------------------------------------------------------
     {
         "nvim-telescope/telescope.nvim",
@@ -164,5 +125,44 @@ return {
             pcall(require("telescope").load_extension, "fzf")
             pcall(require("telescope").load_extension, "ui-select")
         end,
+    },
+
+    -- MARKDOWN-PREVIEW.NVIM --------------------------------------------------
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        build = function()
+            vim.fn["mkdp#util#install"]()
+        end,
+    },
+
+    -- COMMENT.NVIM -----------------------------------------------------------
+    {
+        "numToStr/Comment.nvim",
+        keys = {
+            { "gc", mode = { "n", "v" } },
+            { "gb", mode = { "n", "v" } },
+        },
+        opts = { mappings = { extra = false } },
+    },
+
+    -- NVIM-COLORIZER.LUA -----------------------------------------------------
+    {
+        "NvChad/nvim-colorizer.lua",
+        event = "LazyFile",
+        opts = {
+            user_default_options = {
+                names = false,
+                mode = "virtualtext",
+            },
+        },
+    },
+
+    -- VIM-KITTY --------------------------------------------------------------
+    {
+        "fladson/vim-kitty",
+        enabled = os.getenv("TERM") == "xterm-kitty",
+        ft = "kitty",
     },
 }

@@ -1,10 +1,10 @@
-<h1 align="center" >Miovim :computer:</h1>
+<h1 align="center" >⌨️ Miovim</h1>
 
 <p align="center">
-    From the Spanish "mio", that means mine, so "Miovim" means "Myvim".
+    <i>From the Spanish "mio", that means mine, so "Miovim" means "Myvim".</i>
 </p>
 
-<img src="./assets/preview.avif" alt="neovim preview" />
+![Miovim preview](./assets/preview.avif)
 
 ## Introduction
 

@@ -59,6 +59,4 @@ function M.lazyfile()
     })
 end
 
-M.on_windows = vim.fn.has("win32") == 1
-
 return M

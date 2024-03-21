@@ -14,7 +14,7 @@ local utilities = {
     "stylua",
 }
 
-if require("util").on_windows then
+if vim.fn.has("win32") == 1 then
     servers.powershell_es = {
         settings = { powershell = { codeFormatting = { Preset = "OTBS" } } },
     }

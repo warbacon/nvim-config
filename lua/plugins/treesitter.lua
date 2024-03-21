@@ -1,12 +1,13 @@
-vim.filetype.add({
-    pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
-})
-
 return {
     -- NVIM-TREESITTER --------------------------------------------------------
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
+        init = function()
+            vim.filetype.add({
+                pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+            })
+        end,
         event = { "LazyFile", "VeryLazy" },
         opts = {
             ensure_installed = {

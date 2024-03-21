@@ -9,7 +9,6 @@ return {
             custom_highlights = function(colors)
                 return {
                     CursorLine = { bg = colors.none },
-                    CursorLineNr = { fg = colors.mauve },
                 }
             end,
             integrations = {
@@ -27,7 +26,14 @@ return {
         config = function(_, opts)
             require("catppuccin").setup(opts)
             vim.cmd.colorscheme("catppuccin")
+        end,
+    },
+    {
+        "mawkler/modicator.nvim",
+        event = "VeryLazy",
+        init = function()
             vim.opt.cursorline = true
         end,
+        opts = {},
     },
 }

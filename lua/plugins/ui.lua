@@ -4,7 +4,7 @@ return {
         "folke/noice.nvim",
         event = "VeryLazy",
         dependencies = { "MunifTanjim/nui.nvim" },
-        init = function ()
+        init = function()
             vim.opt.cmdheight = 0
         end,
         opts = {},
@@ -32,7 +32,7 @@ return {
     {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
+        dependencies = "nvim-tree/nvim-web-devicons",
         init = function()
             vim.o.statusline = " "
         end,

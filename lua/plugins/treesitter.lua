@@ -17,6 +17,7 @@ return {
                 "diff",
                 "fish",
                 "gitcommit",
+                "html",
                 "hyprlang",
                 "json",
                 "jsonc",

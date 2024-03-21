@@ -1,12 +1,5 @@
 local servers = {
-    bashls = {},
-    clangd = {},
     basedpyright = {},
-    powershell_es = {
-        settings = {
-            powershell = { codeFormatting = { Preset = "OTBS" } },
-        },
-    },
     lua_ls = {
         settings = {
             Lua = { completion = { callSnippet = "Replace" } },
@@ -23,13 +16,14 @@ local utilities = {
 }
 
 if require("util").on_windows then
-    servers.clang = nil
-    servers.bashls = nil
+    servers.powershell_es = {
+        settings = {
+            powershell = { codeFormatting = { Preset = "OTBS" } },
+        },
+    }
 else
-    servers.powershell_es = nil
-end
-
-if servers.bashls ~= nil then
+    servers.clangd = {}
+    servers.bashls = {}
     table.insert(utilities, "shellcheck")
 end
 

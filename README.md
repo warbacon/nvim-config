@@ -1,10 +1,10 @@
-<h1 style="text-align: center;" >Miovim :computer:</h1>
+<h1 align="center" >Miovim :computer:</h1>
 
-<p style="text-align: center; font-style: italic;" >
+<p align="center">
     From the Spanish "mio", that means mine, so "Miovim" means "Myvim".
 </p>
 
-<img src="./assets/preview.avif" style="display: block; text-align: center;" alt="neovim preview" />
+<img src="./assets/preview.avif" alt="neovim preview" />
 
 ## Introduction
 

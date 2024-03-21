@@ -4,8 +4,34 @@ return {
         "lewis6991/gitsigns.nvim",
         event = "LazyFile",
         keys = {
-            { "<leader>ghp", "<cmd>Gitsigns preview_hunk_inline<cr>", mode = "n" },
-            { "<leader>ghr", "<cmd>Gitsigns reset_hunk<cr>", mode = "n" },
+            {
+                "<leader>hp",
+                function()
+                    require("gitsigns").preview_hunk_inline()
+                end,
+                mode = "n",
+            },
+            {
+                "<leader>hs",
+                function()
+                    require("gitsigns").stage_hunk()
+                end,
+                mode = "n",
+            },
+            {
+                "<leader>hu",
+                function()
+                    require("gitsigns").undo_stage_hunk()
+                end,
+                mode = "n",
+            },
+            {
+                "<leader>hr",
+                function()
+                    require("gitsigns").reset_hunk()
+                end,
+                mode = "n",
+            },
         },
         init = function()
             vim.opt.signcolumn = "yes"

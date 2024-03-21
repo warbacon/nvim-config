@@ -37,8 +37,5 @@ vim.opt.virtualedit = "block"
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
--- Decrease update time
-vim.opt.updatetime = 250
-
 -- 80ch column
 vim.opt.colorcolumn = "80"

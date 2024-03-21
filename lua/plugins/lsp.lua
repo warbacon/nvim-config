@@ -1,9 +1,8 @@
 local servers = {
     basedpyright = {},
+    jsonls = { settings = { json = { validate = { enable = true } } } },
     lua_ls = {
-        settings = {
-            Lua = { completion = { callSnippet = "Replace" } },
-        },
+        settings = { Lua = { completion = { callSnippet = "Replace" } } },
     },
 }
 
@@ -17,9 +16,7 @@ local utilities = {
 
 if require("util").on_windows then
     servers.powershell_es = {
-        settings = {
-            powershell = { codeFormatting = { Preset = "OTBS" } },
-        },
+        settings = { powershell = { codeFormatting = { Preset = "OTBS" } } },
     }
 else
     servers.clangd = {}
@@ -54,6 +51,7 @@ return {
         event = "LazyFile",
         dependencies = {
             "mason.nvim",
+            "b0o/SchemaStore.nvim",
             { "folke/neodev.nvim", opts = {} },
         },
         config = function()
@@ -87,6 +85,8 @@ return {
                     end, opts)
                 end,
             })
+
+            servers.jsonls.settings.schemas = require("schemastore").json.schemas()
 
             for server, opts in pairs(servers) do
                 opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, opts.capabilities or {})

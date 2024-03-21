@@ -63,7 +63,7 @@ return {
         event = "LazyFile",
         opts = {
             user_default_options = {
-                names = true,
+                names = false,
                 mode = "virtualtext",
             }
         }

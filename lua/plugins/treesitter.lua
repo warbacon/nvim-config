@@ -11,6 +11,7 @@ return {
                 "cpp",
                 "diff",
                 "fish",
+                "gitcommit",
                 "hyprlang",
                 "json",
                 "jsonc",

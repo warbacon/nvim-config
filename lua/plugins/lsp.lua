@@ -110,7 +110,9 @@ return {
             return {
                 sources = {
                     null_ls.builtins.diagnostics.fish,
-                    null_ls.builtins.diagnostics.markdownlint,
+                    null_ls.builtins.diagnostics.markdownlint.with({
+                        extra_args = { "--disable", "MD033" },
+                    }),
                     null_ls.builtins.diagnostics.zsh,
                 },
             }

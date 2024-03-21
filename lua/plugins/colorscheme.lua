@@ -28,6 +28,8 @@ return {
             vim.cmd.colorscheme("catppuccin")
         end,
     },
+
+    -- MODICATOR.NVIM ---------------------------------------------------------
     {
         "mawkler/modicator.nvim",
         event = "VeryLazy",

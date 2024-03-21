@@ -80,12 +80,20 @@ return {
     {
         "nvim-telescope/telescope.nvim",
         branch = "0.1.x",
+        init = function()
+            ---@diagnostic disable-next-line: duplicate-set-field
+            vim.ui.select = function(...)
+                require("lazy").load({ plugins = { "telescope.nvim" } })
+                return vim.ui.select(...)
+            end
+        end,
         dependencies = {
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 build = "make",
                 enabled = vim.fn.executable("make") == 1,
             },
+            "nvim-telescope/telescope-ui-select.nvim",
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons",
         },
@@ -120,7 +128,15 @@ return {
             },
         },
         config = function()
+            require("telescope").setup({
+                extensions = {
+                    ["ui-select"] = {
+                        require("telescope.themes").get_dropdown(),
+                    },
+                },
+            })
             pcall(require("telescope").load_extension, "fzf")
+            pcall(require("telescope").load_extension, "ui-select")
         end,
     },
 }

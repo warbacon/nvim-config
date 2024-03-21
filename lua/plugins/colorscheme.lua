@@ -13,7 +13,6 @@ return {
                 }
             end,
             integrations = {
-                fidget = true,
                 mason = true,
                 native_lsp = {
                     underlines = {

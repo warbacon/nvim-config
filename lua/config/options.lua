@@ -40,8 +40,5 @@ vim.opt.smartcase = true
 -- Decrease update time
 vim.opt.updatetime = 250
 
--- Enable signcolumn for gitsigns and code warnings
-vim.opt.signcolumn = "yes"
-
 -- 80ch column
 vim.opt.colorcolumn = "80"

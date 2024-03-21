@@ -7,6 +7,9 @@ return {
             { "<leader>ghp", "<cmd>Gitsigns preview_hunk_inline<cr>", mode = "n" },
             { "<leader>ghr", "<cmd>Gitsigns reset_hunk<cr>", mode = "n" },
         },
+        init = function()
+            vim.opt.signcolumn = "yes"
+        end,
         opts = {
             signs = {
                 add = { text = "▎" },
@@ -69,24 +72,6 @@ return {
         "fladson/vim-kitty",
         enabled = os.getenv("TERM") == "xterm-kitty",
         ft = "kitty",
-    },
-
-    -- DRESSING.NVIM ----------------------------------------------------------
-    {
-        "stevearc/dressing.nvim",
-        lazy = true,
-        init = function()
-            ---@diagnostic disable-next-line: duplicate-set-field
-            vim.ui.select = function(...)
-                require("lazy").load({ plugins = { "dressing.nvim" } })
-                return vim.ui.select(...)
-            end
-            ---@diagnostic disable-next-line: duplicate-set-field
-            vim.ui.input = function(...)
-                require("lazy").load({ plugins = { "dressing.nvim" } })
-                return vim.ui.input(...)
-            end
-        end,
     },
 
     -- TELESCOPE.NVIM ---------------------------------------------------------

@@ -6,11 +6,7 @@ return {
         priority = 1000,
         opts = {
             styles = { booleans = { "bold" } },
-            custom_highlights = function(colors)
-                return {
-                    CursorLine = { bg = colors.none },
-                }
-            end,
+            custom_highlights = { CursorLine = { bg = "None" } },
             integrations = {
                 mason = true,
                 native_lsp = {
@@ -26,16 +22,7 @@ return {
         config = function(_, opts)
             require("catppuccin").setup(opts)
             vim.cmd.colorscheme("catppuccin")
-        end,
-    },
-
-    -- MODICATOR.NVIM ---------------------------------------------------------
-    {
-        "mawkler/modicator.nvim",
-        event = "VeryLazy",
-        init = function()
             vim.opt.cursorline = true
         end,
-        opts = {},
     },
 }

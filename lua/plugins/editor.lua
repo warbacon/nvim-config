@@ -57,14 +57,16 @@ return {
         opts = { mappings = { extra = false } },
     },
 
-    -- NVIM-HIGHLIGHT-COLORS --------------------------------------------------
+    -- NVIM-COLORIZER.LUA -----------------------------------------------------
     {
-        "brenoprata10/nvim-highlight-colors",
-        event = { "LazyFile" },
+        "NvChad/nvim-colorizer.lua",
+        event = "LazyFile",
         opts = {
-            render = "virtual",
-            enable_named_colors = false,
-        },
+            user_default_options = {
+                names = true,
+                mode = "virtualtext",
+            }
+        }
     },
 
     -- VIM-KITTY --------------------------------------------------------------

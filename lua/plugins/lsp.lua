@@ -57,7 +57,7 @@ return {
                 "j-hui/fidget.nvim",
                 opts = {
                     progress = { display = { render_limit = 0 } },
-                    notification = { window = { winblend = 30 } },
+                    notification = { window = { winblend = 30, align = "top" } },
                 },
             },
         },

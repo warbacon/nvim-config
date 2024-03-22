@@ -1,9 +1,9 @@
 return {
-    -- NOICE.NVIM -------------------------------------------------------------
+    -- NOICE.NVIM
     {
         "folke/noice.nvim",
         event = "VeryLazy",
-        dependencies = { "MunifTanjim/nui.nvim" },
+        dependencies = "MunifTanjim/nui.nvim",
         init = function()
             vim.opt.cmdheight = 0
         end,
@@ -14,13 +14,14 @@ return {
                     ["vim.lsp.util.stylize_markdown"] = true,
                     ["cmp.entry.get_documentation"] = true,
                 },
+                progress = { enabled = false },
+                signature = { auto_open = { enabled = false } },
             },
             presets = {
-                bottom_search = true, -- use a classic bottom cmdline for search
-                command_palette = true, -- position the cmdline and popupmenu together
-                long_message_to_split = true, -- long messages will be sent to a split
-                inc_rename = false, -- enables an input dialog for inc-rename.nvim
-                lsp_doc_border = false, -- add a border to hover docs and signature help
+                bottom_search = true,
+                command_palette = true,
+                long_message_to_split = true,
+                inc_rename = true,
             },
         },
     },
@@ -40,19 +41,27 @@ return {
             },
             sections = {
                 lualine_a = { "mode" },
-                lualine_b = { "branch", "diff", "diagnostics" },
-                lualine_c = { "filename" },
-                lualine_x = { "filetype" },
+                lualine_b = { "branch" },
+                lualine_c = {
+                    { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+                    "filename",
+                },
+                lualine_x = { "diagnostics" },
                 lualine_y = { "progress" },
                 lualine_z = { "location" },
             },
             inactive_sections = {
                 lualine_a = {},
                 lualine_b = {},
-                lualine_c = { "filename" },
-                lualine_x = { "location" },
-                lualine_y = {},
-                lualine_z = {},
+                lualine_c = {
+                    {
+                        "filetype",
+                        icon_only = true,
+                        separator = "",
+                        padding = { left = 1, right = 0 },
+                    },
+                    "filename",
+                },
             },
         },
     },

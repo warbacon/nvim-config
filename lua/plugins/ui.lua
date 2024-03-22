@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-field
 return {
-    -- NOICE.NVIM
+    -- NOICE.NVIM -------------------------------------------------------------
     {
         "folke/noice.nvim",
         event = "VeryLazy",
@@ -27,7 +27,7 @@ return {
         },
     },
 
-    -- LUALINE.NVIM ----------------------------------------------------------------
+    -- LUALINE.NVIM -----------------------------------------------------------
     {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",

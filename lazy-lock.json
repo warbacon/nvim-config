@@ -24,7 +24,7 @@
   "nvim-cmp": { "branch": "main", "commit": "6ed1c93465c33f6a53b4c3f103bf9d1ab696382a" },
   "nvim-colorizer.lua": { "branch": "master", "commit": "85855b38011114929f4058efc97af1059ab3e41d" },
   "nvim-lspconfig": { "branch": "master", "commit": "24662f92c18edd397ef12d635b11dbdedef2d094" },
-  "nvim-treesitter": { "branch": "master", "commit": "6e7b41106e9b15a5b47d149378d53482c9d9c7a3" },
+  "nvim-treesitter": { "branch": "master", "commit": "a951dcb7ec253544b0150251008de8b06a0874cd" },
   "nvim-web-devicons": { "branch": "master", "commit": "cb0c967c9723a76ccb1be0cc3a9a10e577d2f6ec" },
   "plenary.nvim": { "branch": "master", "commit": "f7adfc4b3f4f91aab6caebf42b3682945fbc35be" },
   "telescope-ui-select.nvim": { "branch": "master", "commit": "6e51d7da30bd139a6950adf2a47fda6df9fa06d2" },

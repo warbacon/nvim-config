@@ -45,7 +45,16 @@ return {
                 lualine_b = { "branch" },
                 lualine_c = {
                     { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-                    "filename",
+                    {
+                        "filename",
+                        path = 1,
+                        symbols = {
+                            modified = "⬤",
+                            readonly = "[RO]",
+                            unnamed = "[Sin nombre]",
+                            newfile = "[Nuevo]",
+                        },
+                    },
                 },
                 lualine_x = {
                     {

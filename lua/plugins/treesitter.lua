@@ -10,6 +10,8 @@ return {
         end,
         event = { "LazyFile", "VeryLazy" },
         opts = {
+            highlight = { enable = true },
+            indent = { enable = true },
             ensure_installed = {
                 "bash",
                 "c",
@@ -31,10 +33,6 @@ return {
                 "vim",
                 "vimdoc",
                 "yaml",
-            },
-            indent = { enable = true },
-            highlight = {
-                enable = true,
             },
             incremental_selection = {
                 enable = true,

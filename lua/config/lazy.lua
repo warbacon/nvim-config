@@ -11,7 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("util").lazyfile()
+require("util").lazy_file()
 
 local opts = {
     change_detection = { notify = false },

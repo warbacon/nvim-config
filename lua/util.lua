@@ -1,8 +1,8 @@
 M = {}
 
-function M.lazyfile()
-    local lazy_file_events = { "BufReadPost", "BufNewFile", "BufWritePre" }
+M.lazy_file_events = { "BufReadPost", "BufNewFile", "BufWritePre" }
 
+function M.lazy_file()
     -- Add support for the LazyFile event
     local Event = require("lazy.core.handler.event")
 
@@ -50,7 +50,7 @@ function M.lazyfile()
     -- and the UI can continue rendering without blocking
     load = vim.schedule_wrap(load)
 
-    vim.api.nvim_create_autocmd(lazy_file_events, {
+    vim.api.nvim_create_autocmd(M.lazy_file_events, {
         group = vim.api.nvim_create_augroup("lazy_file", { clear = true }),
         callback = function(event)
             table.insert(events, event)

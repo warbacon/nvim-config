@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-field
 return {
     -- NOICE.NVIM
     {
@@ -6,6 +7,7 @@ return {
         dependencies = "MunifTanjim/nui.nvim",
         init = function()
             vim.opt.cmdheight = 0
+            vim.opt.showmode = false
         end,
         opts = {
             lsp = {
@@ -14,7 +16,6 @@ return {
                     ["vim.lsp.util.stylize_markdown"] = true,
                     ["cmp.entry.get_documentation"] = true,
                 },
-                progress = { enabled = false },
                 signature = { auto_open = { enabled = false } },
             },
             presets = {
@@ -46,7 +47,27 @@ return {
                     { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
                     "filename",
                 },
-                lualine_x = { "diagnostics" },
+                lualine_x = {
+                    {
+                        function()
+                            return require("noice").api.status.command.get()
+                        end,
+                        cond = function()
+                            return package.loaded["noice"] and require("noice").api.status.command.has()
+                        end,
+                        color = { fg = require("catppuccin.palettes").get_palette("mocha").mauve },
+                    },
+                    {
+                        function()
+                            return require("noice").api.status.mode.get()
+                        end,
+                        cond = function()
+                            return package.loaded["noice"] and require("noice").api.status.mode.has()
+                        end,
+                        color = { fg = require("catppuccin.palettes").get_palette("mocha").peach },
+                    },
+                    "diagnostics",
+                },
                 lualine_y = { "progress" },
                 lualine_z = { "location" },
             },

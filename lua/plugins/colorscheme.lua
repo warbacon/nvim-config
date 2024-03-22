@@ -9,6 +9,7 @@ return {
             custom_highlights = { CursorLine = { bg = "None" } },
             integrations = {
                 mason = true,
+                noice = true,
                 native_lsp = {
                     underlines = {
                         errors = { "undercurl" },

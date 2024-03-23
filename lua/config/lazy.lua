@@ -11,6 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.uv = vim.uv or vim.loop -- needed to make LazyFile work
 require("util").lazy_file()
 
 local opts = {

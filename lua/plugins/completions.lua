@@ -63,15 +63,15 @@ return {
                 }, {
                     { name = "buffer" },
                 }),
-                formatting = {
-                    format = function(_, item)
-                        local icons = require("util").icons.kinds
-                        if icons[item.kind] then
-                            item.kind = icons[item.kind] .. item.kind
-                        end
-                        return item
-                    end,
-                },
+                -- formatting = {
+                --     format = function(_, item)
+                --         local icons = require("util").icons.kinds
+                --         if icons[item.kind] then
+                --             item.kind = icons[item.kind] .. item.kind
+                --         end
+                --         return item
+                --     end,
+                -- },
             }
         end,
     },

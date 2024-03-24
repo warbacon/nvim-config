@@ -9,6 +9,15 @@ return {
             vim.opt.cmdheight = 0
             vim.opt.showmode = false
         end,
+        keys = {
+            {
+                "<leader>nh",
+                function()
+                    require("noice").cmd("telescope")
+                end,
+                mode = "n",
+            },
+        },
         opts = {
             lsp = {
                 override = {

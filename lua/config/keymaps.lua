@@ -8,9 +8,13 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 vim.keymap.set("v", "<leader>y", '"+y')
 vim.keymap.set("n", "<leader>yy", '<S-v>"+y')
 
--- Miscellaneous
-vim.keymap.set("n", "q:", "<nop>", { noremap = true })
-vim.keymap.set("n", "Q", "<nop>", { noremap = true })
+-- Next and previous buffer
+vim.keymap.set("n", "<tab>", vim.cmd.bnext)
+vim.keymap.set("n", "<s-tab>", vim.cmd.bprevious)
 
 -- Lazy.nvim
 vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>")
+
+-- Miscellaneous
+vim.keymap.set("n", "q:", "<nop>", { noremap = true })
+vim.keymap.set("n", "Q", "<nop>", { noremap = true })

@@ -42,7 +42,8 @@ return {
         event = "VeryLazy",
         dependencies = "nvim-tree/nvim-web-devicons",
         init = function()
-            vim.o.statusline = " "
+            vim.opt.statusline = " "
+            vim.opt.laststatus = 3
         end,
         opts = {
             options = {
@@ -94,28 +95,41 @@ return {
                 lualine_y = { "progress" },
                 lualine_z = { "location" },
             },
-            inactive_sections = {
-                lualine_a = {},
-                lualine_b = {},
-                lualine_c = {
-                    {
-                        "filetype",
-                        icon_only = true,
-                        separator = "",
-                        padding = { left = 1, right = 0 },
-                    },
-                    {
-                        "filename",
-                        path = 1,
-                        symbols = {
-                            modified = "⏺",
-                            readonly = "[RO]",
-                            unnamed = "[Sin nombre]",
-                            newfile = "[Nuevo]",
-                        },
+        },
+    },
+
+    -- INCLINE.NVIM -----------------------------------------------------------
+    {
+        "b0o/incline.nvim",
+        event = "VeryLazy",
+        config = function()
+            local devicons = require("nvim-web-devicons")
+            require("incline").setup({
+                window = {
+                    margin = {
+                        horizontal = 0,
+                        vertical = 0,
                     },
                 },
-            },
-        },
+                hide = {
+                    only_win = true,
+                },
+                render = function(props)
+                    local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+                    if filename == "" then
+                        filename = "[Sin nombre]"
+                    end
+                    local ft_icon, ft_color = devicons.get_icon_color(filename)
+                    local modified = vim.bo[props.buf].modified
+                    return {
+                        ft_icon and { " ", ft_icon, " ", guifg = ft_color } or "",
+                        " ",
+                        filename,
+                        modified and " ●" or "",
+                        " ",
+                    }
+                end,
+            })
+        end,
     },
 }

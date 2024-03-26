@@ -51,6 +51,9 @@ return {
     {
         "neovim/nvim-lspconfig",
         event = "LazyFile",
+        init = function()
+            vim.opt.signcolumn = "yes"
+        end,
         dependencies = {
             "mason.nvim",
             "b0o/SchemaStore.nvim",

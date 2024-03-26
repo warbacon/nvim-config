@@ -1,6 +1,8 @@
 local servers = {
     basedpyright = {},
+    taplo = {},
     jsonls = { settings = { json = { validate = { enable = true } } } },
+    yamlls = { settings = { yaml = { schemaStore = { enable = false, url = "" } } } },
     lua_ls = {
         settings = { Lua = { completion = { callSnippet = "Replace" } } },
     },
@@ -84,6 +86,7 @@ return {
             })
 
             servers.jsonls.settings.schemas = require("schemastore").json.schemas()
+            servers.yamlls.settings.schemas = require("schemastore").yaml.schemas()
 
             for server, opts in pairs(servers) do
                 opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, opts.capabilities or {})

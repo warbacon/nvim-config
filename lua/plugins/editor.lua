@@ -68,7 +68,6 @@ return {
         "nvim-telescope/telescope.nvim",
         branch = "0.1.x",
         init = function()
-            ---@diagnostic disable-next-line: duplicate-set-field
             vim.ui.select = function(...)
                 require("lazy").load({ plugins = { "telescope.nvim" } })
                 return vim.ui.select(...)

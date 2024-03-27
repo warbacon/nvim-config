@@ -1,9 +1,9 @@
----@diagnostic disable: undefined-field
 return {
     -- LUALINE.NVIM -----------------------------------------------------------
     {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
+        enabled = false,
         dependencies = "nvim-tree/nvim-web-devicons",
         init = function()
             vim.opt.statusline = " "

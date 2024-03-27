@@ -58,6 +58,10 @@ return {
             "mason.nvim",
             "b0o/SchemaStore.nvim",
             { "folke/neodev.nvim", opts = {} },
+            {
+                "j-hui/fidget.nvim",
+                opts = { progress = { display = { render_limit = 0 } } },
+            },
         },
         config = function()
             require("mason-lspconfig").setup()

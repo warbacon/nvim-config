@@ -8,8 +8,8 @@ return {
             styles = { booleans = { "bold" } },
             custom_highlights = { CursorLine = { bg = "None" } },
             integrations = {
+                fidget = true,
                 mason = true,
-                noice = true,
                 native_lsp = {
                     underlines = {
                         errors = { "undercurl" },

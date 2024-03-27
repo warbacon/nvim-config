@@ -16,6 +16,7 @@ require("util").lazy_file()
 
 local opts = {
     change_detection = { notify = false },
+    ui = { backdrop = 100 },
     performance = {
         rtp = {
             disabled_plugins = {

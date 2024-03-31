@@ -56,6 +56,11 @@ return {
                         end
                     end, { "i", "s" }),
                 }),
+                view = {
+                    entries = {
+                        follow_cursor = true,
+                    },
+                },
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },
                     { name = "luasnip" },

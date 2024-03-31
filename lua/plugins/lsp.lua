@@ -60,7 +60,9 @@ return {
             { "folke/neodev.nvim", opts = {} },
             {
                 "j-hui/fidget.nvim",
-                opts = { progress = { display = { render_limit = 0 } } },
+                opts = {
+                    notification = { window = { winblend = 30 } },
+                },
             },
         },
         config = function()

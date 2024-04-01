@@ -1,6 +1,7 @@
 {
     "diagnostics.disable": [
         "missing-fields",
-        "duplicate-set-field"
+        "duplicate-set-field",
+        "undefined-field"
     ]
 }

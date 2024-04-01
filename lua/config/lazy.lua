@@ -11,7 +11,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.uv = vim.uv or vim.loop -- needed to make LazyFile work
+if vim.fn.has("nvim-0.10") == 0 then
+    vim.uv = vim.uv or vim.loop -- needed to make LazyFile work
+end
+
 require("util").lazy_file()
 
 local opts = {

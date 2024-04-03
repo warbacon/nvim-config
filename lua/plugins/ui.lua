@@ -18,19 +18,18 @@ return {
                     self.mode = vim.fn.mode(1)
                 end,
                 static = {
-                    mode_names = {
-                        n = "normal",
-                        no = "normal",
-                        niI = "polla",
-                        nt = "normal",
-                        v = "visual",
-                        V = "línea visual",
-                        s = "selección",
-                        ["\22"] = "bloque visual",
-                        i = "insertar",
-                        c = "comando",
-                        t = "terminal",
-                    },
+                    -- mode_names = {
+                    --     n = "normal",
+                    --     no = "normal",
+                    --     nt = "normal",
+                    --     v = "visual",
+                    --     V = "línea visual",
+                    --     s = "selección",
+                    --     ["\22"] = "bloque visual",
+                    --     i = "insertar",
+                    --     c = "comando",
+                    --     t = "terminal",
+                    -- },
                     mode_colors = {
                         n = "blue",
                         i = "green",
@@ -38,8 +37,8 @@ return {
                         V = "mauve",
                         ["\22"] = "mauve",
                         c = "peach",
-                        t = "teal",
-                        s = "sapphire",
+                        t = "green",
+                        s = "teal",
                     },
                 },
                 provider = function()
@@ -115,7 +114,7 @@ return {
             )
 
             local Ruler = {
-                provider = "%l,%c %12P",
+                provider = "%l,%c%V %13P",
             }
 
             local StatusLine = {

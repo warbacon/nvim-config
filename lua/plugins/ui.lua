@@ -1,113 +1,152 @@
 return {
-    -- NOICE.NVIM -------------------------------------------------------------
+    -- HEIRLINE.NVIM ----------------------------------------------------------
     {
-        "folke/noice.nvim",
-        enabled = false,
-        event = "VeryLazy",
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-        },
-        init = function()
-            vim.opt.cmdheight = 0
-        end,
-        opts = {
-            lsp = {
-                override = {
-                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                    ["vim.lsp.util.stylize_markdown"] = true,
-                    ["cmp.entry.get_documentation"] = true,
-                },
-            },
-            cmdline = {
-                view = "cmdline",
-            },
-            signature = {
-                auto_open = {
-                    enabled = false,
-                },
-            },
-        },
-    },
-    -- LUALINE.NVIM -----------------------------------------------------------
-    {
-        "nvim-lualine/lualine.nvim",
-        enabled = false,
-        event = "VeryLazy",
-        dependencies = "nvim-tree/nvim-web-devicons",
+        "rebelot/heirline.nvim",
+        event = "UiEnter",
         init = function()
             vim.opt.statusline = " "
-            vim.opt.showmode = false
         end,
-        opts = {
-            options = {
-                component_separators = { left = "", right = "" },
-                section_separators = { left = "", right = "" },
-            },
-            sections = {
-                lualine_a = { "mode" },
-                lualine_b = { "branch" },
-                lualine_c = {
-                    {
-                        "filetype",
-                        icon_only = true,
-                        separator = "",
-                        padding = { left = 1, right = 0 },
+        config = function()
+            local conditions = require("heirline.conditions")
+            local utils = require("heirline.utils")
+            local Align = { provider = "%=" }
+            local Space = { provider = " " }
+            local colors = require("catppuccin.palettes").get_palette("mocha")
+
+            ViMode = {
+                init = function(self)
+                    self.mode = vim.fn.mode(1)
+                end,
+                static = {
+                    mode_names = {
+                        n = "normal",
+                        no = "normal",
+                        niI = "polla",
+                        nt = "normal",
+                        v = "visual",
+                        V = "línea visual",
+                        s = "selección",
+                        ["\22"] = "bloque visual",
+                        i = "insertar",
+                        c = "comando",
+                        t = "terminal",
                     },
-                    {
-                        "filename",
-                        path = 1,
-                        symbols = {
-                            modified = "[+]",
-                            readonly = "[RO]",
-                            unnamed = "[Sin nombre]",
-                            newfile = "[Nuevo]",
-                        },
-                    },
-                },
-                lualine_x = {
-                    {
-                        function()
-                            return require("noice").api.status.command.get()
-                        end,
-                        cond = function()
-                            return package.loaded["noice"] and require("noice").api.status.command.has()
-                        end,
-                        color = { fg = require("catppuccin.palettes").get_palette("mocha").mauve },
-                    },
-                    {
-                        function()
-                            return require("noice").api.status.mode.get()
-                        end,
-                        cond = function()
-                            return package.loaded["noice"] and require("noice").api.status.mode.has()
-                        end,
-                        color = { fg = require("catppuccin.palettes").get_palette("mocha").peach },
-                    },
-                    "diagnostics",
-                },
-                lualine_y = { "progress" },
-                lualine_z = { "location" },
-            },
-            inactive_sections = {
-                lualine_c = {
-                    {
-                        "filetype",
-                        icon_only = true,
-                        separator = "",
-                        padding = { left = 1, right = 0 },
-                    },
-                    {
-                        "filename",
-                        path = 1,
-                        symbols = {
-                            modified = "[+]",
-                            readonly = "[RO]",
-                            unnamed = "[Sin nombre]",
-                            newfile = "[Nuevo]",
-                        },
+                    mode_colors = {
+                        n = "blue",
+                        i = "green",
+                        v = "mauve",
+                        V = "mauve",
+                        ["\22"] = "mauve",
+                        c = "peach",
+                        t = "teal",
+                        s = "sapphire",
                     },
                 },
-            },
-        },
+                provider = function()
+                    return " "
+                end,
+                hl = function(self)
+                    local mode = self.mode:sub(1, 1) -- get only the first mode character
+                    return { fg = "base", bg = self.mode_colors[mode], bold = true }
+                end,
+                update = {
+                    "ModeChanged",
+                    pattern = "*:*",
+                    callback = vim.schedule_wrap(function()
+                        vim.cmd("redrawstatus")
+                    end),
+                },
+            }
+
+            local FileNameBlock = {
+                init = function(self)
+                    self.filename = vim.api.nvim_buf_get_name(0)
+                end,
+            }
+
+            local FileIcon = {
+                init = function(self)
+                    self.icon, self.icon_color =
+                        require("nvim-web-devicons").get_icon_colors_by_filetype(vim.bo.filetype)
+                end,
+                provider = function(self)
+                    return self.icon and (self.icon .. "  ")
+                end,
+                hl = function(self)
+                    return { fg = self.icon_color }
+                end,
+            }
+
+            local FileName = {
+                provider = function(self)
+                    local filename = vim.fn.fnamemodify(self.filename, ":.")
+                    if filename == "" then
+                        return "[Sin nombre]"
+                    end
+                    if not conditions.width_percent_below(#filename, 0.35) then
+                        filename = vim.fn.pathshorten(filename)
+                    end
+                    return filename
+                end,
+            }
+
+            local FileFlags = {
+                {
+                    condition = function()
+                        return vim.bo.modified
+                    end,
+                    provider = " [+]",
+                },
+                {
+                    condition = function()
+                        return not vim.bo.modifiable or vim.bo.readonly
+                    end,
+                    provider = " ",
+                    hl = { fg = "red" },
+                },
+            }
+
+            FileNameBlock = utils.insert(
+                FileNameBlock,
+                FileIcon,
+                FileName,
+                FileFlags,
+                { provider = "%<" } -- this means that the statusline is cut here when there's not enough space
+            )
+
+            local Ruler = {
+                provider = "%l,%c %12P",
+            }
+
+            local StatusLine = {
+                ViMode,
+                Space,
+                FileNameBlock,
+                Align,
+                Ruler,
+                Space,
+                hl = { bg = "mantle" },
+            }
+
+            local StatusLineNc = {
+                condition = function()
+                    return not conditions.is_active()
+                end,
+                FileNameBlock,
+                Align,
+                Ruler,
+                Space,
+                hl = { fg = "surface2", bg = "mantle" },
+            }
+
+            require("heirline").setup({
+                opts = { colors = colors },
+                statusline = {
+                    fallthrough = false,
+                    StatusLineNc,
+                    StatusLine,
+                },
+            })
+        end,
     },
 }

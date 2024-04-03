@@ -19,6 +19,10 @@ require("util").lazy_file()
 
 local opts = {
     change_detection = { notify = false },
+    install = {
+        missing = true,
+        colorscheme = { "catppuccin", "habamax" },
+    },
     ui = { backdrop = 100 },
     performance = {
         rtp = {

@@ -1,5 +1,6 @@
 local servers = {
     basedpyright = {},
+    -- cssls = {},
     taplo = {},
     jsonls = { settings = { json = { validate = { enable = true } } } },
     yamlls = { settings = { yaml = { schemaStore = { enable = false, url = "" } } } },

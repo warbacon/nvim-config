@@ -131,6 +131,7 @@ return {
                 condition = function()
                     return not conditions.is_active()
                 end,
+                Space,
                 FileNameBlock,
                 Align,
                 Ruler,

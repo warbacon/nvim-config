@@ -47,7 +47,7 @@ return {
 
             local FileNameBlock = {
                 init = function(self)
-                    self.filename = vim.fn.expand("%")
+                    self.filename = vim.api.nvim_buf_get_name(0):gsub(vim.env.HOME, "~")
                 end,
             }
 

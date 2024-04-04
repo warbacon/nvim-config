@@ -83,6 +83,7 @@ return {
                         return vim.bo.modified
                     end,
                     provider = " [+]",
+                    hl = { fg = "flamingo" }
                 },
                 {
                     condition = function()
@@ -121,7 +122,7 @@ return {
                 FileNameBlock,
                 Align,
                 Ruler,
-                hl = { fg = "surface2", bg = "mantle" },
+                hl = { fg = "surface2", bg = "mantle", force = true },
             }
 
             require("heirline").setup({

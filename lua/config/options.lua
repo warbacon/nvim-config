@@ -19,6 +19,9 @@ vim.opt.pumheight = 6
 -- Disable line wrap
 vim.opt.wrap = false
 
+-- Show signcolumn always
+vim.opt.signcolumn = "yes"
+
 -- Indentation
 vim.opt.expandtab = true
 vim.opt.tabstop = 4

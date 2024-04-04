@@ -33,9 +33,6 @@ return {
                 mode = "n",
             },
         },
-        init = function()
-            vim.opt.signcolumn = "yes"
-        end,
         opts = {
             signs = {
                 add = { text = "▎" },
@@ -178,5 +175,12 @@ return {
         "fladson/vim-kitty",
         enabled = os.getenv("TERM") == "xterm-kitty",
         ft = "kitty",
+    },
+
+    -- MINI.AI ----------------------------------------------------------------
+    {
+        "echasnovski/mini.ai",
+        event = "VeryLazy",
+        opts = {},
     },
 }

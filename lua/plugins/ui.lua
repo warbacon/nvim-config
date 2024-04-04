@@ -18,18 +18,6 @@ return {
                     self.mode = vim.fn.mode(1)
                 end,
                 static = {
-                    -- mode_names = {
-                    --     n = "normal",
-                    --     no = "normal",
-                    --     nt = "normal",
-                    --     v = "visual",
-                    --     V = "línea visual",
-                    --     s = "selección",
-                    --     ["\22"] = "bloque visual",
-                    --     i = "insertar",
-                    --     c = "comando",
-                    --     t = "terminal",
-                    -- },
                     mode_colors = {
                         n = "blue",
                         i = "green",
@@ -59,7 +47,7 @@ return {
 
             local FileNameBlock = {
                 init = function(self)
-                    self.filename = vim.api.nvim_buf_get_name(0)
+                    self.filename = vim.fn.expand("%")
                 end,
             }
 
@@ -114,7 +102,7 @@ return {
             )
 
             local Ruler = {
-                provider = "%l,%c%V %13P",
+                provider = "%l,%c%V %14P",
             }
 
             local StatusLine = {
@@ -123,7 +111,6 @@ return {
                 FileNameBlock,
                 Align,
                 Ruler,
-                Space,
                 hl = { bg = "mantle" },
             }
 
@@ -131,11 +118,9 @@ return {
                 condition = function()
                     return not conditions.is_active()
                 end,
-                Space,
                 FileNameBlock,
                 Align,
                 Ruler,
-                Space,
                 hl = { fg = "surface2", bg = "mantle" },
             }
 

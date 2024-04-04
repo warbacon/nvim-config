@@ -18,13 +18,17 @@ local utilities = {
 }
 
 if vim.fn.has("win32") == 1 then
-    servers.powershell_es = {
-        settings = { powershell = { codeFormatting = { Preset = "OTBS" } } },
-    }
+    vim.tbl_deep_extend(servers, {
+        powershell_es = {
+            settings = { powershell = { codeFormatting = { Preset = "OTBS" } } },
+        },
+    })
 else
-    servers.clangd = {}
-    servers.bashls = {}
-    table.insert(utilities, "shellcheck")
+    vim.tbl_deep_extend(servers, {
+        clangd = {},
+        bashls = {},
+    })
+    vim.list_extend(utilities, { "shellcheck" })
 end
 
 return {

@@ -142,6 +142,13 @@ return {
         opts = {},
     },
 
+    -- MINI.AI ----------------------------------------------------------------
+    {
+        "echasnovski/mini.ai",
+        event = "VeryLazy",
+        opts = {},
+    },
+
     -- NVIM-COLORIZER.LUA -----------------------------------------------------
     {
         "NvChad/nvim-colorizer.lua",
@@ -163,12 +170,5 @@ return {
         "fladson/vim-kitty",
         enabled = os.getenv("TERM") == "xterm-kitty",
         ft = "kitty",
-    },
-
-    -- MINI.AI ----------------------------------------------------------------
-    {
-        "echasnovski/mini.ai",
-        event = "VeryLazy",
-        opts = {},
     },
 }

@@ -133,25 +133,12 @@ return {
         end,
     },
 
-    -- COMMENT.NVIM -----------------------------------------------------------
+    -- MINI.COMMENT -----------------------------------------------------------
     {
-        "numToStr/Comment.nvim",
-        dependencies = {
-            {
-                "JoosepAlviste/nvim-ts-context-commentstring",
-                opts = { enable_autocmd = false },
-            },
-        },
-        keys = {
-            { "gc", mode = { "n", "v" } },
-            { "gb", mode = { "n", "v" } },
-        },
-        config = function()
-            require("Comment").setup({
-                mappings = { extra = false },
-                pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-            })
-        end,
+        "echasnovski/mini.comment",
+        enabled = vim.fn.has("nvim-0.10") == 0,
+        keys = { "gc", mode = { "n", "v" } },
+        opts = {},
     },
 
     -- NVIM-COLORIZER.LUA -----------------------------------------------------

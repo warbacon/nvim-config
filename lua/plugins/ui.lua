@@ -83,7 +83,7 @@ return {
                         return vim.bo.modified
                     end,
                     provider = " [+]",
-                    hl = { fg = "flamingo" }
+                    hl = { fg = "flamingo" },
                 },
                 {
                     condition = function()

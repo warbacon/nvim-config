@@ -48,6 +48,7 @@ return {
     -- NEOGIT -----------------------------------------------------------------
     {
         "NeogitOrg/neogit",
+        branch = "nightly",
         cmd = { "Neogit", "NeogitResetState" },
         keys = {
             { "<leader>gg", "<cmd>Neogit<cr>", mode = "n" },

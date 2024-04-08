@@ -18,11 +18,9 @@ local utilities = {
 }
 
 if vim.fn.has("win32") == 1 then
-    vim.tbl_deep_extend("force", servers, {
-        powershell_es = {
-            settings = { powershell = { codeFormatting = { Preset = "OTBS" } } },
-        },
-    })
+    servers.powershell_es = {
+        settings = { powershell = { codeFormatting = { Preset = "OTBS" } } },
+    }
 else
     vim.tbl_deep_extend("force", servers, {
         clangd = {},

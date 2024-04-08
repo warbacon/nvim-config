@@ -83,13 +83,12 @@ return {
                         return vim.bo.modified
                     end,
                     provider = " [+]",
-                    hl = { fg = "flamingo" },
                 },
                 {
                     condition = function()
                         return not vim.bo.modifiable or vim.bo.readonly
                     end,
-                    provider = " ",
+                    provider = " 󰌾",
                     hl = { fg = "red" },
                 },
             }

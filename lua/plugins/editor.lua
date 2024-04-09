@@ -24,6 +24,28 @@ return {
         },
     },
 
+    -- MINI.SURROUND ----------------------------------------------------------
+    {
+        "echasnovski/mini.surround",
+        keys = { { "s", mode = { "n", "v" } } },
+        opts = {},
+    },
+
+    -- MINI.COMMENT -----------------------------------------------------------
+    {
+        "echasnovski/mini.comment",
+        enabled = vim.fn.has("nvim-0.10") == 0,
+        keys = { "gc", mode = { "n", "v" } },
+        opts = {},
+    },
+
+    -- MINI.AI ----------------------------------------------------------------
+    {
+        "echasnovski/mini.ai",
+        event = "VeryLazy",
+        opts = {},
+    },
+
     -- NEOGIT -----------------------------------------------------------------
     {
         "NeogitOrg/neogit",

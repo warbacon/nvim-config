@@ -1,46 +1,25 @@
 return {
-    -- GITSIGNS.NVIM ----------------------------------------------------------
+    -- MINI.DIFF --------------------------------------------------------------
     {
-        "lewis6991/gitsigns.nvim",
+        "echasnovski/mini.diff",
         event = "LazyFile",
         keys = {
             {
-                "<leader>hp",
+                "gho",
                 function()
-                    require("gitsigns").preview_hunk_inline()
-                end,
-                mode = "n",
-            },
-            {
-                "<leader>hs",
-                function()
-                    require("gitsigns").stage_hunk()
-                end,
-                mode = "n",
-            },
-            {
-                "<leader>hu",
-                function()
-                    require("gitsigns").undo_stage_hunk()
-                end,
-                mode = "n",
-            },
-            {
-                "<leader>hr",
-                function()
-                    require("gitsigns").reset_hunk()
+                    require("mini.diff").toggle_overlay(0)
                 end,
                 mode = "n",
             },
         },
         opts = {
-            signs = {
-                add = { text = "▎" },
-                change = { text = "▎" },
-                delete = { text = "" },
-                topdelete = { text = "" },
-                changedelete = { text = "▎" },
-                untracked = { text = "▎" },
+            view = {
+                style = "sign",
+                signs = {
+                    add = "▎",
+                    change = "▎",
+                    delete = "",
+                },
             },
         },
     },

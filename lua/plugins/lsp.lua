@@ -22,10 +22,8 @@ if vim.fn.has("win32") == 1 then
         settings = { powershell = { codeFormatting = { Preset = "OTBS" } } },
     }
 else
-    vim.tbl_deep_extend("force", servers, {
-        clangd = {},
-        bashls = {},
-    })
+    servers.clangd = {}
+    servers.bashls = {}
     vim.list_extend(utilities, { "shellcheck" })
 end
 

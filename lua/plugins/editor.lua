@@ -140,30 +140,6 @@ return {
         end,
     },
 
-    -- MINI.COMMENT -----------------------------------------------------------
-    {
-        "echasnovski/mini.comment",
-        enabled = vim.fn.has("nvim-0.10") == 0,
-        keys = { "gc", mode = { "n", "v" } },
-        opts = {},
-    },
-
-    -- MINI.AI ----------------------------------------------------------------
-    {
-        "echasnovski/mini.ai",
-        event = "VeryLazy",
-        opts = {},
-    },
-
-    -- NVIM-HIGHLIGHT-COLORS --------------------------------------------------
-    {
-        "brenoprata10/nvim-highlight-colors",
-        opts = {
-            render = "virtual",
-            enable_named_colors = false,
-        },
-    },
-
     -- VIM-KITTY --------------------------------------------------------------
     {
         "fladson/vim-kitty",

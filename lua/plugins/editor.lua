@@ -59,7 +59,6 @@ return {
             "nvim-telescope/telescope.nvim",
         },
         opts = {
-            kind = "auto",
             signs = {
                 item = { "> ", "v " },
                 section = { "> ", "v " },

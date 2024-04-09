@@ -2,7 +2,7 @@ return {
     -- HEIRLINE.NVIM ----------------------------------------------------------
     {
         "rebelot/heirline.nvim",
-        event = "UiEnter",
+        event = "VeryLazy",
         init = function()
             vim.opt.statusline = " "
         end,

@@ -154,19 +154,13 @@ return {
         opts = {},
     },
 
-    -- NVIM-COLORIZER.LUA -----------------------------------------------------
+    -- NVIM-HIGHLIGHT-COLORS --------------------------------------------------
     {
-        "NvChad/nvim-colorizer.lua",
-        event = "LazyFile",
+        "brenoprata10/nvim-highlight-colors",
+        event = "VeryLazy",
         opts = {
-            filetypes = {
-                "*",
-                "!lazy",
-            },
-            user_default_options = {
-                names = false,
-                mode = "virtualtext",
-            },
+            render = "virtual",
+            enable_named_colors = false,
         },
     },
 

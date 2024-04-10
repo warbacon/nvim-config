@@ -49,7 +49,6 @@ return {
     -- NEOGIT -----------------------------------------------------------------
     {
         "NeogitOrg/neogit",
-        branch = vim.fn.has("win32") == 0 and vim.fn.has("nvim-0.10") == 1 and "nightly" or "master",
         cmd = { "Neogit", "NeogitResetState" },
         keys = {
             { "<leader>gg", "<cmd>Neogit<cr>", mode = "n" },
@@ -59,12 +58,7 @@ return {
             "sindrets/diffview.nvim",
             "nvim-telescope/telescope.nvim",
         },
-        opts = {
-            signs = {
-                item = { "> ", "v " },
-                section = { "> ", "v " },
-            },
-        },
+        opts = {},
     },
 
     -- TELESCOPE.NVIM ---------------------------------------------------------

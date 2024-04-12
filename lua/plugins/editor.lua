@@ -31,14 +31,6 @@ return {
         opts = {},
     },
 
-    -- MINI.COMMENT -----------------------------------------------------------
-    {
-        "echasnovski/mini.comment",
-        enabled = vim.fn.has("nvim-0.10") == 0,
-        keys = { "gc", mode = { "n", "v" } },
-        opts = {},
-    },
-
     -- MINI.AI ----------------------------------------------------------------
     {
         "echasnovski/mini.ai",
@@ -46,12 +38,33 @@ return {
         opts = {},
     },
 
+    -- COMMENT.NVIM -----------------------------------------------------------
+    {
+        "numToStr/Comment.nvim",
+        dependencies = {
+            {
+                "JoosepAlviste/nvim-ts-context-commentstring",
+                opts = { enable_autocmd = false },
+            },
+        },
+        keys = {
+            { "gc", mode = { "n", "v" } },
+            { "gb", mode = "n" },
+        },
+        opts = function()
+            return {
+                mappings = { extra = false },
+                pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+            }
+        end,
+    },
+
     -- NEOGIT -----------------------------------------------------------------
     {
         "NeogitOrg/neogit",
         cmd = { "Neogit", "NeogitResetState" },
         keys = {
-            { "<leader>gg", "<cmd>Neogit<cr>", mode = "n" },
+            { "<leader>ng", "<cmd>Neogit<cr>", mode = "n" },
         },
         dependencies = {
             "nvim-lua/plenary.nvim",

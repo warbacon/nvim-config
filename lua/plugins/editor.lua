@@ -76,15 +76,12 @@ return {
     -- COMMENT.NVIM -----------------------------------------------------------
     {
         "numToStr/Comment.nvim",
+        event = "VeryLazy",
         dependencies = {
             {
                 "JoosepAlviste/nvim-ts-context-commentstring",
                 opts = { enable_autocmd = false },
             },
-        },
-        keys = {
-            { "gc", mode = { "n", "v" } },
-            { "gb", mode = "n" },
         },
         opts = function()
             return {

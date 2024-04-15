@@ -169,21 +169,6 @@ return {
         end,
     },
 
-    -- OIL.NVIM ---------------------------------------------------------------
-    {
-        "stevearc/oil.nvim",
-        dependencies = "nvim-tree/nvim-web-devicons",
-        cmd = "Oil",
-        keys = {
-            {
-                "-",
-                "<cmd>Oil<cr>",
-                mode = "n",
-            },
-        },
-        opts = {},
-    },
-
     -- MARKDOWN-PREVIEW.NVIM --------------------------------------------------
     {
         "iamcco/markdown-preview.nvim",

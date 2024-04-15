@@ -3,6 +3,7 @@ return {
     {
         "rebelot/heirline.nvim",
         event = "UiEnter",
+        dependencies = "nvim-tree/nvim-web-devicons",
         init = function()
             vim.opt.statusline = " "
         end,
@@ -53,8 +54,13 @@ return {
 
             local FileIcon = {
                 init = function(self)
-                    self.icon, self.icon_color =
-                        require("nvim-web-devicons").get_icon_colors_by_filetype(vim.bo.filetype)
+                    local filename = self.filename
+                    local extension = vim.fn.fnamemodify(filename, ":e")
+                    self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(filename, extension)
+                    if self.icon == nil and self.icon_color == nil then
+                        self.icon, self.icon_color =
+                            require("nvim-web-devicons").get_icon_colors_by_filetype(vim.bo.filetype)
+                    end
                 end,
                 provider = function(self)
                     return self.icon and (self.icon .. "  ")

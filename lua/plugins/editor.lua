@@ -1,14 +1,14 @@
 return {
-    -- MINI.SURROUND ----------------------------------------------------------
-    {
-        "echasnovski/mini.surround",
-        keys = { { "s", mode = { "n", "v" } } },
-        opts = {},
-    },
-
     -- MINI.AI ----------------------------------------------------------------
     {
         "echasnovski/mini.ai",
+        event = "VeryLazy",
+        opts = {},
+    },
+
+    -- NVIM-SURROUND ----------------------------------------------------------
+    {
+        "kylechui/nvim-surround",
         event = "VeryLazy",
         opts = {},
     },

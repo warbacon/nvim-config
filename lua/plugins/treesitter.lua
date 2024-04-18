@@ -3,12 +3,15 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
+        dependencies = {
+            "andymass/vim-matchup",
+            config = function()
+                vim.g.matchup_matchparen_offscreen = { method = "scrolloff" }
+                vim.g.matchup_matchparen_deferred = 1
+            end,
+        },
         main = "nvim-treesitter.configs",
-        init = function(plugin)
-            -- Porsi
-            require("lazy.core.loader").add_to_rtp(plugin)
-            require("nvim-treesitter.query_predicates")
-
+        init = function()
             -- Add hyprlang filetype
             vim.filetype.add({
                 pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
@@ -18,6 +21,7 @@ return {
         opts = {
             highlight = { enable = true },
             indent = { enable = true },
+            matchup = { enable = true },
             ensure_installed = {
                 "bash",
                 "c",

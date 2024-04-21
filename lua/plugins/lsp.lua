@@ -1,11 +1,17 @@
 local servers = {
     basedpyright = {},
-    -- cssls = {},
-    taplo = {},
+    bashls = {},
+    clangd = {},
     jsonls = { settings = { json = { validate = { enable = true } } } },
-    yamlls = { settings = { yaml = { schemaStore = { enable = false, url = "" } } } },
     lua_ls = {
         settings = { Lua = { completion = { callSnippet = "Replace" } } },
+    },
+    powershell_es = {
+        settings = { powershell = { codeFormatting = { Preset = "OTBS" } } },
+    },
+    taplo = {},
+    yamlls = {
+        settings = { yaml = { schemaStore = { enable = false, url = "" } } },
     },
 }
 
@@ -15,16 +21,16 @@ local utilities = {
     "ruff",
     "shfmt",
     "stylua",
+    "shellcheck",
 }
 
+if vim.fn.executable("pwsh") == 0 and vim.fn.executable("powershell") == 0 then
+    servers.powershell_es = nil
+end
+
 if vim.fn.has("win32") == 1 then
-    servers.powershell_es = {
-        settings = { powershell = { codeFormatting = { Preset = "OTBS" } } },
-    }
-else
-    servers.clangd = {}
-    servers.bashls = {}
-    vim.list_extend(utilities, { "shellcheck" })
+    servers.clangd = nil
+    servers.bashls = nil
 end
 
 return {

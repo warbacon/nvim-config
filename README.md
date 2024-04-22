@@ -13,19 +13,29 @@ lazily for maximum performance. Inspired by Lazyvim configurations.
 
 ## Instructions
 
-- _Arch Linux dependencies:_
+### Arch Linux dependencies
 
 ```sh
 sudo pacman -S unzip gcc npm make python ripgrep --needed
 ```
 
-- _Linux installation:_
+### Windows dependencies
+
+- fd
+- mingw
+- nodejs
+- python
+- ripgrep
+
+### Instalation
+
+Linux:
 
 ```sh
 git clone https://github.com/warbacon/nvim-config ~/.config/nvim
 ```
 
-- _Windows installation:_
+Windows:
 
 ```sh
 git clone https://github.com/warbacon/nvim-config ~\AppData\Local\nvim

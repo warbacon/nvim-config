@@ -1,3 +1,9 @@
+-- Workaround for nvim < v0.10
+if vim.fn.has("nvim-0.10") == 0 then
+    vim.uv = vim.uv or vim.loop
+end
+
+-- Clone lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     vim.fn.system({
@@ -11,8 +17,10 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Enable LazyFile event
 require("util").lazy_file()
 
+-- Lazy.nvim options
 local opts = {
     ui = { backdrop = 100 },
     change_detection = { notify = false },
@@ -33,6 +41,8 @@ local opts = {
     },
 }
 
+-- Start lazy.nvim
 require("lazy").setup("plugins", opts)
 
+-- Lazy.nvim keymap
 vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { silent = true })

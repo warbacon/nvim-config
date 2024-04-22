@@ -2,9 +2,6 @@ return {
     -- CONFORM.NVIM ------------------------------------------------------------
     "stevearc/conform.nvim",
     cmd = "ConformInfo",
-    init = function()
-        vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-    end,
     keys = {
         {
             "<leader>bf",

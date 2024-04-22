@@ -1,26 +1,17 @@
 return {
-    -- NVIM-TREESITTER --------------------------------------------------------
+    -- NVIM-TREESITTER ---------------------------------------------------------
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        dependencies = {
-            "andymass/vim-matchup",
-            config = function()
-                vim.g.matchup_matchparen_offscreen = { method = "scrolloff" }
-            end,
-        },
-        main = "nvim-treesitter.configs",
+        event = { "LazyFile", "VeryLazy" },
         init = function()
             -- Add hyprlang filetype
             vim.filetype.add({
                 pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
             })
         end,
-        event = { "LazyFile", "VeryLazy" },
+        main = "nvim-treesitter.configs",
         opts = {
-            highlight = { enable = true },
-            indent = { enable = true },
-            matchup = { enable = true },
             ensure_installed = {
                 "bash",
                 "c",
@@ -37,21 +28,14 @@ return {
                 "markdown",
                 "markdown_inline",
                 "python",
-                "regex",
+                "query",
                 "toml",
                 "vim",
                 "vimdoc",
                 "yaml",
             },
-            incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection = "<C-space>",
-                    node_incremental = "<C-space>",
-                    scope_incremental = false,
-                    node_decremental = "<bs>",
-                },
-            },
+            highlight = { enable = true },
+            additional_vim_regex_highlighting = false,
         },
     },
 }

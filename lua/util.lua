@@ -1,4 +1,4 @@
-M = {}
+local M = {}
 
 M.lazy_file_events = { "BufReadPost", "BufNewFile", "BufWritePre" }
 
@@ -6,6 +6,7 @@ function M.lazy_file()
     -- Add support for the LazyFile event
     local Event = require("lazy.core.handler.event")
 
+    -- We'll handle delayed execution of events ourselves
     Event.mappings.LazyFile = { id = "LazyFile", event = "User", pattern = "LazyFile" }
     Event.mappings["User LazyFile"] = Event.mappings.LazyFile
 

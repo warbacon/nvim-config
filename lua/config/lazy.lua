@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
     vim.fn.system({
         "git",
         "clone",
@@ -11,23 +11,19 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-if vim.fn.has("nvim-0.10") == 0 then
-    vim.uv = vim.uv or vim.loop -- needed to make LazyFile work
-end
-
 require("util").lazy_file()
 
 local opts = {
-    change_detection = { notify = false },
-    install = {
-        missing = true,
-        colorscheme = { "catppuccin", "habamax" },
-    },
     ui = { backdrop = 100 },
+    change_detection = { notify = false },
+    install = { colorscheme = { "catppuccin", "habamax" } },
     performance = {
         rtp = {
             disabled_plugins = {
                 "gzip",
+                -- "matchit",
+                -- "matchparen",
+                -- "netrwPlugin",
                 "tarPlugin",
                 "tohtml",
                 "tutor",
@@ -38,3 +34,5 @@ local opts = {
 }
 
 require("lazy").setup("plugins", opts)
+
+vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { silent = true })

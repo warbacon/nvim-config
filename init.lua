@@ -1,6 +1,6 @@
 -- Set leader-key to space
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = "\\"
 
 -- Options
 require("config.options")
@@ -10,9 +10,6 @@ require("config.autocmds")
 
 -- Keymaps
 require("config.keymaps")
-
--- Miscellaneous
-require("config.misc")
 
 -- Plugins
 require("config.lazy")

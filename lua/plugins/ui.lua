@@ -1,7 +1,11 @@
 return {
-    -- HEIRLINE.NVIM ----------------------------------------------------------
+    -- NVIM-WEB-DEVICONS -------------------------------------------------------
+    { "nvim-tree/nvim-web-devicons", lazy = true },
+
+    -- HEIRLINE.NVIM -----------------------------------------------------------
     {
         "rebelot/heirline.nvim",
+        enabled = false,
         event = "UiEnter",
         dependencies = "nvim-tree/nvim-web-devicons",
         init = function()

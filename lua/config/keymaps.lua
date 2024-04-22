@@ -1,20 +1,21 @@
--- Diagnostic keymaps
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
-
 -- Copy to clipboard
 vim.keymap.set("v", "<leader>y", '"+y')
 vim.keymap.set("n", "<leader>yy", '<S-v>"+y')
 
--- Next and previous buffer
-vim.keymap.set("n", "<tab>", vim.cmd.bnext)
-vim.keymap.set("n", "<s-tab>", vim.cmd.bprevious)
+-- Diagnostics
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 
--- Lazy.nvim
-vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>")
+-- LSP
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(ev)
+        local opts = { buffer = ev.buf }
+        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+        vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+    end,
+})
 
 -- Miscellaneous
-vim.keymap.set("n", "q:", "<nop>", { noremap = true })
-vim.keymap.set("n", "Q", "<nop>", { noremap = true })
+vim.keymap.set("n", "q:", "<cmd>echoe 'q:'<cr>", { noremap = true })

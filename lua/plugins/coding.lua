@@ -1,17 +1,37 @@
 return {
-    -- LUASNIP ----------------------------------------------------------------
+    -- COMMENT.NVIM ------------------------------------------------------------
+    {
+        "numToStr/Comment.nvim",
+        event = "LazyFile",
+        dependencies = {
+            { "JoosepAlviste/nvim-ts-context-commentstring", enable_autocmd = false },
+        },
+        opts = function()
+            return {
+                pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+            }
+        end,
+    },
+
+    -- NVIM-SURROUND -----------------------------------------------------------
+    {
+        "kylechui/nvim-surround",
+        event = "VeryLazy",
+        opts = {},
+    },
+
+    -- LUASNIP -----------------------------------------------------------------
     {
         "L3MON4D3/LuaSnip",
         lazy = true,
         build = (function()
-            if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
-                return
+            if vim.fn.has("win32") == 0 and vim.fn.executable("make") == 1 then
+                return "make install_jsregexp"
             end
-            return "make install_jsregexp"
         end)(),
     },
 
-    -- NVIM-CMP ---------------------------------------------------------------
+    -- NVIM-CMP ----------------------------------------------------------------
     {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",

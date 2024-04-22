@@ -1,9 +1,24 @@
+-- LSP servers options ---------------------------------------------------------
 local servers = {
     basedpyright = {},
     bashls = {},
     clangd = {},
     jsonls = { settings = { json = { validate = { enable = true } } } },
     lua_ls = {
+        on_init = function(client)
+            local path = client.workspace_folders[1].name
+            if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+                return
+            end
+
+            client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+                runtime = { version = "LuaJIT" },
+                workspace = {
+                    checkThirdParty = false,
+                    library = { vim.env.VIMRUNTIME },
+                },
+            })
+        end,
         settings = { Lua = { completion = { callSnippet = "Replace" } } },
     },
     powershell_es = {
@@ -15,42 +30,45 @@ local servers = {
     },
 }
 
-local utilities = {
-    "clang-format",
-    "markdownlint",
-    "ruff",
-    "shfmt",
-    "stylua",
-    "shellcheck",
-}
-
+-- Disable powershell_es if powershell isn't installed
 if vim.fn.executable("pwsh") == 0 and vim.fn.executable("powershell") == 0 then
     servers.powershell_es = nil
 end
 
+-- Disable clangd and bashls in Windows
 if vim.fn.has("win32") == 1 then
     servers.clangd = nil
     servers.bashls = nil
 end
 
 return {
-    -- MASON.NVIM -------------------------------------------------------------
+    -- MASON.NVIM --------------------------------------------------------------
     {
         "williamboman/mason.nvim",
-        event = "VeryLazy",
-        build = ":MasonUpdate",
-        keys = { { "<leader>m", "<cmd>Mason<cr>", mode = "n" } },
         dependencies = {
             "WhoIsSethDaniel/mason-tool-installer.nvim",
             "williamboman/mason-lspconfig.nvim",
         },
+        build = ":MasonUpdate",
+        event = "VeryLazy",
+        cmd = "Mason",
+        keys = { { "<leader>m", "<cmd>Mason<cr>" } },
         config = function()
-            local ensure_installed = utilities
+            local ensure_installed = vim.tbl_keys(servers)
 
-            vim.list_extend(ensure_installed, vim.tbl_keys(servers))
+            vim.list_extend(ensure_installed, {
+                "clang-format",
+                "markdownlint",
+                "ruff",
+                "shfmt",
+                "stylua",
+                "shellcheck",
+            })
 
-            require("mason").setup({})
-            require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+            require("mason").setup()
+            require("mason-tool-installer").setup({
+                ensure_installed = ensure_installed,
+            })
         end,
     },
 
@@ -61,69 +79,29 @@ return {
         dependencies = {
             "mason.nvim",
             "b0o/SchemaStore.nvim",
-            { "folke/neodev.nvim", opts = {} },
-            {
-                "j-hui/fidget.nvim",
-                opts = {
-                    notification = { window = { winblend = 30 } },
-                },
-            },
         },
         config = function()
-            require("mason-lspconfig").setup()
-
-            -- Set lsp capabilities
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
-            vim.api.nvim_create_autocmd("LspAttach", {
-                group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-                callback = function(ev)
-                    vim.bo[ev.buf].formatexpr = nil -- makes gq work
-                    local opts = { buffer = ev.buf }
-                    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-                    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-                    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-                    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-                    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-                    vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
-                    vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
-                    vim.keymap.set("n", "<leader>wl", function()
-                        print(vim.inspect(vim.lsp.buf.list_workleader_folders()))
-                    end, opts)
-                    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
-                    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-                    vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-                    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-                end,
-            })
 
             servers.jsonls.settings.schemas = require("schemastore").json.schemas()
             servers.yamlls.settings.schemas = require("schemastore").yaml.schemas()
 
             for server, opts in pairs(servers) do
-                opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, opts.capabilities or {})
+                opts.capabilities = capabilities
                 require("lspconfig")[server].setup(opts)
             end
         end,
     },
 
-    -- NONE-LS.NVIM -----------------------------------------------------------
+    -- FIDGET.NVIM -------------------------------------------------------------
     {
-        "nvimtools/none-ls.nvim",
-        event = "LazyFile",
-        dependencies = "mason.nvim",
-        opts = function()
-            local null_ls = require("null-ls")
-            return {
-                sources = {
-                    null_ls.builtins.diagnostics.fish,
-                    null_ls.builtins.diagnostics.markdownlint.with({
-                        extra_args = { "--disable", "MD033" },
-                    }),
-                    null_ls.builtins.diagnostics.zsh,
-                },
-            }
-        end,
+        "j-hui/fidget.nvim",
+        event = "LspAttach",
+        opts = {
+            notification = {
+                window = { winblend = 0 },
+            },
+        },
     },
 }

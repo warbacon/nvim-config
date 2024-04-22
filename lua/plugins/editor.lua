@@ -7,8 +7,13 @@ return {
             "nvim-lua/plenary.nvim",
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
-                enabled = vim.fn.has("win32") == 0 and vim.fn.executable("make") == 1,
-                build = "make",
+                build = (function()
+                    if vim.fn.has("win32") == 1 and vim.fn.executable("mingw32-make") == 1 then
+                        return "mingw32-make"
+                    elseif vim.fn.executable("make") then
+                        return "make"
+                    end
+                end)(),
             },
         },
         config = function()

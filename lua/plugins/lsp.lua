@@ -21,19 +21,11 @@ local servers = {
         end,
         settings = { Lua = { completion = { callSnippet = "Replace" } } },
     },
-    powershell_es = {
-        settings = { powershell = { codeFormatting = { Preset = "OTBS" } } },
-    },
     taplo = {},
     yamlls = {
         settings = { yaml = { schemaStore = { enable = false, url = "" } } },
     },
 }
-
--- Disable powershell_es if powershell isn't installed
-if vim.fn.executable("pwsh") == 0 and vim.fn.executable("powershell") == 0 then
-    servers.powershell_es = nil
-end
 
 -- Disable clangd and bashls in Windows
 if vim.fn.has("win32") == 1 then
@@ -66,6 +58,7 @@ return {
             })
 
             require("mason").setup()
+            require("mason-lspconfig").setup()
             require("mason-tool-installer").setup({
                 ensure_installed = ensure_installed,
             })

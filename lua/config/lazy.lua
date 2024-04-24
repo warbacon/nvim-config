@@ -1,8 +1,3 @@
--- Workaround for nvim < v0.10
-if vim.fn.has("nvim-0.10") == 0 then
-    vim.uv = vim.uv or vim.loop
-end
-
 -- Clone lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then

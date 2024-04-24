@@ -5,20 +5,6 @@ local servers = {
     clangd = {},
     jsonls = { settings = { json = { validate = { enable = true } } } },
     lua_ls = {
-        on_init = function(client)
-            local path = client.workspace_folders[1].name
-            if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
-                return
-            end
-
-            client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-                runtime = { version = "LuaJIT" },
-                workspace = {
-                    checkThirdParty = false,
-                    library = { vim.env.VIMRUNTIME },
-                },
-            })
-        end,
         settings = { Lua = { completion = { callSnippet = "Replace" } } },
     },
     taplo = {},
@@ -83,6 +69,7 @@ return {
         dependencies = {
             "mason.nvim",
             "b0o/SchemaStore.nvim",
+            { "folke/neodev.nvim", opts = { library = { plugins = false } } },
         },
         config = function()
             local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -105,6 +92,7 @@ return {
         dependencies = { "mason.nvim" },
         opts = function()
             local diagnostics = require("null-ls").builtins.diagnostics
+
             return {
                 sources = {
                     diagnostics.fish,

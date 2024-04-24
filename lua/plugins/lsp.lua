@@ -34,6 +34,17 @@ if vim.fn.has("win32") == 1 then
 end
 
 return {
+    -- FIDGET.NVIM -------------------------------------------------------------
+    {
+        "j-hui/fidget.nvim",
+        event = "LspAttach",
+        opts = {
+            notification = {
+                window = { winblend = 0 },
+            },
+        },
+    },
+
     -- MASON.NVIM --------------------------------------------------------------
     {
         "williamboman/mason.nvim",
@@ -87,14 +98,22 @@ return {
         end,
     },
 
-    -- FIDGET.NVIM -------------------------------------------------------------
+    -- NONE-LS.NVIM ------------------------------------------------------------
     {
-        "j-hui/fidget.nvim",
-        event = "LspAttach",
-        opts = {
-            notification = {
-                window = { winblend = 0 },
-            },
-        },
+        "nvimtools/none-ls.nvim",
+        event = "LazyFile",
+        dependencies = { "mason.nvim" },
+        opts = function()
+            local diagnostics = require("null-ls").builtins.diagnostics
+            return {
+                sources = {
+                    diagnostics.fish,
+                    diagnostics.zsh,
+                    diagnostics.markdownlint.with({
+                        extra_args = { "--disable=MD033" },
+                    }),
+                },
+            }
+        end,
     },
 }

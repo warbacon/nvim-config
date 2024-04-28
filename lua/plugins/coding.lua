@@ -60,7 +60,7 @@ return {
                         })(entry, vim_item)
 
                         if choice.menu ~= nil and choice.menu:len() > 15 then
-                            choice.menu = string.sub(choice.menu, 1, 15)
+                            choice.menu = string.sub(choice.menu, 1, 15) .. "…"
                         end
 
                         return choice

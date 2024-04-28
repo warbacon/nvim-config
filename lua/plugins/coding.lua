@@ -44,11 +44,19 @@ return {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
+            "onsails/lspkind.nvim",
         },
         opts = function()
             local cmp = require("cmp")
             local luasnip = require("luasnip")
             return {
+                formatting = {
+                    fields = { "kind", "abbr", "menu" },
+                    format = require("lspkind").cmp_format({
+                        mode = "symbol",
+                        maxwidth = 50,
+                    }),
+                },
                 snippet = {
                     expand = function(args)
                         luasnip.lsp_expand(args.body)

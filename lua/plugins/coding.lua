@@ -52,10 +52,19 @@ return {
             return {
                 formatting = {
                     fields = { "kind", "abbr", "menu" },
-                    format = require("lspkind").cmp_format({
-                        mode = "symbol",
-                        maxwidth = 50,
-                    }),
+                    format = function(entry, vim_item)
+                        local choice = require("lspkind").cmp_format({
+                            mode = "symbol",
+                            ellipsis_char = "…",
+                            maxwidth = 50,
+                        })(entry, vim_item)
+
+                        if choice.menu ~= nil and choice.menu:len() > 15 then
+                            choice.menu = string.sub(choice.menu, 1, 15)
+                        end
+
+                        return choice
+                    end,
                 },
                 snippet = {
                     expand = function(args)

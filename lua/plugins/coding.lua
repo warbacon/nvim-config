@@ -56,7 +56,7 @@ return {
                         local choice = require("lspkind").cmp_format({
                             mode = "symbol",
                             ellipsis_char = "…",
-                            maxwidth = 50,
+                            maxwidth = 40,
                         })(entry, vim_item)
 
                         if choice.menu ~= nil and choice.menu:len() > 15 then

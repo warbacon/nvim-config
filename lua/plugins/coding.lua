@@ -16,6 +16,14 @@ return {
         end,
     },
 
+    -- TREESJ ------------------------------------------------------------------
+    {
+        "Wansmer/treesj",
+        keys = { "<leader>m", "<leader>j", "<leader>s" },
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        opts = {},
+    },
+
     -- NVIM-SURROUND -----------------------------------------------------------
     {
         "kylechui/nvim-surround",

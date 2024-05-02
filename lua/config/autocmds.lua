@@ -16,12 +16,12 @@ autocmd("TextYankPost", {
 })
 
 -- Makes gqq work in Markdown
-autocmd("LspAttach", {
-    pattern = { "*.md" },
-    callback = function()
-        vim.bo.formatexpr = nil
-    end,
-})
+-- autocmd("LspAttach", {
+--     pattern = { "*.md" },
+--     callback = function()
+--         vim.bo.formatexpr = nil
+--     end,
+-- })
 
 -- Disable auto comment after hitting o in normal mode
 autocmd("FileType", {

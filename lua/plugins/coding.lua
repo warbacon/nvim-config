@@ -19,9 +19,26 @@ return {
     -- TREESJ ------------------------------------------------------------------
     {
         "Wansmer/treesj",
-        keys = { "<leader>m", "<leader>j", "<leader>s" },
+        keys = {
+            {
+                "<leader>j",
+                function()
+                    require("treesj").join()
+                end,
+                mode = "n",
+            },
+            {
+                "<leader>s",
+                function()
+                    require("treesj").split()
+                end,
+                mode = "n",
+            },
+        },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
-        opts = {},
+        opts = {
+            use_default_keymaps = false,
+        },
     },
 
     -- NVIM-SURROUND -----------------------------------------------------------

@@ -84,24 +84,4 @@ return {
             end
         end,
     },
-
-    -- NONE-LS.NVIM ------------------------------------------------------------
-    {
-        "nvimtools/none-ls.nvim",
-        event = "LazyFile",
-        dependencies = { "mason.nvim" },
-        opts = function()
-            local diagnostics = require("null-ls").builtins.diagnostics
-
-            return {
-                sources = {
-                    diagnostics.fish,
-                    diagnostics.zsh,
-                    diagnostics.markdownlint.with({
-                        extra_args = { "--disable=MD033" },
-                    }),
-                },
-            }
-        end,
-    },
 }

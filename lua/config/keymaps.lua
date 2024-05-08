@@ -13,7 +13,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local opts = { buffer = ev.buf }
         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
         vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        if vim.fn.has("nvim-0.10") == 0 then
+            vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        end
     end,
 })
 

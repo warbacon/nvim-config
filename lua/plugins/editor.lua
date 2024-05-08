@@ -83,6 +83,7 @@ return {
     -- NEOGIT ------------------------------------------------------------------
     {
         "NeogitOrg/neogit",
+        branch = vim.fn.has("nvim-0.10") == 1 and "nightly" or "master",
         cmd = { "Neogit", "NeogitResetState" },
         keys = {
             { "<leader>ng", "<cmd>Neogit<cr>" },

@@ -6,7 +6,12 @@ return {
         priority = 1000,
         opts = {
             styles = { booleans = { "bold" } },
-            custom_highlights = { CursorLine = { bg = "None" } },
+            custom_highlights = function(colors)
+                return {
+                    FloatBorder = { bg = colors.mantle, fg = colors.sky },
+                    DiagnosticFloatingInfo = { bg = colors.mantle, fg = colors.sky },
+                }
+            end,
             integrations = {
                 fidget = true,
                 mason = true,
@@ -23,7 +28,6 @@ return {
         config = function(_, opts)
             require("catppuccin").setup(opts)
             vim.cmd.colorscheme("catppuccin")
-            vim.opt.cursorline = true
         end,
     },
 }

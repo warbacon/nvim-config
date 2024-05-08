@@ -12,8 +12,8 @@ return {
     },
     opts = {
         formatters_by_ft = {
-            c = { "clang-format" },
-            cpp = { "clang-format" },
+            c = { "clang_format" },
+            cpp = { "clang_format" },
             fish = { "fish_indent" },
             lua = { "stylua" },
             python = { "ruff_format" },

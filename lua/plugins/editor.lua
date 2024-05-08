@@ -1,43 +1,8 @@
 return {
-    -- TELESCOPE.NVIM ----------------------------------------------------------
-    {
-        "nvim-telescope/telescope.nvim",
-        enabled = false,
-        event = "VeryLazy",
-        dependencies = {
-            {
-                "nvim-telescope/telescope-fzf-native.nvim",
-                build = (function()
-                    if vim.fn.has("win32") == 1 and vim.fn.executable("mingw32-make") == 1 then
-                        return "mingw32-make"
-                    elseif vim.fn.executable("make") then
-                        return "make"
-                    end
-                end)(),
-            },
-        },
-        config = function()
-            local builtin = require("telescope.builtin")
-
-            vim.keymap.set("n", "<leader><leader>", builtin.buffers)
-            vim.keymap.set("n", "<leader>ff", builtin.find_files)
-            vim.keymap.set("n", "<leader>fg", builtin.live_grep)
-            vim.keymap.set("n", "<leader>fh", builtin.help_tags)
-
-            pcall(require("telescope").load_extension, "fzf")
-        end,
-    },
-
     -- MINI.PICK ---------------------------------------------------------------
     {
         "echasnovski/mini.pick",
         cmd = "Pick",
-        init = function()
-            ---@diagnostic disable-next-line: duplicate-set-field
-            vim.ui.select = function(...)
-                return require("mini.pick").ui_select(...)
-            end
-        end,
         keys = {
             { "<leader><leader>", "<cmd>Pick buffers<cr>", mode = "n" },
             { "<leader>ff", "<cmd>Pick files<cr>", mode = "n" },

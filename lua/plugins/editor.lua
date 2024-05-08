@@ -2,6 +2,7 @@ return {
     -- TELESCOPE.NVIM ----------------------------------------------------------
     {
         "nvim-telescope/telescope.nvim",
+        enabled = false,
         event = "VeryLazy",
         dependencies = {
             {
@@ -25,6 +26,25 @@ return {
 
             pcall(require("telescope").load_extension, "fzf")
         end,
+    },
+
+    -- MINI.PICK ---------------------------------------------------------------
+    {
+        "echasnovski/mini.pick",
+        cmd = "Pick",
+        init = function()
+            ---@diagnostic disable-next-line: duplicate-set-field
+            vim.ui.select = function(...)
+                return require("mini.pick").ui_select(...)
+            end
+        end,
+        keys = {
+            { "<leader><leader>", "<cmd>Pick buffers<cr>", mode = "n" },
+            { "<leader>ff", "<cmd>Pick files<cr>", mode = "n" },
+            { "<leader>fg", "<cmd>Pick grep_live<cr>", mode = "n" },
+            { "<leader>fh", "<cmd>Pick help<cr>", mode = "n" },
+        },
+        opts = {},
     },
 
     -- GITSIGNS.NVIM -----------------------------------------------------------

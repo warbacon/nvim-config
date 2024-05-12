@@ -1,14 +1,12 @@
 local autocmd = vim.api.nvim_create_autocmd
 
 -- Fix cursor at leave
-if vim.fn.has("nvim-0.10") == 0 then
-    autocmd("VimLeave", {
-        callback = function()
-            vim.opt.guicursor = ""
-            vim.api.nvim_chan_send(vim.api.nvim_get_vvar("stderr"), "\x1b[ q")
-        end,
-    })
-end
+autocmd("VimLeave", {
+    callback = function()
+        vim.opt.guicursor = ""
+        vim.api.nvim_chan_send(vim.api.nvim_get_vvar("stderr"), "\x1b[ q")
+    end,
+})
 
 -- Highlight when yanking text
 autocmd("TextYankPost", {

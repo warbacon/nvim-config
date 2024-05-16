@@ -1,15 +1,33 @@
 return {
-    -- MINI.PICK ---------------------------------------------------------------
+    -- TELESCOPE.NVIM ---------------------------------------------------------
     {
-        "echasnovski/mini.pick",
-        cmd = "Pick",
-        keys = {
-            { "<leader><leader>", "<cmd>Pick buffers<cr>", mode = "n" },
-            { "<leader>ff", "<cmd>Pick files<cr>", mode = "n" },
-            { "<leader>fg", "<cmd>Pick grep_live<cr>", mode = "n" },
-            { "<leader>fh", "<cmd>Pick help<cr>", mode = "n" },
+        "nvim-telescope/telescope.nvim",
+        dependencies = {
+            {
+                "nvim-telescope/telescope-fzf-native.nvim",
+                build = (function()
+                    if vim.fn.has("win32") == 1 and vim.fn.executable("mingw32-make") == 1 then
+                        return "mingw32-make"
+                    elseif vim.fn.executable("make") then
+                        return "make"
+                    end
+                end)(),
+            },
         },
-        opts = {},
+        command = "Telescope",
+        keys = {
+            { "<leader><leader>", "<cmd>Telescope buffers<cr>", mode = "n" },
+            { "<leader>ff", "<cmd>Telescope find_files<cr>", mode = "n" },
+            { "<leader>fg", "<cmd>Telescope live_grep<cr>", mode = "n" },
+            { "<leader>fh", "<cmd>Telescope help_tags<cr>", mode = "n" },
+        },
+        opts = {
+            defaults = { prompt_prefix = "   " },
+        },
+        config = function(_, opts)
+            require("telescope").setup(opts)
+            pcall(require("telescope").load_extension, "fzf")
+        end,
     },
 
     -- GITSIGNS.NVIM -----------------------------------------------------------

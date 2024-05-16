@@ -8,8 +8,7 @@ return {
             styles = { booleans = { "bold" } },
             custom_highlights = function(colors)
                 return {
-                    FloatBorder = { bg = colors.mantle, fg = colors.sky },
-                    DiagnosticFloatingInfo = { bg = colors.mantle, fg = colors.sky },
+                    ModeMsg = { fg = colors.peach, style = { "bold" } },
                 }
             end,
             integrations = {

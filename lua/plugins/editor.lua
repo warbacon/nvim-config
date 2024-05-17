@@ -22,7 +22,14 @@ return {
             { "<leader>fh", "<cmd>Telescope help_tags<cr>", mode = "n" },
         },
         opts = {
-            defaults = { prompt_prefix = "   " },
+            defaults = {
+                prompt_prefix = "   ",
+                path_display = {
+                    filename_first = {
+                        reverse_directories = false,
+                    }
+                }
+            },
         },
         config = function(_, opts)
             require("telescope").setup(opts)

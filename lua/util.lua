@@ -3,11 +3,6 @@ local M = {}
 M.lazy_file_events = { "BufReadPost", "BufNewFile", "BufWritePre" }
 
 function M.lazy_file()
-    -- Workaround for nvim < v0.10
-    if vim.fn.has("nvim-0.10") == 0 then
-        vim.uv = vim.uv or vim.loop
-    end
-
     -- Add support for the LazyFile event
     local Event = require("lazy.core.handler.event")
 

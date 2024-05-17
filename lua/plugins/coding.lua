@@ -1,21 +1,4 @@
 return {
-    -- COMMENT.NVIM ------------------------------------------------------------
-    {
-        "numToStr/Comment.nvim",
-        event = "LazyFile",
-        dependencies = {
-            {
-                "JoosepAlviste/nvim-ts-context-commentstring",
-                opts = { enable_autocmd = false },
-            },
-        },
-        opts = function()
-            return {
-                pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-            }
-        end,
-    },
-
     -- TREESJ ------------------------------------------------------------------
     {
         "Wansmer/treesj",

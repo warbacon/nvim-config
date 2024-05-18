@@ -2,11 +2,6 @@
 vim.keymap.set("v", "<leader>y", '"+y')
 vim.keymap.set("n", "<leader>yy", '<S-v>"+y')
 
--- Diagnostics
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-
 -- LSP
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)

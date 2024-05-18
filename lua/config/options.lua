@@ -23,8 +23,8 @@ vim.opt.smartindent = true
 vim.opt.tabstop = 4
 
 -- Set scrolloff and sidescroll settings
-vim.opt.scrolloff = 999
-vim.opt.sidescroll = 4
+vim.opt.scrolloff = 5
+vim.opt.sidescrolloff = 3
 vim.opt.wrap = false
 
 -- Enable block mode for virtual editing
@@ -51,3 +51,6 @@ vim.opt.fillchars = {
     diff = "╱",
     eob = " ",
 }
+
+-- Git signs in statuscolumn
+vim.opt.statuscolumn = [[%!v:lua.require("util").statuscolumn()]]

@@ -8,7 +8,8 @@ return {
             styles = { booleans = { "bold" } },
             custom_highlights = function(colors)
                 return {
-                    ModeMsg = { fg = colors.peach, style = { "bold" } },
+                    Cursor2 = { fg = colors.green, bg = colors.green },
+                    IndentLineCurrent = { fg = colors.sky },
                 }
             end,
             integrations = {
@@ -27,6 +28,7 @@ return {
         config = function(_, opts)
             require("catppuccin").setup(opts)
             vim.cmd.colorscheme("catppuccin")
+            vim.opt.guicursor = "n-v-c:block-Cursor/lCursor,i-ci-ve:block-Cursor2/lCursor2,r-cr:hor20,o:hor50"
         end,
     },
 }

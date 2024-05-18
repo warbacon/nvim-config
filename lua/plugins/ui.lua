@@ -2,6 +2,31 @@ return {
     -- NVIM-WEB-DEVICONS -------------------------------------------------------
     { "nvim-tree/nvim-web-devicons", lazy = true },
 
+    -- INDENT-BLANKLINE.NVIM ---------------------------------------------------
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        event = "LazyFile",
+        main = "ibl",
+        opts = {
+            indent = {
+                char = "│",
+                tab_char = "│",
+            },
+            scope = {
+                highlight = "IndentLineCurrent",
+                show_start = false,
+                show_end = false,
+            },
+            exclude = {
+                filetypes = {
+                    "help",
+                    "lazy",
+                    "mason",
+                },
+            },
+        },
+    },
+
     -- HEIRLINE.NVIM -----------------------------------------------------------
     {
         "rebelot/heirline.nvim",

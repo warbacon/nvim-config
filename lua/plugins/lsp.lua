@@ -75,6 +75,29 @@ return {
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
+            vim.diagnostic.config({
+                virtual_text = {
+                    prefix = function(diagnostic)
+                        local icons = require("util").icons.diagnostics
+                        for d, icon in pairs(icons) do
+                            if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+                                return icon
+                            end
+                            ---@diagnostic disable-next-line: missing-return
+                        end
+                    end,
+                },
+                severity_sort = true,
+                signs = {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = require("util").icons.diagnostics.Error,
+                        [vim.diagnostic.severity.WARN]  = require("util").icons.diagnostics.Warn,
+                        [vim.diagnostic.severity.HINT]  = require("util").icons.diagnostics.Hint,
+                        [vim.diagnostic.severity.INFO]  = require("util").icons.diagnostics.Info,
+                    },
+                },
+            })
+
             servers.jsonls.settings.schemas = require("schemastore").json.schemas()
             servers.yamlls.settings.schemas = require("schemastore").yaml.schemas()
 

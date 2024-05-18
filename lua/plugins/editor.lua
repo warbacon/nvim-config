@@ -27,8 +27,8 @@ return {
                 path_display = {
                     filename_first = {
                         reverse_directories = false,
-                    }
-                }
+                    },
+                },
             },
         },
         config = function(_, opts)

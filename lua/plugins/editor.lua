@@ -14,7 +14,7 @@ return {
                 end)(),
             },
         },
-        command = "Telescope",
+        cmd = "Telescope",
         keys = {
             { "<leader><leader>", "<cmd>Telescope buffers<cr>", mode = "n" },
             { "<leader>ff", "<cmd>Telescope find_files<cr>", mode = "n" },

@@ -28,7 +28,7 @@ return {
         config = function(_, opts)
             require("catppuccin").setup(opts)
             vim.cmd.colorscheme("catppuccin")
-            vim.opt.guicursor = "n-v-c:block-Cursor/lCursor,i-ci-ve:block-Cursor2/lCursor2,r-cr:hor20,o:hor50"
+            vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:block-Cursor2/lCursor2,r-cr-o:hor20"
         end,
     },
 }

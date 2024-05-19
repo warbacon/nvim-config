@@ -17,6 +17,13 @@ autocmd("TextYankPost", {
 
 -- Disable auto comment after hitting o in normal mode
 autocmd("FileType", {
+    callback = function()
+        vim.opt.formatoptions:remove({ "o", "r" })
+    end,
+})
+
+-- Disable signcolumn and statuscolumn in netrw
+autocmd("FileType", {
     pattern = "netrw",
     callback = function()
         vim.opt_local.signcolumn = "no"

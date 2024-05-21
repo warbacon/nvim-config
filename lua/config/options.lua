@@ -2,6 +2,10 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
 
+-- Highlight line number
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = "number"
+
 -- Enable persistent undo with undo files
 vim.opt.undofile = true
 

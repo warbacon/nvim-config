@@ -13,7 +13,7 @@ return {
                 tab_char = "│",
             },
             scope = {
-                highlight = "IndentLineCurrent",
+                highlight = "CursorLineNr",
                 show_start = false,
                 show_end = false,
             },
@@ -116,7 +116,7 @@ return {
                     condition = function()
                         return vim.bo.modified
                     end,
-                    provider = " [+]",
+                    provider = " ⬤",
                 },
                 {
                     condition = function()

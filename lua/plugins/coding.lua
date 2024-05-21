@@ -31,24 +31,11 @@ return {
         opts = {},
     },
 
-    -- LUASNIP -----------------------------------------------------------------
-    {
-        "L3MON4D3/LuaSnip",
-        lazy = true,
-        build = (function()
-            if vim.fn.has("win32") == 0 and vim.fn.executable("make") == 1 then
-                return "make install_jsregexp"
-            end
-        end)(),
-    },
-
     -- NVIM-CMP ----------------------------------------------------------------
     {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
         dependencies = {
-            "LuaSnip",
-            "saadparwaiz1/cmp_luasnip",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
@@ -56,7 +43,6 @@ return {
         },
         opts = function()
             local cmp = require("cmp")
-            local luasnip = require("luasnip")
             return {
                 formatting = {
                     fields = { "kind", "abbr", "menu" },
@@ -75,8 +61,8 @@ return {
                     end,
                 },
                 snippet = {
-                    expand = function(args)
-                        luasnip.lsp_expand(args.body)
+                    expand = function(arg)
+                        vim.snippet.expand(arg.body)
                     end,
                 },
                 completion = { completeopt = "menu,menuone,noinsert" },
@@ -94,13 +80,13 @@ return {
                         fallback()
                     end,
                     ["<C-l>"] = cmp.mapping(function()
-                        if luasnip.expand_or_locally_jumpable() then
-                            luasnip.expand_or_jump()
+                        if vim.snippet.active({ direction = 1 }) then
+                            vim.snippet.jump(1)
                         end
                     end, { "i", "s" }),
                     ["<C-h>"] = cmp.mapping(function()
-                        if luasnip.locally_jumpable(-1) then
-                            luasnip.jump(-1)
+                        if vim.snippet.active({ direction = -1 }) then
+                            vim.snippet.jump(-1)
                         end
                     end, { "i", "s" }),
                 }),
@@ -111,7 +97,6 @@ return {
                 },
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },
-                    { name = "luasnip" },
                     { name = "path" },
                 }, {
                     { name = "buffer" },

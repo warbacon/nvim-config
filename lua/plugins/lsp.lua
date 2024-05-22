@@ -125,7 +125,7 @@ return {
             local servers = opts.servers
 
             if vim.fn.has("win32") == 1 then
-                servers.clang.enabled = false
+                servers.clangd.enabled = false
                 servers.bashls.enabled = false
             end
 

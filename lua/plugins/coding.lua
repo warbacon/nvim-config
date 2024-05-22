@@ -1,4 +1,40 @@
 return {
+    -- TS-COMMENTS.NVIM --------------------------------------------------------
+    {
+        "folke/ts-comments.nvim",
+        event = "VeryLazy",
+        opts = { lang = { hyprlang = "# %s" } },
+    },
+
+    -- NVIM-SURROUND -----------------------------------------------------------
+    {
+        "kylechui/nvim-surround",
+        event = "VeryLazy",
+        opts = {},
+    },
+
+    -- MINI.AI -----------------------------------------------------------------
+    {
+        "echasnovski/mini.ai",
+        event = "VeryLazy",
+        opts = function()
+            local ai = require("mini.ai")
+            return {
+                n_lines = 500,
+                custom_textobjects = {
+                    o = ai.gen_spec.treesitter({
+                        a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+                        i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+                    }),
+                    f = ai.gen_spec.treesitter({
+                        a = "@function.outer",
+                        i = "@function.inner",
+                    }),
+                },
+            }
+        end,
+    },
+
     -- TREESJ ------------------------------------------------------------------
     {
         "Wansmer/treesj",
@@ -22,13 +58,6 @@ return {
         opts = {
             use_default_keymaps = false,
         },
-    },
-
-    -- NVIM-SURROUND -----------------------------------------------------------
-    {
-        "kylechui/nvim-surround",
-        event = "VeryLazy",
-        opts = {},
     },
 
     -- NVIM-CMP ----------------------------------------------------------------

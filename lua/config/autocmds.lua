@@ -30,11 +30,3 @@ autocmd("FileType", {
         vim.opt_local.statuscolumn = ""
     end,
 })
-
--- Disable cursorline in Neogit
-autocmd("FileType", {
-    pattern = "Neogit*",
-    callback = function()
-        vim.opt_local.cursorline = false
-    end,
-})

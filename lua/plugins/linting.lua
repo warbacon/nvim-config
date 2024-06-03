@@ -1,4 +1,5 @@
 return {
+    -- NVIM-LINT ===============================================================
     "mfussenegger/nvim-lint",
     event = "LazyFile",
     config = function()

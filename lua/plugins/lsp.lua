@@ -1,5 +1,5 @@
 return {
-    -- FIDGET.NVIM -------------------------------------------------------------
+    -- FIDGET.NVIM =============================================================
     {
         "j-hui/fidget.nvim",
         event = "LspAttach",
@@ -10,7 +10,7 @@ return {
         },
     },
 
-    -- MASON.NVIM --------------------------------------------------------------
+    -- MASON.NVIM ==============================================================
     {
         "williamboman/mason.nvim",
         cmd = "Mason",
@@ -54,18 +54,24 @@ return {
         end,
     },
 
-    -- NVIM-LSPCONFIG ----------------------------------------------------------
+    -- LAZYDEV.NVIM ============================================================
+    {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = { library = { "luvit-meta/library" } },
+    },
+    { "Bilal2453/luvit-meta", lazy = true },
+
+    -- SCHEMASTORE.NVIM ========================================================
+    { "b0o/SchemaStore.nvim", lazy = true },
+
+    -- NVIM-LSPCONFIG ==========================================================
     {
         "neovim/nvim-lspconfig",
         event = "LazyFile",
         dependencies = {
             "mason.nvim",
             "williamboman/mason-lspconfig.nvim",
-            "b0o/SchemaStore.nvim",
-            {
-                "folke/neodev.nvim",
-                opts = { library = { plugins = { "catppuccin" } } },
-            },
         },
         opts = {
             servers = {
@@ -73,6 +79,10 @@ return {
                 bashls = {},
                 clangd = {},
                 jsonls = {
+                    on_new_config = function(new_config)
+                        new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+                        vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
+                    end,
                     json = {
                         format = { enable = true },
                         validate = { enable = true },
@@ -81,13 +91,40 @@ return {
                 lua_ls = {
                     settings = {
                         Lua = {
-                            hint = { enable = true },
+                            workspace = { checkThirdParty = false },
+                            codeLens = { enable = true },
                             completion = { callSnippet = "Replace" },
+                            doc = { privateName = { "^_" } },
+                            hint = {
+                                enable = true,
+                                setType = false,
+                                paramType = true,
+                                paramName = "Disable",
+                                semicolon = "Disable",
+                                arrayIndex = "Disable",
+                            },
                         },
                     },
                 },
                 taplo = {},
                 yamlls = {
+                    -- Have to add this for yamlls to understand that we support line folding
+                    capabilities = {
+                        textDocument = {
+                            foldingRange = {
+                                dynamicRegistration = false,
+                                lineFoldingOnly = true,
+                            },
+                        },
+                    },
+                    -- lazy-load schemastore when needed
+                    on_new_config = function(new_config)
+                        new_config.settings.yaml.schemas = vim.tbl_deep_extend(
+                            "force",
+                            new_config.settings.yaml.schemas or {},
+                            require("schemastore").yaml.schemas()
+                        )
+                    end,
                     settings = {
                         redhat = { telemetry = { enabled = false } },
                         yaml = {
@@ -100,16 +137,6 @@ return {
                 },
             },
             diagnostics = {
-                virtual_text = {
-                    prefix = function(diagnostic)
-                        local icons = require("util").icons.diagnostics
-                        for d, icon in pairs(icons) do
-                            if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
-                                return icon
-                            end
-                        end
-                    end,
-                },
                 severity_sort = true,
                 signs = {
                     text = {
@@ -128,9 +155,6 @@ return {
                 servers.clangd.enabled = false
                 servers.bashls.enabled = false
             end
-
-            servers.jsonls.json.schemas = require("schemastore").json.schemas()
-            servers.yamlls.settings.schemas = require("schemastore").yaml.schemas()
 
             vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 

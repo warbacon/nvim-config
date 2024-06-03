@@ -13,9 +13,6 @@ vim.opt.undofile = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
--- Set a column indicator at 80 characters
-vim.opt.colorcolumn = "80"
-
 -- Set popup menu height
 vim.opt.pumheight = 10
 
@@ -48,13 +45,15 @@ vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
 
 -- Customize display of various elements
 vim.opt.fillchars = {
-    foldopen = "",
-    foldclose = "",
-    fold = " ",
-    foldsep = " ",
     diff = "╱",
     eob = " ",
 }
 
 -- Git signs in statuscolumn
-vim.opt.statuscolumn = [[%!v:lua.require("util").statuscolumn()]]
+vim.opt.statuscolumn = [[%!v:lua.require("statuscolumn").setup()]]
+
+-- Disable external providers
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0

@@ -17,5 +17,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
+-- Snippets
+vim.keymap.set({ "i", "s" }, "<c-l>", function()
+    return vim.snippet.active({ direction = 1 }) and vim.snippet.jump(1)
+end, { silent = true })
+
+vim.keymap.set({ "i", "s" }, "<c-h>", function()
+    return vim.snippet.active({ direction = -1 }) and vim.snippet.jump(-1)
+end, { silent = true })
+
 -- Miscellaneous
 vim.keymap.set("n", "q:", "<cmd>echoe 'q:'<cr>", { noremap = true })

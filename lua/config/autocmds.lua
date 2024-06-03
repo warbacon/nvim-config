@@ -15,7 +15,7 @@ autocmd("TextYankPost", {
     end,
 })
 
--- Disable auto comment after hitting o in normal mode
+-- Disable auto comment
 autocmd("FileType", {
     callback = function()
         vim.opt.formatoptions:remove({ "o", "r" })

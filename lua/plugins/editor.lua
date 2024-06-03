@@ -1,18 +1,11 @@
 return {
-    -- TELESCOPE.NVIM ---------------------------------------------------------
+    -- TELESCOPE.NVIM ==========================================================
     {
         "nvim-telescope/telescope.nvim",
+        -- branch = "0.1.x",
         dependencies = {
-            {
-                "nvim-telescope/telescope-fzf-native.nvim",
-                build = (function()
-                    if vim.fn.has("win32") == 1 and vim.fn.executable("mingw32-make") == 1 then
-                        return "mingw32-make"
-                    elseif vim.fn.executable("make") then
-                        return "make"
-                    end
-                end)(),
-            },
+            "nvim-telescope/telescope-fzy-native.nvim",
+            "nvim-lua/plenary.nvim",
         },
         cmd = "Telescope",
         keys = {
@@ -23,6 +16,7 @@ return {
         },
         opts = {
             defaults = {
+                selection_caret = "  ",
                 prompt_prefix = "   ",
                 path_display = {
                     filename_first = {
@@ -33,11 +27,11 @@ return {
         },
         config = function(_, opts)
             require("telescope").setup(opts)
-            pcall(require("telescope").load_extension, "fzf")
+            require("telescope").load_extension("fzy_native")
         end,
     },
 
-    -- GITSIGNS.NVIM -----------------------------------------------------------
+    -- GITSIGNS.NVIM ===========================================================
     {
         "lewis6991/gitsigns.nvim",
         event = "LazyFile",
@@ -95,18 +89,5 @@ return {
                 map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
             end,
         },
-    },
-
-    -- NEOGIT ------------------------------------------------------------------
-    {
-        "NeogitOrg/neogit",
-        cmd = { "Neogit", "NeogitResetState" },
-        keys = {
-            { "<leader>ng", "<cmd>Neogit<cr>" },
-        },
-        dependencies = {
-            "sindrets/diffview.nvim",
-        },
-        opts = {},
     },
 }

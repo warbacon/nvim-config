@@ -1,7 +1,24 @@
 return {
-    -- CATPPUCCIN --------------------------------------------------------------
+    -- TOKYONIGHT.NVIM =========================================================
+    {
+        "folke/tokyonight.nvim",
+        priority = 1000,
+        opts = {
+            style = "moon",
+            on_highlights = function(hl)
+                hl.ModeMsg = hl.CursorLineNr
+            end,
+        },
+        config = function(_, opts)
+            require("tokyonight").setup(opts)
+            vim.cmd.colorscheme("tokyonight")
+        end,
+    },
+
+    -- CATPPUCCIN ==============================================================
     {
         "catppuccin/nvim",
+        enabled = false,
         name = "catppuccin",
         priority = 1000,
         opts = {

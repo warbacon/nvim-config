@@ -1,6 +1,6 @@
 -- Clone lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
     vim.fn.system({
         "git",
         "clone",
@@ -13,13 +13,14 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Enable LazyFile event
-require("util").lazy_file()
+require("lazyfile").setup()
 
--- Lazy.nvim options
-local opts = {
+-- Start lazy.nvim
+require("lazy").setup({
+    spec = "plugins",
     ui = { backdrop = 100 },
     change_detection = { notify = false },
-    install = { colorscheme = { "catppuccin" } },
+    install = { colorscheme = { "tokyonight", "catppuccin", "habamax" } },
     performance = {
         rtp = {
             disabled_plugins = {
@@ -27,6 +28,8 @@ local opts = {
                 -- "matchit",
                 -- "matchparen",
                 -- "netrwPlugin",
+                "rplugin",
+                "spellfile",
                 "tarPlugin",
                 "tohtml",
                 "tutor",
@@ -34,10 +37,7 @@ local opts = {
             },
         },
     },
-}
-
--- Start lazy.nvim
-require("lazy").setup("plugins", opts)
+})
 
 -- Lazy.nvim keymap
 vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { silent = true })

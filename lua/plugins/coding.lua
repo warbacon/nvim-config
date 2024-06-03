@@ -1,19 +1,19 @@
 return {
-    -- TS-COMMENTS.NVIM --------------------------------------------------------
+    -- TS-COMMENTS.NVIM ========================================================
     {
         "folke/ts-comments.nvim",
         event = "VeryLazy",
         opts = { lang = { hyprlang = "# %s" } },
     },
 
-    -- NVIM-SURROUND -----------------------------------------------------------
+    -- NVIM-SURROUND ===========================================================
     {
         "kylechui/nvim-surround",
         event = "VeryLazy",
         opts = {},
     },
 
-    -- MINI.AI -----------------------------------------------------------------
+    -- MINI.AI =================================================================
     {
         "echasnovski/mini.ai",
         event = "VeryLazy",
@@ -30,12 +30,16 @@ return {
                         a = "@function.outer",
                         i = "@function.inner",
                     }),
+                    c = ai.gen_spec.treesitter({
+                        a = "@class.outer",
+                        i = "@class.inner",
+                    }),
                 },
             }
         end,
     },
 
-    -- TREESJ ------------------------------------------------------------------
+    -- TREESJ ==================================================================
     {
         "Wansmer/treesj",
         keys = {
@@ -54,10 +58,7 @@ return {
                 mode = "n",
             },
         },
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
-        opts = {
-            use_default_keymaps = false,
-        },
+        opts = { use_default_keymaps = false },
     },
 
     -- NVIM-CMP ----------------------------------------------------------------
@@ -68,30 +69,29 @@ return {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
-            "onsails/lspkind.nvim",
         },
         opts = function()
             local cmp = require("cmp")
             return {
                 formatting = {
                     fields = { "kind", "abbr", "menu" },
-                    format = function(entry, vim_item)
-                        local choice = require("lspkind").cmp_format({
-                            mode = "symbol",
-                            ellipsis_char = "…",
-                            maxwidth = 40,
-                        })(entry, vim_item)
-
-                        if choice.menu ~= nil and choice.menu:len() > 15 then
-                            choice.menu = string.sub(choice.menu, 1, 15) .. "…"
+                    format = function(_, item)
+                        local icons = require("util").icons.kinds
+                        if icons[item.kind] then
+                            item.kind = icons[item.kind]
                         end
-
-                        return choice
+                        return item
                     end,
                 },
                 snippet = {
-                    expand = function(arg)
-                        vim.snippet.expand(arg.body)
+                    expand = function(snippet)
+                        local session = vim.snippet.active() and vim.snippet._session or nil
+
+                        pcall(vim.snippet.expand, snippet.body)
+
+                        if session then
+                            vim.snippet._session = session
+                        end
                     end,
                 },
                 completion = { completeopt = "menu,menuone,noinsert" },
@@ -103,21 +103,11 @@ return {
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-e>"] = cmp.mapping.abort(),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
-                    ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+                    ["<S-CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
                     ["<C-CR>"] = function(fallback)
                         cmp.abort()
                         fallback()
                     end,
-                    ["<C-l>"] = cmp.mapping(function()
-                        if vim.snippet.active({ direction = 1 }) then
-                            vim.snippet.jump(1)
-                        end
-                    end, { "i", "s" }),
-                    ["<C-h>"] = cmp.mapping(function()
-                        if vim.snippet.active({ direction = -1 }) then
-                            vim.snippet.jump(-1)
-                        end
-                    end, { "i", "s" }),
                 }),
                 view = {
                     entries = {

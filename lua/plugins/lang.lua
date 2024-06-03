@@ -1,5 +1,5 @@
 return {
-    -- MARKDOWN-PREVIEW.NVIM ---------------------------------------------------
+    -- MARKDOWN-PREVIEW.NVIM ===================================================
     {
         "iamcco/markdown-preview.nvim",
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -9,9 +9,9 @@ return {
         end,
     },
 
-    -- VIM-KITTY ---------------------------------------------------------------
+    -- VIM-KITTY ===============================================================
     {
-        "fladson/vim-kitty",
+        "warbacon/vim-kitty",
         ft = "kitty",
         enabled = vim.fn.executable("kitty") == 1,
     },

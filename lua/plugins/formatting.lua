@@ -1,5 +1,5 @@
 return {
-    -- CONFORM.NVIM ------------------------------------------------------------
+    -- CONFORM.NVIM ============================================================
     "stevearc/conform.nvim",
     cmd = "ConformInfo",
     keys = {
@@ -24,7 +24,7 @@ return {
         formatters = {
             clang_format = {
                 prepend_args = {
-                    "-style={IndentWidth: 4, BreakBeforeBraces: Linux, AccessModifierOffset: -4}",
+                    "-style={IndentWidth: 4, BreakBeforeBraces: Linux, AccessModifierOffset: -4, ColumnLimit: 120}",
                 },
             },
             shfmt = { prepend_args = { "-i", "4", "-ci", "-bn" } },

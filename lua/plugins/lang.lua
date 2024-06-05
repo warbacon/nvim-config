@@ -11,7 +11,7 @@ return {
 
     -- VIM-KITTY ===============================================================
     {
-        "warbacon/vim-kitty",
+        "fladson/vim-kitty",
         ft = "kitty",
         enabled = vim.fn.executable("kitty") == 1,
     },

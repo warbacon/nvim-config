@@ -1,7 +1,26 @@
 return {
+    -- KANAGAWA.NVIM ============================================================
+    {
+        "rebelot/kanagawa.nvim",
+        priority = 1000,
+        opts = function()
+            return {
+                compile = true,
+                colors = {
+                    theme = { all = { ui = { bg_gutter = "none" } } },
+                },
+            }
+        end,
+        config = function(_, opts)
+            require("kanagawa").setup(opts)
+            vim.cmd.colorscheme("kanagawa")
+        end,
+    },
+
     -- TOKYONIGHT.NVIM =========================================================
     {
         "folke/tokyonight.nvim",
+        enabled = false,
         priority = 1000,
         opts = {
             style = "moon",

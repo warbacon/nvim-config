@@ -20,7 +20,7 @@ require("lazy").setup({
     spec = "plugins",
     ui = { backdrop = 100 },
     change_detection = { notify = false },
-    install = { colorscheme = { "tokyonight", "catppuccin", "habamax" } },
+    install = { colorscheme = { "kanagawa", "tokyonight", "catppuccin" } },
     performance = {
         rtp = {
             disabled_plugins = {

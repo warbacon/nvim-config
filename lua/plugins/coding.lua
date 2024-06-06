@@ -61,7 +61,7 @@ return {
         opts = { use_default_keymaps = false },
     },
 
-    -- NVIM-CMP ----------------------------------------------------------------
+    -- NVIM-CMP ================================================================
     {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
@@ -115,6 +115,7 @@ return {
                     },
                 },
                 sources = cmp.config.sources({
+                    { name = "lazydev", group_index = 0 },
                     { name = "nvim_lsp" },
                     { name = "path" },
                 }, {

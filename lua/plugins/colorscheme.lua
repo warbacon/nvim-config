@@ -3,14 +3,19 @@ return {
     {
         "rebelot/kanagawa.nvim",
         priority = 1000,
-        opts = function()
-            return {
-                compile = true,
-                colors = {
-                    theme = { all = { ui = { bg_gutter = "none" } } },
-                },
-            }
-        end,
+        opts = {
+            compile = true,
+            colors = {
+                theme = { all = { ui = { bg_gutter = "none" } } },
+            },
+            overrides = function(colors)
+                local theme = colors.theme
+                return {
+                    TelescopeTitle = { fg = theme.ui.special, bold = true },
+                    TelescopePromptBorder = { fg = theme.syn.constant },
+                }
+            end,
+        },
         config = function(_, opts)
             require("kanagawa").setup(opts)
             vim.cmd.colorscheme("kanagawa")

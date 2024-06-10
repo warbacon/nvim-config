@@ -85,13 +85,7 @@ return {
                 },
                 snippet = {
                     expand = function(snippet)
-                        local session = vim.snippet.active() and vim.snippet._session or nil
-
                         pcall(vim.snippet.expand, snippet.body)
-
-                        if session then
-                            vim.snippet._session = session
-                        end
                     end,
                 },
                 completion = { completeopt = "menu,menuone,noinsert" },

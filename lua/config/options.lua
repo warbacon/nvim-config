@@ -12,3 +12,4 @@ vim.opt.showmode = true
 vim.opt.pumblend = 0
 
 vim.g.autoformat = false
+vim.g.lazyvim_python_lsp = "basedpyright"

@@ -5,4 +5,5 @@ return {
     { "folke/persistence.nvim", enabled = false },
     { "akinsho/bufferline.nvim", enabled = false },
     { "rafamadriz/friendly-snippets", enabled = false },
+    { "lukas-reineke/headlines.nvim", enabled = false },
 }

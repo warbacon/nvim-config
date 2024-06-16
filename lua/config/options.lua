@@ -1,59 +1,14 @@
--- Enable line numbers and relative line numbers
-vim.opt.number = true
-vim.opt.relativenumber = true
-
--- Highlight line number
-vim.opt.cursorline = true
-vim.opt.cursorlineopt = "number"
-
--- Enable persistent undo with undo files
-vim.opt.undofile = true
-
--- Set split windows to open below and to the right
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-
--- Set popup menu height
-vim.opt.pumheight = 10
-
--- Use spaces for tabs and configure indentation settings
-vim.opt.expandtab = true
-vim.opt.shiftround = true
-vim.opt.shiftwidth = 4
-vim.opt.smartindent = true
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+-- Add any additional options here
 vim.opt.tabstop = 4
-
--- Set scrolloff and sidescroll settings
-vim.opt.scrolloff = 5
-vim.opt.sidescrolloff = 3
-vim.opt.wrap = false
-
--- Enable block mode for virtual editing
-vim.opt.virtualedit = "block"
-
--- Customize messages and display options
-vim.opt.shortmess:append({ I = true })
-vim.opt.signcolumn = "yes"
-
--- Ignore case in searches unless an uppercase letter is included
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-
--- Enable visible whitespace and customize characters
-vim.opt.list = true
+vim.opt.shiftwidth = 4
+vim.opt.clipboard = ""
+vim.opt.cursorlineopt = "number"
+vim.opt.laststatus = 2
 vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
+vim.opt.wildmode = "full"
+vim.opt.showmode = true
+vim.opt.pumblend = 0
 
--- Customize display of various elements
-vim.opt.fillchars = {
-    diff = "╱",
-    eob = " ",
-}
-
--- Git signs in statuscolumn
-vim.opt.statuscolumn = [[%!v:lua.require("statuscolumn").setup()]]
-
--- Disable external providers
-vim.g.loaded_python3_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_ruby_provider = 0
-vim.g.loaded_node_provider = 0
+vim.g.autoformat = false

@@ -12,6 +12,7 @@ return {
     -- VIM-KITTY ===============================================================
     {
         "fladson/vim-kitty",
+        ft = "kitty",
         enabled = vim.uv.fs_stat(vim.env.HOME .. "/.config/kitty") ~= nil,
     },
 }

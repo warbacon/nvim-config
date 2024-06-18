@@ -5,6 +5,7 @@ return {
     -- INDENT-BLANKLINE.NVIM ===================================================
     {
         "lukas-reineke/indent-blankline.nvim",
+        event = "LazyFile",
         opts = {
             indent = {
                 char = "│",

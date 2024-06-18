@@ -2,6 +2,9 @@
 vim.keymap.set("v", "<leader>y", '"+y')
 vim.keymap.set("n", "<leader>yy", '<S-v>"+y')
 
+-- Netrw
+vim.keymap.set("n", "-", "<cmd>Explore<cr>")
+
 -- LSP
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)
@@ -17,14 +20,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
--- Snippets
-vim.keymap.set({ "i", "s" }, "<c-l>", function()
-    return vim.snippet.active({ direction = 1 }) and vim.snippet.jump(1)
-end, { silent = true })
-
-vim.keymap.set({ "i", "s" }, "<c-h>", function()
-    return vim.snippet.active({ direction = -1 }) and vim.snippet.jump(-1)
-end, { silent = true })
+-- Lazy.nvim
+vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>")
 
 -- Miscellaneous
 vim.keymap.set("n", "q:", "<cmd>echoe 'q:'<cr>", { noremap = true })

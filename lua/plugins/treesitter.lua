@@ -2,59 +2,65 @@ return {
     -- NVIM-TREESITTER =========================================================
     {
         "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
         event = { "LazyFile", "VeryLazy" },
         lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
-        cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+        build = ":TSUpdate",
         init = function()
-            -- Add hyprlang filetype
-            if vim.fn.executable("Hyprland") == 1 then
-                vim.filetype.add({
-                    pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
-                })
-            end
+            vim.filetype.add({
+                extension = { rasi = "rasi" },
+                pattern = {
+                    [".*/mako/config"] = "dosini",
+                    [".*/hypr/.+%.conf"] = "hyprlang",
+                    ["%.env%.[%w_.-]+"] = "sh",
+                },
+            })
         end,
         main = "nvim-treesitter.configs",
-        opts = {
-            ensure_installed = {
-                "bash",
-                "c",
-                "cpp",
-                "css",
-                "diff",
-                "fish",
-                "gitcommit",
-                "html",
-                "hyprlang",
-                "json",
-                "jsonc",
-                "lua",
-                "markdown",
-                "markdown_inline",
-                "python",
-                "query",
-                "toml",
-                "vim",
-                "vimdoc",
-                "yaml",
-            },
-            highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = false,
-            },
-        },
-    },
+        opts = function()
+            local opts = {
+                ensure_installed = {
+                    "bash",
+                    "c",
+                    "cpp",
+                    "css",
+                    "html",
+                    "json",
+                    "jsonc",
+                    "lua",
+                    "markdown",
+                    "markdown_inline",
+                    "python",
+                    "query",
+                    "toml",
+                    "vim",
+                    "vimdoc",
+                    "yaml",
+                },
+                highlight = { enable = true },
+                indent = { enable = true },
+            }
 
-    -- NVIM-TREESITTER-TEXTOBJECTS =============================================
-    {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        event = "VeryLazy",
-        config = function()
-            if require("util").is_loaded("nvim-treesitter") then
-                require("nvim-treesitter.configs").setup({
-                    textobjects = { select = { enable = true } },
-                })
+            local function have(path)
+                return vim.uv.fs_stat(vim.env.HOME .. "/.config/" .. path) ~= nil
             end
+
+            local function add(parser)
+                table.insert(opts.ensure_installed, parser)
+            end
+
+            if have("fish") then
+                add("fish")
+            end
+
+            if have("hypr") then
+                add("hyprlang")
+            end
+
+            if have("rofi") then
+                add("rasi")
+            end
+
+            return opts
         end,
     },
 }

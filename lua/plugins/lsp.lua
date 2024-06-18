@@ -70,7 +70,7 @@ return {
     -- NVIM-LSPCONFIG ==========================================================
     {
         "neovim/nvim-lspconfig",
-        event = "LazyFile",
+        event = { "LazyFile", "VeryLazy" },
         dependencies = {
             "mason.nvim",
             "williamboman/mason-lspconfig.nvim",
@@ -94,23 +94,13 @@ return {
                     settings = {
                         Lua = {
                             workspace = { checkThirdParty = false },
-                            codeLens = { enable = true },
                             completion = { callSnippet = "Replace" },
-                            doc = { privateName = { "^_" } },
-                            hint = {
-                                enable = true,
-                                setType = false,
-                                paramType = true,
-                                paramName = "Disable",
-                                semicolon = "Disable",
-                                arrayIndex = "Disable",
-                            },
+                            hint = { enable = true },
                         },
                     },
                 },
                 taplo = {},
                 yamlls = {
-                    -- Have to add this for yamlls to understand that we support line folding
                     capabilities = {
                         textDocument = {
                             foldingRange = {
@@ -119,7 +109,6 @@ return {
                             },
                         },
                     },
-                    -- lazy-load schemastore when needed
                     on_new_config = function(new_config)
                         new_config.settings.yaml.schemas = vim.tbl_deep_extend(
                             "force",
@@ -142,10 +131,10 @@ return {
                 severity_sort = true,
                 signs = {
                     text = {
-                        [vim.diagnostic.severity.ERROR] = require("util").icons.diagnostics.Error,
-                        [vim.diagnostic.severity.WARN] = require("util").icons.diagnostics.Warn,
-                        [vim.diagnostic.severity.HINT] = require("util").icons.diagnostics.Hint,
-                        [vim.diagnostic.severity.INFO] = require("util").icons.diagnostics.Info,
+                        [vim.diagnostic.severity.ERROR] = "",
+                        [vim.diagnostic.severity.WARN] = "",
+                        [vim.diagnostic.severity.HINT] = "󰌶",
+                        [vim.diagnostic.severity.INFO] = "",
                     },
                 },
             },

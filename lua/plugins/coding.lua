@@ -3,7 +3,7 @@ return {
     {
         "folke/ts-comments.nvim",
         event = "VeryLazy",
-        opts = { lang = { hyprlang = "# %s" } },
+        opts = {},
     },
 
     -- NVIM-SURROUND ===========================================================
@@ -61,31 +61,36 @@ return {
         opts = { use_default_keymaps = false },
     },
 
+    -- LUASNIP =================================================================
+    {
+        "L3MON4D3/LuaSnip",
+        build = (vim.fn.has("win32") == 0 and vim.fn.executable("make") and "make install_jsregexp"),
+        lazy = true,
+        opts = {
+            history = true,
+            delete_check_events = "TextChanged",
+        },
+    },
+
     -- NVIM-CMP ================================================================
     {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
         dependencies = {
+            "LuaSnip",
+            "saadparwaiz1/cmp_luasnip",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
         },
         opts = function()
             local cmp = require("cmp")
+            local luasnip = require("luasnip")
+
             return {
-                formatting = {
-                    fields = { "kind", "abbr", "menu" },
-                    format = function(_, item)
-                        local icons = require("util").icons.kinds
-                        if icons[item.kind] then
-                            item.kind = icons[item.kind]
-                        end
-                        return item
-                    end,
-                },
                 snippet = {
-                    expand = function(snippet)
-                        pcall(vim.snippet.expand, snippet.body)
+                    expand = function(args)
+                        luasnip.lsp_expand(args.body)
                     end,
                 },
                 completion = { completeopt = "menu,menuone,noinsert" },
@@ -102,6 +107,16 @@ return {
                         cmp.abort()
                         fallback()
                     end,
+                    ["<C-l>"] = cmp.mapping(function()
+                        if luasnip.jumpable(1) then
+                            luasnip.jump(1)
+                        end
+                    end, { "i", "s" }),
+                    ["<C-h>"] = cmp.mapping(function()
+                        if luasnip.jumpable(-1) then
+                            luasnip.jump(-1)
+                        end
+                    end, { "i", "s" }),
                 }),
                 view = {
                     entries = {
@@ -111,6 +126,7 @@ return {
                 sources = cmp.config.sources({
                     { name = "lazydev", group_index = 0 },
                     { name = "nvim_lsp" },
+                    { name = "luasnip" },
                     { name = "path" },
                 }, {
                     { name = "buffer" },

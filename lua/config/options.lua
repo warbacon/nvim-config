@@ -1,56 +1,70 @@
+-- Set leader key to space and local leader key to backslash
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
+local opt = vim.opt
+
 -- Enable line numbers and relative line numbers
-vim.opt.number = true
-vim.opt.relativenumber = true
+opt.number = true
+opt.relativenumber = true
 
--- Highlight line number
-vim.opt.cursorline = true
-vim.opt.cursorlineopt = "number"
+-- Disable the intro screen
+opt.shortmess:append({ I = true })
 
--- Enable persistent undo with undo files
-vim.opt.undofile = true
+-- Display symbols for trailing spaces
+opt.list = true
+opt.listchars = { tab = "  ", trail = "·", nbsp = "+" }
 
--- Set split windows to open below and to the right
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-
--- Set popup menu height
-vim.opt.pumheight = 10
-
--- Use spaces for tabs and configure indentation settings
-vim.opt.expandtab = true
-vim.opt.shiftround = true
-vim.opt.shiftwidth = 4
-vim.opt.smartindent = true
-vim.opt.tabstop = 4
-
--- Set scrolloff and sidescroll settings
-vim.opt.scrolloff = 5
-vim.opt.sidescrolloff = 3
-vim.opt.wrap = false
-
--- Enable block mode for virtual editing
-vim.opt.virtualedit = "block"
-
--- Customize messages and display options
-vim.opt.shortmess:append({ I = true })
-vim.opt.signcolumn = "yes"
-
--- Ignore case in searches unless an uppercase letter is included
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-
--- Enable visible whitespace and customize characters
-vim.opt.list = true
-vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
-
--- Customize display of various elements
-vim.opt.fillchars = {
+-- Configure fill characters for diff and end-of-buffer
+opt.fillchars = {
     diff = "╱",
     eob = " ",
 }
 
--- Git signs in statuscolumn
-vim.opt.statuscolumn = [[%!v:lua.require("statuscolumn").setup()]]
+-- Highlight the line number of the current line
+opt.cursorline = true
+opt.cursorlineopt = "number"
+
+-- Prompt for confirmation when exiting unsaved
+opt.confirm = true
+
+-- Set indentation options
+opt.expandtab = true
+opt.shiftround = true
+opt.shiftwidth = 4
+opt.smartindent = true
+opt.tabstop = 4
+
+-- Ignore case in searches unless uppercase is used
+opt.ignorecase = true
+opt.smartcase = true
+
+-- Open new splits below and to the right
+opt.splitbelow = true
+opt.splitright = true
+opt.splitkeep = "screen"
+
+-- Allow virtual editing in block mode
+opt.virtualedit = "block"
+
+-- Enable persistent undo
+opt.undofile = true
+
+-- Disable line wrapping
+opt.wrap = false
+
+-- Set scroll padding
+opt.sidescrolloff = 3
+opt.scrolloff = 5
+
+-- Decrease update time for better responsiveness
+opt.updatetime = 200
+
+-- Limit the number of items in the pop-up menu
+opt.pumheight = 10
+
+-- Configure Netrw settings
+vim.g.netrw_banner = 0
 
 -- Disable external providers
 vim.g.loaded_python3_provider = 0

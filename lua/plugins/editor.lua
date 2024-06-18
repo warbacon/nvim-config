@@ -1,8 +1,22 @@
 return {
+    -- NVIM-COLORIZER.LUA ======================================================
+    {
+        "NvChad/nvim-colorizer.lua",
+        event = { "LazyFile", "VeryLazy" },
+        opts = { user_default_options = { names = false } },
+        config = function(_, opts)
+            require("colorizer").setup(opts)
+
+            -- execute colorizer as soon as possible
+            vim.defer_fn(function()
+                require("colorizer").attach_to_buffer(0)
+            end, 0)
+        end,
+    },
+
     -- TELESCOPE.NVIM ==========================================================
     {
         "nvim-telescope/telescope.nvim",
-        -- branch = "0.1.x",
         dependencies = {
             "nvim-telescope/telescope-fzy-native.nvim",
             "nvim-lua/plenary.nvim",
@@ -31,25 +45,9 @@ return {
         end,
     },
 
-    -- NVIM-COLORIZER.LUA ======================================================
-    {
-        "NvChad/nvim-colorizer.lua",
-        event = "LazyFile",
-        opts = { user_default_options = { names = false } },
-        config = function(_, opts)
-            require("colorizer").setup(opts)
-
-            -- execute colorizer as soon as possible
-            vim.defer_fn(function()
-                require("colorizer").attach_to_buffer(0)
-            end, 0)
-        end,
-    },
-
     -- GITSIGNS.NVIM ===========================================================
     {
         "lewis6991/gitsigns.nvim",
-        event = "LazyFile",
         opts = {
             on_attach = function(bufnr)
                 local gitsigns = require("gitsigns")

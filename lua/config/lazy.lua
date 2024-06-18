@@ -1,4 +1,3 @@
--- Clone lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
     vim.fn.system({
@@ -12,15 +11,23 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Enable LazyFile event
-require("lazyfile").setup()
+-- Add support for the LazyFile event
+local Event = require("lazy.core.handler.event")
 
--- Start lazy.nvim
-require("lazy").setup({
-    spec = "plugins",
-    ui = { backdrop = 100 },
-    change_detection = { notify = false },
-    install = { colorscheme = { "kanagawa", "tokyonight", "catppuccin" } },
+local lazy_file_events = { "BufReadPost", "BufNewFile" }
+Event.mappings.LazyFile = { id = "LazyFile", event = lazy_file_events }
+Event.mappings["User LazyFile"] = Event.mappings.LazyFile
+
+require("lazy").setup("plugins", {
+    install = {
+        colorscheme = { "kanagawa" },
+    },
+    ui = {
+        backdrop = 100,
+    },
+    change_detection = {
+        notify = false,
+    },
     performance = {
         rtp = {
             disabled_plugins = {
@@ -38,6 +45,3 @@ require("lazy").setup({
         },
     },
 })
-
--- Lazy.nvim keymap
-vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { silent = true })

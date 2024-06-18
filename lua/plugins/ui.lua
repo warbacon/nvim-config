@@ -5,7 +5,6 @@ return {
     -- INDENT-BLANKLINE.NVIM ===================================================
     {
         "lukas-reineke/indent-blankline.nvim",
-        event = "LazyFile",
         opts = {
             indent = {
                 char = "│",
@@ -21,5 +20,21 @@ return {
             },
         },
         main = "ibl",
+    },
+
+    -- STATUSCOL.NVIM ==========================================================
+    {
+        "luukvbaal/statuscol.nvim",
+        opts = function()
+            local builtin = require("statuscol.builtin")
+            return {
+                ft_ignore = { "netrw" },
+                segments = {
+                    { sign = { namespace = { "diagnostic/signs" } } },
+                    { text = { builtin.lnumfunc } },
+                    { sign = { namespace = { "gitsigns" } } },
+                },
+            }
+        end,
     },
 }

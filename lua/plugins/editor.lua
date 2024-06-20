@@ -30,7 +30,7 @@ return {
         },
         opts = {
             defaults = {
-                selection_caret = "  ",
+                selection_caret = "┃ ",
                 prompt_prefix = "   ",
                 path_display = {
                     filename_first = {
@@ -50,6 +50,7 @@ return {
         "lewis6991/gitsigns.nvim",
         event = "LazyFile",
         opts = {
+            preview_config = { border = "none" },
             on_attach = function(bufnr)
                 local gitsigns = require("gitsigns")
 

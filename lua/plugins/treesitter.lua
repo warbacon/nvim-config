@@ -16,51 +16,43 @@ return {
             })
         end,
         main = "nvim-treesitter.configs",
-        opts = function()
-            local opts = {
-                ensure_installed = {
-                    "bash",
-                    "c",
-                    "cpp",
-                    "css",
-                    "html",
-                    "json",
-                    "jsonc",
-                    "lua",
-                    "markdown",
-                    "markdown_inline",
-                    "python",
-                    "query",
-                    "toml",
-                    "vim",
-                    "vimdoc",
-                    "yaml",
-                },
-                highlight = { enable = true },
-                indent = { enable = true },
-            }
+        opts = {
+            ensure_installed = {
+                "bash",
+                "c",
+                "cpp",
+                "css",
+                "fish",
+                "html",
+                "hyprlang",
+                "json",
+                "jsonc",
+                "lua",
+                "markdown",
+                "markdown_inline",
+                "python",
+                "query",
+                "rasi",
+                "toml",
+                "vim",
+                "vimdoc",
+                "yaml",
+            },
+            highlight = { enable = true },
+            indent = { enable = true },
+        },
+    },
 
-            local function have(path)
-                return vim.uv.fs_stat(vim.env.HOME .. "/.config/" .. path) ~= nil
-            end
-
-            local function add(parser)
-                table.insert(opts.ensure_installed, parser)
-            end
-
-            if have("fish") then
-                add("fish")
-            end
-
-            if have("hypr") then
-                add("hyprlang")
-            end
-
-            if have("rofi") then
-                add("rasi")
-            end
-
-            return opts
+    -- NVIM-TREESITTER-TEXTOBJECTS =============================================
+    {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        event = "VeryLazy",
+        opts = {
+            select = { enable = true },
+        },
+        config = function(_, opts)
+            ---@diagnostic disable-next-line: missing-fields
+            require("nvim-treesitter.configs").setup({ textobjects = opts })
         end,
     },
 }

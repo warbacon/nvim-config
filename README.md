@@ -7,5 +7,5 @@
 
 ## Introduction
 
-Minimalist and responsive configuration Neovim configuration that stays out of
+Minimalist and responsive Neovim configuration that stays out of
 your way.

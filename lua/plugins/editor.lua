@@ -3,7 +3,10 @@ return {
     {
         "NvChad/nvim-colorizer.lua",
         event = { "LazyFile", "VeryLazy" },
-        opts = { user_default_options = { names = false } },
+        opts = {
+            filetypes = { "*", "!lazy" },
+            user_default_options = { names = false },
+        },
         config = function(_, opts)
             require("colorizer").setup(opts)
 

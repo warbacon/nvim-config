@@ -7,5 +7,5 @@
 
 ## Introduction
 
-Extremely performant minimalist Neovim configuration that stays out of your
-way. Uses some code from LazyVim.
+Minimalist and responsive configuration Neovim configuration that stays out of
+your way.

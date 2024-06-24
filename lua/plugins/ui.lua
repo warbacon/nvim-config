@@ -1,6 +1,25 @@
 return {
-    -- NVIM-WEB-DEVICONS =======================================================
-    { "nvim-tree/nvim-web-devicons", lazy = true },
+    -- KANAGAWA.NVIM ===========================================================
+    {
+        "rebelot/kanagawa.nvim",
+        priority = 1000,
+        opts = {
+            compile = true,
+            colors = {
+                theme = { all = { ui = { bg_gutter = "none" } } },
+            },
+            overrides = function(colors)
+                local theme = colors.theme
+                return {
+                    TelescopePromptBorder = { fg = theme.syn.constant },
+                }
+            end,
+        },
+        config = function(_, opts)
+            require("kanagawa").setup(opts)
+            vim.cmd.colorscheme("kanagawa")
+        end,
+    },
 
     -- INDENT-BLANKLINE.NVIM ===================================================
     {
@@ -38,4 +57,7 @@ return {
             }
         end,
     },
+
+    -- NVIM-WEB-DEVICONS =======================================================
+    { "nvim-tree/nvim-web-devicons", lazy = true },
 }

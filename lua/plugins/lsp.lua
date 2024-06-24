@@ -1,3 +1,35 @@
+-- Declare LSP servers
+local servers = {
+    basedpyright = {},
+    bashls = {},
+    clangd = {},
+    jsonls = {
+        on_new_config = function(new_config)
+            new_config.settings.json.schemas = require("schemastore").json.schemas()
+        end,
+    },
+    lua_ls = {
+        settings = {
+            Lua = {
+                workspace = { checkThirdParty = false },
+                completion = { callSnippet = "Replace" },
+                hint = { enable = true },
+            },
+        },
+    },
+    taplo = {},
+    yamlls = {
+        on_new_config = function(new_config)
+            new_config.settings.yaml.schemas = require("schemastore").yaml.schemas()
+        end,
+        settings = {
+            yaml = {
+                schemaStore = { enable = false, url = "" },
+            },
+        },
+    },
+}
+
 return {
     -- FIDGET.NVIM =============================================================
     {
@@ -13,9 +45,13 @@ return {
     -- MASON.NVIM ==============================================================
     {
         "williamboman/mason.nvim",
-        cmd = "Mason",
-        keys = { { "<leader>m", "<cmd>Mason<cr>" } },
         build = ":MasonUpdate",
+        dependencies = {
+            "williamboman/mason-lspconfig.nvim",
+            "WhoIsSethDaniel/mason-tool-installer.nvim",
+        },
+        event = "VeryLazy",
+        keys = { { "<leader>m", "<cmd>Mason<cr>", mode = "n" } },
         opts = {
             ensure_installed = {
                 "clang-format",
@@ -27,30 +63,19 @@ return {
             },
         },
         config = function(_, opts)
-            require("mason").setup(opts)
-            local mr = require("mason-registry")
-            mr:on("package:install:success", function()
-                vim.defer_fn(function()
-                    -- trigger FileType event to possibly load this newly installed LSP server
-                    require("lazy.core.handler.event").trigger({
-                        event = "FileType",
-                        buf = vim.api.nvim_get_current_buf(),
-                    })
-                end, 100)
-            end)
-            local function ensure_installed()
-                for _, tool in ipairs(opts.ensure_installed) do
-                    local p = mr.get_package(tool)
-                    if not p:is_installed() then
-                        p:install()
-                    end
-                end
+            if vim.fn.has("win32") == 1 then
+                servers.clangd = nil
+                servers.bashls = nil
             end
-            if mr.refresh then
-                mr.refresh(ensure_installed)
-            else
-                ensure_installed()
-            end
+
+            local ensure_installed = opts.ensure_installed
+
+            vim.list_extend(ensure_installed, vim.tbl_keys(servers))
+            require("mason").setup()
+            require("mason-lspconfig").setup()
+            require("mason-tool-installer").setup({
+                ensure_installed = ensure_installed,
+            })
         end,
     },
 
@@ -70,62 +95,24 @@ return {
     -- NVIM-LSPCONFIG ==========================================================
     {
         "neovim/nvim-lspconfig",
-        event = { "LazyFile", "VeryLazy" },
+        event = "LazyFile",
         dependencies = {
             "mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
         },
         opts = {
-            servers = {
-                basedpyright = {},
-                bashls = {},
-                clangd = {},
-                jsonls = {
-                    on_new_config = function(new_config)
-                        new_config.settings.json.schemas = require("schemastore").json.schemas()
-                    end,
-                },
-                lua_ls = {
-                    settings = {
-                        Lua = {
-                            workspace = { checkThirdParty = false },
-                            completion = { callSnippet = "Replace" },
-                            hint = { enable = true },
-                        },
-                    },
-                },
-                taplo = {},
-                yamlls = {
-                    on_new_config = function(new_config)
-                        new_config.settings.yaml.schemas = require("schemastore").yaml.schemas()
-                    end,
-                    settings = {
-                        yaml = {
-                            schemaStore = { enable = false, url = "" },
-                        },
-                    },
-                },
-            },
             diagnostics = {
                 severity_sort = true,
                 signs = {
                     text = {
                         [vim.diagnostic.severity.ERROR] = "",
                         [vim.diagnostic.severity.WARN] = "",
-                        [vim.diagnostic.severity.HINT] = "󰌶",
+                        [vim.diagnostic.severity.HINT] = "",
                         [vim.diagnostic.severity.INFO] = "",
                     },
                 },
             },
         },
         config = function(_, opts)
-            local servers = opts.servers
-
-            if vim.fn.has("win32") == 1 then
-                servers.clangd.enabled = false
-                servers.bashls.enabled = false
-            end
-
             vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
             local capabilities = vim.tbl_deep_extend(
@@ -136,31 +123,14 @@ return {
                 opts.capabilities or {}
             )
 
-            local function setup(server)
-                local server_opts = vim.tbl_deep_extend("force", {
-                    capabilities = vim.deepcopy(capabilities),
-                }, servers[server] or {})
+            require("mason-lspconfig").setup_handlers({
+                function(server_name)
+                    local server_opts = vim.tbl_deep_extend("force", {
+                        capabilities = vim.deepcopy(capabilities),
+                    }, servers[server_name] or {})
 
-                require("lspconfig")[server].setup(server_opts)
-            end
-
-            -- get all the servers that are available through mason-lspconfig
-            local all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
-
-            local ensure_installed = {}
-            for server, server_opts in pairs(servers) do
-                if server_opts then
-                    if not vim.tbl_contains(all_mslp_servers, server) then
-                        setup(server)
-                    elseif server_opts.enabled ~= false then
-                        ensure_installed[#ensure_installed + 1] = server
-                    end
-                end
-            end
-
-            require("mason-lspconfig").setup({
-                ensure_installed = ensure_installed,
-                handlers = { setup },
+                    require("lspconfig")[server_name].setup(server_opts)
+                end,
             })
         end,
     },

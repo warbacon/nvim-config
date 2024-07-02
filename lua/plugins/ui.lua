@@ -139,7 +139,11 @@ return {
 
             local FileName = {
                 provider = function(self)
-                    local filename = vim.fn.fnamemodify(self.filename, ":."):gsub(vim.env.HOME, "~")
+                    local filename = vim.fn.fnamemodify(self.filename, ":.")
+                    if vim.fn.has("win32") == 1 then
+                        filename = filename:gsub('/', '\\')
+                    end
+                    filename = filename:gsub(vim.env.HOME, "~")
                     if filename == "" then
                         return "[Sin nombre]"
                     end

@@ -42,19 +42,184 @@ return {
         },
     },
 
-    -- STATUSCOL.NVIM ==========================================================
+    -- HEIRLINE.NVIM ===========================================================
     {
-        "luukvbaal/statuscol.nvim",
-        opts = function()
-            local builtin = require("statuscol.builtin")
-            return {
-                ft_ignore = { "netrw" },
-                segments = {
-                    { sign = { namespace = { "diagnostic/signs" } } },
-                    { text = { builtin.lnumfunc } },
-                    { sign = { namespace = { "gitsigns" } } },
+        "rebelot/heirline.nvim",
+        event = "UiEnter",
+        init = function()
+            vim.opt.statusline = " "
+        end,
+        config = function()
+            local conditions = require("heirline.conditions")
+            local utils = require("heirline.utils")
+
+            local Space = { provider = " " }
+            local Align = { provider = "%=" }
+
+            local colors = {
+                bright_bg = utils.get_highlight("Folded").bg,
+                bright_fg = utils.get_highlight("Folded").fg,
+                statusline_fg = utils.get_highlight("StatusLine").fg,
+                statusline_bg = utils.get_highlight("StatusLine").bg,
+                statuslinenc_fg = utils.get_highlight("StatusLineNC").fg,
+                statuslinenc_bg = utils.get_highlight("StatusLineNC").bg,
+                bright_red = utils.get_highlight("DiagnosticError").fg,
+                red = utils.get_highlight("DiffDelete").fg,
+                green = utils.get_highlight("String").fg,
+                blue = utils.get_highlight("Function").fg,
+                gray = utils.get_highlight("NonText").fg,
+                orange = utils.get_highlight("Constant").fg,
+                purple = utils.get_highlight("Statement").fg,
+                cyan = utils.get_highlight("Special").fg,
+                diag_warn = utils.get_highlight("DiagnosticWarn").fg,
+                diag_error = utils.get_highlight("DiagnosticError").fg,
+                diag_hint = utils.get_highlight("DiagnosticHint").fg,
+                diag_info = utils.get_highlight("DiagnosticInfo").fg,
+                git_del = utils.get_highlight("diffDeleted").fg,
+                git_add = utils.get_highlight("diffAdded").fg,
+                git_change = utils.get_highlight("diffChanged").fg,
+            }
+
+            local ViMode = {
+                init = function(self)
+                    self.mode = vim.fn.mode(1)
+                end,
+                static = {
+                    mode_colors = {
+                        n = "blue",
+                        i = "green",
+                        v = "purple",
+                        V = "purple",
+                        ["\22"] = "purple",
+                        c = "orange",
+                        s = "cyan",
+                        S = "cyan",
+                        ["\19"] = "cyan",
+                        R = "orange",
+                        r = "orange",
+                        ["!"] = "red",
+                        t = "blue",
+                    },
+                },
+                provider = function()
+                    return " "
+                end,
+                hl = function(self)
+                    local mode = self.mode:sub(1, 1)
+                    return { bg = self.mode_colors[mode] }
+                end,
+                update = {
+                    "ModeChanged",
+                    pattern = "*:*",
+                    callback = vim.schedule_wrap(function()
+                        vim.cmd("redrawstatus")
+                    end),
                 },
             }
+
+            local FileNameBlock = {
+                init = function(self)
+                    self.filename = vim.api.nvim_buf_get_name(0)
+                end,
+            }
+
+            local FileIcon = {
+                init = function(self)
+                    local filename = self.filename
+                    local extension = vim.fn.fnamemodify(filename, ":e")
+                    self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(filename, extension)
+                end,
+                provider = function(self)
+                    return self.icon and (self.icon .. " ")
+                end,
+                hl = function(self)
+                    return { fg = self.icon_color }
+                end,
+            }
+
+            local FileName = {
+                provider = function(self)
+                    local filename = vim.fn.fnamemodify(self.filename, ":."):gsub(vim.env.HOME, "~")
+                    if filename == "" then
+                        return "[Sin nombre]"
+                    end
+                    if not conditions.width_percent_below(#filename, 0.25) then
+                        filename = vim.fn.pathshorten(filename)
+                    end
+                    return filename
+                end,
+            }
+
+            local FileFlags = {
+                {
+                    condition = function()
+                        return vim.bo.modified
+                    end,
+                    provider = "[+]",
+                },
+                {
+                    condition = function()
+                        return not vim.bo.modifiable or vim.bo.readonly
+                    end,
+                    provider = "󰌾",
+                    hl = { fg = "red" },
+                },
+            }
+
+            FileNameBlock = utils.insert(FileNameBlock, FileIcon, FileName, Space, FileFlags, { provider = "%<" })
+
+            local Ruler = {
+                provider = "%l,%c%V",
+            }
+
+            local ScrollBar = {
+                static = {
+                    sbar = { "🭶", "🭷", "🭸", "🭹", "🭺", "🭻" },
+                },
+                provider = function(self)
+                    local curr_line = vim.api.nvim_win_get_cursor(0)[1]
+                    local lines = vim.api.nvim_buf_line_count(0)
+                    local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
+                    return self.sbar[i] and string.rep(self.sbar[i], 2)
+                end,
+                hl = { fg = "blue" },
+            }
+
+            local StatusLine = {
+                ViMode,
+                Space,
+                FileNameBlock,
+                Align,
+                Ruler,
+                Space,
+                ScrollBar,
+                hl = { fg = "statusline_fg", bg = "statusline_bg" },
+            }
+
+            local StatusLineNC = {
+                condition = function()
+                    return conditions.is_not_active()
+                end,
+                FileNameBlock,
+                Align,
+                Ruler,
+                Space,
+                ScrollBar,
+                hl = { fg = "statuslinenc_fg", bg = "statuslinenc_bg", force = true },
+            }
+
+            local StatusLines = {
+                fallthrough = false,
+                StatusLineNC,
+                StatusLine,
+            }
+
+            require("heirline").setup({
+                opts = {
+                    colors = colors,
+                },
+                statusline = StatusLines,
+            })
         end,
     },
 

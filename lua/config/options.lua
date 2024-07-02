@@ -15,6 +15,12 @@ vim.g.loaded_node_provider = 0
 vim.opt.number = true
 vim.opt.relativenumber = true
 
+-- Ruler at 80ch
+vim.opt.colorcolumn = "80"
+
+-- Show always the signcolumn
+vim.opt.signcolumn = "yes"
+
 -- Disable the intro screen
 vim.opt.shortmess:append({ I = true })
 
@@ -69,3 +75,17 @@ vim.opt.updatetime = 200
 
 -- Limit the number of items in the pop-up menu
 vim.opt.pumheight = 10
+
+-- Diagnostics
+vim.diagnostic.config({
+    severity_sort = true,
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.HINT] = "",
+            [vim.diagnostic.severity.INFO] = "",
+        },
+    },
+    virtual_text = false,
+})

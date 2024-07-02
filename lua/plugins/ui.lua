@@ -1,23 +1,11 @@
 return {
-    -- KANAGAWA.NVIM ===========================================================
+    -- TOKYONIGHT.NVIM =========================================================
     {
-        "rebelot/kanagawa.nvim",
+        "folke/tokyonight.nvim",
         priority = 1000,
-        opts = {
-            compile = true,
-            colors = {
-                theme = { all = { ui = { bg_gutter = "none" } } },
-            },
-            overrides = function(colors)
-                local theme = colors.theme
-                return {
-                    TelescopePromptBorder = { fg = theme.syn.constant },
-                }
-            end,
-        },
-        config = function(_, opts)
-            require("kanagawa").setup(opts)
-            vim.cmd.colorscheme("kanagawa")
+        config = function()
+            require("tokyonight").setup()
+            vim.cmd.colorscheme("tokyonight")
         end,
     },
 
@@ -57,27 +45,16 @@ return {
             local Align = { provider = "%=" }
 
             local colors = {
-                bright_bg = utils.get_highlight("Folded").bg,
-                bright_fg = utils.get_highlight("Folded").fg,
                 statusline_fg = utils.get_highlight("StatusLine").fg,
                 statusline_bg = utils.get_highlight("StatusLine").bg,
                 statuslinenc_fg = utils.get_highlight("StatusLineNC").fg,
                 statuslinenc_bg = utils.get_highlight("StatusLineNC").bg,
-                bright_red = utils.get_highlight("DiagnosticError").fg,
-                red = utils.get_highlight("DiffDelete").fg,
+                red = utils.get_highlight("ErrorMsg").fg,
                 green = utils.get_highlight("String").fg,
                 blue = utils.get_highlight("Function").fg,
-                gray = utils.get_highlight("NonText").fg,
                 orange = utils.get_highlight("Constant").fg,
                 purple = utils.get_highlight("Statement").fg,
                 cyan = utils.get_highlight("Special").fg,
-                diag_warn = utils.get_highlight("DiagnosticWarn").fg,
-                diag_error = utils.get_highlight("DiagnosticError").fg,
-                diag_hint = utils.get_highlight("DiagnosticHint").fg,
-                diag_info = utils.get_highlight("DiagnosticInfo").fg,
-                git_del = utils.get_highlight("diffDeleted").fg,
-                git_add = utils.get_highlight("diffAdded").fg,
-                git_change = utils.get_highlight("diffChanged").fg,
             }
 
             local ViMode = {
@@ -141,7 +118,7 @@ return {
                 provider = function(self)
                     local filename = vim.fn.fnamemodify(self.filename, ":.")
                     if vim.fn.has("win32") == 1 then
-                        filename = filename:gsub('/', '\\')
+                        filename = filename:gsub("/", "\\")
                     end
                     filename = filename:gsub(vim.env.HOME, "~")
                     if filename == "" then

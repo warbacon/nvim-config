@@ -64,7 +64,7 @@ return {
     -- LUASNIP =================================================================
     {
         "L3MON4D3/LuaSnip",
-        build = (vim.fn.has("win32") == 0 and vim.fn.executable("make") and "make install_jsregexp"),
+        build = vim.fn.has("win32") == 0 and vim.fn.executable("make") and "make install_jsregexp",
         lazy = true,
         opts = {
             history = true,

@@ -1,4 +1,11 @@
 return {
+    -- UNDOTREE ================================================================
+    {
+        "mbbill/undotree",
+        cmd = "UndotreeToggle",
+        keys = { { "<leader>u", ":UndotreeToggle<cr>", mode = "n" } }
+    },
+
     -- NVIM-COLORIZER.LUA ======================================================
     {
         "NvChad/nvim-colorizer.lua",

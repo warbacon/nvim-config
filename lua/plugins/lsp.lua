@@ -37,7 +37,7 @@ return {
         event = "LspAttach",
         opts = {
             notification = {
-                window = { winblend = 0 },
+                window = { winblend = 10 },
             },
         },
     },
@@ -99,28 +99,12 @@ return {
         dependencies = {
             "mason.nvim",
         },
-        opts = {
-            diagnostics = {
-                severity_sort = true,
-                signs = {
-                    text = {
-                        [vim.diagnostic.severity.ERROR] = "",
-                        [vim.diagnostic.severity.WARN] = "",
-                        [vim.diagnostic.severity.HINT] = "",
-                        [vim.diagnostic.severity.INFO] = "",
-                    },
-                },
-            },
-        },
-        config = function(_, opts)
-            vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
-
+        config = function()
             local capabilities = vim.tbl_deep_extend(
                 "force",
                 {},
                 vim.lsp.protocol.make_client_capabilities(),
-                require("cmp_nvim_lsp").default_capabilities() or {},
-                opts.capabilities or {}
+                require("cmp_nvim_lsp").default_capabilities() or {}
             )
 
             require("mason-lspconfig").setup_handlers({

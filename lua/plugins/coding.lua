@@ -94,6 +94,55 @@ return {
                     end,
                 },
                 completion = { completeopt = "menu,menuone,noinsert" },
+                formatting = {
+                    fields = { "kind", "abbr", "menu" },
+                    format = function(_, item)
+                        local icons = {
+                            Text = " ",
+                            Method = " ",
+                            Function = " ",
+                            Constructor = " ",
+                            Field = " ",
+                            Variable = " ",
+                            Class = " ",
+                            Interface = " ",
+                            Module = " ",
+                            Property = " ",
+                            Unit = " ",
+                            Value = " ",
+                            Enum = " ",
+                            Keyword = " ",
+                            Snippet = " ",
+                            Color = " ",
+                            File = " ",
+                            Reference = " ",
+                            Folder = " ",
+                            EnumMember = " ",
+                            Constant = " ",
+                            Struct = " ",
+                            Event = " ",
+                            Operator = " ",
+                            TypeParameter = " ",
+                        }
+
+                        if icons[item.kind] then
+                            item.kind = icons[item.kind]
+                        end
+
+                        local widths = {
+                            abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,
+                            menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 30,
+                        }
+
+                        for key, width in pairs(widths) do
+                            if item[key] and vim.fn.strdisplaywidth(item[key]) > width then
+                                item[key] = vim.fn.strcharpart(item[key], 0, width - 1) .. "…"
+                            end
+                        end
+
+                        return item
+                    end,
+                },
                 mapping = cmp.mapping.preset.insert({
                     ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
                     ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),

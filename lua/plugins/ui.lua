@@ -124,7 +124,7 @@ return {
                     if filename == "" then
                         return "[Sin nombre]"
                     end
-                    if not conditions.width_percent_below(#filename, 0.25) then
+                    if not conditions.width_percent_below(#filename, 0.40) then
                         filename = vim.fn.pathshorten(filename)
                     end
                     return filename

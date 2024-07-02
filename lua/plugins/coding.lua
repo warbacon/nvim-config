@@ -168,9 +168,7 @@ return {
                     end, { "i", "s" }),
                 }),
                 view = {
-                    entries = {
-                        follow_cursor = true,
-                    },
+                    entries = { follow_cursor = true },
                 },
                 sources = cmp.config.sources({
                     { name = "lazydev", group_index = 0 },

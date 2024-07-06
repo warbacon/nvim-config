@@ -42,11 +42,7 @@ return {
             defaults = {
                 selection_caret = "  ",
                 prompt_prefix = "   ",
-                path_display = {
-                    filename_first = {
-                        reverse_directories = false,
-                    },
-                },
+                path_display = { "filename_first" },
             },
         },
         config = function(_, opts)

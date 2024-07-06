@@ -102,15 +102,13 @@ return {
 
             local FileIcon = {
                 init = function(self)
-                    local filename = self.filename
-                    local extension = vim.fn.fnamemodify(filename, ":e")
-                    self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(filename, extension)
+                    self.icon, self.hl = require("mini.icons").get("file", self.filename)
                 end,
                 provider = function(self)
-                    return self.icon and (self.icon .. " ")
+                    return self.icon ~= MiniIcons.get("default", "file") and self.icon .. " "
                 end,
                 hl = function(self)
-                    return { fg = self.icon_color }
+                    return self.hl
                 end,
             }
 
@@ -204,6 +202,16 @@ return {
         end,
     },
 
-    -- NVIM-WEB-DEVICONS =======================================================
-    { "nvim-tree/nvim-web-devicons", lazy = true },
+    -- MINI.ICONS ==============================================================
+    {
+        "echasnovski/mini.icons",
+        lazy = true,
+        opts = {},
+        init = function()
+            package.preload["nvim-web-devicons"] = function()
+                require("mini.icons").mock_nvim_web_devicons()
+                return package.loaded["nvim-web-devicons"]
+            end
+        end,
+    },
 }

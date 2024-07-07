@@ -102,10 +102,10 @@ return {
 
             local FileIcon = {
                 init = function(self)
-                    self.icon, self.hl = require("mini.icons").get("file", self.filename)
+                    self.icon, self.hl, self.is_default = require("mini.icons").get("file", self.filename)
                 end,
                 provider = function(self)
-                    return self.icon ~= MiniIcons.get("default", "file") and self.icon .. " "
+                    return self.is_default == false and self.icon .. " "
                 end,
                 hl = function(self)
                     return self.hl

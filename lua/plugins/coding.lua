@@ -97,37 +97,8 @@ return {
                 formatting = {
                     fields = { "kind", "abbr", "menu" },
                     format = function(_, item)
-                        local icons = {
-                            Text = " ",
-                            Method = " ",
-                            Function = " ",
-                            Constructor = " ",
-                            Field = " ",
-                            Variable = " ",
-                            Class = " ",
-                            Interface = " ",
-                            Module = " ",
-                            Property = " ",
-                            Unit = " ",
-                            Value = " ",
-                            Enum = " ",
-                            Keyword = " ",
-                            Snippet = " ",
-                            Color = " ",
-                            File = " ",
-                            Reference = " ",
-                            Folder = " ",
-                            EnumMember = " ",
-                            Constant = " ",
-                            Struct = " ",
-                            Event = " ",
-                            Operator = " ",
-                            TypeParameter = " ",
-                        }
-
-                        if icons[item.kind] then
-                            item.kind = icons[item.kind]
-                        end
+                        ---@diagnostic disable-next-line: param-type-mismatch
+                        item.kind = require("mini.icons").get("lsp", item.kind) .. " "
 
                         local widths = {
                             abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,

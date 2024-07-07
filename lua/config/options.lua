@@ -73,8 +73,14 @@ vim.opt.scrolloff = 5
 -- Decrease update time for better responsiveness
 vim.opt.updatetime = 200
 
--- Limit the number of items in the pop-up menu
+-- Limit the number of items in the popup menu
 vim.opt.pumheight = 10
+
+-- Remove "How to disable mouse" entry in popup-menu
+vim.cmd([[
+aunmenu PopUp.How-to\ disable\ mouse
+aunmenu PopUp.-1-
+]])
 
 -- Diagnostics
 vim.diagnostic.config({

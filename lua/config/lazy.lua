@@ -20,7 +20,7 @@ Event.mappings["User LazyFile"] = Event.mappings.LazyFile
 
 require("lazy").setup("plugins", {
     install = {
-        colorscheme = { "kanagawa" },
+        colorscheme = { "tokyonight", "habamax" },
     },
     ui = {
         backdrop = 100,

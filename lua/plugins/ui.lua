@@ -102,7 +102,12 @@ return {
 
             local FileIcon = {
                 init = function(self)
-                    self.icon, self.hl, self.is_default = require("mini.icons").get("file", self.filename)
+                    if vim.fn.isdirectory(self.filename) then
+                        self.icon, self.hl, self.is_default = require("mini.icons").get("file", self.filename)
+                        if self.is_default then
+                            self.icon, self.hl, self.is_default = require("mini.icons").get("directory", self.filename)
+                        end
+                    end
                 end,
                 provider = function(self)
                     return self.is_default == false and self.icon .. " "

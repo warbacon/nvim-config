@@ -111,4 +111,17 @@ return {
             end,
         },
     },
+
+    -- OIL.NVIM ================================================================
+    {
+        "stevearc/oil.nvim",
+        config = function()
+            local opts = {}
+            if vim.fn.has("win32") == 0 then
+                opts.delete_to_trash = true
+            end
+            require("oil").setup(opts)
+            vim.keymap.set("n", "-", "<cmd>Oil<cr>")
+        end,
+    },
 }

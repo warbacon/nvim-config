@@ -2,9 +2,6 @@
 vim.keymap.set("v", "<leader>y", '"+y')
 vim.keymap.set("n", "<leader>yy", '<S-v>"+y')
 
--- Netrw
-vim.keymap.set("n", "-", "<cmd>Explore<cr>")
-
 -- LSP
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)

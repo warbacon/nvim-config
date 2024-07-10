@@ -211,7 +211,13 @@ return {
     {
         "echasnovski/mini.icons",
         lazy = true,
-        opts = {},
+        opts = {
+            filetype = {
+                sh = { glyph = "󱆃" },
+                zsh = { glyph = "Z" },
+                fish = { glyph = "󰈺", hl = "MiniIconsYellow" },
+            },
+        },
         init = function()
             package.preload["nvim-web-devicons"] = function()
                 require("mini.icons").mock_nvim_web_devicons()

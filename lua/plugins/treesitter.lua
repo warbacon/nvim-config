@@ -24,6 +24,7 @@ return {
                 "css",
                 "diff",
                 "fish",
+                "git_config",
                 "html",
                 "hyprlang",
                 "json",

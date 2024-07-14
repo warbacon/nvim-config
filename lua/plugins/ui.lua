@@ -45,6 +45,7 @@ return {
             local Align = { provider = "%=" }
 
             local colors = {
+                bright_bg = utils.get_highlight("Folded").bg,
                 statusline_fg = utils.get_highlight("StatusLine").fg,
                 statusline_bg = utils.get_highlight("StatusLine").bg,
                 statuslinenc_fg = utils.get_highlight("StatusLineNC").fg,
@@ -103,8 +104,8 @@ return {
             local FileIcon = {
                 init = function(self)
                     self.stat = vim.uv.fs_stat(self.filename)
-                    self.icon, self.hl, self.is_default = require("mini.icons").get("file", self.filename)
-                    if self.is_default and self.stat.type == "directory" then
+                    self.icon, self.hl, _ = require("mini.icons").get("file", self.filename)
+                    if self.stat and self.stat.type == "directory" then
                         self.icon, self.hl, _ = require("mini.icons").get("directory", self.filename)
                     end
                 end,
@@ -157,7 +158,7 @@ return {
 
             local ScrollBar = {
                 static = {
-                    sbar = { "🭶", "🭷", "🭸", "🭹", "🭺", "🭻" },
+                    sbar = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" },
                 },
                 provider = function(self)
                     local curr_line = vim.api.nvim_win_get_cursor(0)[1]
@@ -165,7 +166,7 @@ return {
                     local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
                     return self.sbar[i] and string.rep(self.sbar[i], 2)
                 end,
-                hl = { fg = "blue" },
+                hl = { fg = "blue", bg = "bright_bg" },
             }
 
             local StatusLine = {

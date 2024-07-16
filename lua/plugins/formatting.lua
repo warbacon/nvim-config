@@ -6,7 +6,7 @@ return {
         {
             "<leader>bf",
             function()
-                require("conform").format({ async = true, lsp_fallback = true })
+                require("conform").format({ lsp_fallback = true })
             end,
         },
     },

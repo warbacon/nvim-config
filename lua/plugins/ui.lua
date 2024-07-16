@@ -213,8 +213,6 @@ return {
         lazy = true,
         opts = {
             filetype = {
-                sh = { glyph = "󱆃" },
-                zsh = { glyph = "Z" },
                 fish = { glyph = "󰈺", hl = "MiniIconsYellow" },
             },
         },

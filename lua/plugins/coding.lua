@@ -61,26 +61,30 @@ return {
         opts = { use_default_keymaps = false },
     },
 
+    -- NVIM-SNIPPY =============================================================
+    {
+        "dcampos/nvim-snippy",
+        lazy = true,
+        opts = {
+            mappings = {
+                is = {
+                    ["<C-l>"] = "expand_or_advance",
+                    ["<C-h>"] = "previous",
+                },
+            },
+        },
+    },
+
     -- NVIM-CMP ================================================================
     {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
         dependencies = {
+            "nvim-snippy",
+            "dcampos/cmp-snippy",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
-            {
-                "dcampos/nvim-snippy",
-                opts = {
-                    mappings = {
-                        is = {
-                            ["<C-l>"] = "expand_or_advance",
-                            ["<C-h>"] = "previous",
-                        },
-                    },
-                },
-            },
-            "dcampos/cmp-snippy",
         },
         opts = function()
             local cmp = require("cmp")
@@ -96,13 +100,9 @@ return {
                 formatting = {
                     fields = { "kind", "abbr", "menu" },
                     format = function(_, item)
-                        ---@diagnostic disable-next-line: param-type-mismatch
                         item.kind = require("mini.icons").get("lsp", item.kind) .. " "
 
-                        local widths = {
-                            abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,
-                            menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 30,
-                        }
+                        local widths = { abbr = 40, menu = 30 }
 
                         for key, width in pairs(widths) do
                             if item[key] and vim.fn.strdisplaywidth(item[key]) > width then
@@ -114,14 +114,12 @@ return {
                     end,
                 },
                 mapping = cmp.mapping.preset.insert({
-                    ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-                    ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
                     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-f>"] = cmp.mapping.scroll_docs(4),
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-e>"] = cmp.mapping.abort(),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
-                    ["<S-CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+                    ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace }),
                     ["<C-CR>"] = function(fallback)
                         cmp.abort()
                         fallback()

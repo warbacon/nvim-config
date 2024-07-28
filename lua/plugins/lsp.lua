@@ -3,6 +3,15 @@ local servers = {
     basedpyright = {},
     bashls = {},
     clangd = {},
+    powershell_es = {
+        settings = {
+            powershell = {
+                codeFormatting = {
+                    preset = "Stroustrup",
+                },
+            },
+        },
+    },
     jsonls = {
         on_new_config = function(new_config)
             new_config.settings.json.schemas = require("schemastore").json.schemas()
@@ -66,6 +75,10 @@ return {
             if vim.fn.has("win32") == 1 then
                 servers.clangd = nil
                 servers.bashls = nil
+            end
+
+            if vim.fn.executable("pwsh") == 0 then
+                servers.powershell_es = nil
             end
 
             local ensure_installed = opts.ensure_installed

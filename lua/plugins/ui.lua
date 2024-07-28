@@ -4,7 +4,13 @@ return {
         "folke/tokyonight.nvim",
         priority = 1000,
         config = function()
-            require("tokyonight").setup()
+            ---@diagnostic disable-next-line: missing-fields
+            require("tokyonight").setup({
+                styles = {
+                    comments = { italic = false },
+                    keywords = { italic = false },
+                },
+            })
             vim.cmd.colorscheme("tokyonight")
         end,
     },

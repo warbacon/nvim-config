@@ -93,5 +93,4 @@ vim.diagnostic.config({
             [vim.diagnostic.severity.INFO] = "",
         },
     },
-    virtual_text = false,
 })

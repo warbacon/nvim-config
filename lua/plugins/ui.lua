@@ -215,6 +215,9 @@ return {
             filetype = {
                 fish = { glyph = "󰈺", hl = "MiniIconsYellow" },
             },
+            lsp = {
+                copilot = { glyph = "", hl = "MiniIconsMagenta" },
+            },
         },
         init = function()
             package.preload["nvim-web-devicons"] = function()

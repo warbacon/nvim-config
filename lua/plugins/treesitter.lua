@@ -27,6 +27,7 @@ return {
                 "git_config",
                 "html",
                 "hyprlang",
+                "javascript",
                 "json",
                 "jsonc",
                 "lua",

@@ -102,20 +102,20 @@ return {
 
             local FileNameBlock = {
                 init = function(self)
-                    local fullpath = vim.api.nvim_buf_get_name(0)
-                    self.path = vim.fn.fnamemodify(fullpath, ":.")
+                    self.fullpath = vim.api.nvim_buf_get_name(0)
+                    self.path = vim.fn.fnamemodify(self.fullpath, ":.")
                     if vim.bo.filetype == "netrw" then
                         self.path = vim.fn.fnamemodify(self.path, ":~")
                     end
-                    self.stat = fullpath ~= "" and vim.uv.fs_stat(fullpath)
+                    self.stat = self.fullpath ~= "" and vim.uv.fs_stat(self.fullpath)
                 end,
             }
 
             local FileIcon = {
                 init = function(self)
-                    self.icon, self.hl, _ = require("mini.icons").get("file", self.path)
+                    self.icon, self.hl, _ = require("mini.icons").get("file", self.fullpath)
                     if self.stat and self.stat.type == "directory" then
-                        self.icon, self.hl, _ = require("mini.icons").get("directory", self.path)
+                        self.icon, self.hl, _ = require("mini.icons").get("directory", self.fullpath)
                     end
                 end,
                 provider = function(self)

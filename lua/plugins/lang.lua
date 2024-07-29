@@ -14,6 +14,9 @@ return {
         "MeanderingProgrammer/markdown.nvim",
         main = "render-markdown",
         ft = "markdown",
+        keys = {
+            { "<leader>um", "<cmd>RenderMarkdown toggle<cr>", mode = "n" }
+        },
         opts = {
             file_types = { "markdown" },
             code = {

@@ -39,7 +39,6 @@ return {
     -- HEIRLINE.NVIM ===========================================================
     {
         "rebelot/heirline.nvim",
-        event = "UiEnter",
         init = function()
             vim.opt.statusline = " "
         end,

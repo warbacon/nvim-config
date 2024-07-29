@@ -97,7 +97,9 @@ return {
         "folke/lazydev.nvim",
         ft = "lua",
         opts = {
-            library = { { path = "luvit-meta/library", words = { "vim%.uv" } } },
+            library = {
+                { path = "luvit-meta/library", words = { "vim%.uv" } },
+            },
         },
     },
     { "Bilal2453/luvit-meta", lazy = true },
@@ -128,6 +130,24 @@ return {
 
                     require("lspconfig")[server_name].setup(server_opts)
                 end,
+            })
+        end,
+    },
+
+    -- NONE-LS =================================================================
+    {
+        "nvimtools/none-ls.nvim",
+        config = function()
+            local none_ls = require("null-ls")
+
+            none_ls.setup({
+                sources = {
+                    none_ls.builtins.diagnostics.zsh,
+                    none_ls.builtins.diagnostics.fish,
+                    none_ls.builtins.diagnostics.markdownlint.with({
+                        extra_args = { "--disable=MD033" },
+                    }),
+                },
             })
         end,
     },

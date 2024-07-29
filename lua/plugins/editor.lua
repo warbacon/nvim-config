@@ -33,7 +33,7 @@ return {
         },
         cmd = "Telescope",
         keys = {
-            { "<leader><leader>", "<cmd>Telescope buffers<cr>", mode = "n" },
+            { "<leader>,", "<cmd>Telescope buffers<cr>", mode = "n" },
             { "<leader>ff", "<cmd>Telescope find_files<cr>", mode = "n" },
             { "<leader>fg", "<cmd>Telescope live_grep<cr>", mode = "n" },
             { "<leader>fh", "<cmd>Telescope help_tags<cr>", mode = "n" },

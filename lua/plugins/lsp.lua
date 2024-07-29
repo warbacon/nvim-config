@@ -21,8 +21,17 @@ local servers = {
         settings = {
             Lua = {
                 workspace = { checkThirdParty = false },
+                codeLens = { enable = true },
                 completion = { callSnippet = "Replace" },
-                hint = { enable = true },
+                doc = { privateName = { "^_" } },
+                hint = {
+                    enable = true,
+                    setType = false,
+                    paramType = true,
+                    paramName = "Disable",
+                    semicolon = "Disable",
+                    arrayIndex = "Disable",
+                },
             },
         },
     },
@@ -137,6 +146,10 @@ return {
     -- NONE-LS =================================================================
     {
         "nvimtools/none-ls.nvim",
+        ft = { "markdown", "fish", "zsh" },
+        dependencies = {
+            "mason.nvim",
+        },
         config = function()
             local none_ls = require("null-ls")
 

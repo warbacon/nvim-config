@@ -135,6 +135,10 @@ return {
 
                     local dirname = vim.fs.dirname(self.path)
 
+                    if dirname == "." then
+                        return
+                    end
+
                     if not dirname:match("/$") then
                         dirname = dirname .. "/"
                     end
@@ -146,18 +150,13 @@ return {
                     if not conditions.width_percent_below(#dirname, 0.30) then
                         dirname = vim.fn.pathshorten(dirname)
                     end
-                    return dirname ~= "./" and dirname
+                    return dirname
                 end,
             }
 
             local FileName = {
                 provider = function(self)
                     self.filename = vim.fs.basename(self.path)
-
-                    if vim.fn.has("win32") == 1 then
-                        self.filename = self.filename:gsub("/", "\\")
-                    end
-
                     return self.filename ~= "" and self.filename or vim.bo.filetype ~= "netrw" and "[Sin nombre]"
                 end,
                 hl = function()

@@ -18,7 +18,7 @@ return {
             lua = { "stylua" },
             python = { "ruff_format" },
             sh = { "shfmt" },
-            markdown = { "injected" },
+            markdown = { "markdownlint", "injected" },
             ["_"] = { "trim_whitespace" },
         },
         formatters = {

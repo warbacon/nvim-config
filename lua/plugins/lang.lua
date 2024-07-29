@@ -9,6 +9,25 @@ return {
         end,
     },
 
+    -- MARKDOWN.NVIM ===========================================================
+    {
+        "MeanderingProgrammer/markdown.nvim",
+        main = "render-markdown",
+        ft = "markdown",
+        opts = {
+            file_types = { "markdown" },
+            code = {
+                sign = false,
+                width = "block",
+                right_pad = 1,
+            },
+            heading = {
+                sign = false,
+                icons = {},
+            },
+        },
+    },
+
     -- VIM-KITTY ===============================================================
     {
         "fladson/vim-kitty",

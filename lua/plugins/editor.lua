@@ -1,4 +1,45 @@
 return {
+    -- FLASH.NVIM =============================================================
+    {
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        vscode = true,
+        opts = {
+            modes = {
+                search = {
+                    enabled = true,
+                },
+            },
+        },
+    },
+
+    -- TELESCOPE.NVIM ==========================================================
+    {
+        "nvim-telescope/telescope.nvim",
+        dependencies = {
+            "nvim-telescope/telescope-fzy-native.nvim",
+            "nvim-lua/plenary.nvim",
+        },
+        cmd = "Telescope",
+        keys = {
+            { "<leader>,", "<cmd>Telescope buffers<cr>", mode = "n" },
+            { "<leader>ff", "<cmd>Telescope find_files<cr>", mode = "n" },
+            { "<leader>fg", "<cmd>Telescope live_grep<cr>", mode = "n" },
+            { "<leader>fh", "<cmd>Telescope help_tags<cr>", mode = "n" },
+        },
+        opts = {
+            defaults = {
+                selection_caret = " ",
+                prompt_prefix = "   ",
+                path_display = { "filename_first" },
+            },
+        },
+        config = function(_, opts)
+            require("telescope").setup(opts)
+            require("telescope").load_extension("fzy_native")
+        end,
+    },
+
     -- MINI.HIPATTERNS =========================================================
     {
         "echasnovski/mini.hipatterns",
@@ -21,33 +62,6 @@ return {
                     },
                 },
             }
-        end,
-    },
-
-    -- TELESCOPE.NVIM ==========================================================
-    {
-        "nvim-telescope/telescope.nvim",
-        dependencies = {
-            "nvim-telescope/telescope-fzy-native.nvim",
-            "nvim-lua/plenary.nvim",
-        },
-        cmd = "Telescope",
-        keys = {
-            { "<leader>,", "<cmd>Telescope buffers<cr>", mode = "n" },
-            { "<leader>ff", "<cmd>Telescope find_files<cr>", mode = "n" },
-            { "<leader>fg", "<cmd>Telescope live_grep<cr>", mode = "n" },
-            { "<leader>fh", "<cmd>Telescope help_tags<cr>", mode = "n" },
-        },
-        opts = {
-            defaults = {
-                selection_caret = "  ",
-                prompt_prefix = "   ",
-                path_display = { "filename_first" },
-            },
-        },
-        config = function(_, opts)
-            require("telescope").setup(opts)
-            require("telescope").load_extension("fzy_native")
         end,
     },
 

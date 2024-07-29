@@ -103,16 +103,20 @@ return {
 
             local FileNameBlock = {
                 init = function(self)
-                    self.filename = vim.api.nvim_buf_get_name(0)
+                    local fullpath = vim.api.nvim_buf_get_name(0)
+                    self.path = vim.fn.fnamemodify(fullpath, ":.")
+                    if vim.bo.filetype == "netrw" then
+                        self.path = vim.fn.fnamemodify(self.path, ":~")
+                    end
+                    self.stat = fullpath ~= "" and vim.uv.fs_stat(fullpath)
                 end,
             }
 
             local FileIcon = {
                 init = function(self)
-                    self.stat = vim.uv.fs_stat(self.filename)
-                    self.icon, self.hl, _ = require("mini.icons").get("file", self.filename)
+                    self.icon, self.hl, _ = require("mini.icons").get("file", self.path)
                     if self.stat and self.stat.type == "directory" then
-                        self.icon, self.hl, _ = require("mini.icons").get("directory", self.filename)
+                        self.icon, self.hl, _ = require("mini.icons").get("directory", self.path)
                     end
                 end,
                 provider = function(self)
@@ -123,30 +127,48 @@ return {
                 end,
             }
 
+            local DirName = {
+                provider = function(self)
+                    if self.path == "" then
+                        return
+                    end
+
+                    local dirname = vim.fs.dirname(self.path)
+
+                    if not dirname:match("/$") then
+                        dirname = dirname .. "/"
+                    end
+
+                    if vim.fn.has("win32") == 1 then
+                        dirname = dirname:gsub("/", "\\")
+                    end
+
+                    if not conditions.width_percent_below(#dirname, 0.30) then
+                        dirname = vim.fn.pathshorten(dirname)
+                    end
+                    return dirname ~= "./" and dirname
+                end,
+            }
+
             local FileName = {
                 provider = function(self)
-                    local filename = vim.fn.fnamemodify(self.filename, ":.")
+                    self.filename = vim.fs.basename(self.path)
+
                     if vim.fn.has("win32") == 1 then
-                        filename = filename:gsub("/", "\\")
+                        self.filename = self.filename:gsub("/", "\\")
                     end
-                    filename = filename:gsub(vim.env.HOME, "~")
-                    if filename == "" then
-                        return "[Sin nombre]"
+
+                    return self.filename ~= "" and self.filename or vim.bo.filetype ~= "netrw" and "[Sin nombre]"
+                end,
+                hl = function()
+                    if vim.bo.modified then
+                        return { fg = "orange", bold = true }
                     end
-                    if not conditions.width_percent_below(#filename, 0.40) then
-                        filename = vim.fn.pathshorten(filename)
-                    end
-                    return filename
+                    return { fg = "None", bold = true }
                 end,
             }
 
             local FileFlags = {
-                {
-                    condition = function()
-                        return vim.bo.modified
-                    end,
-                    provider = "[+]",
-                },
                 {
                     condition = function()
                         return not vim.bo.modifiable or vim.bo.readonly
@@ -156,7 +178,8 @@ return {
                 },
             }
 
-            FileNameBlock = utils.insert(FileNameBlock, FileIcon, FileName, Space, FileFlags, { provider = "%<" })
+            FileNameBlock =
+                utils.insert(FileNameBlock, FileIcon, DirName, FileName, Space, FileFlags, { provider = "%<" })
 
             local Ruler = {
                 provider = "%l,%c%V",

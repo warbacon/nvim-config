@@ -1,18 +1,4 @@
 return {
-    -- FLASH.NVIM =============================================================
-    {
-        "folke/flash.nvim",
-        event = "VeryLazy",
-        vscode = true,
-        opts = {
-            modes = {
-                search = {
-                    enabled = true,
-                },
-            },
-        },
-    },
-
     -- TELESCOPE.NVIM ==========================================================
     {
         "nvim-telescope/telescope.nvim",
@@ -26,6 +12,7 @@ return {
             { "<leader>ff", "<cmd>Telescope find_files<cr>", mode = "n" },
             { "<leader>fg", "<cmd>Telescope live_grep<cr>", mode = "n" },
             { "<leader>fh", "<cmd>Telescope help_tags<cr>", mode = "n" },
+            { "<leader>sd", "<cmd>Telescope diagnostics<cr>", mode = "n" },
         },
         opts = {
             defaults = {

@@ -138,7 +138,7 @@ return {
                         return
                     end
 
-                    if not dirname:match("/$") then
+                    if dirname ~= "/" then
                         dirname = dirname .. "/"
                     end
 

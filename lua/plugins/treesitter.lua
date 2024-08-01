@@ -11,6 +11,7 @@ return {
                 pattern = {
                     [".*/mako/config"] = "dosini",
                     [".*/hypr/.+%.conf"] = "hyprlang",
+                    [".*/zathura/.+%.zathurarc"] = "zathurarc",
                     ["%.env%.[%w_.-]+"] = "sh",
                 },
             })

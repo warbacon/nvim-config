@@ -3,7 +3,11 @@ return {
     {
         "folke/ts-comments.nvim",
         event = "VeryLazy",
-        opts = {},
+        opts = {
+            lang = {
+                rasi = { "// %s", "/* %s */" },
+            },
+        },
     },
 
     -- NVIM-SURROUND ===========================================================

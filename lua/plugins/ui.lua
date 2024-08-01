@@ -39,15 +39,14 @@ return {
     -- HEIRLINE.NVIM ===========================================================
     {
         "rebelot/heirline.nvim",
-        init = function()
-            vim.opt.statusline = " "
-        end,
         config = function()
             local conditions = require("heirline.conditions")
             local utils = require("heirline.utils")
 
             local Space = { provider = " " }
             local Align = { provider = "%=" }
+
+            local MiniIcons = require("mini.icons")
 
             local colors = {
                 bright_bg = utils.get_highlight("Folded").bg,
@@ -103,7 +102,7 @@ return {
             local FileNameBlock = {
                 init = function(self)
                     self.fullpath = vim.api.nvim_buf_get_name(0)
-                    self.path = vim.fn.fnamemodify(self.fullpath, ":.")
+                    self.path = vim.fn.expand("%")
                     if vim.bo.filetype == "netrw" then
                         self.path = vim.fn.fnamemodify(self.path, ":~")
                     end
@@ -113,13 +112,15 @@ return {
 
             local FileIcon = {
                 init = function(self)
-                    self.icon, self.hl, _ = require("mini.icons").get("file", self.fullpath)
+                    self.icon, self.hl, _ = MiniIcons.get("file", self.fullpath)
                     if self.stat and self.stat.type == "directory" then
-                        self.icon, self.hl, _ = require("mini.icons").get("directory", self.fullpath)
+                        self.icon, self.hl, _ = MiniIcons.get("directory", self.fullpath)
                     end
                 end,
                 provider = function(self)
-                    return self.stat and self.icon .. " "
+                    if vim.bo.buftype == "" or self.icon ~= MiniIcons.get("file", "default") then
+                        return self.icon .. " "
+                    end
                 end,
                 hl = function(self)
                     return self.hl
@@ -239,11 +240,14 @@ return {
         "echasnovski/mini.icons",
         lazy = true,
         opts = {
+            file = {
+                ["kitty.conf"] = { glyph = "󰄛", hl = "MiniIconsYellow" },
+            },
             filetype = {
                 fish = { glyph = "󰈺", hl = "MiniIconsYellow" },
             },
             lsp = {
-                copilot = { glyph = "", hl = "MiniIconsMagenta" },
+                copilot = { glyph = "", hl = "MiniIconsPurple" },
             },
         },
         init = function()

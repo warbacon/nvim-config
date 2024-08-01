@@ -27,28 +27,24 @@ return {
         end,
     },
 
-    -- MINI.HIPATTERNS =========================================================
+    -- NVIM-COLORIZER.LUA ======================================================
     {
-        "echasnovski/mini.hipatterns",
-        event = "VeryLazy",
-        opts = function()
-            local hipatterns = require("mini.hipatterns")
-            return {
-                highlighters = {
-                    hex_color = hipatterns.gen_highlighter.hex_color({ priority = 1000 }),
-                    shorthand = {
-                        pattern = "()#%x%x%x()%f[^%x%w]",
-                        group = function(_, _, data)
-                            local match = data.full_match
-                            local r, g, b = match:sub(2, 2), match:sub(3, 3), match:sub(4, 4)
-                            local hex_color = "#" .. r .. r .. g .. g .. b .. b
+        "NvChad/nvim-colorizer.lua",
+        event = "LazyFile",
+        opts = {
+            user_default_options = { names = false },
+            filetypes = {
+                "*",
+                "!lazy",
+            },
+        },
+        config = function(_, opts)
+            require("colorizer").setup(opts)
 
-                            return hipatterns.compute_hex_color_group(hex_color, "bg")
-                        end,
-                        extmark_opts = { priority = 2000 },
-                    },
-                },
-            }
+            -- execute colorizer as soon as possible
+            vim.defer_fn(function()
+                require("colorizer").attach_to_buffer(0)
+            end, 0)
         end,
     },
 

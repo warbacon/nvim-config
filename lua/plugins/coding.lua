@@ -17,6 +17,13 @@ return {
         opts = {},
     },
 
+    -- NVIM-TS-AUTOTAG =========================================================
+    {
+        "windwp/nvim-ts-autotag",
+        event = "LazyFile",
+        opts = {}
+    },
+
     -- MINI.MOVE ===============================================================
     {
         "echasnovski/mini.move",

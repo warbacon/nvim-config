@@ -5,7 +5,7 @@ return {
         event = { "LazyFile", "VeryLazy" },
         lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
         build = ":TSUpdate",
-        init = function()
+        init = function(plugin)
             vim.filetype.add({
                 extension = { rasi = "rasi" },
                 pattern = {
@@ -15,10 +15,19 @@ return {
                     ["%.env%.[%w_.-]+"] = "sh",
                 },
             })
+            -- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
+            -- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
+            -- no longer trigger the **nvim-treesitter** module to be loaded in time.
+            -- Luckily, the only things that those plugins need are the custom queries, which we make available
+            -- during startup.
+            require("lazy.core.loader").add_to_rtp(plugin)
+            require("nvim-treesitter.query_predicates")
         end,
         main = "nvim-treesitter.configs",
         opts = {
             ensure_installed = {
+                "astro",
+                "typescript",
                 "bash",
                 "c",
                 "cpp",

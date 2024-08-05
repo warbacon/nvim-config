@@ -12,13 +12,14 @@ return {
     },
     opts = {
         formatters_by_ft = {
+            astro = { "prettierd" },
             c = { "clang_format" },
             cpp = { "clang_format" },
             fish = { "fish_indent" },
             lua = { "stylua" },
+            markdown = { "markdownlint", "injected" },
             python = { "ruff_format" },
             sh = { "shfmt" },
-            markdown = { "markdownlint", "injected" },
             ["_"] = { "trim_whitespace" },
         },
         formatters = {

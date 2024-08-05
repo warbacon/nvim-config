@@ -1,17 +1,9 @@
 -- Declare LSP servers
 local servers = {
+    astro = {},
     basedpyright = {},
     bashls = {},
     clangd = {},
-    powershell_es = {
-        settings = {
-            powershell = {
-                codeFormatting = {
-                    preset = "Stroustrup",
-                },
-            },
-        },
-    },
     jsonls = {
         on_new_config = function(new_config)
             new_config.settings.json.schemas = require("schemastore").json.schemas()
@@ -35,16 +27,44 @@ local servers = {
             },
         },
     },
+    powershell_es = { settings = { powershell = { codeFormatting = { preset = "Stroustrup" } } } },
+    tailwindcss = { filetypes_exclude = { "markdown" } },
     taplo = {},
+    vtsls = {
+        settings = {
+            complete_function_calls = true,
+            vtsls = {
+                tsserver = {
+                    globalPlugins = {
+                        name = "@astrojs/ts-plugin",
+                        location = vim.fn.stdpath("data")
+                            .. "/mason/packages/astro-language-server/node_modules/@astrojs/ts-plugin",
+                        enableForWorkspaceTypeScriptVersions = true,
+                    },
+                    enableMoveToFileCodeAction = true,
+                    autoUseWorkspaceTsdk = true,
+                    experimental = { completion = { enableServerSideFuzzyMatch = true } },
+                },
+                typescript = {
+                    updateImportsOnFileMove = { enabled = "always" },
+                    suggest = { completeFunctionCalls = true },
+                    inlayHints = {
+                        enumMemberValues = { enabled = true },
+                        functionLikeReturnTypes = { enabled = true },
+                        parameterNames = { enabled = "literals" },
+                        parameterTypes = { enabled = true },
+                        propertyDeclarationTypes = { enabled = true },
+                        variableTypes = { enabled = false },
+                    },
+                },
+            },
+        },
+    },
     yamlls = {
         on_new_config = function(new_config)
             new_config.settings.yaml.schemas = require("schemastore").yaml.schemas()
         end,
-        settings = {
-            yaml = {
-                schemaStore = { enable = false, url = "" },
-            },
-        },
+        settings = { yaml = { schemaStore = { enable = false, url = "" } } },
     },
 }
 
@@ -74,6 +94,7 @@ return {
             ensure_installed = {
                 "clang-format",
                 "markdownlint",
+                "prettierd",
                 "ruff",
                 "shellcheck",
                 "shfmt",
@@ -155,8 +176,8 @@ return {
 
             none_ls.setup({
                 sources = {
-                    none_ls.builtins.diagnostics.zsh,
                     none_ls.builtins.diagnostics.fish,
+                    none_ls.builtins.diagnostics.zsh,
                     none_ls.builtins.diagnostics.markdownlint.with({
                         extra_args = { "--disable=MD033" },
                     }),

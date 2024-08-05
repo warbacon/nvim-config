@@ -68,7 +68,7 @@ vim.opt.sidescrolloff = 3
 vim.opt.scrolloff = 5
 
 -- Decrease update time for better responsiveness
-vim.opt.updatetime = 200
+vim.opt.updatetime = 1000
 
 -- Limit the number of items in the popup menu
 vim.opt.pumheight = 10

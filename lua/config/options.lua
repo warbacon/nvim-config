@@ -18,9 +18,6 @@ vim.opt.relativenumber = true
 -- Ruler at 80ch
 vim.opt.colorcolumn = "80"
 
--- Show always the signcolumn
-vim.opt.signcolumn = "yes"
-
 -- Disable the intro screen
 vim.opt.shortmess:append({ I = true })
 

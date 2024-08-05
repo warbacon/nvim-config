@@ -36,6 +36,23 @@ return {
         },
     },
 
+    -- STATUSCOL.NVIM ==========================================================
+    {
+        "luukvbaal/statuscol.nvim",
+        opts = function()
+            local builtin = require("statuscol.builtin")
+            return {
+                ft_ignore = { "netrw" },
+                relculright = true,
+                segments = {
+                    { sign = { namespace = { "diagnostic/signs" } } },
+                    { text = { builtin.lnumfunc } },
+                    { text = { " " } },
+                    { sign = { namespace = { "gitsigns" }, colwidth = 1 }, },
+                },
+            }
+        end,
+    },
     -- HEIRLINE.NVIM ===========================================================
     {
         "rebelot/heirline.nvim",

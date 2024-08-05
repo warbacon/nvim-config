@@ -39,6 +39,7 @@ return {
     -- HEIRLINE.NVIM ===========================================================
     {
         "rebelot/heirline.nvim",
+        enabled = false,
         config = function()
             local conditions = require("heirline.conditions")
             local utils = require("heirline.utils")
@@ -117,10 +118,11 @@ return {
                         self.icon, self.hl, _ = MiniIcons.get("directory", self.fullpath)
                     end
                 end,
+                condition = function(self)
+                    return vim.bo.buftype == "" or self.icon ~= MiniIcons.get("file", "default")
+                end,
                 provider = function(self)
-                    if vim.bo.buftype == "" or self.icon ~= MiniIcons.get("file", "default") then
-                        return self.icon .. " "
-                    end
+                    return self.icon .. " "
                 end,
                 hl = function(self)
                     return self.hl

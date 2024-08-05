@@ -22,14 +22,6 @@ autocmd("FileType", {
     end,
 })
 
--- Hide signcolumn in netrw
-autocmd("FileType", {
-    pattern = "netrw",
-    callback = function()
-        vim.opt_local.signcolumn = "no"
-    end,
-})
-
 -- This autocmd will only trigger when a file was loaded from the cmdline.
 -- It will render the file as quickly as possible.
 autocmd("BufReadPost", {

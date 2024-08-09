@@ -21,7 +21,7 @@ return {
     {
         "windwp/nvim-ts-autotag",
         event = "LazyFile",
-        opts = {}
+        opts = {},
     },
 
     -- MINI.MOVE ===============================================================
@@ -118,7 +118,7 @@ return {
                 formatting = {
                     fields = { "kind", "abbr", "menu" },
                     format = function(_, item)
-                        item.kind = require("mini.icons").get("lsp", item.kind) .. " "
+                        item.kind, item.kind_hl_group = require("mini.icons").get("lsp", item.kind)
 
                         local widths = { abbr = 40, menu = 30 }
 

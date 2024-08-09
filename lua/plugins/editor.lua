@@ -31,7 +31,12 @@ return {
     {
         "brenoprata10/nvim-highlight-colors",
         event = "LazyFile",
-        opts = { enable_named_colors = false },
+        opts = {
+            enable_named_colors = false,
+            exclude_filetypes = {
+                "lazy",
+            },
+        },
     },
 
     -- GITSIGNS.NVIM ===========================================================

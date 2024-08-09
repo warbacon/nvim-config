@@ -9,9 +9,9 @@ vim.keymap.set("n", "-", "<cmd>Explore<cr>")
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)
         local opts = { buffer = ev.buf }
-        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+        vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
         vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "<leader>uh", function()
+        vim.keymap.set("n", "<leader>H", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }))
         end)
         vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<cr>")

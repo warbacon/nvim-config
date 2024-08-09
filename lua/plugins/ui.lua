@@ -48,7 +48,7 @@ return {
                     { sign = { namespace = { "diagnostic/signs" } } },
                     { text = { builtin.lnumfunc } },
                     { text = { " " } },
-                    { sign = { namespace = { "gitsigns" }, colwidth = 1 }, },
+                    { sign = { namespace = { "gitsigns" }, colwidth = 1 } },
                 },
             }
         end,

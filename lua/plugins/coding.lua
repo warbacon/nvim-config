@@ -20,7 +20,7 @@ return {
     -- NVIM-TS-AUTOTAG =========================================================
     {
         "windwp/nvim-ts-autotag",
-        event = "LazyFile",
+        event = "File",
         opts = {},
     },
 

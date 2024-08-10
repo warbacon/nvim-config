@@ -18,7 +18,7 @@ return {
     -- INDENT-BLANKLINE.NVIM ===================================================
     {
         "lukas-reineke/indent-blankline.nvim",
-        event = "LazyFile",
+        event = "File",
         main = "ibl",
         opts = {
             indent = {

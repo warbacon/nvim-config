@@ -30,7 +30,7 @@ return {
     -- NVIM-HIGHLIGHT-COLORS ===================================================
     {
         "brenoprata10/nvim-highlight-colors",
-        event = "LazyFile",
+        event = "File",
         opts = {
             enable_named_colors = false,
             exclude_filetypes = {
@@ -42,7 +42,7 @@ return {
     -- GITSIGNS.NVIM ===========================================================
     {
         "lewis6991/gitsigns.nvim",
-        event = "LazyFile",
+        event = "File",
         opts = {
             attach_to_untracked = true,
             signs = {

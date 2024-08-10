@@ -140,7 +140,7 @@ return {
     -- NVIM-LSPCONFIG ==========================================================
     {
         "neovim/nvim-lspconfig",
-        event = "LazyFile",
+        event = "File",
         dependencies = {
             "mason.nvim",
         },

@@ -58,17 +58,6 @@ return {
     {
         "echasnovski/mini.icons",
         lazy = true,
-        opts = {
-            file = {
-                ["kitty.conf"] = { glyph = "󰄛", hl = "MiniIconsYellow" },
-            },
-            filetype = {
-                fish = { glyph = "󰈺", hl = "MiniIconsYellow" },
-            },
-            lsp = {
-                copilot = { glyph = "", hl = "MiniIconsPurple" },
-            },
-        },
         init = function()
             package.preload["nvim-web-devicons"] = function()
                 require("mini.icons").mock_nvim_web_devicons()

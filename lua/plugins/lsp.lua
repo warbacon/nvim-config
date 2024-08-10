@@ -98,6 +98,13 @@ return {
         event = "VeryLazy",
         keys = { { "<leader>m", "<cmd>Mason<cr>", mode = "n" } },
         opts = {
+            ui = {
+                icons = {
+                    package_pending = " ",
+                    package_installed = " ",
+                    package_uninstalled = " ",
+                },
+            },
             ensure_installed = {
                 "clang-format",
                 "markdownlint",
@@ -121,7 +128,7 @@ return {
             local ensure_installed = opts.ensure_installed
 
             vim.list_extend(ensure_installed, vim.tbl_keys(servers))
-            require("mason").setup()
+            require("mason").setup({ ui = opts.ui })
             require("mason-lspconfig").setup()
             require("mason-tool-installer").setup({
                 ensure_installed = ensure_installed,

@@ -73,6 +73,9 @@ vim.opt.updatetime = 1000
 -- Limit the number of items in the popup menu
 vim.opt.pumheight = 10
 
+-- Preview incremental substitute
+vim.opt.inccommand = "split"
+
 -- Remove "How to disable mouse" entry in popup-menu
 vim.cmd([[
 aunmenu PopUp.How-to\ disable\ mouse

@@ -107,6 +107,33 @@ return {
         opts = function()
             local cmp = require("cmp")
             local snippy = require("snippy")
+            local kinds = {
+                Text = " ",
+                Method = " ",
+                Function = " ",
+                Constructor = " ",
+                Field = " ",
+                Variable = " ",
+                Class = " ",
+                Interface = " ",
+                Module = " ",
+                Property = " ",
+                Unit = " ",
+                Value = " ",
+                Enum = " ",
+                Keyword = " ",
+                Snippet = " ",
+                Color = " ",
+                File = " ",
+                Reference = " ",
+                Folder = " ",
+                EnumMember = " ",
+                Constant = " ",
+                Struct = " ",
+                Event = " ",
+                Operator = " ",
+                TypeParameter = " ",
+            }
 
             return {
                 snippet = {
@@ -116,9 +143,10 @@ return {
                 },
                 completion = { completeopt = "menu,menuone,noinsert" },
                 formatting = {
-                    fields = { "kind", "abbr", "menu" },
                     format = function(_, item)
-                        item.kind, item.kind_hl_group = require("mini.icons").get("lsp", item.kind)
+                        if kinds[item.kind] then
+                            item.kind = kinds[item.kind] .. item.kind
+                        end
 
                         local widths = { abbr = 40, menu = 30 }
 

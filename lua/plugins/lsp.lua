@@ -81,13 +81,6 @@ return {
         },
     },
 
-    -- INC-RENAME ==============================================================
-    {
-        "smjonas/inc-rename.nvim",
-        cmd = "IncRename",
-        opts = {},
-    },
-
     -- MASON.NVIM ==============================================================
     {
         "williamboman/mason.nvim",

@@ -4,14 +4,25 @@ return {
         "folke/tokyonight.nvim",
         priority = 1000,
         config = function()
-            ---@diagnostic disable-next-line: missing-fields
-            require("tokyonight").setup({
-                styles = {
-                    comments = { italic = false },
-                    keywords = { italic = false },
-                },
-            })
             vim.cmd.colorscheme("tokyonight")
+        end,
+    },
+
+    -- DRESSING.NVIM ===========================================================
+    {
+        "stevearc/dressing.nvim",
+        lazy = true,
+        init = function()
+            ---@diagnostic disable-next-line: duplicate-set-field
+            vim.ui.select = function(...)
+                require("lazy").load({ plugins = { "dressing.nvim" } })
+                return vim.ui.select(...)
+            end
+            ---@diagnostic disable-next-line: duplicate-set-field
+            vim.ui.input = function(...)
+                require("lazy").load({ plugins = { "dressing.nvim" } })
+                return vim.ui.input(...)
+            end
         end,
     },
 
@@ -42,7 +53,10 @@ return {
         opts = function()
             local builtin = require("statuscol.builtin")
             return {
-                ft_ignore = { "netrw" },
+                ft_ignore = {
+                    "netrw",
+                    "lazy",
+                },
                 relculright = true,
                 segments = {
                     { sign = { namespace = { "diagnostic/signs" } } },

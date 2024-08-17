@@ -2,6 +2,7 @@
 local servers = {
     astro = {},
     basedpyright = {},
+    svelte = {},
     bashls = {},
     clangd = {},
     jsonls = {

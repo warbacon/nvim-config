@@ -26,7 +26,7 @@ return {
         formatters = {
             clang_format = {
                 prepend_args = {
-                    "-style={IndentWidth: 4, BreakBeforeBraces: Linux, AccessModifierOffset: -4, ColumnLimit: 120}",
+                    "-style={IndentWidth: 4, BreakBeforeBraces: Linux, AccessModifierOffset: -4, ColumnLimit: 100}",
                 },
             },
             shfmt = { prepend_args = { "-i", "4", "-ci", "-bn" } },

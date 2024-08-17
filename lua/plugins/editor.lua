@@ -39,6 +39,19 @@ return {
         },
     },
 
+    -- OIL.NVIM ================================================================
+    {
+        "stevearc/oil.nvim",
+        lazy = false,
+        keys = {
+            { "-", "<cmd>Oil<cr>", mode = "n" },
+        },
+        opts = {
+            delete_to_trash = vim.fn.has("win32") == 0 and true or false,
+            skip_confirm_for_simple_edits = true,
+        },
+    },
+
     -- GITSIGNS.NVIM ===========================================================
     {
         "lewis6991/gitsigns.nvim",

@@ -19,6 +19,24 @@ return {
                 selection_caret = " ",
                 prompt_prefix = "   ",
                 path_display = { "filename_first" },
+                sorting_strategy = "ascending",
+                layout_config = {
+                    horizontal = {
+                        height = 0.95,
+                        preview_cutoff = 100,
+                        prompt_position = "top",
+                        width = 0.95,
+                    },
+                },
+            },
+            pickers = {
+                find_files = {
+                    layout_config = {
+                        horizontal = {
+                            preview_width = 60
+                        },
+                    },
+                },
             },
         },
         config = function(_, opts)

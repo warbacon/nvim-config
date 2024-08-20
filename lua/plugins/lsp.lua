@@ -168,6 +168,7 @@ return {
 
                     require("lspconfig")[server_name].setup(server_opts)
                 end,
+                ["ruff"] = function() end,
             })
         end,
     },

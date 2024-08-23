@@ -42,6 +42,7 @@ return {
                     "help",
                     "lazy",
                     "mason",
+                    "oil",
                 },
             },
         },
@@ -54,8 +55,9 @@ return {
             local builtin = require("statuscol.builtin")
             return {
                 ft_ignore = {
-                    "netrw",
                     "lazy",
+                    "mason",
+                    "oil",
                 },
                 relculright = true,
                 segments = {

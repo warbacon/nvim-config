@@ -53,6 +53,8 @@ return {
             enable_named_colors = false,
             exclude_filetypes = {
                 "lazy",
+                "mason",
+                "oil",
             },
         },
     },

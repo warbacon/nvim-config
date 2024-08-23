@@ -59,7 +59,7 @@ return {
                 },
                 relculright = true,
                 segments = {
-                    { sign = { namespace = { "diagnostic/signs" } } },
+                    { sign = { namespace = { ".*" } } },
                     { text = { builtin.lnumfunc } },
                     { text = { " " } },
                     { sign = { namespace = { "gitsigns" }, colwidth = 1 } },

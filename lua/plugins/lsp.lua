@@ -36,12 +36,6 @@ local servers = {
             complete_function_calls = true,
             vtsls = {
                 tsserver = {
-                    globalPlugins = {
-                        name = "@astrojs/ts-plugin",
-                        location = vim.fn.stdpath("data")
-                            .. "/mason/packages/astro-language-server/node_modules/@astrojs/ts-plugin",
-                        enableForWorkspaceTypeScriptVersions = true,
-                    },
                     enableMoveToFileCodeAction = true,
                     autoUseWorkspaceTsdk = true,
                     experimental = { completion = { enableServerSideFuzzyMatch = true } },

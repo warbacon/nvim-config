@@ -131,6 +131,8 @@ return {
                 require("cmp_nvim_lsp").default_capabilities() or {}
             )
 
+            require("lspconfig.configs").vtsls = require("vtsls").lspconfig
+
             require("mason-lspconfig").setup_handlers({
                 function(server_name)
                     local server_opts = vim.tbl_deep_extend("force", {
@@ -138,10 +140,6 @@ return {
                     }, servers[server_name] or {})
 
                     require("lspconfig")[server_name].setup(server_opts)
-                end,
-                ["vtsls"] = function()
-                    require("lspconfig.configs").vtsls = require("vtsls").lspconfig
-                    require("lspconfig").vtsls.setup(servers.vtsls)
                 end,
                 ["ruff"] = function() end,
             })

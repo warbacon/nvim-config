@@ -95,7 +95,8 @@ return {
 
     -- NVIM-CMP ================================================================
     {
-        "hrsh7th/nvim-cmp",
+        "yioneko/nvim-cmp",
+        branch = "perf-up",
         event = "InsertEnter",
         dependencies = {
             "nvim-snippy",
@@ -136,10 +137,6 @@ return {
             }
 
             return {
-                performance = {
-                    throttle = 0,
-                    debounce = 0,
-                },
                 snippet = {
                     expand = function(args)
                         snippy.expand_snippet(args.body)

@@ -136,6 +136,10 @@ return {
             }
 
             return {
+                performance = {
+                    throttle = 0,
+                    debounce = 0,
+                },
                 snippet = {
                     expand = function(args)
                         snippy.expand_snippet(args.body)

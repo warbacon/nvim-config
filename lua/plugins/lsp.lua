@@ -121,6 +121,7 @@ return {
         event = "File",
         dependencies = {
             "mason.nvim",
+            "yioneko/nvim-vtsls",
         },
         config = function()
             local capabilities = vim.tbl_deep_extend(
@@ -137,6 +138,10 @@ return {
                     }, servers[server_name] or {})
 
                     require("lspconfig")[server_name].setup(server_opts)
+                end,
+                ["vtsls"] = function()
+                    require("lspconfig.configs").vtsls = require("vtsls").lspconfig
+                    require("lspconfig").vtsls.setup(servers.vtsls)
                 end,
                 ["ruff"] = function() end,
             })

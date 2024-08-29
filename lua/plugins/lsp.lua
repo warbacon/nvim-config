@@ -13,53 +13,29 @@ local servers = {
     lua_ls = {
         settings = {
             Lua = {
-                workspace = { checkThirdParty = false },
-                codeLens = { enable = true },
                 completion = { callSnippet = "Replace" },
-                doc = { privateName = { "^_" } },
-                hint = {
-                    enable = true,
-                    setType = false,
-                    paramType = true,
-                    paramName = "Disable",
-                    semicolon = "Disable",
-                    arrayIndex = "Disable",
-                },
             },
         },
     },
-    powershell_es = { settings = { powershell = { codeFormatting = { preset = "Stroustrup" } } } },
+    powershell_es = {
+        settings = {
+            powershell = {
+                codeFormatting = { preset = "Stroustrup" },
+            },
+        },
+    },
     tailwindcss = { filetypes_exclude = { "markdown" } },
     taplo = {},
-    vtsls = {
-        settings = {
-            complete_function_calls = true,
-            vtsls = {
-                tsserver = {
-                    enableMoveToFileCodeAction = true,
-                    autoUseWorkspaceTsdk = true,
-                    experimental = { completion = { enableServerSideFuzzyMatch = true } },
-                },
-                typescript = {
-                    updateImportsOnFileMove = { enabled = "always" },
-                    suggest = { completeFunctionCalls = true },
-                    inlayHints = {
-                        enumMemberValues = { enabled = true },
-                        functionLikeReturnTypes = { enabled = true },
-                        parameterNames = { enabled = "literals" },
-                        parameterTypes = { enabled = true },
-                        propertyDeclarationTypes = { enabled = true },
-                        variableTypes = { enabled = false },
-                    },
-                },
-            },
-        },
-    },
+    vtsls = {},
     yamlls = {
         on_new_config = function(new_config)
             new_config.settings.yaml.schemas = require("schemastore").yaml.schemas()
         end,
-        settings = { yaml = { schemaStore = { enable = false, url = "" } } },
+        settings = {
+            yaml = {
+                schemaStore = { enable = false, url = "" },
+            },
+        },
     },
 }
 

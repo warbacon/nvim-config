@@ -1,5 +1,5 @@
 return {
-    -- TELESCOPE.NVIM ==========================================================
+    -- TELESCOPE ===============================================================
     {
         "nvim-telescope/telescope.nvim",
         dependencies = {
@@ -9,7 +9,7 @@ return {
         cmd = "Telescope",
         keys = {
             { "<leader>,", "<cmd>Telescope buffers<cr>", mode = "n" },
-            { "<leader><leader>", "<cmd>Telescope find_files<cr>", mode = "n" },
+            { "<leader>f", "<cmd>Telescope find_files<cr>", mode = "n" },
             { "<leader>sg", "<cmd>Telescope live_grep<cr>", mode = "n" },
             { "<leader>sh", "<cmd>Telescope help_tags<cr>", mode = "n" },
             { "<leader>sd", "<cmd>Telescope diagnostics<cr>", mode = "n" },
@@ -33,7 +33,7 @@ return {
                 find_files = {
                     layout_config = {
                         horizontal = {
-                            preview_width = 60
+                            preview_width = 60,
                         },
                     },
                 },
@@ -48,34 +48,20 @@ return {
     -- NVIM-HIGHLIGHT-COLORS ===================================================
     {
         "brenoprata10/nvim-highlight-colors",
-        event = "File",
+        event = { "BufReadPost", "BufNewFile" },
         opts = {
             enable_named_colors = false,
             exclude_filetypes = {
                 "lazy",
                 "mason",
-                "oil",
             },
         },
     },
 
-    -- OIL.NVIM ================================================================
-    {
-        "stevearc/oil.nvim",
-        lazy = false,
-        keys = {
-            { "-", "<cmd>Oil<cr>", mode = "n" },
-        },
-        opts = {
-            delete_to_trash = vim.fn.has("win32") == 0 and true or false,
-            skip_confirm_for_simple_edits = true,
-        },
-    },
-
-    -- GITSIGNS.NVIM ===========================================================
+    -- GITSIGNS ================================================================
     {
         "lewis6991/gitsigns.nvim",
-        event = "File",
+        event = { "BufReadPost", "BufNewFile" },
         opts = {
             attach_to_untracked = true,
             signs = {

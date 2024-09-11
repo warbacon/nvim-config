@@ -1,95 +1,48 @@
--- Set leader key to space and local leader key to backslash
+-- Set the leader key to space and the local leader key to backslash
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- Configure Netrw settings
-vim.g.netrw_banner = 0
-
--- Disable external providers
-vim.g.loaded_python3_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_ruby_provider = 0
-vim.g.loaded_node_provider = 0
+-- Set a vertical line at column 80 to guide code width
+vim.opt.colorcolumn = "80"
 
 -- Enable line numbers and relative line numbers
 vim.opt.number = true
 vim.opt.relativenumber = true
 
--- Ruler at 80ch
-vim.opt.colorcolumn = "80"
-
--- Disable the intro screen
-vim.opt.shortmess:append({ I = true })
-
--- Display symbols for trailing spaces
-vim.opt.list = true
-vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "+" }
-
--- Configure fill characters for diff and end-of-buffer
-vim.opt.fillchars = {
-    diff = "╱",
-    eob = " ",
-}
-
--- Highlight the line number of the current line
+-- Highlight the line number of the cursor's line
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"
 
--- Prompt for confirmation when exiting unsaved
-vim.opt.confirm = true
-
--- Set indentation vim.options
+-- Use spaces instead of tabs and set indentation size
 vim.opt.expandtab = true
 vim.opt.shiftround = true
 vim.opt.shiftwidth = 4
-vim.opt.smartindent = true
 vim.opt.tabstop = 4
 
--- Ignore case in searches unless uppercase is used
+-- Open new splits below and to the right of the current window
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
+-- Ignore case in search patterns, but enable smart case
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
--- Open new splits below and to the right
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-vim.opt.splitkeep = "screen"
+-- Show whitespace characters like tabs, trailing spaces, and non-breakable spaces
+vim.opt.list = true
+vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "+" }
 
--- Allow virtual editing in block mode
-vim.opt.virtualedit = "block"
+-- Do not show the intro message on startup
+vim.opt.shortmess:append({ I = true })
 
--- Enable persistent undo
+-- Enable persistent undo, allowing undo history to be saved between sessions
 vim.opt.undofile = true
 
 -- Disable line wrapping
 vim.opt.wrap = false
 
--- Set scroll padding
+-- Set minimal number of screen lines to keep above and below the cursor
 vim.opt.sidescrolloff = 3
 vim.opt.scrolloff = 5
 
--- Decrease update time for better responsiveness
-vim.opt.updatetime = 1000
-
--- Limit the number of items in the popup menu
+-- Limit the height of the popup menu
 vim.opt.pumheight = 10
-
--- Preview incremental substitute
-vim.opt.inccommand = "split"
-
--- Remove "How to disable mouse" entry in popup-menu
-vim.cmd([[
-aunmenu PopUp.How-to\ disable\ mouse
-aunmenu PopUp.-1-
-]])
-
--- Diagnostics
-vim.diagnostic.config({
-    signs = {
-        text = {
-            [vim.diagnostic.severity.ERROR] = "",
-            [vim.diagnostic.severity.WARN] = "",
-            [vim.diagnostic.severity.HINT] = "",
-            [vim.diagnostic.severity.INFO] = "",
-        },
-    },
-})

@@ -1,78 +1,83 @@
 return {
-    -- NVIM-TREESITTER =========================================================
+    -- TREESITTER ==============================================================
     {
         "nvim-treesitter/nvim-treesitter",
-        event = { "File", "VeryLazy" },
+        main = "nvim-treesitter.configs",
         build = ":TSUpdate",
-        init = function()
+        opts = function()
             vim.filetype.add({
                 extension = { rasi = "rasi" },
                 pattern = {
-                    [".*/mako/config"] = "dosini",
-                    [".*/hypr/.+%.conf"] = "hyprlang",
-                    [".*/zathura/.+%.zathurarc"] = "zathurarc",
                     ["%.env%.[%w_.-]+"] = "sh",
+                    [".*/hypr/.+%.conf"] = "hyprlang",
+                    [".*/mako/config"] = "dosini",
+                    [".*/zathura/.+%.zathurarc"] = "zathurarc",
                 },
             })
-        end,
-        main = "nvim-treesitter.configs",
-        opts = {
-            ensure_installed = {
-                "astro",
-                "typescript",
-                "bash",
-                "c",
-                "cpp",
-                "css",
-                "diff",
-                "fish",
-                "git_config",
-                "html",
-                "hyprlang",
-                "javascript",
-                "json",
-                "jsonc",
-                "lua",
-                "luadoc",
-                "luap",
-                "markdown",
-                "markdown_inline",
-                "powershell",
-                "printf",
-                "python",
-                "query",
-                "rasi",
-                "regex",
-                "toml",
-                "vim",
-                "vimdoc",
-                "xml",
-                "yaml",
-            },
-            highlight = { enable = true },
-            indent = { enable = true },
-            incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection = "<C-s>",
-                    node_incremental = "<C-s>",
-                    scope_incremental = false,
-                    node_decremental = "<bs>",
+            return {
+                highlight = { enable = true },
+                indent = { enable = true },
+                ensure_installed = {
+                    "bash",
+                    "c",
+                    "cpp",
+                    "css",
+                    "fish",
+                    "html",
+                    "hyprlang",
+                    "ini",
+                    "javascript",
+                    "json",
+                    "jsonc",
+                    "lua",
+                    "markdown",
+                    "markdown_inline",
+                    "powershell",
+                    "printf",
+                    "python",
+                    "query",
+                    "rasi",
+                    "rasi",
+                    "regex",
+                    "toml",
+                    "vim",
+                    "vimdoc",
+                    "xml",
+                    "yaml",
+                    "zathurarc",
                 },
-            },
-        },
+            }
+        end,
     },
 
-    -- NVIM-TREESITTER-TEXTOBJECTS =============================================
+    -- TS-AUTOTAG ==============================================================
     {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        event = "VeryLazy",
-        opts = {
-            select = { enable = true },
+        "windwp/nvim-ts-autotag",
+        event = { "BufReadPost", "BufNewFile" },
+        opts = {},
+    },
+
+    -- TREESJ ==================================================================
+    {
+        "Wansmer/treesj",
+        keys = {
+            {
+                "<leader>j",
+                function()
+                    require("treesj").join()
+                end,
+                mode = "n",
+            },
+            {
+                "<leader>s",
+                function()
+                    require("treesj").split()
+                end,
+                mode = "n",
+            },
         },
-        config = function(_, opts)
-            ---@diagnostic disable-next-line: missing-fields
-            require("nvim-treesitter.configs").setup({ textobjects = opts })
-        end,
+        opts = {
+            use_default_keymaps = false,
+        },
     },
 }

@@ -1,8 +1,8 @@
--- Copy to clipboard
-vim.keymap.set("v", "<leader>y", '"+y')
-vim.keymap.set("n", "<leader>yy", '<S-v>"+y')
+-- Copy to system clipboard
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
+vim.keymap.set({ "n", "v" }, "<leader>Y", '"+y$')
 
--- LSP
+-- Set up keymaps for LSP features when an LSP client is attached to a buffer
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)
         local opts = { buffer = ev.buf }
@@ -17,8 +17,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
--- Lazy.nvim
-vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>")
-
--- Miscellaneous
+-- Disable the `q:` command-line window
 vim.keymap.set("n", "q:", "<cmd>echoe 'q:'<cr>", { noremap = true })

@@ -1,54 +1,37 @@
 return {
-    -- TOKYONIGHT.NVIM =========================================================
+    -- TOKYONIGHT ==============================================================
     {
         "folke/tokyonight.nvim",
         priority = 1000,
         config = function()
+            require("tokyonight").setup()
             vim.cmd.colorscheme("tokyonight")
         end,
     },
 
-    -- DRESSING.NVIM ===========================================================
+    -- HLCHUNK =================================================================
     {
-        "stevearc/dressing.nvim",
-        lazy = true,
-        init = function()
-            ---@diagnostic disable-next-line: duplicate-set-field
-            vim.ui.select = function(...)
-                require("lazy").load({ plugins = { "dressing.nvim" } })
-                return vim.ui.select(...)
-            end
-            ---@diagnostic disable-next-line: duplicate-set-field
-            vim.ui.input = function(...)
-                require("lazy").load({ plugins = { "dressing.nvim" } })
-                return vim.ui.input(...)
-            end
-        end,
-    },
-
-    -- INDENT-BLANKLINE.NVIM ===================================================
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        event = "File",
-        main = "ibl",
+        "shellRaining/hlchunk.nvim",
+        event = { "BufReadPre", "BufNewFile" },
         opts = {
-            indent = {
-                char = "│",
-                tab_char = "│",
-            },
-            scope = { show_start = false, show_end = false },
-            exclude = {
-                filetypes = {
-                    "help",
-                    "lazy",
-                    "mason",
-                    "oil",
+            chunk = {
+                enable = true,
+                duration = 0,
+                delay = 0,
+                error_sign = false,
+                textobject = "ic",
+                style = "#00ffff",
+                chars = {
+                    left_top = "┌",
+                    left_bottom = "└",
+                    right_arrow = "─",
                 },
             },
+            indent = { enable = true },
         },
     },
 
-    -- STATUSCOL.NVIM ==========================================================
+    -- STATUSCOL ===============================================================
     {
         "luukvbaal/statuscol.nvim",
         opts = function()
@@ -57,7 +40,6 @@ return {
                 ft_ignore = {
                     "lazy",
                     "mason",
-                    "oil",
                 },
                 relculright = true,
                 segments = {
@@ -80,5 +62,6 @@ return {
                 return package.loaded["nvim-web-devicons"]
             end
         end,
+        opts = {},
     },
 }

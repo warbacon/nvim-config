@@ -1,11 +1,17 @@
--- Options
+-- Load configuration options
 require("config.options")
 
--- Autocmds
+-- Load custom autocommands
 require("config.autocmds")
 
--- Keymaps
+-- Load key mappings configuration
 require("config.keymaps")
 
--- Plugins
+-- Load plugins
 require("config.lazy")
+
+-- Remove "How to disable mouse" entry in popup-menu
+vim.cmd([[
+aunmenu PopUp.How-to\ disable\ mouse
+aunmenu PopUp.-1-
+]])

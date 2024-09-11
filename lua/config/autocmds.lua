@@ -1,21 +1,21 @@
 local autocmd = vim.api.nvim_create_autocmd
 
--- Fix cursor at leave
-autocmd("VimLeave", {
-    callback = function()
-        vim.opt.guicursor = ""
-        vim.api.nvim_chan_send(vim.api.nvim_get_vvar("stderr"), "\x1b[ q")
-    end,
-})
-
--- Highlight when yanking text
+-- Automatically highlight text after yanking it
 autocmd("TextYankPost", {
     callback = function()
         vim.highlight.on_yank()
     end,
 })
 
--- Disable auto comment
+-- Fix the cursor when exiting Vim
+autocmd("VimLeave", {
+    callback = function()
+        vim.opt.guicursor = ""
+        io.write("\x1b[ q")
+    end,
+})
+
+-- Remove automatic continuation of comments when creating a new line
 autocmd("FileType", {
     callback = function()
         vim.opt.formatoptions:remove({ "o", "r" })

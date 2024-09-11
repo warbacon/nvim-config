@@ -1,5 +1,5 @@
 return {
-    -- TS-COMMENTS.NVIM ========================================================
+    -- TS-COMMENTS =============================================================
     {
         "folke/ts-comments.nvim",
         event = "VeryLazy",
@@ -10,76 +10,7 @@ return {
         },
     },
 
-    -- NVIM-SURROUND ===========================================================
-    {
-        "kylechui/nvim-surround",
-        event = "VeryLazy",
-        opts = {},
-    },
-
-    -- NVIM-TS-AUTOTAG =========================================================
-    {
-        "windwp/nvim-ts-autotag",
-        event = "File",
-        opts = {},
-    },
-
-    -- MINI.MOVE ===============================================================
-    {
-        "echasnovski/mini.move",
-        event = "VeryLazy",
-        opts = {},
-    },
-
-    -- MINI.AI =================================================================
-    {
-        "echasnovski/mini.ai",
-        event = "VeryLazy",
-        opts = function()
-            local ai = require("mini.ai")
-            return {
-                n_lines = 500,
-                custom_textobjects = {
-                    o = ai.gen_spec.treesitter({
-                        a = { "@block.outer", "@conditional.outer", "@loop.outer" },
-                        i = { "@block.inner", "@conditional.inner", "@loop.inner" },
-                    }),
-                    f = ai.gen_spec.treesitter({
-                        a = "@function.outer",
-                        i = "@function.inner",
-                    }),
-                    c = ai.gen_spec.treesitter({
-                        a = "@class.outer",
-                        i = "@class.inner",
-                    }),
-                },
-            }
-        end,
-    },
-
-    -- TREESJ ==================================================================
-    {
-        "Wansmer/treesj",
-        keys = {
-            {
-                "<leader>j",
-                function()
-                    require("treesj").join()
-                end,
-                mode = "n",
-            },
-            {
-                "<leader>s",
-                function()
-                    require("treesj").split()
-                end,
-                mode = "n",
-            },
-        },
-        opts = { use_default_keymaps = false },
-    },
-
-    -- NVIM-SNIPPY =============================================================
+    -- SNIPPY ==================================================================
     {
         "dcampos/nvim-snippy",
         lazy = true,
@@ -93,7 +24,7 @@ return {
         },
     },
 
-    -- NVIM-CMP ================================================================
+    -- CMP =====================================================================
     {
         "yioneko/nvim-cmp",
         branch = "perf-up",
@@ -107,7 +38,6 @@ return {
         },
         opts = function()
             local cmp = require("cmp")
-            local snippy = require("snippy")
             local kinds = {
                 Text = " ",
                 Method = " ",
@@ -139,7 +69,7 @@ return {
             return {
                 snippet = {
                     expand = function(args)
-                        snippy.expand_snippet(args.body)
+                        require("snippy").expand_snippet(args.body)
                     end,
                 },
                 completion = { completeopt = "menu,menuone,noinsert" },

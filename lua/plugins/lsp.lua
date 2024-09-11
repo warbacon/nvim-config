@@ -40,7 +40,7 @@ local servers = {
 }
 
 return {
-    -- FIDGET.NVIM =============================================================
+    -- FIDGET ==================================================================
     {
         "j-hui/fidget.nvim",
         event = "LspAttach",
@@ -51,7 +51,7 @@ return {
         },
     },
 
-    -- MASON.NVIM ==============================================================
+    -- MASON ===================================================================
     {
         "williamboman/mason.nvim",
         build = ":MasonUpdate",
@@ -71,7 +71,6 @@ return {
             },
             ensure_installed = {
                 "clang-format",
-                "markdownlint",
                 "prettierd",
                 "ruff",
                 "shellcheck",
@@ -100,7 +99,7 @@ return {
         end,
     },
 
-    -- LAZYDEV.NVIM ============================================================
+    -- LAZYDEV =================================================================
     {
         "folke/lazydev.nvim",
         ft = "lua",
@@ -112,26 +111,35 @@ return {
     },
     { "Bilal2453/luvit-meta", lazy = true },
 
-    -- SCHEMASTORE.NVIM ========================================================
+    -- SCHEMASTORE =============================================================
     { "b0o/SchemaStore.nvim", lazy = true },
 
-    -- NVIM-LSPCONFIG ==========================================================
+    -- LSPCONFIG ===============================================================
     {
         "neovim/nvim-lspconfig",
-        event = "File",
+        event = { "BufReadPost", "BufNewFile" },
         dependencies = {
             "mason.nvim",
-            "yioneko/nvim-vtsls",
         },
-        config = function()
+        opts = {
+            signs = {
+                text = {
+                    [vim.diagnostic.severity.ERROR] = "",
+                    [vim.diagnostic.severity.WARN] = "",
+                    [vim.diagnostic.severity.HINT] = "",
+                    [vim.diagnostic.severity.INFO] = "",
+                },
+            },
+        },
+        config = function(_, opts)
+            vim.diagnostic.config(opts)
+
             local capabilities = vim.tbl_deep_extend(
                 "force",
                 {},
                 vim.lsp.protocol.make_client_capabilities(),
                 require("cmp_nvim_lsp").default_capabilities() or {}
             )
-
-            require("lspconfig.configs").vtsls = require("vtsls").lspconfig
 
             require("mason-lspconfig").setup_handlers({
                 function(server_name)
@@ -142,28 +150,6 @@ return {
                     require("lspconfig")[server_name].setup(server_opts)
                 end,
                 ["ruff"] = function() end,
-            })
-        end,
-    },
-
-    -- NONE-LS =================================================================
-    {
-        "nvimtools/none-ls.nvim",
-        ft = { "markdown", "fish", "zsh" },
-        dependencies = {
-            "mason.nvim",
-        },
-        config = function()
-            local none_ls = require("null-ls")
-
-            none_ls.setup({
-                sources = {
-                    none_ls.builtins.diagnostics.fish,
-                    none_ls.builtins.diagnostics.zsh,
-                    none_ls.builtins.diagnostics.markdownlint.with({
-                        extra_args = { "--disable=MD033" },
-                    }),
-                },
             })
         end,
     },

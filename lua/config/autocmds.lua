@@ -21,3 +21,11 @@ autocmd("FileType", {
         vim.opt.formatoptions:remove({ "o", "r" })
     end,
 })
+
+-- Hide the sign column in netrw
+autocmd("FileType", {
+    pattern = { "netrw" },
+    callback = function ()
+        vim.opt_local.signcolumn = "no"
+    end
+})

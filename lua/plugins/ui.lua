@@ -31,27 +31,6 @@ return {
         },
     },
 
-    -- STATUSCOL ===============================================================
-    {
-        "luukvbaal/statuscol.nvim",
-        opts = function()
-            local builtin = require("statuscol.builtin")
-            return {
-                ft_ignore = {
-                    "lazy",
-                    "mason",
-                },
-                relculright = true,
-                segments = {
-                    { sign = { namespace = { ".*" } } },
-                    { text = { builtin.lnumfunc } },
-                    { text = { " " } },
-                    { sign = { namespace = { "gitsigns" }, colwidth = 1 } },
-                },
-            }
-        end,
-    },
-
     -- MINI.ICONS ==============================================================
     {
         "echasnovski/mini.icons",

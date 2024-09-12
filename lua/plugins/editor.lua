@@ -51,6 +51,7 @@ return {
         event = { "BufReadPost", "BufNewFile" },
         opts = {
             enable_named_colors = false,
+            enable_tailwind = true,
             exclude_filetypes = {
                 "lazy",
                 "mason",

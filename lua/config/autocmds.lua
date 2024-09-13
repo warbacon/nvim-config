@@ -18,7 +18,7 @@ autocmd("VimLeave", {
 -- Remove automatic continuation of comments when creating a new line
 autocmd("FileType", {
     callback = function()
-        vim.opt.formatoptions:remove({ "o", "r" })
+        vim.opt_local.formatoptions:remove({ "o", "r" })
     end,
 })
 

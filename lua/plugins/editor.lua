@@ -1,10 +1,19 @@
 return {
+    -- NEOGIT ==================================================================
+    {
+        "NeogitOrg/neogit",
+        cmd = "Neogit",
+        keys = {
+            { "<leader>g", "<cmd>Neogit<cr>", mode = "n" },
+        },
+        opts = {},
+    },
+
     -- TELESCOPE ===============================================================
     {
         "nvim-telescope/telescope.nvim",
         dependencies = {
             "nvim-telescope/telescope-fzy-native.nvim",
-            "nvim-lua/plenary.nvim",
         },
         cmd = "Telescope",
         keys = {

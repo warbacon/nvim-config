@@ -9,25 +9,29 @@ return {
         end,
     },
 
-    -- HLCHUNK =================================================================
+    -- INDENT-BLANKLINE ========================================================
     {
-        "shellRaining/hlchunk.nvim",
+        "lukas-reineke/indent-blankline.nvim",
         event = { "BufReadPre", "BufNewFile" },
+        main = "ibl",
         opts = {
-            chunk = {
-                enable = true,
-                duration = 0,
-                delay = 0,
-                error_sign = false,
-                textobject = "ic",
-                style = "#00ffff",
-                chars = {
-                    left_top = "┌",
-                    left_bottom = "└",
-                    right_arrow = "─",
+            indent = {
+                char = "▏",
+                smart_indent_cap = true,
+            },
+            scope = {
+                show_start = false,
+                show_end = false,
+            },
+            exclude = {
+                filetypes = {
+                    "help",
+                    "lazy",
+                    "mason",
+                    "fidget",
+                    "lazyterm",
                 },
             },
-            indent = { enable = true },
         },
     },
 

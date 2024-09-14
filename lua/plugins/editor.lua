@@ -1,14 +1,4 @@
 return {
-    -- NEOGIT ==================================================================
-    {
-        "NeogitOrg/neogit",
-        cmd = "Neogit",
-        keys = {
-            { "<leader>g", "<cmd>Neogit<cr>", mode = "n" },
-        },
-        opts = {},
-    },
-
     -- TELESCOPE ===============================================================
     {
         "nvim-telescope/telescope.nvim",
@@ -51,6 +41,34 @@ return {
         config = function(_, opts)
             require("telescope").setup(opts)
             require("telescope").load_extension("fzy_native")
+        end,
+    },
+
+    -- NEOGIT ==================================================================
+    {
+        "NeogitOrg/neogit",
+        dependencies = {
+            "sindrets/diffview.nvim",
+            "telescope.nvim",
+        },
+        cmd = "Neogit",
+        keys = {
+            { "<leader>g", "<cmd>Neogit<cr>", mode = "n" },
+        },
+        opts = function()
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "NeogitStatus" },
+                callback = function()
+                    vim.opt_local.cursorline = false
+                end,
+            })
+            return {
+                disable_context_highlighting = true,
+                signs = {
+                    item = { "", "" },
+                    section = { "", "" },
+                },
+            }
         end,
     },
 

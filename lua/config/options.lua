@@ -22,6 +22,16 @@ vim.opt.shiftround = true
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 
+-- Customize fill characters
+vim.opt.fillchars = {
+    foldopen = "",
+    foldclose = "",
+    fold = " ",
+    foldsep = " ",
+    diff = "╱",
+    eob = " ",
+}
+
 -- Open new splits below and to the right of the current window
 vim.opt.splitbelow = true
 vim.opt.splitright = true

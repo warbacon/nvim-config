@@ -44,32 +44,40 @@ return {
         end,
     },
 
-    -- NEOGIT ==================================================================
+    -- TOGGLETERM ==============================================================
     {
-        "NeogitOrg/neogit",
-        dependencies = {
-            "sindrets/diffview.nvim",
-            "telescope.nvim",
-        },
-        cmd = "Neogit",
-        keys = {
-            { "<leader>g", "<cmd>Neogit<cr>", mode = "n" },
-        },
-        opts = function()
-            vim.api.nvim_create_autocmd("FileType", {
-                pattern = { "NeogitStatus" },
-                callback = function()
-                    vim.opt_local.cursorline = false
-                end,
-            })
-            return {
-                disable_context_highlighting = true,
-                signs = {
-                    item = { "", "" },
-                    section = { "", "" },
+        "akinsho/toggleterm.nvim",
+        opts = {
+            highlights = {
+                FloatBorder = {
+                    link = "FloatBorder",
                 },
-            }
+            },
+        },
+        config = function(_, opts)
+            require("toggleterm").setup(opts)
+
+            local Terminal = require("toggleterm.terminal").Terminal
+            local lazygit = Terminal:new({
+                cmd = "lazygit",
+                display_name = "Lazygit",
+                direction = "float",
+                hidden = true,
+            })
+
+            function Lazygit_toggle()
+                lazygit:toggle()
+            end
         end,
+        keys = {
+            {
+                "<leader>g",
+                function()
+                    Lazygit_toggle()
+                end,
+                mode = "n",
+            },
+        },
     },
 
     -- NVIM-HIGHLIGHT-COLORS ===================================================

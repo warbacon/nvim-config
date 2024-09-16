@@ -1,13 +1,9 @@
 return {
+    -- LAVISH ==================================================================
+    { "ferdinandrau/lavish.nvim", priority = 1000 },
+
     -- TOKYONIGHT ==============================================================
-    {
-        "folke/tokyonight.nvim",
-        priority = 1000,
-        config = function()
-            require("tokyonight").setup()
-            vim.cmd.colorscheme("tokyonight")
-        end,
-    },
+    { "folke/tokyonight.nvim", priority = 1000 },
 
     -- INDENT-BLANKLINE ========================================================
     {

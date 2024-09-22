@@ -14,6 +14,9 @@ return {
                     [".*/zathura/.+%.zathurarc"] = "zathurarc",
                 },
             })
+
+            require("nvim-treesitter.install").prefer_git = false
+
             return {
                 highlight = { enable = true },
                 indent = { enable = true },
@@ -23,6 +26,7 @@ return {
                     "cpp",
                     "css",
                     "fish",
+                    "git_config",
                     "html",
                     "hyprlang",
                     "ini",
@@ -36,7 +40,6 @@ return {
                     "printf",
                     "python",
                     "query",
-                    "rasi",
                     "rasi",
                     "regex",
                     "toml",

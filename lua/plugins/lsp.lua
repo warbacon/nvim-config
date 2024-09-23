@@ -45,6 +45,13 @@ return {
         "j-hui/fidget.nvim",
         event = "LspAttach",
         opts = {
+            progress = {
+                display = {
+                    render_limit = 4,
+                    done_ttl = 1,
+                    done_icon = "󰄬",
+                },
+            },
             notification = {
                 window = { winblend = 10 },
             },

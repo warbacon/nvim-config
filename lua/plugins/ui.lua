@@ -1,7 +1,4 @@
 return {
-    -- LAVISH ==================================================================
-    { "ferdinandrau/lavish.nvim", priority = 1000 },
-
     -- TOKYONIGHT ==============================================================
     { "folke/tokyonight.nvim", priority = 1000 },
 

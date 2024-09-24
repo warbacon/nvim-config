@@ -63,24 +63,7 @@ return {
     -- TREESJ ==================================================================
     {
         "Wansmer/treesj",
-        keys = {
-            {
-                "<leader>j",
-                function()
-                    require("treesj").join()
-                end,
-                mode = "n",
-            },
-            {
-                "<leader>s",
-                function()
-                    require("treesj").split()
-                end,
-                mode = "n",
-            },
-        },
-        opts = {
-            use_default_keymaps = false,
-        },
+        keys = { "<leader>m", "<leader>j", "<leader>s" },
+        opts = {},
     },
 }

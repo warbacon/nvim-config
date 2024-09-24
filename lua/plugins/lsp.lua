@@ -67,7 +67,6 @@ return {
             "WhoIsSethDaniel/mason-tool-installer.nvim",
         },
         event = "VeryLazy",
-        keys = { { "<leader>m", "<cmd>Mason<cr>", mode = "n" } },
         opts = {
             ui = {
                 icons = {

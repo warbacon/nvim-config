@@ -30,6 +30,16 @@ return {
             },
             pickers = {
                 find_files = {
+                    hidden = true,
+                    find_command = {
+                        "fd",
+                        "--exclude",
+                        ".git",
+                        "--exclude",
+                        "node_modules",
+                        "--type",
+                        "f",
+                    },
                     layout_config = {
                         horizontal = {
                             preview_width = 60,

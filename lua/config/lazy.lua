@@ -12,7 +12,7 @@ require("lazy").setup({
         { import = "plugins" },
     },
     install = {
-        colorscheme = { "tokyonight" },
+        colorscheme = { "tokyonight", "retrobox" },
     },
     ui = { backdrop = 100 },
     change_detection = { notify = false },

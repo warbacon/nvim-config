@@ -2,8 +2,20 @@
 local servers = {
     astro = {},
     basedpyright = {},
+    eslint = {},
     svelte = {},
     bashls = {},
+    intelephense = {
+        init_options = {
+            globalStoragePath = (function()
+                if vim.fn.has("win32") == 1 then
+                    return os.getenv("LOCALAPPDATA") .. "/intelephense"
+                else
+                    return os.getenv("HOME") .. "/.local/share/intelephense"
+                end
+            end)()
+        },
+    },
     clangd = {},
     jsonls = {
         on_new_config = function(new_config)

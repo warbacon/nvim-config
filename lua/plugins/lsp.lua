@@ -7,13 +7,7 @@ local servers = {
     bashls = {},
     intelephense = {
         init_options = {
-            globalStoragePath = (function()
-                if vim.fn.has("win32") == 1 then
-                    return os.getenv("LOCALAPPDATA") .. "/intelephense"
-                else
-                    return os.getenv("HOME") .. "/.local/share/intelephense"
-                end
-            end)()
+            globalStoragePath = vim.fn.has("win32") == 0 and os.getenv("HOME") .. "/.local/share/intelephense",
         },
     },
     clangd = {},
@@ -97,8 +91,9 @@ return {
         },
         config = function(_, opts)
             if vim.fn.has("win32") == 1 then
-                servers.clangd = nil
                 servers.bashls = nil
+                servers.clangd = nil
+                servers.intelephense = nil
             end
 
             if vim.fn.executable("pwsh") == 0 then
@@ -112,6 +107,7 @@ return {
             require("mason-lspconfig").setup()
             require("mason-tool-installer").setup({
                 ensure_installed = ensure_installed,
+                debounce_hours = 0,
             })
         end,
     },

@@ -77,7 +77,6 @@ return {
             },
             ensure_installed = {
                 "clang-format",
-                "prettierd",
                 "ruff",
                 "shellcheck",
                 "shfmt",

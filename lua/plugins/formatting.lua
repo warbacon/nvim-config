@@ -13,8 +13,6 @@ return {
         },
         opts = {
             formatters_by_ft = {
-                astro = { "prettierd" },
-                svelte = { "prettierd" },
                 c = { "clang_format" },
                 cpp = { "clang_format" },
                 fish = { "fish_indent" },

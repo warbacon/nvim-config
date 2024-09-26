@@ -5,11 +5,6 @@ local servers = {
     eslint = {},
     svelte = {},
     bashls = {},
-    intelephense = {
-        init_options = {
-            globalStoragePath = vim.fn.has("win32") == 0 and os.getenv("HOME") .. "/.local/share/intelephense",
-        },
-    },
     clangd = {},
     jsonls = {
         on_new_config = function(new_config)

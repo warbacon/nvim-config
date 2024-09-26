@@ -21,10 +21,3 @@ autocmd("VimLeave", {
         io.write("\x1b[ q")
     end,
 })
-
--- Remove automatic continuation of comments when creating a new line
-autocmd("FileType", {
-    callback = function()
-        vim.opt_local.formatoptions:remove({ "o", "r" })
-    end,
-})

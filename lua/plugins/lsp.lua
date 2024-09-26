@@ -161,6 +161,7 @@ return {
                 end,
                 ["jdtls"] = function()
                     vim.api.nvim_create_autocmd("FileType", {
+                        group = vim.api.nvim_create_augroup("start_jdtls", { clear = true }),
                         pattern = { "java" },
                         callback = function()
                             local config = {

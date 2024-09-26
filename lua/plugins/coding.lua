@@ -19,12 +19,8 @@ return {
         opts = {},
     },
 
-    -- AUTOPAIRS ===============================================================
-    {
-        "windwp/nvim-autopairs",
-        event = "InsertEnter",
-        opts = {},
-    },
+    -- MINI.AI =================================================================
+    { "echasnovski/mini.ai", opts = {} },
 
     -- SNIPPY ==================================================================
     {
@@ -81,9 +77,6 @@ return {
                 Operator = " ",
                 TypeParameter = " ",
             }
-
-            local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-            cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
             return {
                 snippet = {

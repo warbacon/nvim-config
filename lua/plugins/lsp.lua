@@ -5,6 +5,7 @@ local servers = {
     eslint = {},
     svelte = {},
     bashls = {},
+    jdtls = {},
     clangd = {},
     jsonls = {
         on_new_config = function(new_config)
@@ -128,6 +129,7 @@ return {
         event = { "BufReadPost", "BufNewFile" },
         dependencies = {
             "mason.nvim",
+            "mfussenegger/nvim-jdtls",
         },
         opts = {
             signs = {
@@ -156,6 +158,13 @@ return {
                     }, servers[server_name] or {})
 
                     require("lspconfig")[server_name].setup(server_opts)
+                end,
+                ["jdtls"] = function()
+                    local config = {
+                        cmd = { "jdtls" },
+                        root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnw" }, { upward = true })[1]),
+                    }
+                    require("jdtls").start_or_attach(config)
                 end,
                 ["ruff"] = function() end,
             })

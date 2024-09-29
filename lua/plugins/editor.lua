@@ -74,50 +74,6 @@ return {
         },
     },
 
-    -- TOGGLETERM ==============================================================
-    {
-        "akinsho/toggleterm.nvim",
-        opts = {
-            highlights = {
-                FloatBorder = {
-                    link = "FloatBorder",
-                },
-            },
-        },
-        config = function(_, opts)
-            require("toggleterm").setup(opts)
-
-            local Terminal = require("toggleterm.terminal").Terminal
-            local lazygit = Terminal:new({
-                cmd = "lazygit",
-                display_name = "Lazygit",
-                direction = "float",
-                float_opts = {
-                    width = function()
-                        return math.floor(vim.o.columns * 0.95)
-                    end,
-                    height = function()
-                        return math.floor(vim.o.lines * 0.85)
-                    end,
-                },
-                hidden = true,
-            })
-
-            function Lazygit_toggle()
-                lazygit:toggle()
-            end
-        end,
-        keys = {
-            {
-                "<leader>g",
-                function()
-                    Lazygit_toggle()
-                end,
-                mode = "n",
-            },
-        },
-    },
-
     -- NVIM-HIGHLIGHT-COLORS ===================================================
     {
         "brenoprata10/nvim-highlight-colors",

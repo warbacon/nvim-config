@@ -171,7 +171,7 @@ return {
                                 ),
                             }
 
-                            if vim.fn.has("win32") then
+                            if vim.fn.has("win32") == 1 then
                                 config.cmd = vim.list_extend({ "cmd", "/c" }, config.cmd, 1)
                             end
 

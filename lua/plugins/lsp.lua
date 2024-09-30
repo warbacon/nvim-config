@@ -170,6 +170,11 @@ return {
                                     vim.fs.find({ "gradlew", ".git", "mvnw" }, { upward = true })[1]
                                 ),
                             }
+
+                            if vim.fn.has("win32") then
+                                config.cmd = vim.list_extend({ "cmd", "/c" }, config.cmd, 1)
+                            end
+
                             require("jdtls").start_or_attach(config)
                         end,
                     })

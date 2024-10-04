@@ -20,7 +20,14 @@ return {
     },
 
     -- MINI.AI =================================================================
-    { "echasnovski/mini.ai", opts = {} },
+    {
+        "echasnovski/mini.ai",
+        opts = {
+            custom_textobjects = {
+                i = require("util.ai_indent")
+            },
+        },
+    },
 
     -- SNIPPY ==================================================================
     {

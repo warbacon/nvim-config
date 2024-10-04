@@ -3,7 +3,6 @@ return {
     {
         "warbacon/vim-kitty",
         ft = "kitty",
-        enabled = vim.fn.executable("kitty") == 1,
     },
 
     -- MARKDOWN-PREVIEW ========================================================

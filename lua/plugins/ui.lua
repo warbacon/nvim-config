@@ -6,7 +6,7 @@ return {
         config = function()
             require("tokyonight").setup()
             vim.cmd.colorscheme("tokyonight")
-        end
+        end,
     },
 
     -- INDENT-BLANKLINE ========================================================

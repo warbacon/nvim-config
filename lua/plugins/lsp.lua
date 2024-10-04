@@ -175,7 +175,9 @@ return {
                                 config.cmd = vim.list_extend({ "cmd", "/c" }, config.cmd, 1)
                             end
 
-                            require("jdtls").start_or_attach(config)
+                            if vim.fn.executable("java") == 1 then
+                                require("jdtls").start_or_attach(config)
+                            end
                         end,
                     })
                 end,

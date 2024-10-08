@@ -45,8 +45,7 @@ return {
 
     -- CMP =====================================================================
     {
-        "yioneko/nvim-cmp",
-        branch = "perf-up",
+        "iguanacucumber/magazine.nvim",
         event = "InsertEnter",
         dependencies = {
             "nvim-snippy",

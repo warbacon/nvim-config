@@ -20,8 +20,8 @@ return {
             },
         },
         opts = {
-            default_show = {
-                show_icons = true,
+            options = {
+                use_cache = true,
             },
         },
     },

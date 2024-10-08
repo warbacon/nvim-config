@@ -1,7 +1,7 @@
 return {
     -- MINI.PICK ===============================================================
     {
-        "echanovski/mini.pick",
+        "echasnovski/mini.pick",
         dependencies = {
             { "echasnovski/mini.icons", opts = {} },
         },

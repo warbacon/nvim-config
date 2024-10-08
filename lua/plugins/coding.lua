@@ -22,11 +22,13 @@ return {
     -- MINI.AI =================================================================
     {
         "echasnovski/mini.ai",
-        opts = {
-            custom_textobjects = {
-                i = require("util.ai_indent")
-            },
-        },
+        opts = function()
+            return {
+                custom_textobjects = {
+                    i = require("mini.extra").gen_ai_spec.indent(),
+                },
+            }
+        end,
     },
 
     -- SNIPPY ==================================================================

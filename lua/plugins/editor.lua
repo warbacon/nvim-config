@@ -1,57 +1,29 @@
 return {
-    -- TELESCOPE ===============================================================
+    -- MINI.PICK ===============================================================
     {
-        "nvim-telescope/telescope.nvim",
+        "echanovski/mini.pick",
         dependencies = {
-            "nvim-telescope/telescope-fzy-native.nvim",
+            { "echasnovski/mini.icons", opts = {} },
         },
-        cmd = "Telescope",
+        cmd = "Pick",
         keys = {
-            { "<leader>,", "<cmd>Telescope buffers<cr>", mode = "n" },
-            { "<leader>f", "<cmd>Telescope find_files<cr>", mode = "n" },
-            { "<leader>sg", "<cmd>Telescope live_grep<cr>", mode = "n" },
-            { "<leader>sh", "<cmd>Telescope help_tags<cr>", mode = "n" },
-            { "<leader>sd", "<cmd>Telescope diagnostics<cr>", mode = "n" },
+            { "<leader>,", "<cmd>Pick buffers<cr>", mode = "n" },
+            { "<leader>f", "<cmd>Pick files<cr>", mode = "n" },
+            { "<leader>sg", "<cmd>Pick grep_live<cr>", mode = "n" },
+            { "<leader>sh", "<cmd>Pick help<cr>", mode = "n" },
+            {
+                "<leader>sd",
+                function()
+                    require("mini.extra").pickers.diagnostic()
+                end,
+                mode = "n",
+            },
         },
         opts = {
-            defaults = {
-                selection_caret = " ",
-                prompt_prefix = "   ",
-                path_display = { "filename_first" },
-                sorting_strategy = "ascending",
-                layout_config = {
-                    horizontal = {
-                        height = 0.95,
-                        preview_cutoff = 100,
-                        prompt_position = "top",
-                        width = 0.95,
-                    },
-                },
-            },
-            pickers = {
-                find_files = {
-                    hidden = true,
-                    find_command = {
-                        "fd",
-                        "--exclude",
-                        ".git",
-                        "--exclude",
-                        "node_modules",
-                        "--type",
-                        "f",
-                    },
-                    layout_config = {
-                        horizontal = {
-                            preview_width = 60,
-                        },
-                    },
-                },
+            default_show = {
+                show_icons = true,
             },
         },
-        config = function(_, opts)
-            require("telescope").setup(opts)
-            require("telescope").load_extension("fzy_native")
-        end,
     },
 
     -- OIL.NVIM ================================================================

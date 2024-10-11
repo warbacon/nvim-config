@@ -28,7 +28,7 @@ M.servers = {
     } or nil,
     svelte = {},
     tailwindcss = {
-        filetypes_exclude = { "markdown" },
+        filetypes = { "astro", "html", "css", "svelte" },
     },
     taplo = {},
     vtsls = {},

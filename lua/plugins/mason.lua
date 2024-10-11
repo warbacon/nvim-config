@@ -18,6 +18,7 @@ return {
         },
         config = function(_, opts)
             require("mason").setup(opts)
+            require("mason-lspconfig").setup()
 
             local ensure_installed = vim.list_extend({
                 "clang-format",

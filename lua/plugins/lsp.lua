@@ -80,8 +80,6 @@ return {
                 require("cmp_nvim_lsp").default_capabilities()
             )
 
-            require("mason-lspconfig").setup()
-
             local servers = require("util.lsp").servers
             servers.jdtls = nil
             for server_name in pairs(servers) do

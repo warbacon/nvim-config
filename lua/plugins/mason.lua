@@ -1,5 +1,8 @@
 return {
+    -- MASON-LSPCONFIG =========================================================
     { "williamboman/mason-lspconfig.nvim", lazy = true },
+
+    -- MASON ===================================================================
     {
         "williamboman/mason.nvim",
         build = ":MasonUpdate",

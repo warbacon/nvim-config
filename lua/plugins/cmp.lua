@@ -77,7 +77,7 @@ return {
                             end
                         end
 
-                        return require("nvim-highlight-colors").formatter(entry, item)
+                        return require("tailwindcss-colorizer-cmp").formatter(entry, item)
                     end,
                 },
                 mapping = cmp.mapping.preset.insert({

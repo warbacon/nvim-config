@@ -10,23 +10,13 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     spec = {
         { import = "plugins" },
+        { import = "plugins.mini" },
     },
     install = {
         colorscheme = { "tokyonight", "retrobox" },
     },
     ui = { backdrop = 100 },
     change_detection = { notify = false },
-    performance = {
-        rtp = {
-            disabled_plugins = {
-                "gzip",
-                "tarPlugin",
-                "tohtml",
-                "tutor",
-                "zipPlugin",
-            },
-        },
-    },
 })
 
 vim.api.nvim_set_keymap("n", "<leader>l", "<cmd>Lazy<cr>", {})

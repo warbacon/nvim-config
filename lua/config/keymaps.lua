@@ -12,9 +12,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end)
         vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
         vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
-        vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions layout_strategy=cursor<cr>")
-        vim.keymap.set("n", "gD", "<cmd>Telescope lsp_type_definitions layout_strategy=cursor<cr>")
-        vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>")
     end,
 })
 

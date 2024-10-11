@@ -23,6 +23,7 @@ return {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
+            { "roobert/tailwindcss-colorizer-cmp.nvim", opts = {} },
         },
         opts = function()
             local cmp = require("cmp")
@@ -63,7 +64,7 @@ return {
                 completion = { completeopt = "menu,menuone,noinsert" },
                 formatting = {
                     fields = { "kind", "abbr", "menu" },
-                    format = function(_, item)
+                    format = function(entry, item)
                         if kinds[item.kind] then
                             item.kind = kinds[item.kind]
                         end
@@ -76,7 +77,7 @@ return {
                             end
                         end
 
-                        return item
+                        return require("nvim-highlight-colors").formatter(entry, item)
                     end,
                 },
                 mapping = cmp.mapping.preset.insert({

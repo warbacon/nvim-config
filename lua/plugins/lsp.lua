@@ -82,6 +82,7 @@ return {
 
             local servers = require("util.lsp").servers
             servers.jdtls = nil
+
             for server_name in pairs(servers) do
                 local server_opts = vim.tbl_deep_extend("force", { capabilities = capabilities }, servers[server_name])
                 require("lspconfig")[server_name].setup(server_opts)

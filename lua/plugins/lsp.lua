@@ -48,10 +48,8 @@ return {
             "mason.nvim",
         },
         config = function()
-            local mason_registry = require("mason-registry")
-            local lombok_jar = mason_registry.get_package("jdtls"):get_install_path() .. "/lombok.jar"
             local config = {
-                cmd = { vim.fn.exepath("jdtls"), string.format("--jvm-arg=-javaagent:%s", lombok_jar) },
+                cmd = { vim.fn.exepath("jdtls") },
                 root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnw" }, { upward = true })[1]),
             }
 

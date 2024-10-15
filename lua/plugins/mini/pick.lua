@@ -26,20 +26,6 @@ M = {
     },
     config = function(_, opts)
         require("mini.pick").setup(opts)
-
-        vim.api.nvim_create_autocmd("LspAttach", {
-            callback = function()
-                vim.keymap.set("n", "gd", function()
-                    require("mini.extra").pickers.lsp({ scope = "definition" })
-                end)
-                vim.keymap.set("n", "gD", function()
-                    require("mini.extra").pickers.lsp({ scope = "type_definition" })
-                end)
-                vim.keymap.set("n", "gr", function()
-                    require("mini.extra").pickers.lsp({ scope = "references" })
-                end)
-            end,
-        })
     end,
 }
 

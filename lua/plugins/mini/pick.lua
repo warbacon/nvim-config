@@ -16,6 +16,27 @@ return {
             end,
             mode = "n",
         },
+        {
+            "gd",
+            function()
+                require("mini.extra").pickers.lsp({ scope = "definition" })
+            end,
+            mode = "n",
+        },
+        {
+            "gD",
+            function()
+                require("mini.extra").pickers.lsp({ scope = "type_definition" })
+            end,
+            mode = "n",
+        },
+        {
+            "gr",
+            function()
+                require("mini.extra").pickers.lsp({ scope = "references" })
+            end,
+            mode = "n",
+        },
     },
     opts = {
         options = {

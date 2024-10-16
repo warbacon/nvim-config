@@ -1,8 +1,4 @@
-local M = {}
-
-M = {
+return {
     "echasnovski/mini.extra",
     lazy = true,
 }
-
-return M

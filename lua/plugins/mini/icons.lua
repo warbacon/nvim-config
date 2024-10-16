@@ -1,9 +1,5 @@
-local M = {}
-
-M = {
+return {
     "echasnovski/mini.icons",
     lazy = true,
     opts = {},
 }
-
-return M

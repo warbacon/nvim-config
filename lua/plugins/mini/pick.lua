@@ -1,6 +1,4 @@
-local M = {}
-
-M = {
+return {
     "echasnovski/mini.pick",
     dependencies = {
         "mini.icons",
@@ -28,5 +26,3 @@ M = {
         require("mini.pick").setup(opts)
     end,
 }
-
-return M

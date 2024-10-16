@@ -28,35 +28,6 @@ return {
         },
     },
     { "Bilal2453/luvit-meta", lazy = true },
-    {
-        "hrsh7th/nvim-cmp",
-        opts = function(_, opts)
-            opts.sources = opts.sources or {}
-            table.insert(opts.sources, {
-                name = "lazydev",
-                group_index = 0,
-            })
-        end,
-    },
-
-    -- JAVA ===============================================================
-    {
-        "mfussenegger/nvim-jdtls",
-        enabled = vim.fn.executable("java"),
-        ft = "java",
-        dependencies = {
-            "mason.nvim",
-        },
-        config = function()
-            vim.api.nvim_create_autocmd("FileType", {
-                group = vim.api.nvim_create_augroup("start_jdtls", { clear = true }),
-                pattern = { "java" },
-                callback = function()
-                    require("jdtls").start_or_attach({ cmd = { vim.fn.exepath("jdtls") } })
-                end,
-            })
-        end,
-    },
 
     -- LSPCONFIG ===============================================================
     {
@@ -76,8 +47,6 @@ return {
             )
 
             local servers = require("util.lsp").servers
-            servers.jdtls = nil
-
             for server_name in pairs(servers) do
                 local server_opts = vim.tbl_deep_extend("force", { capabilities = capabilities }, servers[server_name])
                 require("lspconfig")[server_name].setup(server_opts)

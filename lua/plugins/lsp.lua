@@ -52,16 +52,7 @@ return {
                 group = vim.api.nvim_create_augroup("start_jdtls", { clear = true }),
                 pattern = { "java" },
                 callback = function()
-                    local fname = vim.api.nvim_buf_get_name(0)
-                    local default_config = require("lspconfig.configs.jdtls").default_config
-                    default_config.cmd[1] = vim.fn.exepath("jdtls")
-
-                    local config = {
-                        cmd = default_config.cmd,
-                        root_dir = default_config.root_dir(fname)
-                    }
-
-                    require("jdtls").start_or_attach(config)
+                    require("jdtls").start_or_attach({ cmd = { vim.fn.exepath("jdtls") } })
                 end,
             })
         end,

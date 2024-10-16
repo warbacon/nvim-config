@@ -1,16 +1,13 @@
 return {
-    -- SNIPPY ==================================================================
+    -- LUASNIP =================================================================
     {
-        "dcampos/nvim-snippy",
-        lazy = true,
-        opts = {
-            mappings = {
-                is = {
-                    ["<C-l>"] = "expand_or_advance",
-                    ["<C-h>"] = "previous",
-                },
-            },
-        },
+        "L3MON4D3/LuaSnip",
+        build = (function()
+            if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
+                return
+            end
+            return "make install_jsregexp"
+        end)(),
     },
 
     -- CMP =====================================================================
@@ -19,7 +16,8 @@ return {
         name = "nvim-cmp",
         event = "InsertEnter",
         dependencies = {
-            "nvim-snippy",
+            "LuaSnip",
+            "saadparwaiz1/cmp_luasnip",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
@@ -27,6 +25,7 @@ return {
         },
         opts = function()
             local cmp = require("cmp")
+            local luasnip = require("luasnip")
             local kinds = {
                 Text = " ",
                 Method = " ",
@@ -58,7 +57,7 @@ return {
             return {
                 snippet = {
                     expand = function(args)
-                        require("snippy").expand_snippet(args.body)
+                        luasnip.lsp_expand(args.body)
                     end,
                 },
                 completion = { completeopt = "menu,menuone,noinsert" },
@@ -89,12 +88,24 @@ return {
                         cmp.abort()
                         fallback()
                     end,
+                    ["<C-l>"] = cmp.mapping(function()
+                        if luasnip.expand_or_locally_jumpable() then
+                            luasnip.expand_or_jump()
+                        end
+                    end, { "i", "s" }),
+                    ["<C-h>"] = cmp.mapping(function()
+                        if luasnip.locally_jumpable(-1) then
+                            luasnip.jump(-1)
+                        end
+                    end, { "i", "s" }),
                 }),
                 view = {
                     entries = { follow_cursor = true },
                 },
                 sources = cmp.config.sources({
+                    { name = "lazydev", group_index = 0 },
                     { name = "nvim_lsp" },
+                    { name = "luasnip" },
                     { name = "path" },
                 }, {
                     { name = "buffer" },

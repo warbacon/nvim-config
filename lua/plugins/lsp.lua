@@ -37,13 +37,13 @@ return {
             "mason.nvim",
         },
         config = function()
-            local has_cmp_lsp = pcall(require, "cmp_nvim_lsp")
+            local has_cmp_lsp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
 
             local capabilities = vim.tbl_deep_extend(
                 "force",
                 {},
                 vim.lsp.protocol.make_client_capabilities(),
-                has_cmp_lsp and require("cmp_nvim_lsp").default_capabilities() or {}
+                has_cmp_lsp and cmp_lsp.default_capabilities() or {}
             )
 
             local servers = require("util.lsp").servers

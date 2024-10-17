@@ -42,6 +42,8 @@ return {
                     "--hidden",
                     "--exclude=.git",
                     "--exclude=node_modules",
+                    "--exclude=*.class",
+                    "--exclude=*.o",
                     "--type=f",
                     "--color=never"
                 },

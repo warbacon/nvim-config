@@ -2,21 +2,6 @@ return {
     -- SCHEMASTORE =============================================================
     { "b0o/SchemaStore.nvim", lazy = true },
 
-    -- FIDGET ==================================================================
-    {
-        "j-hui/fidget.nvim",
-        event = "LspAttach",
-        opts = {
-            progress = {
-                display = {
-                    render_limit = 4,
-                    done_ttl = 1,
-                    done_icon = "󰄬",
-                },
-            },
-        },
-    },
-
     -- LAZYDEV =================================================================
     {
         "folke/lazydev.nvim",

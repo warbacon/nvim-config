@@ -9,6 +9,10 @@ return {
             end
             return "make install_jsregexp"
         end)(),
+        opts = {
+            history = true,
+            delete_check_events = "TextChanged",
+        },
     },
 
     -- CMP =====================================================================
@@ -17,7 +21,6 @@ return {
         name = "nvim-cmp",
         event = "InsertEnter",
         dependencies = {
-            "LuaSnip",
             "saadparwaiz1/cmp_luasnip",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
@@ -26,7 +29,6 @@ return {
         },
         opts = function()
             local cmp = require("cmp")
-            local luasnip = require("luasnip")
             local kinds = {
                 Text = " ",
                 Method = " ",
@@ -58,7 +60,7 @@ return {
             return {
                 snippet = {
                     expand = function(args)
-                        luasnip.lsp_expand(args.body)
+                        require("luasnip").lsp_expand(args.body)
                     end,
                 },
                 completion = { completeopt = "menu,menuone,noinsert" },
@@ -90,13 +92,13 @@ return {
                         fallback()
                     end,
                     ["<C-l>"] = cmp.mapping(function()
-                        if luasnip.expand_or_locally_jumpable() then
-                            luasnip.expand_or_jump()
+                        if require("luasnip").expand_or_locally_jumpable() then
+                            require("luasnip").expand_or_jump()
                         end
                     end, { "i", "s" }),
                     ["<C-h>"] = cmp.mapping(function()
-                        if luasnip.locally_jumpable(-1) then
-                            luasnip.jump(-1)
+                        if require("luasnip").locally_jumpable(-1) then
+                            require("luasnip").jump(-1)
                         end
                     end, { "i", "s" }),
                 }),

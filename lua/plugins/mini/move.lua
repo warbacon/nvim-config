@@ -1,5 +1,10 @@
 return {
     "echasnovski/mini.move",
-    event = "VeryLazy",
+    keys = {
+        { "<M-h>", mode = { "n", "v" } },
+        { "<M-j>", mode = { "n", "v" } },
+        { "<M-k>", mode = { "n", "v" } },
+        { "<M-l>", mode = { "n", "v" } },
+    },
     opts = {},
 }

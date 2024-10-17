@@ -48,6 +48,7 @@ return {
     -- TS-AUTOTAG ==============================================================
     {
         "windwp/nvim-ts-autotag",
+        event = { "BufReadPost", "BufNewFile" },
         config = function()
             vim.defer_fn(function()
                 require("nvim-ts-autotag").setup()

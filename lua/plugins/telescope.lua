@@ -45,7 +45,7 @@ return {
                     "--exclude=*.class",
                     "--exclude=*.o",
                     "--type=f",
-                    "--color=never"
+                    "--color=never",
                 },
                 layout_config = {
                     horizontal = {

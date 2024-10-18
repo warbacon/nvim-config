@@ -31,7 +31,22 @@ M.servers = {
         filetypes = { "astro", "html", "css", "svelte" },
     },
     taplo = {},
-    vtsls = {},
+    vtsls = {
+        settings = {
+            typescript = {
+                updateImportsOnFileMove = "always",
+                suggest = {
+                    completeFunctionCalls = true,
+                },
+            },
+            javascript = {
+                updateImportsOnFileMove = "always",
+            },
+            vtsls = {
+                enableMoveToFileCodeAction = true,
+            },
+        },
+    },
     yamlls = {
         on_new_config = function(new_config)
             new_config.settings.yaml.schemas = require("schemastore").yaml.schemas()

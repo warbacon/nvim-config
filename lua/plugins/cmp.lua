@@ -25,7 +25,6 @@ return {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
-            { "roobert/tailwindcss-colorizer-cmp.nvim", opts = {} },
         },
         opts = function()
             local cmp = require("cmp")
@@ -71,6 +70,20 @@ return {
                             item.kind = kinds[item.kind]
                         end
 
+                        local entryItem = entry:get_completion_item()
+                        local color = entryItem.documentation
+
+                        if color and type(color) == "string" and color:match("^#%x%x%x%x%x%x$") then
+                            local hl = "hex-" .. color:sub(2)
+
+                            if #vim.api.nvim_get_hl(0, { name = hl }) == 0 then
+                                vim.api.nvim_set_hl(0, hl, { fg = color })
+                            end
+
+                            item.menu = " "
+                            item.menu_hl_group = hl
+                        end
+
                         local widths = { abbr = 40, menu = 30 }
 
                         for key, width in pairs(widths) do
@@ -79,7 +92,7 @@ return {
                             end
                         end
 
-                        return require("tailwindcss-colorizer-cmp").formatter(entry, item)
+                        return item
                     end,
                 },
                 mapping = cmp.mapping.preset.insert({

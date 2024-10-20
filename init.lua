@@ -9,3 +9,6 @@ require("config.keymaps")
 
 -- Load plugins
 require("config.lazy")
+
+-- Load extra configurations
+require("config.extra")

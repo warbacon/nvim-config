@@ -7,8 +7,8 @@ require("config.autocmds")
 -- Load key mappings configuration
 require("config.keymaps")
 
--- Load plugins
-require("config.lazy")
-
 -- Load extra configurations
 require("config.extra")
+
+-- Load plugins
+require("config.lazy")

@@ -14,6 +14,7 @@ return {
                 "c",
                 "cpp",
                 "css",
+                "dockerfile",
                 "fish",
                 "git_config",
                 "html",

@@ -5,6 +5,7 @@ M.servers = {
     basedpyright = {},
     bashls = {},
     clangd = vim.fn.has("win32") == 0 and {} or nil,
+    dockerls = {},
     jdtls = vim.fn.executable("java") == 1 and {} or nil,
     jsonls = {
         on_new_config = function(new_config)

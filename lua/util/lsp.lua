@@ -29,7 +29,6 @@ M.servers = {
     tailwindcss = {
         filetypes = { "astro", "html", "css", "svelte" },
     },
-    taplo = {},
     vtsls = {
         settings = {
             typescript = {

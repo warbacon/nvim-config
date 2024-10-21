@@ -17,8 +17,7 @@ return {
 
     -- CMP =====================================================================
     {
-        "iguanacucumber/magazine.nvim",
-        name = "nvim-cmp",
+        "hrsh7th/nvim-cmp",
         event = "InsertEnter",
         dependencies = {
             "saadparwaiz1/cmp_luasnip",
@@ -68,18 +67,27 @@ return {
 
                         return item
                     end,
+                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
                 },
                 mapping = cmp.mapping.preset.insert({
                     ["<C-k>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-j>"] = cmp.mapping.scroll_docs(4),
                     ["<CR>"] = function(fallback)
-                        if cmp.core.view:visible() then
-                            cmp.confirm({ select = true  })
-                        else
-                            fallback()
+                        if cmp.core.view:visible() or vim.fn.pumvisible() == 1 then
+                            if cmp.confirm({ select = true }) then
+                                return
+                            end
                         end
+                        fallback()
                     end,
-                    ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace }),
+                    ["<S-CR>"] = function(fallback)
+                        if cmp.core.view:visible() or vim.fn.pumvisible() == 1 then
+                            if cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace }) then
+                                return
+                            end
+                        end
+                        fallback()
+                    end,
                     ["<C-CR>"] = function(fallback)
                         cmp.abort()
                         fallback()
@@ -95,9 +103,9 @@ return {
                         end
                     end, { "i", "s" }),
                 }),
-                view = {
-                    entries = { follow_cursor = true },
-                },
+                -- view = {
+                --     entries = { follow_cursor = true },
+                -- },
                 sources = cmp.config.sources({
                     { name = "lazydev", group_index = 0 },
                     { name = "nvim_lsp" },

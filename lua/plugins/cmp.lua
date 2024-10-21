@@ -28,34 +28,6 @@ return {
         },
         opts = function()
             local cmp = require("cmp")
-            local kinds = {
-                Text = " ",
-                Method = " ",
-                Function = " ",
-                Constructor = " ",
-                Field = " ",
-                Variable = " ",
-                Class = " ",
-                Interface = " ",
-                Module = " ",
-                Property = " ",
-                Unit = " ",
-                Value = " ",
-                Enum = " ",
-                Keyword = " ",
-                Snippet = " ",
-                Color = " ",
-                File = " ",
-                Reference = " ",
-                Folder = " ",
-                EnumMember = " ",
-                Constant = " ",
-                Struct = " ",
-                Event = " ",
-                Operator = " ",
-                TypeParameter = " ",
-            }
-
             return {
                 snippet = {
                     expand = function(args)
@@ -66,6 +38,8 @@ return {
                 formatting = {
                     fields = { "kind", "abbr", "menu" },
                     format = function(entry, item)
+                        local kinds = require("util.icons").kinds
+
                         if kinds[item.kind] then
                             item.kind = kinds[item.kind]
                         end

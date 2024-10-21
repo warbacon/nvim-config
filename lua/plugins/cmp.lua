@@ -72,7 +72,13 @@ return {
                 mapping = cmp.mapping.preset.insert({
                     ["<C-k>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-j>"] = cmp.mapping.scroll_docs(4),
-                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+                    ["<CR>"] = function(fallback)
+                        if cmp.core.view:visible() then
+                            cmp.confirm({ select = true  })
+                        else
+                            fallback()
+                        end
+                    end,
                     ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace }),
                     ["<C-CR>"] = function(fallback)
                         cmp.abort()

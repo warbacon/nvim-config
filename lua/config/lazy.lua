@@ -17,6 +17,20 @@ require("lazy").setup({
     },
     ui = { backdrop = 100 },
     change_detection = { notify = false },
+    performance = {
+        rtp = {
+            disabled_plugins = {
+                "gzip",
+                "matchit",
+                "netrwPlugin",
+                "rplugin",
+                "tarPlugin",
+                "tohtml",
+                "tutor",
+                "zipPlugin",
+            },
+        },
+    },
 })
 
 vim.api.nvim_set_keymap("n", "<leader>l", "<cmd>Lazy<cr>", {})

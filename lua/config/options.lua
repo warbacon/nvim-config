@@ -59,3 +59,6 @@ vim.opt.scrolloff = 5
 
 -- Limit the height of the popup menu
 vim.opt.pumheight = 10
+
+-- Custom cursor
+vim.opt.guicursor = "i-ci-ve:block-CursorInsert,r-cr:hor20,o:hor50"

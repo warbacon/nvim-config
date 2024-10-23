@@ -17,6 +17,7 @@ return {
     -- JDTLS ===================================================================
     {
         "mfussenegger/nvim-jdtls",
+        enabled = vim.fn.executable("java"),
         ft = "java",
         config = function()
             local function attach_jdtls()

@@ -32,6 +32,7 @@ return {
             end
 
             vim.api.nvim_create_autocmd("FileType", {
+                group = vim.api.nvim_create_augroup("start-jdtls", { clear = true }),
                 pattern = { "java" },
                 callback = attach_jdtls,
             })

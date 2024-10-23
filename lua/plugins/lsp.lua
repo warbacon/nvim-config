@@ -14,6 +14,30 @@ return {
     },
     { "Bilal2453/luvit-meta", lazy = true },
 
+    -- JDTLS ===================================================================
+    {
+        "mfussenegger/nvim-jdtls",
+        ft = "java",
+        config = function()
+            local function attach_jdtls()
+                local fname = vim.api.nvim_buf_get_name(0)
+
+                local config = {
+                    cmd = { vim.fn.exepath("jdtls") },
+                    root_dir = require("lspconfig.configs.jdtls").default_config.root_dir(fname),
+                    capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                }
+
+                require("jdtls").start_or_attach(config)
+            end
+
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "java" },
+                callback = attach_jdtls,
+            })
+        end,
+    },
+
     -- LSPCONFIG ===============================================================
     {
         "neovim/nvim-lspconfig",
@@ -32,6 +56,9 @@ return {
             )
 
             local servers = require("util.lsp").servers
+
+            servers.jdtls = nil
+
             for server_name in pairs(servers) do
                 local server_opts = vim.tbl_deep_extend("force", { capabilities = capabilities }, servers[server_name])
                 require("lspconfig")[server_name].setup(server_opts)

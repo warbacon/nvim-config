@@ -59,6 +59,6 @@ return {
     config = function(_, opts)
         vim.defer_fn(function()
             require("gitsigns").setup(opts)
-        end, 100)
+        end, 1)
     end,
 }

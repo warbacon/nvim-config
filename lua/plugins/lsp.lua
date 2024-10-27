@@ -23,10 +23,12 @@ return {
             local function attach_jdtls()
                 local fname = vim.api.nvim_buf_get_name(0)
 
+                local has_cmp_lsp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+
                 local config = {
                     cmd = { vim.fn.exepath("jdtls") },
                     root_dir = require("lspconfig.configs.jdtls").default_config.root_dir(fname),
-                    capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                    capabilities = has_cmp_lsp and cmp_lsp.default_capabilities() or nil,
                 }
 
                 require("jdtls").start_or_attach(config)

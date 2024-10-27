@@ -18,6 +18,7 @@ return {
     -- CMP =====================================================================
     {
         "hrsh7th/nvim-cmp",
+        enabled = false,
         event = "InsertEnter",
         dependencies = {
             "saadparwaiz1/cmp_luasnip",

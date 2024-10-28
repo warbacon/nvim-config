@@ -56,9 +56,4 @@ return {
             map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
         end,
     },
-    config = function(_, opts)
-        vim.defer_fn(function()
-            require("gitsigns").setup(opts)
-        end, 1)
-    end,
 }

@@ -24,6 +24,7 @@ require("lazy").setup({
                 "matchit",
                 "netrwPlugin",
                 "rplugin",
+                "spellfile",
                 "tarPlugin",
                 "tohtml",
                 "tutor",

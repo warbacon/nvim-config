@@ -31,7 +31,7 @@ return {
                         require("snippy").expand_snippet(args.body)
                     end,
                 },
-                completion = { completeopt = "menu,menuone,noinsert" },
+                completion = { completeopt = "menuone" },
                 formatting = {
                     fields = { "kind", "abbr", "menu" },
                     format = function(entry, item)

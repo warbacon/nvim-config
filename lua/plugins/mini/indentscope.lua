@@ -1,10 +1,15 @@
 return {
     "echasnovski/mini.indentscope",
     event = { "BufReadPost", "BufNewFile" },
-    opts = {
-        symbol = "▏",
-        options = { try_as_border = true },
-    },
+    opts = function()
+        return {
+            draw = {
+                delay = 0,
+                animation = require("mini.indentscope").gen_animation.none()
+            },
+            symbol = "▏",
+        }
+    end,
     init = function()
         vim.api.nvim_create_autocmd("FileType", {
             pattern = {

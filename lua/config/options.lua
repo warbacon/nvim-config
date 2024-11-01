@@ -48,7 +48,7 @@ vim.opt.smartcase = true
 
 -- Show whitespace characters like tabs, trailing spaces, and non-breakable spaces
 vim.opt.list = true
-vim.opt.listchars = { trail = "·" }
+vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "+" }
 
 -- Do not show the intro message on startup
 vim.opt.shortmess:append({ I = true })

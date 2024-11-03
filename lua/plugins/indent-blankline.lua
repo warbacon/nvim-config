@@ -1,6 +1,6 @@
 return {
     "lukas-reineke/indent-blankline.nvim",
-    event = { "BufPostRead", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile" },
     main = "ibl",
     ---@module "ibl"
     ---@type ibl.config

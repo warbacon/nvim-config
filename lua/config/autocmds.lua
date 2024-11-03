@@ -9,7 +9,7 @@ local autocmd = vim.api.nvim_create_autocmd
 autocmd("TextYankPost", {
     group = augroup("highlight_yank"),
     callback = function()
-        vim.highlight.on_yank()
+        (vim.hl or vim.highlight).on_yank()
     end,
 })
 

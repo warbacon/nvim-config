@@ -1,21 +1,30 @@
 return {
     "Saghen/blink.cmp",
-    enabled = false,
     version = "v0.*",
     opts = {
-        highlight = {
-            use_nvim_cmp_as_default = true,
-        },
         keymap = {
-            show = { "<C-space>", "<C-n>" },
-            hide = "<C-e>",
-            accept = "<cr>",
-            select_prev = { "<Up>", "<C-p>" },
-            select_next = { "<Down>", "<C-n>" },
-            snippet_forward = "<C-l>",
-            snippet_backward = "<C-h>",
+            preset = "enter",
+            ["<C-l>"] = { "snippet_forward", "fallback" },
+            ["<C-h>"] = { "snippet_backward", "fallback" },
         },
-        accept = { auto_brackets = { enabled = true } },
+        -- accept = { auto_brackets = { enabled = true } },
+        windows = {
+            autocomplete = {
+                draw = "reversed",
+            },
+            documentation = {
+                auto_show = true,
+            },
+        },
+        sources = {
+            completion = {
+                enabled_providers = { "lsp", "path", "snippets", "buffer", "lazydev" },
+            },
+            providers = {
+                lsp = { fallback_for = { "lazydev" } },
+                lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
+            },
+        },
         kind_icons = {
             Text = "",
             Method = "",

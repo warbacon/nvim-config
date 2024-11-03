@@ -1,6 +1,6 @@
 return {
     "Saghen/blink.cmp",
-    version = "v0.*",
+    version = "*",
     opts = {
         keymap = {
             preset = "enter",
@@ -9,9 +9,6 @@ return {
         },
         -- accept = { auto_brackets = { enabled = true } },
         windows = {
-            autocomplete = {
-                draw = "reversed",
-            },
             documentation = {
                 auto_show = true,
             },

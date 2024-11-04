@@ -118,7 +118,9 @@ return {
 
         local Commands = {
             {
-                provider = require("noice").api.status.command.get,
+                provider = function()
+                    return require("noice").api.status.command.get() or ""
+                end,
                 hl = { fg = "purple" },
             },
             LeftSeparator,
@@ -127,7 +129,9 @@ return {
 
         local Mode = {
             {
-                provider = require("noice").api.status.mode.get,
+                provider = function()
+                    return require("noice").api.status.mode.get() or ""
+                end,
                 hl = { fg = "orange" },
             },
             LeftSeparator,

@@ -40,13 +40,11 @@ return {
                     return "[Sin nombre]"
                 end
 
-                local filename = ""
-
                 if vim.bo.buftype == "help" then
-                    filename = vim.fn.fnamemodify(self.filename, ":t")
-                else
-                    filename = vim.fn.fnamemodify(self.filename, ":."):gsub(vim.env.HOME, "~")
+                    return vim.fn.fnamemodify(self.filename, ":t")
                 end
+
+                local filename = vim.fn.fnamemodify(self.filename, ":.")
 
                 if not conditions.width_percent_below(#filename, 0.45) then
                     filename = vim.fn.pathshorten(filename)

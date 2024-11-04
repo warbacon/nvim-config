@@ -12,6 +12,50 @@ return {
         local Align = { provider = "%=" }
         local LeftSeparator = { provider = "  " }
 
+        local colors = {
+            red = utils.get_highlight("DiagnosticError").fg,
+            green = utils.get_highlight("String").fg,
+            blue = utils.get_highlight("Function").fg,
+            orange = utils.get_highlight("Constant").fg,
+            purple = utils.get_highlight("Statement").fg,
+            cyan = utils.get_highlight("DiagnosticHint").fg,
+        }
+
+        local ViMode = {
+            init = function(self)
+                self.mode = vim.fn.mode(1)
+            end,
+            static = {
+                mode_colors = {
+                    n = "blue",
+                    i = "green",
+                    v = "purple",
+                    V = "purple",
+                    ["\22"] = "purple",
+                    c = "orange",
+                    s = "purple",
+                    S = "purple",
+                    ["\19"] = "purple",
+                    R = "blue",
+                    r = "blue",
+                    ["!"] = "cyan",
+                    t = "cyan",
+                },
+            },
+            provider = " ",
+            hl = function(self)
+                local mode = self.mode:sub(1, 1)
+                return { bg = self.mode_colors[mode] }
+            end,
+            update = {
+                "ModeChanged",
+                pattern = "*:*",
+                callback = vim.schedule_wrap(function()
+                    vim.cmd("redrawstatus")
+                end),
+            },
+        }
+
         local FileNameBlock = {
             init = function(self)
                 self.filename = vim.api.nvim_buf_get_name(0)
@@ -46,7 +90,7 @@ return {
 
                 local filename = vim.fn.fnamemodify(self.filename, ":.")
 
-                if not conditions.width_percent_below(#filename, 0.45) then
+                if not conditions.width_percent_below(#filename, 0.55) then
                     filename = vim.fn.pathshorten(filename)
                 end
 
@@ -66,7 +110,7 @@ return {
                     return vim.bo.readonly
                 end,
                 provider = " 󰌾",
-                hl = "DiagnosticError",
+                hl = { fg = "red" },
             },
         }
 
@@ -75,7 +119,7 @@ return {
         local Commands = {
             {
                 provider = require("noice").api.status.command.get,
-                hl = utils.get_highlight("Statement"),
+                hl = { fg = "purple" },
             },
             LeftSeparator,
             condition = require("noice").api.status.command.has,
@@ -84,7 +128,7 @@ return {
         local Mode = {
             {
                 provider = require("noice").api.status.mode.get,
-                hl = utils.get_highlight("Constant"),
+                hl = { fg = "orange" }
             },
             LeftSeparator,
             condition = require("noice").api.status.mode.has,
@@ -108,6 +152,8 @@ return {
         }
 
         local StatusLine = {
+            ViMode,
+            Space,
             FileNameBlock,
             Space,
             Align,
@@ -138,6 +184,7 @@ return {
 
         require("heirline").setup({
             statusline = StatusLines,
+            opts = { colors = colors },
         })
     end,
 }

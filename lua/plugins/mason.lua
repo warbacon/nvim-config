@@ -25,6 +25,7 @@ return {
 
             local ensure_installed = vim.list_extend({
                 "clang-format",
+                "markdownlint",
                 "ruff",
                 "shellcheck",
                 "shfmt",

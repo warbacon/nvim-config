@@ -15,7 +15,7 @@ return {
             cpp = { "clang_format" },
             fish = { "fish_indent" },
             lua = { "stylua" },
-            markdown = { "markdownlint-cli2", "injected" },
+            markdown = { "markdownlint", "injected" },
             python = { "ruff_format" },
             sh = { "shfmt" },
             ["_"] = { "trim_whitespace" },

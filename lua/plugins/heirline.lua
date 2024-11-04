@@ -128,7 +128,7 @@ return {
         local Mode = {
             {
                 provider = require("noice").api.status.mode.get,
-                hl = { fg = "orange" }
+                hl = { fg = "orange" },
             },
             LeftSeparator,
             condition = require("noice").api.status.mode.has,

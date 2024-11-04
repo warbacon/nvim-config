@@ -13,6 +13,7 @@ return {
         local LeftSeparator = { provider = "  " }
 
         local colors = {
+            bright_bg = utils.get_highlight("Folded").bg,
             red = utils.get_highlight("DiagnosticError").fg,
             green = utils.get_highlight("String").fg,
             blue = utils.get_highlight("Function").fg,
@@ -152,7 +153,7 @@ return {
                 local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
                 return string.rep(self.sbar[i], 2)
             end,
-            hl = "Directory",
+            hl = { fg = "blue", bg = "bright_bg" },
         }
 
         local StatusLine = {

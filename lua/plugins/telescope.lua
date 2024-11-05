@@ -1,6 +1,14 @@
 return {
     "nvim-telescope/telescope.nvim",
+    init = function()
+        ---@diagnostic disable-next-line: duplicate-set-field
+        vim.ui.select = function(...)
+            require("lazy").load({ plugins = { "telescope.nvim" } })
+            return vim.ui.select(...)
+        end
+    end,
     dependencies = {
+        { "nvim-telescope/telescope-ui-select.nvim" },
         {
             "nvim-telescope/telescope-fzf-native.nvim",
             build = "make",
@@ -21,6 +29,11 @@ return {
         { "gr", "<cmd>Telescope lsp_references<cr>", mode = "n" },
     },
     opts = {
+        extensions = {
+            ["ui-select"] = {
+                require("telescope.themes").get_dropdown(),
+            },
+        },
         defaults = {
             selection_caret = "  ",
             prompt_prefix = "   ",
@@ -57,6 +70,7 @@ return {
     },
     config = function(_, opts)
         require("telescope").setup(opts)
+        require("telescope").load_extension("ui-select")
         pcall(require("telescope").load_extension, "fzf")
     end,
 }

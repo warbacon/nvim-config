@@ -19,7 +19,8 @@ return {
             blue = utils.get_highlight("Function").fg,
             orange = utils.get_highlight("Constant").fg,
             purple = utils.get_highlight("Statement").fg,
-            cyan = utils.get_highlight("DiagnosticHint").fg,
+            cyan = utils.get_highlight("Special").fg,
+            aqua = utils.get_highlight("DiagnosticHint").fg,
         }
 
         local ViMode = {
@@ -39,8 +40,8 @@ return {
                     ["\19"] = "purple",
                     R = "blue",
                     r = "blue",
-                    ["!"] = "cyan",
-                    t = "cyan",
+                    ["!"] = "aqua",
+                    t = "aqua",
                 },
             },
             provider = " ",
@@ -153,7 +154,7 @@ return {
                 local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
                 return string.rep(self.sbar[i], 2)
             end,
-            hl = { fg = "blue", bg = "bright_bg" },
+            hl = { fg = "cyan", bg = "bright_bg" },
         }
 
         local StatusLine = {
@@ -167,6 +168,8 @@ return {
             Ruler,
             Space,
             ScrollBar,
+            Space,
+            ViMode,
             hl = "StatusLine",
         }
 

@@ -5,6 +5,9 @@ return {
         vim.o.cmdheight = 0
     end,
     opts = {
+        cmdline = {
+            view = "cmdline",
+        },
         lsp = {
             override = {
                 ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -17,8 +20,13 @@ return {
         },
         presets = {
             bottom_search = true,
-            command_palette = true,
             long_message_to_split = true,
         },
     },
+    config = function(_, opts)
+        if vim.o.filetype == "lazy" then
+            vim.cmd([[messages clear]])
+        end
+        require("noice").setup(opts)
+    end,
 }

@@ -3,7 +3,7 @@ return {
     priority = 1000,
     opts = {
         styles = {
-            keywords = { italic = false, bold = true },
+            keywords = { italic = false },
         },
     },
     config = function(_, opts)

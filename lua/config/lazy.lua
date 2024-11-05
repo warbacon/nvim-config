@@ -15,8 +15,6 @@ require("lazy").setup({
     install = {
         colorscheme = { "tokyonight", "retrobox" },
     },
-    ui = { backdrop = 100 },
-    change_detection = { notify = false },
     performance = {
         rtp = {
             disabled_plugins = {
@@ -34,4 +32,5 @@ require("lazy").setup({
     },
 })
 
+-- Set keymap
 vim.api.nvim_set_keymap("n", "<leader>l", "<cmd>Lazy<cr>", {})

@@ -49,13 +49,6 @@ return {
                 local mode = self.mode:sub(1, 1)
                 return { bg = self.mode_colors[mode] }
             end,
-            update = {
-                "ModeChanged",
-                pattern = "*:*",
-                callback = vim.schedule_wrap(function()
-                    vim.cmd("redrawstatus")
-                end),
-            },
         }
 
         local FileNameBlock = {
@@ -120,23 +113,23 @@ return {
 
         local Commands = {
             {
-                provider = function()
-                    return require("noice").api.status.command.get() or ""
-                end,
+                ---@diagnostic disable-next-line: undefined-field
+                provider = require("noice").api.status.command.get,
                 hl = { fg = "purple" },
             },
             LeftSeparator,
+            ---@diagnostic disable-next-line: undefined-field
             condition = require("noice").api.status.command.has,
         }
 
         local Mode = {
             {
-                provider = function()
-                    return require("noice").api.status.mode.get() or ""
-                end,
+                ---@diagnostic disable-next-line: undefined-field
+                provider = require("noice").api.status.mode.get,
                 hl = { fg = "orange" },
             },
             LeftSeparator,
+            ---@diagnostic disable-next-line: undefined-field
             condition = require("noice").api.status.mode.has,
         }
 

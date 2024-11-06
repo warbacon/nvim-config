@@ -5,6 +5,13 @@ return {
         vim.o.cmdheight = 0
     end,
     opts = {
+        views = {
+            popupmenu = {
+                size = {
+                    max_height = vim.o.pumheight,
+                },
+            },
+        },
         cmdline = {
             view = "cmdline",
         },

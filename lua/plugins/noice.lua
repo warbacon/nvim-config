@@ -15,6 +15,21 @@ return {
         cmdline = {
             view = "cmdline",
         },
+        routes = {
+            {
+                filter = {
+                    event = "msg_show",
+                    any = {
+                        { find = "%d+L, %d+B" },
+                        { find = "; antes #%d+" },
+                        { find = "; después #%d+" },
+                        { find = "; before #%d+" },
+                        { find = "; after #%d+" },
+                    },
+                },
+                view = "mini",
+            },
+        },
         lsp = {
             override = {
                 ["vim.lsp.util.convert_input_to_markdown_lines"] = true,

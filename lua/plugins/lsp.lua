@@ -45,7 +45,7 @@ return {
     -- LSPCONFIG ===============================================================
     {
         "neovim/nvim-lspconfig",
-        event = { "BufReadPost", "BufNewFile" },
+        event = "LazyFile",
         dependencies = {
             "mason.nvim",
         },

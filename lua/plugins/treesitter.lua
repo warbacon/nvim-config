@@ -2,7 +2,7 @@ return {
     -- TRESITTER ===============================================================
     {
         "nvim-treesitter/nvim-treesitter",
-        event = { "BufReadPost", "BufNewFile", "VeryLazy" },
+        event = { "LazyFile", "VeryLazy" },
         lazy = vim.fn.argc(-1) == 0,
         build = ":TSUpdate",
         main = "nvim-treesitter.configs",
@@ -56,7 +56,7 @@ return {
     -- TS-AUTOTAG ==============================================================
     {
         "windwp/nvim-ts-autotag",
-        event = { "BufReadPost", "BufNewFile" },
+        event = "LazyFile",
         opts = {},
     },
 }

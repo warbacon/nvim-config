@@ -34,13 +34,6 @@ return {
 
             local registry = require("mason-registry")
 
-            registry:on(
-                "package:install:success",
-                vim.schedule_wrap(function(pkg)
-                    vim.notify(string.format('"%s" was successfully installed.', pkg.name))
-                end)
-            )
-
             registry:on("package:install:success", function()
                 vim.defer_fn(function()
                     -- trigger FileType event to possibly load this newly installed LSP server
@@ -57,7 +50,18 @@ return {
                     package_name = mappings[package_name] or package_name
                     if not registry.is_installed(package_name) then
                         local package = registry.get_package(package_name)
-                        package:install()
+                        package:install():once(
+                            "closed",
+                            vim.schedule_wrap(function()
+                                if vim.bo.filetype ~= "mason" then
+                                    vim.notify(
+                                        string.format('"%s" was successfully installed.', package.name),
+                                        vim.log.levels.INFO,
+                                        { title = "mason.nvim" }
+                                    )
+                                end
+                            end)
+                        )
                     end
                 end
             end)

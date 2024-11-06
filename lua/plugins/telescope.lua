@@ -28,46 +28,48 @@ return {
         { "gD", "<cmd>Telescope lsp_type_definitions<cr>", mode = "n" },
         { "gr", "<cmd>Telescope lsp_references<cr>", mode = "n" },
     },
-    opts = {
-        extensions = {
-            ["ui-select"] = {
-                require("telescope.themes").get_dropdown(),
-            },
-        },
-        defaults = {
-            selection_caret = "  ",
-            prompt_prefix = "   ",
-            path_display = { "filename_first" },
-            sorting_strategy = "ascending",
-            layout_config = {
-                horizontal = {
-                    height = 0.95,
-                    preview_cutoff = 100,
-                    prompt_position = "top",
-                    width = 0.95,
+    opts = function()
+        return {
+            extensions = {
+                ["ui-select"] = {
+                    require("telescope.themes").get_dropdown(),
                 },
             },
-        },
-        pickers = {
-            find_files = {
-                find_command = {
-                    "fd",
-                    "--hidden",
-                    "--exclude=.git",
-                    "--exclude=node_modules",
-                    "--exclude=*.class",
-                    "--exclude=*.o",
-                    "--type=f",
-                    "--color=never",
-                },
+            defaults = {
+                selection_caret = "  ",
+                prompt_prefix = "   ",
+                path_display = { "filename_first" },
+                sorting_strategy = "ascending",
                 layout_config = {
                     horizontal = {
-                        preview_width = 60,
+                        height = 0.95,
+                        preview_cutoff = 100,
+                        prompt_position = "top",
+                        width = 0.95,
                     },
                 },
             },
-        },
-    },
+            pickers = {
+                find_files = {
+                    find_command = {
+                        "fd",
+                        "--hidden",
+                        "--exclude=.git",
+                        "--exclude=node_modules",
+                        "--exclude=*.class",
+                        "--exclude=*.o",
+                        "--type=f",
+                        "--color=never",
+                    },
+                    layout_config = {
+                        horizontal = {
+                            preview_width = 60,
+                        },
+                    },
+                },
+            },
+        }
+    end,
     config = function(_, opts)
         require("telescope").setup(opts)
         require("telescope").load_extension("ui-select")

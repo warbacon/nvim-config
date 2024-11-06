@@ -50,9 +50,9 @@ return {
                 },
                 file_ignore_patterns = {
                     "%.class",
-                    "%.git/",
+                    "%.git",
                     "%.o",
-                    "node_modules/"
+                    "node_modules"
                 },
             },
             pickers = {

@@ -48,19 +48,16 @@ return {
                         width = 0.95,
                     },
                 },
+                file_ignore_patterns = {
+                    "%.class",
+                    "%.git/",
+                    "%.o",
+                    "node_modules/"
+                },
             },
             pickers = {
                 find_files = {
-                    find_command = {
-                        "fd",
-                        "--hidden",
-                        "--exclude=.git",
-                        "--exclude=node_modules",
-                        "--exclude=*.class",
-                        "--exclude=*.o",
-                        "--type=f",
-                        "--color=never",
-                    },
+                    hidden = true,
                     layout_config = {
                         horizontal = {
                             preview_width = 60,

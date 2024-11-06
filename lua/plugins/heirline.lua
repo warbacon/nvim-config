@@ -38,7 +38,7 @@ return {
                     s = "purple",
                     S = "purple",
                     ["\19"] = "purple",
-                    R = "blue",
+                    R = "red",
                     r = "blue",
                     ["!"] = "aqua",
                     t = "aqua",
@@ -49,6 +49,13 @@ return {
                 local mode = self.mode:sub(1, 1)
                 return { bg = self.mode_colors[mode] }
             end,
+            update = {
+                "ModeChanged",
+                pattern = "*:*",
+                callback = vim.schedule_wrap(function()
+                    vim.cmd("redrawstatus")
+                end),
+            },
         }
 
         local FileNameBlock = {
@@ -161,8 +168,6 @@ return {
             Ruler,
             Space,
             ScrollBar,
-            Space,
-            ViMode,
             hl = "StatusLine",
         }
 

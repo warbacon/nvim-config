@@ -20,6 +20,7 @@ require("lazy").setup({
     install = {
         colorscheme = { "tokyonight", "retrobox" },
     },
+    ui = { backdrop = 100 },
     performance = {
         rtp = {
             disabled_plugins = {

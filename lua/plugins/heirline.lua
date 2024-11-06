@@ -3,14 +3,12 @@ return {
     event = "VeryLazy",
     init = function()
         vim.o.statusline = " "
-        vim.o.showmode = false
     end,
     config = function()
         local utils = require("heirline.utils")
         local conditions = require("heirline.conditions")
         local Space = { provider = " " }
         local Align = { provider = "%=" }
-        local LeftSeparator = { provider = "  " }
 
         local colors = {
             bright_bg = utils.get_highlight("Folded").bg,
@@ -39,7 +37,6 @@ return {
                     S = "purple",
                     ["\19"] = "purple",
                     R = "red",
-                    r = "blue",
                     ["!"] = "aqua",
                     t = "aqua",
                 },
@@ -47,15 +44,8 @@ return {
             provider = " ",
             hl = function(self)
                 local mode = self.mode:sub(1, 1)
-                return { bg = self.mode_colors[mode] }
+                return { bg = self.mode_colors[mode] or self.mode_colors["n"] }
             end,
-            update = {
-                "ModeChanged",
-                pattern = "*:*",
-                callback = vim.schedule_wrap(function()
-                    vim.cmd("redrawstatus")
-                end),
-            },
         }
 
         local FileNameBlock = {
@@ -118,28 +108,6 @@ return {
 
         FileNameBlock = utils.insert(FileNameBlock, FileIcon, FileName, FileFlags, { provider = "%<" })
 
-        local Commands = {
-            {
-                ---@diagnostic disable-next-line: undefined-field
-                provider = require("noice").api.status.command.get,
-                hl = { fg = "purple" },
-            },
-            LeftSeparator,
-            ---@diagnostic disable-next-line: undefined-field
-            condition = require("noice").api.status.command.has,
-        }
-
-        local Mode = {
-            {
-                ---@diagnostic disable-next-line: undefined-field
-                provider = require("noice").api.status.mode.get,
-                hl = { fg = "orange" },
-            },
-            LeftSeparator,
-            ---@diagnostic disable-next-line: undefined-field
-            condition = require("noice").api.status.mode.has,
-        }
-
         local Ruler = {
             provider = "%-6.(%l:%c%V%)",
         }
@@ -163,8 +131,6 @@ return {
             FileNameBlock,
             Space,
             Align,
-            Commands,
-            Mode,
             Ruler,
             Space,
             ScrollBar,

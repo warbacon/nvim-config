@@ -6,6 +6,12 @@ M.servers = {
     bashls = {},
     clangd = vim.fn.has("win32") == 0 and {} or nil,
     cssls = {
+        on_attach = function(client, bufnr)
+            local filename = vim.api.nvim_buf_get_name(bufnr)
+            if string.match(filename, "/waybar/.*%.css$") then
+                client.stop()
+            end
+        end,
         settings = {
             css = {
                 lint = { unknownAtRules = "ignore" },

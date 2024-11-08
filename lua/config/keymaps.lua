@@ -20,6 +20,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 -- Disable the `q:` command-line window
 vim.keymap.set("n", "q:", "<cmd>echoe 'q:'<cr>", { noremap = true })
-
--- Bind Ctrl+Backspace to Ctrl+w
-vim.keymap.set({ "i", "c" }, "<C-BS>", "<C-w>", { noremap = true })

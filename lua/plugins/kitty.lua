@@ -1,4 +1,4 @@
 return {
-    "warbacon/vim-kitty",
+    "fladson/vim-kitty",
     ft = "kitty",
 }

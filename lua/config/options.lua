@@ -65,6 +65,3 @@ vim.opt.scrolloff = 5
 
 -- Limit the height of the popup menu
 vim.opt.pumheight = 10
-
--- Hide * markup for bold and italic, but not markers with substitutions
-vim.opt.conceallevel = 2

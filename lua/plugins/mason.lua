@@ -50,18 +50,7 @@ return {
                     package_name = mappings[package_name] or package_name
                     if not registry.is_installed(package_name) then
                         local package = registry.get_package(package_name)
-                        package:install():once(
-                            "closed",
-                            vim.schedule_wrap(function()
-                                if vim.bo.filetype ~= "mason" then
-                                    vim.notify(
-                                        string.format('"%s" was successfully installed.', package.name),
-                                        vim.log.levels.INFO,
-                                        { title = "mason.nvim" }
-                                    )
-                                end
-                            end)
-                        )
+                        package:install()
                     end
                 end
             end)

@@ -18,7 +18,9 @@ M.servers = {
             },
         },
     },
+    emmet_language_server = {},
     dockerls = {},
+    html = {},
     jdtls = vim.fn.executable("java") == 1 and {} or nil,
     jsonls = {
         on_new_config = function(new_config)
@@ -42,7 +44,7 @@ M.servers = {
     } or nil,
     svelte = {},
     tailwindcss = {
-        filetypes = { "astro", "html", "css", "svelte" },
+        filetypes = { "astro", "svelte" },
     },
     vtsls = {
         settings = {

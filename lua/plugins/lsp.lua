@@ -28,7 +28,8 @@ return {
                 local config = {
                     cmd = { vim.fn.exepath("jdtls") },
                     root_dir = require("lspconfig.configs.jdtls").default_config.root_dir(fname),
-                    capabilities = has_cmp_lsp and cmp_lsp.default_capabilities() or nil,
+                    capabilities = has_cmp_lsp and cmp_lsp.default_capabilities()
+                        or require("blink-cmp").get_lsp_capabilities(),
                 }
 
                 require("jdtls").start_or_attach(config)
@@ -52,12 +53,19 @@ return {
         config = function()
             local has_cmp_lsp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
 
-            local capabilities = vim.tbl_deep_extend(
-                "force",
-                {},
-                vim.lsp.protocol.make_client_capabilities(),
-                has_cmp_lsp and cmp_lsp.default_capabilities() or {}
-            )
+            local has_blink, blink = pcall(require, "blink.cmp")
+
+            local capabilities = {}
+            if not has_blink then
+                capabilities = vim.tbl_deep_extend(
+                    "force",
+                    {},
+                    vim.lsp.protocol.make_client_capabilities(),
+                    has_cmp_lsp and cmp_lsp.default_capabilities() or {}
+                )
+            else
+                capabilities = blink.get_lsp_capabilities()
+            end
 
             local servers = require("util.lsp").servers
 

@@ -2,7 +2,7 @@ return {
     "stevearc/oil.nvim",
     lazy = false,
     keys = {
-        { "-", "<cmd>Oil<cr>", mode = "n" },
+        { "-", "<cmd>Oil<cr>" },
     },
     opts = {
         delete_to_trash = vim.fn.has("win32") == 0,

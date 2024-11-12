@@ -8,7 +8,7 @@ return {
         build = ":MasonUpdate",
         event = "VeryLazy",
         keys = {
-            { "<leader>m", "<cmd>Mason<cr>", mode = "n" },
+            { "<leader>m", "<cmd>Mason<cr>" },
         },
         opts = {
             ui = {

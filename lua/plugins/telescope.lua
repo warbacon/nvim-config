@@ -19,14 +19,14 @@ return {
     },
     cmd = "Telescope",
     keys = {
-        { "<leader>,", "<cmd>Telescope buffers<cr>", mode = "n" },
-        { "<leader>f", "<cmd>Telescope find_files<cr>", mode = "n" },
-        { "<leader>sg", "<cmd>Telescope live_grep<cr>", mode = "n" },
-        { "<leader>sh", "<cmd>Telescope help_tags<cr>", mode = "n" },
-        { "<leader>sd", "<cmd>Telescope diagnostics<cr>", mode = "n" },
-        { "gd", "<cmd>Telescope lsp_definitions<cr>", mode = "n" },
-        { "gD", "<cmd>Telescope lsp_type_definitions<cr>", mode = "n" },
-        { "gr", "<cmd>Telescope lsp_references<cr>", mode = "n" },
+        { "<leader>,", "<cmd>Telescope buffers<cr>" },
+        { "<leader>f", "<cmd>Telescope find_files<cr>" },
+        { "<leader>sg", "<cmd>Telescope live_grep<cr>" },
+        { "<leader>sh", "<cmd>Telescope help_tags<cr>" },
+        { "<leader>sd", "<cmd>Telescope diagnostics<cr>" },
+        { "gd", "<cmd>Telescope lsp_definitions<cr>" },
+        { "gD", "<cmd>Telescope lsp_type_definitions<cr>" },
+        { "gr", "<cmd>Telescope lsp_references<cr>" },
     },
     opts = function()
         return {
@@ -52,7 +52,7 @@ return {
                     "%.class",
                     "%.git",
                     "%.o",
-                    "node_modules"
+                    "node_modules",
                 },
             },
             pickers = {

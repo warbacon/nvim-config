@@ -24,6 +24,14 @@ return {
                 lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
             },
         },
+        fuzzy = {
+            use_frecency = false,
+        },
+        trigger = {
+            completion = {
+                show_on_x_blocked_trigger_characters = { "'", '"', "(", "{" },
+            },
+        },
         kind_icons = require("util.icons").kinds,
     },
 }

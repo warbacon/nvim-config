@@ -7,7 +7,9 @@ return {
         exclude_filetypes = {
             "lazy",
             "mason",
-            "noice",
+            "snacks_notif",
+            "snacks_terminal",
+            "snacks_win",
         },
     },
     config = function(_, opts)

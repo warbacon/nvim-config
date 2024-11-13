@@ -74,5 +74,5 @@ return {
             require("telescope").load_extension("ui-select")
             pcall(require("telescope").load_extension, "fzf")
         end,
-    }
+    },
 }

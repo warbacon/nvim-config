@@ -30,9 +30,9 @@ require("lazy").setup({
                 "tohtml",
                 "tutor",
                 "zipPlugin",
-            }
-        }
-    }
+            },
+        },
+    },
 })
 
 -- Set keymap

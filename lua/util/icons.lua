@@ -5,7 +5,7 @@ M = {
         ERROR = "",
         WARN = "",
         HINT = "",
-        INFO = ""
+        INFO = "",
     },
     kinds = {
         Text = " ",

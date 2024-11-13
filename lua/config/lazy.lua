@@ -15,7 +15,6 @@ Event.mappings["User LazyFile"] = Event.mappings.LazyFile
 require("lazy").setup({
     spec = {
         { import = "plugins" },
-        { import = "plugins.mini" },
     },
     install = {
         colorscheme = { "tokyonight", "retrobox" },
@@ -26,16 +25,14 @@ require("lazy").setup({
             disabled_plugins = {
                 "gzip",
                 "matchit",
-                "netrwPlugin",
                 "rplugin",
-                "spellfile",
                 "tarPlugin",
                 "tohtml",
                 "tutor",
                 "zipPlugin",
-            },
-        },
-    },
+            }
+        }
+    }
 })
 
 -- Set keymap

@@ -1,6 +1,6 @@
 return {
     "rebelot/heirline.nvim",
-    event = "VeryLazy",
+    event = "UiEnter",
     init = function()
         vim.o.statusline = " "
     end,
@@ -57,7 +57,10 @@ return {
         local FileIcon = {
             init = function(self)
                 local filename = self.filename
-                self.icon, self.hl = require("mini.icons").get("file", filename)
+                local has_icons, mini_icons = pcall(require, "mini.icons")
+                if has_icons then
+                    self.icon, self.hl = require("mini.icons").get("file", filename)
+                end
             end,
             provider = function(self)
                 return self.icon and (self.icon .. " ")

@@ -38,7 +38,7 @@ return {
                         local kinds = require("util.icons").kinds
 
                         if kinds[item.kind] then
-                            item.kind = kinds[item.kind]
+                            item.kind = kinds[item.kind] .. " "
                         end
 
                         local entryItem = entry:get_completion_item()

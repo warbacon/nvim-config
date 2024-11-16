@@ -16,6 +16,9 @@ require("lazy").setup({
     spec = {
         { import = "plugins" },
     },
+    defaults = {
+        cond = vim.env.TERM ~= "linux",
+    },
     install = {
         colorscheme = { "tokyonight", "retrobox" },
     },

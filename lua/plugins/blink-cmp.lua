@@ -9,7 +9,10 @@ return {
             ["<C-l>"] = { "snippet_forward", "fallback" },
             ["<C-h>"] = { "snippet_backward", "fallback" },
         },
-        -- accept = { auto_brackets = { enabled = true } },
+        accept = {
+            -- auto_brackets = { enabled = true }
+        },
+        nerd_font_variant = "normal",
         windows = {
             documentation = {
                 auto_show = true,
@@ -24,12 +27,9 @@ return {
                 lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
             },
         },
-        fuzzy = {
-            use_frecency = false,
-        },
         trigger = {
             completion = {
-                show_on_x_blocked_trigger_characters = { "'", '"', "(", "{" },
+                blocked_trigger_characters = { " ", "\n", "\t", "{" },
             },
         },
         kind_icons = require("util.icons").kinds,

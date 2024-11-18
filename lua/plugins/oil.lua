@@ -12,7 +12,7 @@ return {
         },
         keymaps = {
             ["`"] = false,
-            ["cd"] = "actions.cd",
+            [","] = "actions.cd",
         },
     },
 }

@@ -21,7 +21,7 @@ return {
             "dcampos/cmp-snippy",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
+            { url = "https://codeberg.org/FelipeLema/cmp-async-path.git" },
         },
         opts = function()
             local cmp = require("cmp")
@@ -95,7 +95,7 @@ return {
                     { name = "lazydev", group_index = 0 },
                     { name = "nvim_lsp" },
                     { name = "snippy" },
-                    { name = "path" },
+                    { name = "async_path" },
                 }, {
                     { name = "buffer" },
                 }),

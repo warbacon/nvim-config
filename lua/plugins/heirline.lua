@@ -19,6 +19,10 @@ return {
             purple = utils.get_highlight("Statement").fg,
             cyan = utils.get_highlight("Special").fg,
             aqua = utils.get_highlight("DiagnosticHint").fg,
+            diag_warn = utils.get_highlight("DiagnosticWarn").fg,
+            diag_error = utils.get_highlight("DiagnosticError").fg,
+            diag_hint = utils.get_highlight("DiagnosticHint").fg,
+            diag_info = utils.get_highlight("DiagnosticInfo").fg,
         }
 
         local ViMode = {
@@ -110,8 +114,55 @@ return {
 
         FileNameBlock = utils.insert(FileNameBlock, FileIcon, FileName, FileFlags, { provider = "%<" })
 
+        local Diagnostics = {
+            condition = conditions.has_diagnostics,
+            static = {
+                error_icon = require("util.icons").diagnostics.ERROR,
+                warn_icon = require("util.icons").diagnostics.WARN,
+                info_icon = require("util.icons").diagnostics.INFO,
+                hint_icon = require("util.icons").diagnostics.HINT,
+            },
+            init = function(self)
+                self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+                self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+                self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+                self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+            end,
+            update = {
+                "DiagnosticChanged",
+                "BufEnter",
+                callback = vim.schedule_wrap(function()
+                    vim.cmd("redrawstatus")
+                end),
+            },
+            {
+                provider = function(self)
+                    return self.errors > 0 and (self.error_icon .. " " .. self.errors .. " ")
+                end,
+                hl = { fg = "diag_error" },
+            },
+            {
+                provider = function(self)
+                    return self.warnings > 0 and (self.warn_icon .. " " .. self.warnings .. " ")
+                end,
+                hl = { fg = "diag_warn" },
+            },
+            {
+                provider = function(self)
+                    return self.info > 0 and (self.info_icon .. " " .. self.info(" "))
+                end,
+                hl = { fg = "diag_info" },
+            },
+            {
+                provider = function(self)
+                    return self.hints > 0 and (self.hint_icon .. " " .. self.hints .. " ")
+                end,
+                hl = { fg = "diag_hint" },
+            },
+        }
+
         local Ruler = {
-            provider = "%-6.(%l:%c%V%)",
+            provider = "%-8.(%l:%c%V%)",
         }
 
         local ScrollBar = {
@@ -133,6 +184,8 @@ return {
             FileNameBlock,
             Space,
             Align,
+            Diagnostics,
+            Space,
             Ruler,
             Space,
             ScrollBar,

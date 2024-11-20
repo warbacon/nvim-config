@@ -57,8 +57,7 @@ return {
         local FileIcon = {
             init = function(self)
                 local filename = self.filename
-                local has_icons, mini_icons = pcall(require, "mini.icons")
-                if has_icons then
+                if pcall(require, "mini.icons") then
                     self.icon, self.hl = require("mini.icons").get("file", filename)
                 end
             end,

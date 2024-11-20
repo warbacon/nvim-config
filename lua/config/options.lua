@@ -2,9 +2,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- Set a vertical line at column 80 to guide code width
-vim.opt.colorcolumn = "80"
-
 -- Always show the sign column
 vim.opt.signcolumn = "yes"
 

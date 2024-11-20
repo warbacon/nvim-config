@@ -15,14 +15,13 @@ return {
 
     -- CMP =====================================================================
     {
-        "iguanacucumber/magazine.nvim",
-        name = "nvim-cmp",
+        "hrsh7th/nvim-cmp",
         event = "InsertEnter",
         dependencies = {
-            { "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp", opts = {} },
-            { "iguanacucumber/mag-buffer", name = "cmp-buffer" },
             "dcampos/cmp-snippy",
-            "https://codeberg.org/FelipeLema/cmp-async-path.git",
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-buffer",
+            { url = "https://codeberg.org/FelipeLema/cmp-async-path.git" },
         },
         opts = function()
             local cmp = require("cmp")

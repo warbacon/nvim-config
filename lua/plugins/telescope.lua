@@ -25,6 +25,7 @@ return {
             { "<leader>sg", "<cmd>Telescope live_grep<cr>" },
             { "<leader>sh", "<cmd>Telescope help_tags<cr>" },
             { "<leader>sd", "<cmd>Telescope diagnostics<cr>" },
+            { "<leader>ss", "<cmd>Telescope lsp_document_symbols<cr>" },
             { "gd", "<cmd>Telescope lsp_definitions<cr>" },
             { "gD", "<cmd>Telescope lsp_type_definitions<cr>" },
             { "gr", "<cmd>Telescope lsp_references<cr>" },

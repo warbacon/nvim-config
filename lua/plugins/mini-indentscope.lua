@@ -2,16 +2,14 @@ return {
     "echasnovski/mini.indentscope",
     event = "LazyFile",
     init = function()
-        vim.api.nvim_create_autocmd("FileType", {
-            pattern = { "help" },
+        local filetype_exclude = { "help", "oil" }
+        vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
             callback = function()
-                vim.b.miniindentscope_disable = true
+                if vim.bo.buftype == "nofile" or vim.tbl_contains(filetype_exclude, vim.bo.filetype) then
+                    vim.b.miniindentscope_disable = true
+                end
             end,
         })
     end,
-    opts = function()
-        return {
-            symbol = "▏",
-        }
-    end,
+    opts = { symbol = "▏" },
 }

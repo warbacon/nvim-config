@@ -5,6 +5,5 @@ return {
     opts = {
         notifier = { enabled = true },
         quickfile = { enabled = true },
-        statuscolumn = { enabled = true },
     },
 }

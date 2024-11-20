@@ -14,6 +14,7 @@ return {
             c = { "clang_format" },
             cpp = { "clang_format" },
             fish = { "fish_indent" },
+            terraform = { "terraform_fmt" },
             lua = { "stylua" },
             markdown = { "markdownlint", "injected" },
             python = { "ruff_format" },

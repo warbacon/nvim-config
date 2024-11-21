@@ -1,6 +1,7 @@
 return {
     "rebelot/heirline.nvim",
     event = "UiEnter",
+    enabled = false,
     init = function()
         vim.o.statusline = " "
     end,

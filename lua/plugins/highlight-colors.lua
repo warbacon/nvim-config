@@ -4,13 +4,7 @@ return {
     opts = {
         enable_named_colors = false,
         enable_tailwind = true,
-        exclude_filetypes = {
-            "lazy",
-            "mason",
-            "snacks_notif",
-            "snacks_terminal",
-            "snacks_win",
-        },
+        exclude_filetypes = { "lazy" },
     },
     config = function(_, opts)
         require("nvim-highlight-colors").setup(opts)

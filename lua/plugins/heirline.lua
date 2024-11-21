@@ -1,13 +1,13 @@
 return {
     "rebelot/heirline.nvim",
     event = "UiEnter",
-    enabled = false,
     init = function()
         vim.o.statusline = " "
     end,
     config = function()
         local utils = require("heirline.utils")
         local conditions = require("heirline.conditions")
+
         local Space = { provider = " " }
         local Align = { provider = "%=" }
 
@@ -28,7 +28,7 @@ return {
 
         local ViMode = {
             init = function(self)
-                self.mode = vim.fn.mode(1)
+                self.mode = vim.fn.mode(1):sub(1, 1)
             end,
             static = {
                 mode_colors = {
@@ -48,8 +48,7 @@ return {
             },
             provider = " ",
             hl = function(self)
-                local mode = self.mode:sub(1, 1)
-                return { bg = self.mode_colors[mode] or self.mode_colors["n"] }
+                return { bg = self.mode_colors[self.mode] or self.mode_colors.n }
             end,
         }
 
@@ -57,63 +56,54 @@ return {
             init = function(self)
                 self.filename = vim.api.nvim_buf_get_name(0)
             end,
-        }
-
-        local FileIcon = {
-            init = function(self)
-                local filename = self.filename
-                if pcall(require, "mini.icons") then
-                    self.icon, self.hl = require("mini.icons").get("file", filename)
-                end
-            end,
-            provider = function(self)
-                return self.icon and (self.icon .. " ")
-            end,
-            hl = function(self)
-                return { fg = self.icon_color }
-            end,
-            condition = function()
-                return vim.bo.filetype ~= ""
-            end,
-        }
-
-        local FileName = {
-            provider = function(self)
-                if self.filename == "" then
-                    return "[Sin nombre]"
-                end
-
-                if vim.bo.buftype == "help" then
-                    return vim.fn.fnamemodify(self.filename, ":t")
-                end
-
-                local filename = vim.fn.fnamemodify(self.filename, ":.")
-
-                if not conditions.width_percent_below(#filename, 0.55) then
-                    filename = vim.fn.pathshorten(filename)
-                end
-
-                return filename
-            end,
-        }
-
-        local FileFlags = {
             {
-                condition = function()
-                    return vim.bo.modified
+                init = function(self)
+                    if pcall(require, "mini.icons") then
+                        self.icon, self.hl = require("mini.icons").get("file", self.filename)
+                    end
                 end,
-                provider = " ●",
+                provider = function(self)
+                    return self.icon and (self.icon .. " ")
+                end,
+                hl = function(self)
+                    return { fg = self.icon_color }
+                end,
+                condition = function()
+                    return vim.bo.filetype ~= ""
+                end,
             },
             {
-                condition = function()
-                    return vim.bo.readonly
+                provider = function(self)
+                    local name = vim.fn.fnamemodify(self.filename, ":.")
+                    if self.filename == "" then
+                        return "[Sin nombre]"
+                    end
+                    if vim.bo.buftype == "help" then
+                        return vim.fn.fnamemodify(self.filename, ":t")
+                    end
+                    if not conditions.width_percent_below(#name, 0.55) then
+                        name = vim.fn.pathshorten(name)
+                    end
+                    return name
                 end,
-                provider = " 󰌾",
+            },
+            {
+                provider = function()
+                    if vim.bo.modified then
+                        return " ●"
+                    end
+                end,
+            },
+            {
+                provider = function()
+                    if vim.bo.readonly then
+                        return " 󰌾"
+                    end
+                end,
                 hl = { fg = "red" },
             },
+            { provider = "%<" },
         }
-
-        FileNameBlock = utils.insert(FileNameBlock, FileIcon, FileName, FileFlags, { provider = "%<" })
 
         local Diagnostics = {
             condition = conditions.has_diagnostics,
@@ -138,25 +128,25 @@ return {
             },
             {
                 provider = function(self)
-                    return self.errors > 0 and (self.error_icon .. " " .. self.errors .. " ")
+                    return self.errors > 0 and (self.error_icon .. " " .. self.errors .. " ") or ""
                 end,
                 hl = { fg = "diag_error" },
             },
             {
                 provider = function(self)
-                    return self.warnings > 0 and (self.warn_icon .. " " .. self.warnings .. " ")
+                    return self.warnings > 0 and (self.warn_icon .. " " .. self.warnings .. " ") or ""
                 end,
                 hl = { fg = "diag_warn" },
             },
             {
                 provider = function(self)
-                    return self.info > 0 and (self.info_icon .. " " .. self.info(" "))
+                    return self.info > 0 and (self.info_icon .. " " .. self.info .. " ") or ""
                 end,
                 hl = { fg = "diag_info" },
             },
             {
                 provider = function(self)
-                    return self.hints > 0 and (self.hint_icon .. " " .. self.hints .. " ")
+                    return self.hints > 0 and (self.hint_icon .. " " .. self.hints .. " ") or ""
                 end,
                 hl = { fg = "diag_hint" },
             },
@@ -167,13 +157,11 @@ return {
         }
 
         local ScrollBar = {
-            static = {
-                sbar = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" },
-            },
+            static = { sbar = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" } },
             provider = function(self)
-                local curr_line = vim.api.nvim_win_get_cursor(0)[1]
-                local lines = vim.api.nvim_buf_line_count(0)
-                local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
+                local line = vim.api.nvim_win_get_cursor(0)[1]
+                local total_lines = vim.api.nvim_buf_line_count(0)
+                local i = math.ceil(line / total_lines * #self.sbar)
                 return string.rep(self.sbar[i], 2)
             end,
             hl = { fg = "cyan", bg = "bright_bg" },
@@ -183,7 +171,6 @@ return {
             ViMode,
             Space,
             FileNameBlock,
-            Space,
             Align,
             Diagnostics,
             Space,
@@ -195,7 +182,6 @@ return {
 
         local StatusLineNC = {
             FileNameBlock,
-            Space,
             Align,
             Ruler,
             Space,
@@ -204,14 +190,9 @@ return {
             condition = conditions.is_not_active,
         }
 
-        local StatusLines = {
-            fallthrough = false,
-            StatusLineNC,
-            StatusLine,
-        }
-
         require("heirline").setup({
-            statusline = StatusLines,
+            ---@diagnostic disable-next-line: missing-fields
+            statusline = { fallthrough = false, StatusLineNC, StatusLine },
             opts = { colors = colors },
         })
     end,

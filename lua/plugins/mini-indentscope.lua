@@ -11,5 +11,8 @@ return {
             end,
         })
     end,
-    opts = { symbol = "▏" },
+    opts = {
+        symbol = "▏",
+        options = { border = 'top' }
+    },
 }

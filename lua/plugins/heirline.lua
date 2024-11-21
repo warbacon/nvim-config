@@ -1,9 +1,5 @@
 return {
     "rebelot/heirline.nvim",
-    event = "UiEnter",
-    init = function()
-        vim.o.statusline = " "
-    end,
     config = function()
         local utils = require("heirline.utils")
         local conditions = require("heirline.conditions")
@@ -153,7 +149,7 @@ return {
         }
 
         local Ruler = {
-            provider = "%-8.(%l:%c%V%)",
+            provider = "%-7.(%l:%c%V%)",
         }
 
         local ScrollBar = {

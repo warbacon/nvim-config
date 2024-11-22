@@ -77,7 +77,7 @@ return {
                     if vim.bo.buftype == "help" then
                         return vim.fn.fnamemodify(self.filename, ":t")
                     end
-                    if not conditions.width_percent_below(#name, 0.55) then
+                    if not conditions.width_percent_below(#name, 0.45) then
                         name = vim.fn.pathshorten(name)
                     end
                     return name

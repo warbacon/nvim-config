@@ -82,8 +82,9 @@ return {
 
                     local name = vim.fn.fnamemodify(self.filename, ":.")
 
-                    name = name:gsub("oil://", "")
-                    name = name:gsub("^" .. vim.env.HOME, "~")
+                    if vim.fn.has("win32") == 0 then
+                        name = name:gsub("oil://", ""):gsub("^" .. vim.env.HOME, "~")
+                    end
 
                     if not conditions.width_percent_below(#name, 0.45) then
                         name = vim.fn.pathshorten(name)

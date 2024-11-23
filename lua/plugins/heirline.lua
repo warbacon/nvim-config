@@ -8,16 +8,18 @@ return {
         local Align = { provider = "%=" }
 
         local colors = {
-            bright_bg = utils.get_highlight("Folded").bg,
-            red = utils.get_highlight("DiagnosticError").fg,
-            green = utils.get_highlight("String").fg,
+            aqua = utils.get_highlight("DiagnosticHint").fg,
             blue = utils.get_highlight("Function").fg,
+            cyan = utils.get_highlight("Special").fg,
+            green = utils.get_highlight("String").fg,
             orange = utils.get_highlight("Constant").fg,
             purple = utils.get_highlight("Statement").fg,
-            cyan = utils.get_highlight("Special").fg,
-            aqua = utils.get_highlight("DiagnosticHint").fg,
-            diag_warn = utils.get_highlight("DiagnosticWarn").fg,
+            red = utils.get_highlight("DiagnosticError").fg,
+
+            bright_bg = utils.get_highlight("Folded").bg,
+
             diag_error = utils.get_highlight("DiagnosticError").fg,
+            diag_warn = utils.get_highlight("DiagnosticWarn").fg,
             diag_hint = utils.get_highlight("DiagnosticHint").fg,
             diag_info = utils.get_highlight("DiagnosticInfo").fg,
         }

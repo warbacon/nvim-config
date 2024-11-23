@@ -1,6 +1,4 @@
-local M = {}
-
-M.servers = {
+return {
     astro = {},
     basedpyright = {},
     bashls = {},
@@ -73,5 +71,3 @@ M.servers = {
         },
     },
 }
-
-return M

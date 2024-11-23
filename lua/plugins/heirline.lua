@@ -72,16 +72,23 @@ return {
             },
             {
                 provider = function(self)
-                    local name = vim.fn.fnamemodify(self.filename, ":.")
                     if self.filename == "" then
                         return "[Sin nombre]"
                     end
+
                     if vim.bo.buftype == "help" then
                         return vim.fn.fnamemodify(self.filename, ":t")
                     end
+
+                    local name = vim.fn.fnamemodify(self.filename, ":.")
+
+                    name = name:gsub("oil://", "")
+                    name = name:gsub("^" .. vim.env.HOME, "~")
+
                     if not conditions.width_percent_below(#name, 0.45) then
                         name = vim.fn.pathshorten(name)
                     end
+
                     return name
                 end,
             },

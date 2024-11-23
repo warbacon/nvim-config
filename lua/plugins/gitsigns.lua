@@ -2,6 +2,7 @@ return {
     "lewis6991/gitsigns.nvim",
     event = "LazyFile",
     opts = {
+        update_debounce = 5,
         on_attach = function(bufnr)
             local gitsigns = require("gitsigns")
 

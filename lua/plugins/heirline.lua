@@ -84,6 +84,8 @@ return {
 
                     if vim.fn.has("win32") == 0 then
                         name = name:gsub("oil://", ""):gsub("^" .. vim.env.HOME, "~")
+                    else
+                        name = name:gsub("oil://", "")
                     end
 
                     if not conditions.width_percent_below(#name, 0.45) then

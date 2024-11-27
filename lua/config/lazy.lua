@@ -20,7 +20,7 @@ require("lazy").setup({
         cond = vim.env.TERM ~= "linux",
     },
     install = {
-        colorscheme = { "tokyonight", "retrobox" },
+        colorscheme = { "terafox", "retrobox" },
     },
     ui = { backdrop = 100 },
     performance = {

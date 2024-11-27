@@ -8,6 +8,10 @@ vim.diagnostic.config({
 
 -- Remove the `How to disable mouse` entry from the PopUp menu
 vim.cmd([[
-unmenu PopUp.-2-
+if has("nvim-0.11")
+    unmenu PopUp.-2-
+else
+    unmenu PopUp.-1-
+endif
 unmenu PopUp.How-to\ disable\ mouse
 ]])

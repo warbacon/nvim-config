@@ -207,5 +207,16 @@ return {
             statusline = { fallthrough = false, StatusLineNC, StatusLine },
             opts = { colors = colors },
         })
+
+        -- Fix colors when changing colorscheme
+        vim.api.nvim_create_augroup("Heirline", { clear = true })
+        vim.api.nvim_create_autocmd("ColorScheme", {
+            callback = function()
+                utils.on_colorscheme(function()
+                    return colors
+                end)
+            end,
+            group = "Heirline",
+        })
     end,
 }

@@ -1,18 +1,16 @@
 return {
     "folke/snacks.nvim",
-    version = "*",
     priority = 1000,
     lazy = false,
     keys = {
-        {
-            "<leader>n",
-            function()
-                Snacks.notifier.show_history()
-            end,
-        },
+        -- stylua: ignore start
+        { "<leader>gB", function() Snacks.gitbrowse() end },
+        { "<leader>n", function() Snacks.notifier.show_history() end },
+        -- stylua: ignore end
     },
     opts = {
         notifier = { enabled = true },
+        bigfile = { enabled = true },
         quickfile = { enabled = true },
     },
 }

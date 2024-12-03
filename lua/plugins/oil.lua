@@ -2,7 +2,7 @@ return {
     "stevearc/oil.nvim",
     lazy = false,
     keys = {
-        { "-", "<cmd>Oil<cr>" },
+        { "-", "<cmd>Oil<CR>" },
     },
     opts = {
         delete_to_trash = true,

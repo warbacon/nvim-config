@@ -17,4 +17,4 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- Disable the `q:` command-line window
-vim.keymap.set("n", "q:", "<cmd>echoe 'q:'<cr>", { noremap = true })
+vim.keymap.set("n", "q:", "<cmd>echoe 'q:'<CR>", { noremap = true })

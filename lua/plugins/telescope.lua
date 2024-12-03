@@ -20,12 +20,12 @@ return {
         },
         cmd = "Telescope",
         keys = {
-            { "<leader>,", "<cmd>Telescope buffers<cr>" },
-            { "<leader>f", "<cmd>Telescope find_files<cr>" },
-            { "<leader>sg", "<cmd>Telescope live_grep<cr>" },
-            { "<leader>sh", "<cmd>Telescope help_tags<cr>" },
-            { "<leader>sd", "<cmd>Telescope diagnostics<cr>" },
-            { "<leader>ss", "<cmd>Telescope lsp_document_symbols<cr>" },
+            { "<leader>,", "<cmd>Telescope buffers<CR>" },
+            { "<leader>f", "<cmd>Telescope find_files<CR>" },
+            { "<leader>sg", "<cmd>Telescope live_grep<CR>" },
+            { "<leader>sh", "<cmd>Telescope help_tags<CR>" },
+            { "<leader>sd", "<cmd>Telescope diagnostics<CR>" },
+            { "<leader>ss", "<cmd>Telescope lsp_document_symbols<CR>" },
         },
         opts = function()
             return {

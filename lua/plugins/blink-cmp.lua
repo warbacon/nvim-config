@@ -2,7 +2,10 @@ return {
     "Saghen/blink.cmp",
     version = "*",
     opts = {
-        keymap = { preset = "enter" },
+        keymap = {
+            preset = "enter",
+            ["<C-s>"] = { "hide", "fallback" },
+        },
         completion = {
             trigger = {
                 show_on_blocked_trigger_characters = { " ", "\n", "\t", "{" },

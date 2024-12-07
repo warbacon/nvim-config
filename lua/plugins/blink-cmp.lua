@@ -30,7 +30,7 @@ return {
         },
         appearance = {
             nerd_font_variant = "normal",
-            kind_icons = require("util.icons").kinds,
+            kind_icons = Util.icons.kinds,
         },
     },
 }

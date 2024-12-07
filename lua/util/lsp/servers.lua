@@ -2,7 +2,7 @@ return {
     astro = {},
     basedpyright = {},
     bashls = {},
-    clangd = vim.fn.has("win32") == 0 and {} or nil,
+    clangd = not vim.uv.os_uname().sysname:find("Windows") ~= nil and {} or nil,
     cssls = {
         on_attach = function(client, bufnr)
             local filename = vim.api.nvim_buf_get_name(bufnr)

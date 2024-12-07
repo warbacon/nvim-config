@@ -30,7 +30,7 @@ return {
                 "shellcheck",
                 "shfmt",
                 "stylua",
-            }, vim.tbl_keys(require("util.lsp_servers")))
+            }, vim.tbl_keys(Util.lsp.servers))
 
             local registry = require("mason-registry")
 

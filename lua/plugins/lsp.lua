@@ -67,7 +67,7 @@ return {
                 capabilities = blink.get_lsp_capabilities()
             end
 
-            local servers = vim.deepcopy(require("util.lsp_servers"))
+            local servers = vim.deepcopy(Util.lsp.servers)
 
             servers.jdtls = nil
 

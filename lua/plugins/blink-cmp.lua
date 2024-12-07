@@ -1,19 +1,17 @@
 return {
     "Saghen/blink.cmp",
     version = "*",
-    enabled = false,
-    event = "InsertEnter",
     opts = {
-        keymap = {
-            preset = "enter",
-            ["<C-l>"] = { "snippet_forward", "fallback" },
-            ["<C-h>"] = { "snippet_backward", "fallback" },
-        },
-        accept = {
-            -- auto_brackets = { enabled = true }
-        },
-        nerd_font_variant = "normal",
-        windows = {
+        keymap = { preset = "enter" },
+        completion = {
+            trigger = {
+                show_on_blocked_trigger_characters = { " ", "\n", "\t", "{" },
+            },
+            accept = {
+                auto_brackets = {
+                    enabled = true,
+                },
+            },
             documentation = {
                 auto_show = true,
             },
@@ -27,11 +25,9 @@ return {
                 lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
             },
         },
-        trigger = {
-            completion = {
-                blocked_trigger_characters = { " ", "\n", "\t", "{" },
-            },
+        appearance = {
+            nerd_font_variant = "normal",
+            kind_icons = require("util.icons").kinds,
         },
-        kind_icons = require("util.icons").kinds,
     },
 }

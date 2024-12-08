@@ -11,13 +11,9 @@ return {
             trigger = {
                 show_on_blocked_trigger_characters = { " ", "\n", "\t", "{" },
             },
-            accept = {
-                auto_brackets = {
-                    enabled = true,
-                },
-            },
             documentation = {
                 auto_show = true,
+                auto_show_delay_ms = 200,
             },
         },
         sources = {

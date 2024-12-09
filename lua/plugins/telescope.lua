@@ -39,13 +39,15 @@ return {
                     prompt_prefix = "   ",
                     path_display = { "filename_first" },
                     sorting_strategy = "ascending",
+                    layout_strategy = "bottom_pane",
                     layout_config = {
-                        horizontal = {
-                            height = 0.95,
-                            preview_cutoff = 100,
-                            prompt_position = "top",
-                            width = 0.95,
-                        },
+                        height = 25,
+                        preview_cutoff = 100,
+                    },
+                    borderchars = {
+                        prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
+                        results = { " " },
+                        preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
                     },
                     file_ignore_patterns = {
                         "%.class",
@@ -57,11 +59,6 @@ return {
                 pickers = {
                     find_files = {
                         hidden = true,
-                        layout_config = {
-                            horizontal = {
-                                preview_width = 60,
-                            },
-                        },
                     },
                 },
             }

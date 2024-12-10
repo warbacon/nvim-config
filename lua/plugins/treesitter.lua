@@ -3,7 +3,6 @@ return {
     event = { "LazyFile", "VeryLazy" },
     lazy = vim.fn.argc(-1) == 0,
     build = ":TSUpdate",
-    main = "nvim-treesitter.configs",
     opts = {
         highlight = { enable = true },
         indent = { enable = true },
@@ -17,6 +16,7 @@ return {
             "dockerfile",
             "fish",
             "git_config",
+            "gitcommit",
             "html",
             "hyprlang",
             "ini",

@@ -14,8 +14,17 @@ return {
         bigfile = { enabled = true },
         quickfile = { enabled = true },
         indent = {
-            char = "▏",
             enabled = true,
+            indent = {
+                char = "▏",
+            },
+            scope = {
+                animate = {
+                    enabled = false,
+                },
+                char = "▏",
+                only_current = true,
+            },
         },
     },
 }

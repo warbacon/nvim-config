@@ -1,6 +1,6 @@
 return {
     "Saghen/blink.cmp",
-    version = "*",
+    version = "v0.7.4",
     event = "InsertEnter",
     opts = {
         keymap = {

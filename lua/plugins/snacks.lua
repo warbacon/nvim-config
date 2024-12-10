@@ -12,5 +12,9 @@ return {
         notifier = { enabled = true },
         bigfile = { enabled = true },
         quickfile = { enabled = true },
+        indent = {
+            char = "▏",
+            enabled = true,
+        },
     },
 }

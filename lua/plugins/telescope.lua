@@ -41,7 +41,7 @@ return {
                     sorting_strategy = "ascending",
                     layout_strategy = "bottom_pane",
                     layout_config = {
-                        height = 25,
+                        height = 0.75,
                         preview_cutoff = 100,
                     },
                     borderchars = {

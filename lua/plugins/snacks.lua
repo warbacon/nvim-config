@@ -4,9 +4,7 @@ return {
     lazy = false,
     keys = {
         -- stylua: ignore start
-        { "<leader>gB", function() Snacks.gitbrowse() end },
         { "<leader>n", function() Snacks.notifier.show_history() end },
-        { "<leader>z",  function() Snacks.zen() end },
         -- stylua: ignore end
     },
     opts = {
@@ -16,12 +14,10 @@ return {
         indent = {
             enabled = true,
             indent = {
+                enabled = false,
                 char = "▏",
             },
             scope = {
-                animate = {
-                    enabled = false,
-                },
                 char = "▏",
                 only_current = true,
             },

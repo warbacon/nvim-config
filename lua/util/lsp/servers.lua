@@ -42,7 +42,7 @@ return {
     } or nil,
     svelte = {},
     tailwindcss = {
-        filetypes = { "astro", "svelte" },
+        filetypes = { "astro", "svelte", "html", "css" },
     },
     vtsls = {
         settings = {

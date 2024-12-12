@@ -14,7 +14,6 @@ return {
         indent = {
             enabled = true,
             indent = {
-                enabled = false,
                 char = "▏",
             },
             scope = {

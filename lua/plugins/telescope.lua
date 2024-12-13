@@ -39,15 +39,12 @@ return {
                     prompt_prefix = "   ",
                     path_display = { "filename_first" },
                     sorting_strategy = "ascending",
-                    layout_strategy = "bottom_pane",
                     layout_config = {
-                        height = 0.75,
-                        preview_cutoff = 100,
-                    },
-                    borderchars = {
-                        prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
-                        results = { " " },
-                        preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+                        prompt_position = "top",
+                        height = 0.9,
+                        width = 0.9,
+                        preview_cutoff = 120,
+                        preview_width = 0.6,
                     },
                     file_ignore_patterns = {
                         "%.class",

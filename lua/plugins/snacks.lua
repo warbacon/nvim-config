@@ -14,7 +14,7 @@ return {
         input = { enabled = true },
         statuscolumn = { enabled = true },
         indent = {
-            enabled = true,
+            enabled = false,
             indent = {
                 char = "▏",
             },

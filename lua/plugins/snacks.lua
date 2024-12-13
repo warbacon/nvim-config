@@ -12,7 +12,6 @@ return {
         bigfile = { enabled = true },
         quickfile = { enabled = true },
         input = { enabled = true },
-        statuscolumn = { enabled = true },
         indent = {
             enabled = false,
             indent = {

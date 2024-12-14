@@ -2,7 +2,7 @@ return {
     astro = {},
     basedpyright = {},
     bashls = {},
-    clangd = not Util.is_win and {} or nil,
+    clangd = not util.is_win and {} or nil,
     cssls = {
         on_attach = function(client, bufnr)
             local filename = vim.api.nvim_buf_get_name(bufnr)
@@ -60,7 +60,7 @@ return {
                     globalPlugins = {
                         {
                             name = "typescript-svelte-plugin",
-                            location = Util.get_pkg_path(
+                            location = util.get_pkg_path(
                                 "svelte-language-server",
                                 "/node_modules/typescript-svelte-plugin"
                             ),
@@ -68,7 +68,7 @@ return {
                         },
                         {
                             name = "@astrojs/ts-plugin",
-                            location = Util.get_pkg_path("astro-language-server", "/node_modules/@astrojs/ts-plugin"),
+                            location = util.get_pkg_path("astro-language-server", "/node_modules/@astrojs/ts-plugin"),
                             enableForWorkspaceTypeScriptVersions = true,
                         },
                     },

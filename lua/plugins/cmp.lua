@@ -36,7 +36,7 @@ return {
                 formatting = {
                     fields = { "kind", "abbr", "menu" },
                     format = function(entry, item)
-                        local kinds = Util.icons.kinds
+                        local kinds = util.icons.kinds
 
                         if kinds[item.kind] then
                             item.kind = kinds[item.kind] .. " "

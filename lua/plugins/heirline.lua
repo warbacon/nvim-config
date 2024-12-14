@@ -86,7 +86,7 @@ return {
 
                     local name = vim.fn.fnamemodify(self.filename, ":.")
 
-                    if not Util.is_win then
+                    if not util.is_win then
                         name = name:gsub("oil://", ""):gsub("^" .. vim.env.HOME, "~")
                     else
                         name = name:gsub("oil://", "")
@@ -120,10 +120,10 @@ return {
         local Diagnostics = {
             condition = conditions.has_diagnostics,
             static = {
-                error_icon = Util.icons.diagnostics.ERROR,
-                warn_icon = Util.icons.diagnostics.WARN,
-                info_icon = Util.icons.diagnostics.INFO,
-                hint_icon = Util.icons.diagnostics.HINT,
+                error_icon = util.icons.diagnostics.ERROR,
+                warn_icon = util.icons.diagnostics.WARN,
+                info_icon = util.icons.diagnostics.INFO,
+                hint_icon = util.icons.diagnostics.HINT,
             },
             init = function(self)
                 self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })

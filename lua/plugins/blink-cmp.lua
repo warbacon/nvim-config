@@ -23,7 +23,7 @@ return {
         },
         appearance = {
             nerd_font_variant = "normal",
-            kind_icons = Util.icons.kinds,
+            kind_icons = util.icons.kinds,
         },
     },
 }

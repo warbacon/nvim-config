@@ -2,7 +2,7 @@
 vim.diagnostic.config({
     severity_sort = true,
     signs = {
-        text = Util.icons.diagnostics,
+        text = util.icons.diagnostics,
     },
 })
 

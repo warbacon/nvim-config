@@ -1,5 +1,5 @@
 -- Load utils
-_G.Util = require("util")
+_G.util = require("util")
 
 -- Load configuration options
 require("config.options")

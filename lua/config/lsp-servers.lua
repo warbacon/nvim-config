@@ -2,7 +2,7 @@ return {
     astro = {},
     basedpyright = {},
     bashls = {},
-    clangd = vim.uv.os_uname().sysname:find("Windows") == nil and {} or nil,
+    clangd = not Util.is_win and {} or nil,
     cssls = {
         on_attach = function(client, bufnr)
             local filename = vim.api.nvim_buf_get_name(bufnr)
@@ -40,23 +40,45 @@ return {
             },
         },
     } or nil,
-    svelte = {},
+    svelte = {
+        capabilities = {
+            workspace = {
+                didChangeWatchedFiles = { dynamicRegistration = true },
+            },
+        },
+    },
     tailwindcss = {
-        filetypes = { "astro", "svelte", "html", "css" },
+        filetypes = { "astro", "css", "html", "svelte" },
     },
     vtsls = {
         settings = {
+            complete_function_calls = true,
+            vtsls = {
+                enableMoveToFileCodeAction = true,
+                autoUseWorkspaceTsdk = true,
+                tsserver = {
+                    globalPlugins = {
+                        {
+                            name = "typescript-svelte-plugin",
+                            location = Util.get_pkg_path(
+                                "svelte-language-server",
+                                "/node_modules/typescript-svelte-plugin"
+                            ),
+                            enableForWorkspaceTypeScriptVersions = true,
+                        },
+                        {
+                            name = "@astrojs/ts-plugin",
+                            location = Util.get_pkg_path("astro-language-server", "/node_modules/@astrojs/ts-plugin"),
+                            enableForWorkspaceTypeScriptVersions = true,
+                        },
+                    },
+                },
+            },
             typescript = {
-                updateImportsOnFileMove = "always",
+                updateImportsOnFileMove = { enabled = "always" },
                 suggest = {
                     completeFunctionCalls = true,
                 },
-            },
-            javascript = {
-                updateImportsOnFileMove = "always",
-            },
-            vtsls = {
-                enableMoveToFileCodeAction = true,
             },
         },
     },

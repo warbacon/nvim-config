@@ -48,7 +48,7 @@ return {
             "mason.nvim",
         },
         config = function()
-            local servers = vim.deepcopy(Util.lsp.servers)
+            local servers = vim.deepcopy(require("config.lsp-servers"))
             servers.jdtls = nil
 
             for server_name in pairs(servers) do

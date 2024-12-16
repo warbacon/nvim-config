@@ -23,11 +23,6 @@ return {
         },
         opts = function()
             return {
-                extensions = {
-                    ["ui-select"] = {
-                        require("telescope.themes").get_dropdown(),
-                    },
-                },
                 defaults = {
                     selection_caret = "  ",
                     prompt_prefix = "   ",

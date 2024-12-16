@@ -1,4 +1,5 @@
 -- Configure diagnostics
+---@type vim.diagnostic.Opts
 vim.diagnostic.config({
     severity_sort = true,
     signs = {

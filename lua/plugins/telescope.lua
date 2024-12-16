@@ -10,13 +10,7 @@ return {
         end,
         dependencies = {
             { "nvim-telescope/telescope-ui-select.nvim" },
-            {
-                "nvim-telescope/telescope-fzf-native.nvim",
-                build = "make",
-                cond = function()
-                    return vim.fn.executable("make") == 1
-                end,
-            },
+            { "natecraddock/telescope-zf-native.nvim" },
         },
         cmd = "Telescope",
         keys = {
@@ -63,7 +57,7 @@ return {
         config = function(_, opts)
             require("telescope").setup(opts)
             require("telescope").load_extension("ui-select")
-            pcall(require("telescope").load_extension, "fzf")
+            require("telescope").load_extension("zf-native")
         end,
     },
 }

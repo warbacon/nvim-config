@@ -13,13 +13,18 @@ return {
         formatters_by_ft = {
             c = { "clang_format" },
             cpp = { "clang_format" },
+            css = { "prettierd" },
             fish = { "fish_indent" },
-            terraform = { "terraform_fmt" },
+            html = { "prettierd" },
+            javascript = { "prettierd" },
+            json = { "prettierd" },
             lua = { "stylua" },
-            markdown = { "markdownlint", "injected" },
+            markdown = { "prettierd", "injected" },
             python = { "ruff_format" },
             sh = { "shfmt" },
-            ["_"] = { "trim_whitespace" },
+            typescript = { "prettierd" },
+            yaml = { "prettierd" },
+            ["_"] = { "trim_whitespace", "trim_newlines" },
         },
         formatters = {
             clang_format = {

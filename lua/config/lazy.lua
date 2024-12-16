@@ -22,6 +22,9 @@ require("lazy").setup({
     install = {
         colorscheme = { "tokynight-night" },
     },
+    rocks = {
+        enabled = not util.is_win,
+    },
     ui = { backdrop = 100 },
     performance = {
         rtp = {

@@ -26,7 +26,7 @@ return {
                 local config = {
                     cmd = { vim.fn.exepath("jdtls") },
                     root_dir = require("lspconfig.configs.jdtls").default_config.root_dir(fname),
-                    capabilities = require("blink-cmp").get_lsp_capabilities(),
+                    capabilities = util.get_lsp_capabilities(),
                 }
 
                 require("jdtls").start_or_attach(config)
@@ -52,11 +52,9 @@ return {
             servers.jdtls = nil
 
             for server_name in pairs(servers) do
-                local server_opts = vim.tbl_deep_extend(
-                    "force",
-                    { capabilities = require("blink-cmp").get_lsp_capabilities() },
-                    servers[server_name]
-                )
+                local server_opts = vim.tbl_deep_extend("force", {
+                    capabilities = util.get_lsp_capabilities(),
+                }, servers[server_name])
                 require("lspconfig")[server_name].setup(server_opts)
             end
         end,

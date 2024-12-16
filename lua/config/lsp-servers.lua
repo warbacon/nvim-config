@@ -1,3 +1,4 @@
+---@type table<string, table|nil>
 return {
     astro = {},
     basedpyright = {},
@@ -19,7 +20,7 @@ return {
     emmet_language_server = {},
     dockerls = {},
     html = {},
-    jdtls = vim.fn.executable("java") == 1 and {} or nil,
+    jdtls = vim.fn.executable("java") == 1 and { manual_setup = true } or nil,
     jsonls = {
         on_new_config = function(new_config)
             new_config.settings.json.schemas = require("schemastore").json.schemas()

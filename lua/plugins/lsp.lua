@@ -49,13 +49,15 @@ return {
         },
         config = function()
             local servers = vim.deepcopy(require("config.lsp-servers"))
-            servers.jdtls = nil
+            local default_capabilities = util.get_lsp_capabilities()
 
-            for server_name in pairs(servers) do
-                local server_opts = vim.tbl_deep_extend("force", {
-                    capabilities = util.get_lsp_capabilities(),
-                }, servers[server_name])
-                require("lspconfig")[server_name].setup(server_opts)
+            for server, opts in pairs(servers) do
+                if not opts.manual_setup then
+                    opts.capabilities = vim.tbl_deep_extend("force", {
+                        capabilities = default_capabilities,
+                    }, opts.capabilities or {})
+                    require("lspconfig")[server].setup(opts)
+                end
             end
         end,
     },

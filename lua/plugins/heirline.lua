@@ -117,6 +117,13 @@ return {
             { provider = "%<" },
         }
 
+        local Grapple = {
+            provider = function()
+                return "  " .. require("grapple").statusline()
+            end,
+            hl = { fg = "orange", bold = true },
+        }
+
         local Diagnostics = {
             condition = conditions.has_diagnostics,
             static = {
@@ -183,6 +190,7 @@ return {
             ViMode,
             Space,
             FileNameBlock,
+            Grapple,
             Align,
             Diagnostics,
             Space,
@@ -194,6 +202,7 @@ return {
 
         local StatusLineNC = {
             FileNameBlock,
+            Grapple,
             Align,
             Ruler,
             Space,

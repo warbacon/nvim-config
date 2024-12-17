@@ -7,9 +7,6 @@ return {
         "williamboman/mason.nvim",
         build = ":MasonUpdate",
         event = "VeryLazy",
-        keys = {
-            { "<leader>m", "<cmd>Mason<CR>" },
-        },
         opts = {
             ui = {
                 icons = {

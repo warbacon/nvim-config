@@ -2,6 +2,8 @@ return {
     "Saghen/blink.cmp",
     version = "*",
     event = "InsertEnter",
+    ---@module "blink.cmp"
+    ---@type blink.cmp.Config
     opts = {
         keymap = {
             ["<C-s>"] = { "hide", "fallback" },

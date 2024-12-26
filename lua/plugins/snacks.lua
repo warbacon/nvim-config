@@ -11,16 +11,5 @@ return {
         notifier = { enabled = true },
         bigfile = { enabled = true },
         quickfile = { enabled = true },
-        input = { enabled = true },
-        indent = {
-            enabled = false,
-            indent = {
-                char = "▏",
-            },
-            scope = {
-                char = "▏",
-                only_current = true,
-            },
-        },
     },
 }

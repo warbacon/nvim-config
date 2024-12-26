@@ -9,9 +9,8 @@ return {
             ["<C-s>"] = { "hide", "fallback" },
         },
         completion = {
-            documentation = {
-                auto_show = true,
-                auto_show_delay_ms = 200,
+            accept = {
+                auto_brackets = { enabled = false },
             },
         },
         sources = {
@@ -27,7 +26,6 @@ return {
         },
         appearance = {
             nerd_font_variant = "normal",
-            kind_icons = util.icons.kinds,
         },
     },
 }

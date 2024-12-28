@@ -26,6 +26,7 @@ return {
         },
         appearance = {
             nerd_font_variant = "normal",
+            kind_icons = util.icons.kinds
         },
     },
 }

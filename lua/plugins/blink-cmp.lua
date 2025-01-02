@@ -1,7 +1,6 @@
 return {
     "Saghen/blink.cmp",
     version = "*",
-    event = "InsertEnter",
     ---@module "blink.cmp"
     ---@type blink.cmp.Config
     opts = {
@@ -26,7 +25,7 @@ return {
         },
         appearance = {
             nerd_font_variant = "normal",
-            kind_icons = util.icons.kinds
+            kind_icons = util.icons.kinds,
         },
     },
 }

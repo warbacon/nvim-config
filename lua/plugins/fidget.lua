@@ -3,6 +3,7 @@ return {
     event = "LspAttach",
     opts = {
         progress = {
+            ignore = { "jdtls" },
             display = {
                 render_limit = 5,
                 done_ttl = 2,

@@ -32,3 +32,13 @@ if vim.fn.has("wsl") == 1 then
         cache_enabled = 0,
     }
 end
+
+if vim.g.neovide then
+    vim.o.guifont = "JetBrains Mono,Symbols Nerd Font:h18"
+    vim.keymap.set({ "n", "v" }, "<C-+>", function()
+        vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1
+    end)
+    vim.keymap.set({ "n", "v" }, "<C-->", function()
+        vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1
+    end)
+end

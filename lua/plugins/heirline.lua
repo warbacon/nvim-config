@@ -60,8 +60,8 @@ return {
             end,
             {
                 init = function(self)
-                    if pcall(require, "mini.icons") then
-                        self.icon, self.hl = require("mini.icons").get("file", self.filename)
+                    if MiniIcons then
+                        self.icon, self.hl = MiniIcons.get("file", self.filename)
                     end
                 end,
                 provider = function(self)

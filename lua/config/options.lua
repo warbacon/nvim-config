@@ -50,6 +50,9 @@ vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "+" }
 -- Do not show the intro message on startup
 vim.opt.shortmess:append({ I = true })
 
+-- Set global statusline
+vim.opt.laststatus = 3
+
 -- Enable persistent undo, allowing undo history to be saved between sessions
 vim.opt.undofile = true
 

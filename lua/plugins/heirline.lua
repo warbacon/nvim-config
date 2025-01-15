@@ -60,7 +60,7 @@ return {
             end,
             {
                 init = function(self)
-                    if MiniIcons then
+                    if pcall(require, "mini.icons") then
                         if vim.bo.buftype ~= "nofile" then
                             self.icon, self.hl = MiniIcons.get("file", self.filename)
                         else
@@ -82,7 +82,7 @@ return {
                 provider = function(self)
                     if self.filename == "" then
                         if vim.bo.buftype == "nofile" then
-                           return vim.bo.filetype:gsub("^%l", string.upper)
+                            return vim.bo.filetype:gsub("^%l", string.upper)
                         end
                         return "[Sin nombre]"
                     end

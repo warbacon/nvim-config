@@ -12,9 +12,17 @@ return {
         { "<leader>sg", "<cmd>Telescope live_grep<CR>" },
         { "<leader>sh", "<cmd>Telescope help_tags<CR>" },
         { "<leader>sd", "<cmd>Telescope diagnostics<CR>" },
+        { "<leader>ss", "<cmd>Telescope lsp_document_symbols<CR>" },
+        { "<leader>sm", "<cmd>Telescope man_pages<CR>" },
     },
     opts = {
         defaults = {
+            selection_caret = "  ",
+            prompt_prefix = "❯ ",
+            sorting_strategy = "ascending",
+            layout_config = {
+                prompt_position = "top",
+            },
             file_ignore_patterns = {
                 "%.class",
                 "%.git",

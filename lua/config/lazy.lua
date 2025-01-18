@@ -22,8 +22,11 @@ require("lazy").setup({
     install = {
         colorscheme = { "tokynight-night" },
     },
-    rocks = {
-        enabled = not util.is_win,
+    ---@diagnostic disable-next-line: assign-type-mismatch
+    dev = {
+        path = util.is_win and "F:\\" or "~/Git",
+        patterns = { "warbacon" },
+        fallback = true,
     },
     ui = { backdrop = 100 },
     performance = {

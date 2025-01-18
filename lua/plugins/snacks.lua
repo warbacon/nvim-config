@@ -32,11 +32,6 @@ return {
                     },
                 },
             },
-            formatters = {
-                file = {
-                    filename_first = true,
-                },
-            },
             icons = {
                 diagnostics = {
                     Error = util.icons.diagnostics.ERROR,

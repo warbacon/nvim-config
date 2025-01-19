@@ -22,6 +22,11 @@ return {
         bigfile = {},
         quickfile = {},
         picker = {
+            win = {
+                input = {
+                    ["<Esc>"] = { "close", mode = { "n", "i" } },
+                },
+            },
             sources = {
                 files = {
                     hidden = true,

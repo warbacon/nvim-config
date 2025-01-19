@@ -20,6 +20,7 @@ return {
         notifier = {},
         bigfile = {},
         quickfile = {},
+        input = {},
         picker = {
             win = {
                 input = {

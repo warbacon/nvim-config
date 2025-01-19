@@ -17,6 +17,7 @@ return {
                     package_installed = " ",
                     package_uninstalled = " ",
                 },
+                height = 0.8,
             },
         },
         config = function(_, opts)

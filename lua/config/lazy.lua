@@ -28,7 +28,6 @@ require("lazy").setup({
         patterns = { "warbacon" },
         fallback = true,
     },
-    ui = { backdrop = 100 },
     performance = {
         rtp = {
             disabled_plugins = {

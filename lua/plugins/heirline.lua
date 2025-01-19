@@ -72,7 +72,7 @@ return {
                     return self.icon and (self.icon .. " ")
                 end,
                 hl = function(self)
-                    return { fg = self.icon_color }
+                    return utils.get_highlight(self.hl)
                 end,
                 condition = function()
                     return vim.bo.filetype ~= ""

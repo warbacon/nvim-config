@@ -24,7 +24,33 @@ return {
         picker = {
             win = {
                 input = {
-                    ["<Esc>"] = { "close", mode = { "n", "i" } },
+                    keys = {
+                        ["<Esc>"] = { "close", mode = { "n", "i" } },
+                    },
+                },
+            },
+            layout = function()
+                return {
+                    preview = vim.o.columns >= 120 and true or false,
+                    layout = {
+                        box = "horizontal",
+                        width = 0.8,
+                        height = 0.8,
+                        {
+                            box = "vertical",
+                            border = "rounded",
+                            title = "{source} {live}",
+                            title_pos = "center",
+                            { win = "input", height = 1, border = "bottom" },
+                            { win = "list", border = "none" },
+                        },
+                        { win = "preview", border = "rounded", min_width = 60, width = 0.6 },
+                    },
+                }
+            end,
+            formatters = {
+                file = {
+                    filename_first = true,
                 },
             },
             sources = {

@@ -61,11 +61,7 @@ return {
             {
                 init = function(self)
                     if pcall(require, "mini.icons") then
-                        if vim.bo.buftype ~= "nofile" then
-                            self.icon, self.hl = MiniIcons.get("file", self.filename)
-                        else
-                            self.icon, self.hl = MiniIcons.get("file", "init.lua")
-                        end
+                        self.icon, self.hl = MiniIcons.get("file", self.filename)
                     end
                 end,
                 provider = function(self)
@@ -74,16 +70,10 @@ return {
                 hl = function(self)
                     return utils.get_highlight(self.hl)
                 end,
-                condition = function()
-                    return vim.bo.filetype ~= ""
-                end,
             },
             {
                 provider = function(self)
                     if self.filename == "" then
-                        if vim.bo.buftype == "nofile" then
-                            return vim.bo.filetype:gsub("^%l", string.upper)
-                        end
                         return "[Sin nombre]"
                     end
 
@@ -122,6 +112,9 @@ return {
                 hl = { fg = "red" },
             },
             { provider = "%<" },
+            condition = function()
+                return vim.bo.buftype ~= "nofile" and vim.bo.buftype ~= "prompt"
+            end,
         }
 
         local Diagnostics = {

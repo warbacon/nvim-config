@@ -142,7 +142,7 @@ return {
                 "DiagnosticChanged",
                 "BufEnter",
                 callback = vim.schedule_wrap(function()
-                    vim.cmd("redrawstatus")
+                    vim.api.nvim__redraw({ statusline = true })
                 end),
             },
             {

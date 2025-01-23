@@ -31,27 +31,14 @@ return {
                 },
                 preview = {
                     wo = {
-                        signcolumn = "no"
-                    }
+                        signcolumn = "no",
+                    },
                 },
             },
             layout = function()
                 return {
                     preview = vim.o.columns >= 120 and true or false,
-                    layout = {
-                        box = "horizontal",
-                        width = 0.8,
-                        height = 0.8,
-                        {
-                            box = "vertical",
-                            border = "rounded",
-                            title = "{source} {live}",
-                            title_pos = "center",
-                            { win = "input", height = 1, border = "bottom" },
-                            { win = "list", border = "none" },
-                        },
-                        { win = "preview", border = "rounded", min_width = 60, width = 0.6 },
-                    },
+                    layout = require("snacks.picker.config.layouts").default.layout
                 }
             end,
             formatters = {

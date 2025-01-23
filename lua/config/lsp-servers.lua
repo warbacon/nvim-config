@@ -1,6 +1,6 @@
 ---@type table<string, table|nil>
 return {
-    astro = {},
+    -- astro = {},
     basedpyright = {},
     bashls = {},
     clangd = not util.is_win and {} or nil,

@@ -28,6 +28,11 @@ return {
                         ["<Esc>"] = { "close", mode = { "n", "i" } },
                     },
                 },
+                preview = {
+                    wo = {
+                        signcolumn = "no"
+                    }
+                },
             },
             layout = function()
                 return {

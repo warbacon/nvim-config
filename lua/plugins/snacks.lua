@@ -13,6 +13,7 @@ return {
         { "<leader>sd", function() Snacks.picker.diagnostics() end },
         { "<leader>ss", function() Snacks.picker.lsp_symbols() end },
         { "<leader>sm", function() Snacks.picker.man() end },
+        { "<leader>si", function() Snacks.picker.icons() end },
         -- stylua: ignore end
     },
     ---@type snacks.Config

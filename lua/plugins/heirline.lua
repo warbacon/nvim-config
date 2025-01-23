@@ -86,7 +86,7 @@ return {
                     if not util.is_win then
                         name = name:gsub("oil://", ""):gsub("^" .. vim.env.HOME, "~")
                     else
-                        name = name:gsub("oil://", "")
+                        name = name:gsub("oil://", ""):gsub("\\", "/")
                     end
 
                     if not conditions.width_percent_below(#name, 0.45) then

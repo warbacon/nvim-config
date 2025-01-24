@@ -76,7 +76,11 @@ return {
             {
                 provider = function(self)
                     if self.filename == "" then
-                        return "[Sin nombre]"
+                        if vim.bo.buftype ~= "nofile" then
+                            return "[Sin nombre]"
+                        end
+
+                        return vim.bo.filetype
                     end
 
                     if vim.bo.buftype == "help" then
@@ -114,9 +118,6 @@ return {
                 hl = { fg = "red" },
             },
             { provider = "%<" },
-            condition = function()
-                return vim.bo.buftype ~= "nofile" and vim.bo.buftype ~= "prompt"
-            end,
         }
 
         local Diagnostics = {

@@ -1,6 +1,9 @@
 return {
     "rebelot/heirline.nvim",
     event = "BufEnter",
+    dependencies = {
+        "echasnovski/mini.icons",
+    },
     init = function()
         vim.o.statusline = " "
     end,
@@ -60,15 +63,14 @@ return {
             end,
             {
                 init = function(self)
-                    if pcall(require, "mini.icons") then
-                        self.icon, self.hl = MiniIcons.get("file", self.filename)
+                    local icon, hl, is_default = MiniIcons.get("file", self.filename)
+                    if is_default then
+                        icon, hl = MiniIcons.get("filetype", vim.bo.filetype)
                     end
+                    self.icon, self.hl = icon, hl
                 end,
                 provider = function(self)
                     return self.icon and (self.icon .. " ")
-                end,
-                hl = function(self)
-                    return utils.get_highlight(self.hl)
                 end,
             },
             {

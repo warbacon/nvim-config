@@ -2,7 +2,11 @@ return {
     {
         "echasnovski/mini.icons",
         lazy = true,
-        opts = {},
+        opts = {
+            filetype = {
+                kitty = { glyph = "", hl = "MiniIconsYellow" },
+            },
+        },
     },
     {
         "echasnovski/mini.surround",

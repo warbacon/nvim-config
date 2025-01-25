@@ -2,7 +2,12 @@ return {
     "stevearc/oil.nvim",
     lazy = false,
     keys = {
-        { "-", "<cmd>Oil<CR>" },
+        {
+            "-",
+            function()
+                require("oil").open(nil, { preview = { vertical = true } })
+            end,
+        },
     },
     opts = {
         delete_to_trash = true,

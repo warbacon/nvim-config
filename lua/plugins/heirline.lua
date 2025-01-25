@@ -1,9 +1,6 @@
 return {
     "rebelot/heirline.nvim",
     event = "BufEnter",
-    dependencies = {
-        "echasnovski/mini.icons",
-    },
     init = function()
         vim.o.statusline = " "
     end,

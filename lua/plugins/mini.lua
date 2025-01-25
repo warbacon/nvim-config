@@ -1,7 +1,6 @@
 return {
     {
         "echasnovski/mini.icons",
-        lazy = true,
         opts = {
             filetype = {
                 kitty = { glyph = "", hl = "MiniIconsYellow" },

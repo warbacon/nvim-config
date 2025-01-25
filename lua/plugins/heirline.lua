@@ -62,7 +62,10 @@ return {
                 init = function(self)
                     local icon, hl, is_default = MiniIcons.get("file", self.filename)
                     if is_default then
-                        icon, hl = MiniIcons.get("filetype", vim.bo.filetype)
+                        icon, hl, is_default = MiniIcons.get("filetype", vim.bo.filetype)
+                    end
+                    if is_default and vim.bo.buftype ~= "" then
+                        icon, hl = MiniIcons.get("file", "init.lua")
                     end
                     self.icon, self.hl = icon, hl
                 end,
@@ -73,7 +76,7 @@ return {
             {
                 provider = function(self)
                     if self.filename == "" then
-                        if vim.bo.buftype ~= "nofile" then
+                        if vim.bo.buftype == "" then
                             return "[Sin nombre]"
                         end
 

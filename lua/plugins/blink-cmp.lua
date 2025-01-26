@@ -8,10 +8,8 @@ return {
         keymap = {
             ["<C-s>"] = { "hide", "fallback" },
         },
-        completion = {
-            accept = {
-                auto_brackets = { enabled = false },
-            },
+        signature = {
+            enabled = true,
         },
         sources = {
             default = { "lazydev", "lsp", "path", "snippets", "buffer" },

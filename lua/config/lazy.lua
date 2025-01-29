@@ -25,6 +25,11 @@ require("lazy").setup({
     readme = {
         enabled = false,
     },
+    performance = {
+        rtp = {
+            paths = { "/usr/share/nvim/site" },
+        },
+    },
 })
 
 -- Set keymap

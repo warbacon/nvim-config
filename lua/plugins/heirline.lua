@@ -1,5 +1,12 @@
 return {
     "rebelot/heirline.nvim",
+    event = "UiEnter",
+    dependencies = {
+        "echasnovski/mini.icons",
+    },
+    init = function()
+        vim.o.statusline = " "
+    end,
     config = function()
         local utils = require("heirline.utils")
         local conditions = require("heirline.conditions")

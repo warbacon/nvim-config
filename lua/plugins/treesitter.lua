@@ -1,9 +1,11 @@
 return {
+    { "nvim-treesitter/nvim-treesitter", branch = "main" },
     {
         "lewis6991/ts-install.nvim",
         dependencies = {
-            { "nvim-treesitter/nvim-treesitter", branch = "main" },
+            "nvim-treesitter/nvim-treesitter",
         },
+        event = { "VeryLazy", "LazyFile" },
         config = function()
             require("ts-install").setup({
                 ensure_install = {

@@ -17,17 +17,14 @@ require("lazy").setup({
         { import = "plugins" },
     },
     defaults = {
-        cond = vim.fn.has("linux") == 0 or vim.env.DISPLAY ~= nil,
+        cond = util.is_linux or vim.env.DISPLAY ~= nil,
     },
     install = {
         colorscheme = { "tokynight-night" },
     },
-    readme = {
-        enabled = false,
-    },
     performance = {
         rtp = {
-            paths = { "/usr/share/nvim/site" },
+            paths = util.is_linux and { "/usr/share/nvim/site" } or {},
         },
     },
 })

@@ -17,29 +17,13 @@ require("lazy").setup({
         { import = "plugins" },
     },
     defaults = {
-        cond = vim.env.TERM ~= "linux",
+        cond = vim.fn.has("linux") == 0 or vim.env.DISPLAY ~= nil,
     },
     install = {
         colorscheme = { "tokynight-night" },
     },
-    ---@diagnostic disable-next-line: assign-type-mismatch
-    dev = {
-        path = util.is_win and "F:\\" or "~/Git",
-        patterns = { "warbacon" },
-        fallback = true,
-    },
-    performance = {
-        rtp = {
-            disabled_plugins = {
-                "gzip",
-                "matchit",
-                "rplugin",
-                "tarPlugin",
-                "tohtml",
-                "tutor",
-                "zipPlugin",
-            },
-        },
+    readme = {
+        enabled = false,
     },
 })
 

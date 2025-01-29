@@ -19,8 +19,6 @@ return {
     ---@type snacks.Config
     opts = {
         notifier = {},
-        bigfile = {},
-        quickfile = {},
         input = {},
         picker = {
             win = {

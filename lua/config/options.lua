@@ -50,9 +50,6 @@ vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "+" }
 -- Do not show the intro message on startup
 vim.opt.shortmess:append({ I = true })
 
--- Set global statusline
--- vim.opt.laststatus = 3
-
 -- Enable persistent undo, allowing undo history to be saved between sessions
 vim.opt.undofile = true
 
@@ -65,3 +62,24 @@ vim.opt.scrolloff = 5
 
 -- Limit the height of the popup menu
 vim.opt.pumheight = 10
+
+-- Set the default shell based on availability and OS:
+-- On Windows, use PowerShell if available.
+-- Otherwise, use Fish shell if it's installed.
+if util.is_win and vim.fn.executable("pwsh") then
+    vim.opt.shell = "pwsh -NoLogo"
+    vim.opt.shellcmdflag = "-NoLogo -NonInteractive -ExecutionPolicy RemoteSigned -Command "
+        .. "[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();"
+        .. "$PSDefaultParameterValues['Out-File:Encoding']='utf8';"
+        .. "$PSStyle.OutputRendering='plaintext';"
+        .. "Remove-Alias -Force -ErrorAction SilentlyContinue tee;"
+    vim.opt.shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
+    vim.opt.shellpipe = '2>&1 | %%{ "$_" } | tee %s; exit $LastExitCode'
+    vim.opt.shellquote = ""
+    vim.opt.shellxquote = ""
+elseif vim.fn.executable("fish") then
+    vim.opt.shell = "fish"
+end
+
+-- Set global statusline
+-- vim.opt.laststatus = 3

@@ -33,6 +33,10 @@ if vim.fn.has("wsl") == 1 then
     }
 end
 
+-- Add syntax hightlight to dunst config
+vim.filetype.add({ pattern = { [".*/dunst/dunstrc"] = "dosini" } })
+
+-- Neovide configs
 if vim.g.neovide then
     vim.o.guifont = "JetBrains Mono,Symbols Nerd Font:h18"
     vim.keymap.set({ "n", "v" }, "<C-+>", function()

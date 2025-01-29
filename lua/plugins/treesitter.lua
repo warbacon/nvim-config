@@ -44,7 +44,6 @@ return {
         },
     },
     config = function(_, opts)
-        -- vim.filetype.add({ pattern = { [".*/dunst/dunstrc"] = "dosini" } })
         require("nvim-treesitter.install").prefer_git = false
         require("nvim-treesitter.configs").setup(opts)
     end,

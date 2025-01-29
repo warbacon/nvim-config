@@ -34,7 +34,8 @@ return {
             end
 
             vim.api.nvim_create_autocmd("FileType", {
-                group = vim.api.nvim_create_augroup("jdtls-attach", { clear = true }),
+                group = vim.api.nvim_create_augroup("jdtls", { clear = true }),
+                desc = "Checks whether server jdtls should start a new instance or attach to an existing one.",
                 pattern = { "java" },
                 callback = attach_jdtls,
             })
@@ -52,20 +53,8 @@ return {
             local servers = vim.deepcopy(require("config.lsp-servers"), true)
 
             for server, opts in pairs(servers) do
-                if not opts.manual_setup then
-                    opts.capabilities = require("blink-cmp").get_lsp_capabilities(opts.capabilities)
-                    vim.api.nvim_create_autocmd("FileType", {
-                        once = true,
-                        group = vim.api.nvim_create_augroup(server .. "-setup", { clear = true }),
-                        pattern = opts.filetypes or require("lspconfig.configs." .. server).default_config.filetypes,
-                        callback = function(ev)
-                            require("lspconfig")[server].setup(opts)
-                            vim.defer_fn(function()
-                                vim.api.nvim_exec_autocmds("FileType", { buffer = ev.buf, group = "lspconfig" })
-                            end, 0)
-                        end,
-                    })
-                end
+                opts.capabilities = require("blink-cmp").get_lsp_capabilities(opts.capabilities)
+                require("lspconfig")[server].setup(opts)
             end
         end,
     },

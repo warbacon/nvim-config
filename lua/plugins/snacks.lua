@@ -14,6 +14,8 @@ return {
         { "<leader>ss", function() Snacks.picker.lsp_symbols() end },
         { "<leader>sm", function() Snacks.picker.man() end },
         { "<leader>si", function() Snacks.picker.icons() end },
+        { "<leader>sl", function() Snacks.picker.lazy() end },
+        { "<leader>p", function() Snacks.picker.pickers() end },
         -- stylua: ignore end
     },
     ---@type snacks.Config
@@ -36,7 +38,7 @@ return {
             layout = function()
                 return {
                     preview = vim.o.columns >= 120 and true or false,
-                    layout = require("snacks.picker.config.layouts").default.layout
+                    layout = require("snacks.picker.config.layouts").default.layout,
                 }
             end,
             formatters = {
@@ -48,8 +50,17 @@ return {
                 files = {
                     hidden = true,
                     exclude = {
+                        "*.avif",
                         "*.class",
+                        "*.exe",
+                        "*.jpg",
                         "*.o",
+                        "*.otf",
+                        "*.pdf",
+                        "*.png",
+                        "*.ttf",
+                        "*.webp",
+                        "*.woff",
                         ".git/",
                         "node_modules/",
                     },

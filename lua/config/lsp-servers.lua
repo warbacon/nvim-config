@@ -1,6 +1,6 @@
 ---@type table<string, table|nil>
 return {
-    -- astro = {},
+    astro = {},
     basedpyright = {},
     bashls = {},
     clangd = not util.is_win and {} or nil,
@@ -18,7 +18,6 @@ return {
         },
     },
     emmet_language_server = {},
-    dockerls = {},
     html = {},
     jdtls = vim.fn.executable("java") == 1 and { autostart = false } or nil,
     jsonls = {

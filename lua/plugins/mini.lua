@@ -9,11 +9,6 @@ return {
         },
     },
     {
-        "echasnovski/mini.surround",
-        event = "VeryLazy",
-        opts = {},
-    },
-    {
         "echasnovski/mini.splitjoin",
         keys = "gs",
         opts = {

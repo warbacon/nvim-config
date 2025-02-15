@@ -28,6 +28,7 @@ return {
             "luap",
             "markdown",
             "markdown_inline",
+            "php",
             "powershell",
             "printf",
             "python",

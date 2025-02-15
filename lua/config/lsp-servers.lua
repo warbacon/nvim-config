@@ -19,6 +19,11 @@ return {
     },
     emmet_language_server = {},
     html = {},
+    intelephense = {
+        init_options = {
+            globalStoragePath = vim.fn.stdpath("data"),
+        },
+    },
     jdtls = vim.fn.executable("java") == 1 and { autostart = false } or nil,
     jsonls = {
         on_new_config = function(new_config)

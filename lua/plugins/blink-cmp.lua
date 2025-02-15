@@ -9,6 +9,7 @@ return {
             enabled = true,
         },
         cmdline = {
+            enabled = false,
             sources = {},
         },
         sources = {

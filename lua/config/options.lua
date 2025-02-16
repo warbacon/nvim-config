@@ -3,21 +3,21 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- Always show the sign column
-vim.opt.signcolumn = "yes"
+vim.o.signcolumn = "yes"
 
 -- Enable line numbers and relative line numbers
-vim.opt.number = true
-vim.opt.relativenumber = true
+vim.o.number = true
+vim.o.relativenumber = true
 
 -- Highlight the line number of the cursor's line
-vim.opt.cursorline = true
-vim.opt.cursorlineopt = "number"
+vim.o.cursorline = true
+vim.o.cursorlineopt = "number"
 
 -- Use spaces instead of tabs and set indentation size
-vim.opt.expandtab = true
-vim.opt.shiftround = true
-vim.opt.shiftwidth = 4
-vim.opt.tabstop = 4
+vim.o.expandtab = true
+vim.o.shiftround = true
+vim.o.shiftwidth = 4
+vim.o.tabstop = 4
 
 -- Customize fill characters
 vim.opt.fillchars = {
@@ -29,57 +29,57 @@ vim.opt.fillchars = {
     eob = " ",
 }
 
--- Folding options
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldtext = ""
-vim.opt.foldlevel = 99
+-- Folding oions
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldtext = ""
+vim.o.foldlevel = 99
 
 -- Open new splits below and to the right of the current window
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+vim.o.splitbelow = true
+vim.o.splitright = true
 
 -- Ignore case in search patterns, but enable smart case
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
 -- Show whitespace characters like tabs, trailing spaces, and non-breakable spaces
-vim.opt.list = true
+vim.o.list = true
 vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "+" }
 
 -- Do not show the intro message on startup
 vim.opt.shortmess:append({ I = true })
 
 -- Enable persistent undo, allowing undo history to be saved between sessions
-vim.opt.undofile = true
+vim.o.undofile = true
 
 -- Disable line wrapping
-vim.opt.wrap = false
+vim.o.wrap = false
 
 -- Set minimal number of screen lines to keep above and below the cursor
-vim.opt.sidescrolloff = 3
-vim.opt.scrolloff = 5
+vim.o.sidescrolloff = 3
+vim.o.scrolloff = 5
 
 -- Limit the height of the popup menu
-vim.opt.pumheight = 10
+vim.o.pumheight = 10
 
 -- Set the default shell based on availability and OS:
 -- On Windows, use PowerShell if available.
 -- Otherwise, use Fish shell if it's installed.
 if util.is_win and vim.fn.executable("pwsh") then
-    vim.opt.shell = "pwsh -NoLogo"
-    vim.opt.shellcmdflag = "-NoLogo -NonInteractive -ExecutionPolicy RemoteSigned -Command "
+    vim.o.shell = "pwsh -NoLogo"
+    vim.o.shellcmdflag = "-NoLogo -NonInteractive -ExecutionPolicy RemoteSigned -Command "
         .. "[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();"
         .. "$PSDefaultParameterValues['Out-File:Encoding']='utf8';"
         .. "$PSStyle.OutputRendering='plaintext';"
         .. "Remove-Alias -Force -ErrorAction SilentlyContinue tee;"
-    vim.opt.shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
-    vim.opt.shellpipe = '2>&1 | %%{ "$_" } | tee %s; exit $LastExitCode'
-    vim.opt.shellquote = ""
-    vim.opt.shellxquote = ""
+    vim.o.shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
+    vim.o.shellpipe = '2>&1 | %%{ "$_" } | tee %s; exit $LastExitCode'
+    vim.o.shellquote = ""
+    vim.o.shellxquote = ""
 elseif vim.fn.executable("fish") then
-    vim.opt.shell = "fish"
+    vim.o.shell = "fish"
 end
 
 -- Set global statusline
--- vim.opt.laststatus = 3
+-- vim.o.laststatus = 3

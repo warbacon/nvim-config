@@ -17,7 +17,7 @@ autocmd("VimLeave", {
     group = augroup("fix_cursor"),
     desc = "Fix the cursor when exiting Vim",
     callback = function()
-        vim.opt.guicursor = ""
+        vim.o.guicursor = ""
         io.write("\x1b[ q")
     end,
 })

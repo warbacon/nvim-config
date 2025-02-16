@@ -10,7 +10,6 @@ return {
         },
         cmdline = {
             enabled = false,
-            sources = {},
         },
         sources = {
             default = { "lazydev", "lsp", "path", "snippets", "buffer" },

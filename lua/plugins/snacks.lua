@@ -50,16 +50,12 @@ return {
                 files = {
                     hidden = true,
                     exclude = {
-                        "*.avif",
                         "*.class",
                         "*.exe",
-                        "*.jpg",
                         "*.o",
                         "*.otf",
                         "*.pdf",
-                        "*.png",
                         "*.ttf",
-                        "*.webp",
                         "*.woff",
                         ".git/",
                         "node_modules/",

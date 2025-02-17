@@ -20,8 +20,10 @@ return {
     },
     ---@type snacks.Config
     opts = {
-        notifier = {},
+        bigfile = {},
+        image = {},
         input = {},
+        notifier = {},
         picker = {
             win = {
                 input = {
@@ -54,7 +56,6 @@ return {
                         "*.exe",
                         "*.o",
                         "*.otf",
-                        "*.pdf",
                         "*.ttf",
                         "*.woff",
                         ".git/",

@@ -29,12 +29,6 @@ vim.opt.fillchars = {
     eob = " ",
 }
 
--- Folding oions
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.o.foldtext = ""
-vim.o.foldlevel = 99
-
 -- Open new splits below and to the right of the current window
 vim.o.splitbelow = true
 vim.o.splitright = true

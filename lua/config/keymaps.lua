@@ -22,6 +22,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.keymap.set("n", "q:", "<cmd>echoe 'q:'<CR>", { noremap = true })
 
 -- Debugging
-vim.keymap.set("n", "<space><space>x", "<cmd>source %<CR>")
-vim.keymap.set("n", "<space>x", ":.lua<CR>")
-vim.keymap.set("v", "<space>x", ":lua<CR>")
+vim.keymap.set("n", "<space>xX", "<cmd>source %<CR>")
+vim.keymap.set("n", "<space>xx", "<cmd>.lua<CR>")
+vim.keymap.set("v", "<space>x", "<cmd>lua<CR>")

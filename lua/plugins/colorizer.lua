@@ -1,15 +1,20 @@
 return {
     "catgoose/nvim-colorizer.lua",
-    event = "LazyFile",
+    event = "BufReadPre",
     opts = {
         filetypes = { "*", "!lazy" },
-        user_default_options = {
-            names = false,
-            RRGGBBAA = true,
-            rgb_fn = true,
-            hsl_fn = true,
-            tailwind = true,
-        },
+        lazy_load = true,
         user_commands = false,
+        user_default_options = {
+            RGB = false,
+            RGBA = false,
+            RRGGBBAA = true,
+            hsl_fn = true,
+            names = false,
+            rgb_fn = true,
+            tailwind = true,
+            mode = "virtualtext",
+            virtualtext_inline = "before",
+        },
     },
 }

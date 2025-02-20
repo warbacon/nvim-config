@@ -6,7 +6,7 @@ end
 local autocmd = vim.api.nvim_create_autocmd
 
 autocmd("TextYankPost", {
-    group = augroup("highlight_yank"),
+    group = augroup("HightlightYank"),
     desc = "Automatically highlight text after yanking it",
     callback = function()
         (vim.hl or vim.highlight).on_yank()
@@ -14,7 +14,7 @@ autocmd("TextYankPost", {
 })
 
 autocmd("VimLeave", {
-    group = augroup("fix_cursor"),
+    group = augroup("FixCursor"),
     desc = "Fix the cursor when exiting Vim",
     callback = function()
         vim.o.guicursor = ""
@@ -27,5 +27,5 @@ autocmd("FileType", {
     desc = "Starts treesitter",
     callback = function()
         pcall(vim.treesitter.start)
-    end
+    end,
 })

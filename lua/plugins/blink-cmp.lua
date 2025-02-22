@@ -7,6 +7,7 @@ return {
     opts = {
         appearance = {
             nerd_font_variant = "normal",
+            kind_icons = Util.icons.kinds,
         },
         sources = {
             default = { "lazydev", "lsp", "path", "snippets", "buffer" },
@@ -23,6 +24,6 @@ return {
         },
         signature = {
             enabled = true,
-        }
+        },
     },
 }

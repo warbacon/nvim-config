@@ -2,9 +2,9 @@
 ---@type vim.diagnostic.Opts
 vim.diagnostic.config({
     severity_sort = true,
-    -- signs = {
-    --     text = util.icons.diagnostics,
-    -- },
+    signs = {
+        text = Util.icons.diagnostics,
+    },
 })
 
 -- Remove the `How to disable mouse` entry from the PopUp menu

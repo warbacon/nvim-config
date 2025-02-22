@@ -32,7 +32,7 @@ require("lazy").setup({
         enabled = true
     },
     defaults = {
-        cond = vim.env.DISPLAY == nil and Util.is_linux,
+        cond = (not Util.is_lin) or vim.env.DISPLAY ~= nil,
     },
     performance = {
         rtp = {

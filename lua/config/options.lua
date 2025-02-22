@@ -56,24 +56,3 @@ vim.o.scrolloff = 5
 
 -- Limit the height of the popup menu
 vim.o.pumheight = 10
-
--- Set the default shell based on availability and OS:
--- On Windows, use PowerShell if available.
--- Otherwise, use Fish shell if it's installed.
-if util.is_win and vim.fn.executable("pwsh") then
-    vim.o.shell = "pwsh -NoLogo"
-    vim.o.shellcmdflag = "-NoLogo -NonInteractive -ExecutionPolicy RemoteSigned -Command "
-        .. "[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();"
-        .. "$PSDefaultParameterValues['Out-File:Encoding']='utf8';"
-        .. "$PSStyle.OutputRendering='plaintext';"
-        .. "Remove-Alias -Force -ErrorAction SilentlyContinue tee;"
-    vim.o.shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
-    vim.o.shellpipe = '2>&1 | %%{ "$_" } | tee %s; exit $LastExitCode'
-    vim.o.shellquote = ""
-    vim.o.shellxquote = ""
-elseif vim.fn.executable("fish") then
-    vim.o.shell = "fish"
-end
-
--- Set global statusline
--- vim.o.laststatus = 3

@@ -2,26 +2,24 @@ return {
     {
         "echasnovski/mini.icons",
         lazy = true,
-        opts = {
-            filetype = {
-                kitty = { glyph = "", hl = "MiniIconsYellow" },
-            },
-        },
+        opts = {},
     },
     {
         "echasnovski/mini.splitjoin",
-        keys = "gs",
+        keys = { "gs" },
         opts = {
-            mappings = { toggle = "gs" },
+            mappings = {
+                toggle = "gs",
+            },
         },
     },
     {
         "echasnovski/mini.move",
         keys = {
-            { "<M-h>", mode = { "n", "v" } },
-            { "<M-j>", mode = { "n", "v" } },
-            { "<M-k>", mode = { "n", "v" } },
-            { "<M-l>", mode = { "n", "v" } },
+            { "<A-h>", mode = { "n", "v" } },
+            { "<A-j>", mode = { "n", "v" } },
+            { "<A-k>", mode = { "n", "v" } },
+            { "<A-l>", mode = { "n", "v" } },
         },
         opts = {},
     },

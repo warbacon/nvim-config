@@ -1,15 +1,12 @@
 return {
-    "Saghen/blink.cmp",
+    "saghen/blink.cmp",
     version = "*",
     event = "InsertEnter",
-    ---@module "blink.cmp"
+    ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
-        signature = {
-            enabled = true,
-        },
-        cmdline = {
-            enabled = false,
+        appearance = {
+            nerd_font_variant = "normal",
         },
         sources = {
             default = { "lazydev", "lsp", "path", "snippets", "buffer" },
@@ -21,9 +18,11 @@ return {
                 },
             },
         },
-        appearance = {
-            nerd_font_variant = "normal",
-            kind_icons = util.icons.kinds,
+        cmdline = {
+            enabled = false,
         },
+        signature = {
+            enabled = true,
+        }
     },
 }

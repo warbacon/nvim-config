@@ -4,7 +4,7 @@ vim.keymap.set({ "n", "v" }, "<leader>Y", '"+y$')
 
 -- Set up keymaps for LSP features when an LSP client is attached to a buffer
 vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("lsp_actions", { clear = true }),
+    group = vim.api.nvim_create_augroup("LspActions", { clear = true }),
     callback = function(ev)
         local opts = { buffer = ev.buf }
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)

@@ -1,5 +1,12 @@
 return {
     "windwp/nvim-ts-autotag",
-    event = "LazyFile",
+    ft = {
+        "astro",
+        "html",
+        "markdown",
+        "php",
+        "svelte",
+        "xml",
+    },
     opts = {},
 }

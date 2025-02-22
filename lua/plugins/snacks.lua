@@ -1,13 +1,12 @@
----@diagnostic disable: missing-fields
 return {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
     keys = {
         -- stylua: ignore start
-        { "<leader>n", function() Snacks.notifier.show_history() end },
-        { "<leader>,", function() Snacks.picker.buffers() end },
-        { "<leader>f", function() Snacks.picker.files() end },
+        { "<leader>n",  function() Snacks.notifier.show_history() end },
+        { "<leader>,",  function() Snacks.picker.buffers() end },
+        { "<leader>f",  function() Snacks.picker.files() end },
         { "<leader>sg", function() Snacks.picker.grep() end },
         { "<leader>sh", function() Snacks.picker.help() end },
         { "<leader>sd", function() Snacks.picker.diagnostics() end },
@@ -15,26 +14,17 @@ return {
         { "<leader>sm", function() Snacks.picker.man() end },
         { "<leader>si", function() Snacks.picker.icons() end },
         { "<leader>sl", function() Snacks.picker.lazy() end },
-        { "<leader>p", function() Snacks.picker.pickers() end },
+        { "<leader>p",  function() Snacks.picker.pickers() end },
         -- stylua: ignore end
     },
-    ---@type snacks.Config
     opts = {
-        bigfile = {},
         image = {},
         input = {},
         notifier = {},
         picker = {
             win = {
-                input = {
-                    keys = {
-                        ["<Esc>"] = { "close", mode = { "n", "i" } },
-                    },
-                },
                 preview = {
-                    wo = {
-                        signcolumn = "no",
-                    },
+                    wo = { signcolumn = "no" },
                 },
             },
             layout = function()
@@ -62,15 +52,6 @@ return {
                         "node_modules/",
                     },
                 },
-            },
-            icons = {
-                diagnostics = {
-                    Error = util.icons.diagnostics.ERROR,
-                    Warn = util.icons.diagnostics.WARN,
-                    Hint = util.icons.diagnostics.HINT,
-                    Info = util.icons.diagnostics.INFO,
-                },
-                kinds = util.icons.kinds,
             },
         },
     },

@@ -2,9 +2,9 @@
 ---@type vim.diagnostic.Opts
 vim.diagnostic.config({
     severity_sort = true,
-    signs = {
-        text = util.icons.diagnostics,
-    },
+    -- signs = {
+    --     text = util.icons.diagnostics,
+    -- },
 })
 
 -- Remove the `How to disable mouse` entry from the PopUp menu
@@ -35,14 +35,3 @@ end
 
 -- Add syntax hightlight to dunst config
 vim.filetype.add({ pattern = { [".*/dunst/dunstrc"] = "dosini" } })
-
--- Neovide configs
-if vim.g.neovide then
-    vim.o.guifont = "JetBrains Mono,Symbols Nerd Font:h18"
-    vim.keymap.set({ "n", "v" }, "<C-+>", function()
-        vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1
-    end)
-    vim.keymap.set({ "n", "v" }, "<C-->", function()
-        vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1
-    end)
-end

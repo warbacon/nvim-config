@@ -21,11 +21,3 @@ autocmd("VimLeave", {
         io.write("\x1b[ q")
     end,
 })
-
-autocmd("FileType", {
-    group = augroup("TreeSitter"),
-    desc = "Starts treesitter",
-    callback = function()
-        pcall(vim.treesitter.start)
-    end,
-})

@@ -16,8 +16,11 @@ return {
             height = 0.8,
         },
         ensure_installed = {
+            "bash-language-server",
+            "clangd",
             "lua-language-server",
             "stylua",
+            "shellcheck",
         },
     },
     config = function(_, opts)

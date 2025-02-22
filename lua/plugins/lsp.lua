@@ -18,7 +18,7 @@ return {
     -- JDTLS ==================================================================
     {
         "mfussenegger/nvim-jdtls",
-        enabled = vim.fn.executable("java") == 1 and require("config.lsp-servers").jdtls,
+        enabled = require("config.lsp-servers").jdtls,
         ft = "java",
         config = function()
             local function attach_jdtls()

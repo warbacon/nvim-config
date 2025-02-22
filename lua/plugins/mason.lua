@@ -5,7 +5,7 @@ return {
         "williamboman/mason-lspconfig.nvim",
     },
     build = ":MasonUpdate",
-    event = "VeryLazy",
+    event = { "LazyFile", "VeryLazy" },
     keys = {
         { "<leader>m", "<cmd>Mason<cr>" },
     },

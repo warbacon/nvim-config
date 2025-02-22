@@ -24,7 +24,6 @@ return {
         image = {},
         input = {},
         notifier = {},
-        quickfile = {},
         picker = {
             win = {
                 input = {

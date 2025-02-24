@@ -20,6 +20,7 @@ return {
             "clangd",
             "json-lsp",
             "lua-language-server",
+            "powershell-editor-services",
             "shellcheck",
             "stylua",
             "yaml-language-server",

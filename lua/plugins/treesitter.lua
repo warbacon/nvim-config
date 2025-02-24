@@ -21,6 +21,7 @@ return {
             "json",
             "jsonc",
             "lua",
+            "make",
             "markdown",
             "markdown_inline",
             "php",
@@ -32,8 +33,8 @@ return {
             "toml",
             "vim",
             "vimdoc",
-            "yaml",
             "xml",
+            "yaml",
         },
     },
 }

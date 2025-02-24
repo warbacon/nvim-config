@@ -18,9 +18,11 @@ return {
         ensure_installed = {
             "bash-language-server",
             "clangd",
+            "json-lsp",
             "lua-language-server",
-            "stylua",
             "shellcheck",
+            "stylua",
+            "yaml-language-server",
         },
     },
     config = function(_, opts)

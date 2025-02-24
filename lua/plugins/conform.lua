@@ -11,7 +11,10 @@ return {
     },
     opts = {
         formatters_by_ft = {
+            fish = { "fish_indent" },
             lua = { "stylua" },
+            ["*"] = { "injected" },
+            ["_"] = { "trim_whitespace", "trim_newlines" },
         },
         default_format_opts = {
             lsp_format = "fallback",

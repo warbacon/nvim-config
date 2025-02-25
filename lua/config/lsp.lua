@@ -1,3 +1,7 @@
+if Util.is_lin and vim.env.DISPLAY == nil then
+    return
+end
+
 local lsp_path = vim.fs.joinpath(vim.fn.stdpath("config"), "lsp")
 
 if not vim.uv.fs_stat(lsp_path) then

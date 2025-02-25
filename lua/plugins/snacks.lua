@@ -19,7 +19,6 @@ return {
     },
     opts = {
         image = {},
-        input = {},
         notifier = {},
         picker = {
             win = {

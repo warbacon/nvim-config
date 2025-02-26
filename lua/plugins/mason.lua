@@ -18,6 +18,7 @@ return {
         ensure_installed = {
             "bash-language-server",
             "clangd",
+            "intelephense",
             "json-lsp",
             "lua-language-server",
             "powershell-editor-services",

@@ -19,7 +19,11 @@ return {
     },
     ---@type snacks.Config
     opts = {
-        image = {},
+        image = {
+            doc = {
+                inline = false,
+            },
+        },
         notifier = {},
         picker = {
             win = {

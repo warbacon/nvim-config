@@ -17,6 +17,7 @@ return {
         { "<leader>p",  function() Snacks.picker.pickers() end },
         -- stylua: ignore end
     },
+    ---@type snacks.Config
     opts = {
         image = {},
         notifier = {},

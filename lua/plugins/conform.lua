@@ -9,6 +9,7 @@ return {
             end,
         },
     },
+    ---@type conform.setupOpts
     opts = {
         formatters_by_ft = {
             fish = { "fish_indent" },

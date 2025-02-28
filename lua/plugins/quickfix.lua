@@ -1,7 +1,10 @@
+---@diagnostic disable: missing-fields
 return {
     {
         "kevinhwang91/nvim-bqf",
         ft = "qf",
+        ---@module "bqf"
+        ---@type BqfConfig
         opts = {
             preview = { winblend = 0 },
         },
@@ -17,6 +20,7 @@ return {
             },
         },
         ft = "qf",
+        ---@type quicker.SetupOptions
         opts = {
             type_icons = {
                 E = Util.icons.diagnostics.ERROR,

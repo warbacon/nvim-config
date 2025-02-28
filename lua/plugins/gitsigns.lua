@@ -1,6 +1,8 @@
 return {
     "lewis6991/gitsigns.nvim",
     event = "LazyFile",
+    ---@type Gitsigns.Config
+    ---@diagnostic disable-next-line: missing-fields
     opts = {
         attach_to_untracked = true,
         on_attach = function(bufnr)

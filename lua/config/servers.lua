@@ -3,6 +3,8 @@ return {
     basedpyright = {},
     bashls = {},
     clangd = {},
+    docker_compose_language_service = {},
+    dockerls = {},
     intelephense = {
         init_options = {
             globalStoragePath = vim.fn.stdpath("data"),
@@ -25,6 +27,7 @@ return {
         on_new_config = function(new_config)
             new_config.settings.yaml.schemas = require("schemastore").yaml.schemas()
         end,
+        filetypes = { "yaml" },
         settings = { yaml = { schemaStore = { enable = false, url = "" } } },
     },
 }

@@ -34,5 +34,12 @@ if vim.fn.has("wsl") == 1 then
     }
 end
 
--- Add syntax hightlight to dunst config
-vim.filetype.add({ pattern = { [".*/dunst/dunstrc"] = "dosini" } })
+-- Improve filetype support
+vim.filetype.add({
+    filename = {
+        dunstrc = "dosini",
+    },
+    pattern = {
+        ["docker%-compose%.ya?ml"] = "yaml.docker-compose",
+    },
+})

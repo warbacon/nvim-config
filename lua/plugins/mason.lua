@@ -6,6 +6,9 @@ return {
     keys = {
         { "<leader>m", "<cmd>Mason<cr>" },
     },
+    dependencies = {
+        "williamboman/mason-lspconfig.nvim",
+    },
     opts = {
         ui = {
             icons = {
@@ -16,21 +19,15 @@ return {
             height = 0.8,
         },
         ensure_installed = {
-            "bash-language-server",
-            "clangd",
-            "intelephense",
-            "json-lsp",
-            "lua-language-server",
-            "powershell-editor-services",
             "shellcheck",
             "stylua",
-            "yaml-language-server",
         },
     },
     config = function(_, opts)
         require("mason").setup(opts)
+        require("mason-lspconfig").setup()
 
-        local ensure_installed = opts.ensure_installed
+        local ensure_installed = vim.list_extend(opts.ensure_installed, vim.tbl_keys(require("config.servers")))
 
         local registry = require("mason-registry")
 
@@ -57,6 +54,7 @@ return {
         -- Refresh the registry and install any missing packages
         registry.refresh(function()
             for _, pkg_name in ipairs(ensure_installed) do
+                pkg_name = require("mason-lspconfig.mappings.server").lspconfig_to_package[pkg_name] or pkg_name
                 install_package(pkg_name)
             end
         end)

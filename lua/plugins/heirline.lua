@@ -170,7 +170,7 @@ return {
         vim.api.nvim_create_augroup("Heirline", { clear = true })
         vim.api.nvim_create_autocmd("ColorScheme", {
             callback = function()
-                utils.on_colorscheme(setup_colors)
+                utils.on_colorscheme(setup_colors())
             end,
             group = "Heirline",
         })

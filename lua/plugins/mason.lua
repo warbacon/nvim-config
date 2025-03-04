@@ -32,11 +32,12 @@ return {
         local registry = require("mason-registry")
 
         local function install_package(pkg_name)
-            if registry.is_installed(pkg_name) then
+            local pkg = registry.get_package(pkg_name)
+
+            if pkg:is_installed() then
                 return
             end
 
-            local pkg = registry.get_package(pkg_name)
             pkg:install({}, function(success)
                 if not success then
                     return

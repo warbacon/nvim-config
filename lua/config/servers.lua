@@ -5,6 +5,9 @@ return {
     clangd = {},
     docker_compose_language_service = {},
     dockerls = {},
+    emmet_language_server = {
+        filetypes = { "css", "html", "php" },
+    },
     intelephense = {
         init_options = {
             globalStoragePath = vim.fn.stdpath("data"),
@@ -23,6 +26,7 @@ return {
         },
     },
     powershell_es = { autostart = false },
+    superhtml = {},
     yamlls = {
         on_new_config = function(new_config)
             new_config.settings.yaml.schemas = require("schemastore").yaml.schemas()

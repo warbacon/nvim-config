@@ -27,6 +27,9 @@ return {
     },
     powershell_es = { autostart = false },
     superhtml = {},
+    tailwindcss = {
+        filetypes = { "css", "html", "astro" },
+    },
     yamlls = {
         on_new_config = function(new_config)
             new_config.settings.yaml.schemas = require("schemastore").yaml.schemas()

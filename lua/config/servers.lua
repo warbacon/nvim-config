@@ -26,7 +26,6 @@ return {
         },
     },
     powershell_es = { autostart = false },
-    superhtml = {},
     tailwindcss = {
         filetypes = { "css", "html", "astro" },
     },
@@ -37,4 +36,5 @@ return {
         filetypes = { "yaml" },
         settings = { yaml = { schemaStore = { enable = false, url = "" } } },
     },
+    vtsls = {},
 }

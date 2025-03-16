@@ -20,6 +20,7 @@ return {
     ---@type snacks.Config
     opts = {
         image = {
+            enabled = vim.env.TERM == "xterm-kitty",
             doc = {
                 inline = false,
             },

@@ -1,6 +1,5 @@
 return {
     "williamboman/mason.nvim",
-    branch = "v2.x",
     build = ":MasonUpdate",
     event = { "LazyFile", "VeryLazy" },
     keys = {
@@ -28,35 +27,25 @@ return {
         require("mason-lspconfig").setup()
 
         local ensure_installed = vim.list_extend(opts.ensure_installed, vim.tbl_keys(require("config.servers")))
-
         local registry = require("mason-registry")
 
-        local function install_package(pkg_name)
-            local pkg = registry.get_package(pkg_name)
-
-            if pkg:is_installed() then
-                return
-            end
-
-            pkg:install({}, function(success)
-                if not success then
-                    return
-                end
-                -- Trigger FileType event to possibly load this newly installed LSP server
-                vim.defer_fn(function()
-                    require("lazy.core.handler.event").trigger({
-                        event = "FileType",
-                        buf = vim.api.nvim_get_current_buf(),
-                    })
-                end, 100)
-            end)
-        end
+        registry:on("package:install:success", function()
+            -- Trigger FileType event to possibly load this newly installed LSP server
+            vim.defer_fn(function()
+                require("lazy.core.handler.event").trigger({
+                    event = "FileType",
+                    buf = vim.api.nvim_get_current_buf(),
+                })
+            end, 100)
+        end)
 
         -- Refresh the registry and install any missing packages
         registry.refresh(function()
             for _, pkg_name in ipairs(ensure_installed) do
                 pkg_name = require("mason-lspconfig.mappings.server").lspconfig_to_package[pkg_name] or pkg_name
-                install_package(pkg_name)
+                if not registry.is_installed(pkg_name) then
+                    registry.get_package(pkg_name):install()
+                end
             end
         end)
     end,

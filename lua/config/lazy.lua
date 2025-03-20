@@ -31,11 +31,6 @@ require("lazy").setup({
     defaults = {
         cond = (not Util.is_lin) or vim.env.DISPLAY ~= nil,
     },
-    performance = {
-        rtp = {
-            paths = Util.is_linux and { "/usr/share/nvim/site" } or {},
-        },
-    },
 })
 
 -- Set keymap

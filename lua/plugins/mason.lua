@@ -20,6 +20,7 @@ return {
         ensure_installed = {
             "shellcheck",
             "stylua",
+            "markdownlint",
         },
     },
     config = function(_, opts)

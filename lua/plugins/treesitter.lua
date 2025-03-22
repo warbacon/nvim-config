@@ -13,6 +13,7 @@ return {
             "css",
             "dockerfile",
             "fish",
+            "git_config",
             "gitcommit",
             "html",
             "hyprlang",

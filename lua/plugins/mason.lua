@@ -1,6 +1,7 @@
 return {
     "williamboman/mason.nvim",
     build = ":MasonUpdate",
+    branch = "v2.x",
     event = { "LazyFile", "VeryLazy" },
     keys = {
         { "<leader>m", "<cmd>Mason<cr>" },

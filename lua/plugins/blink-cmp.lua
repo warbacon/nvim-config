@@ -5,6 +5,8 @@ return {
     ---@module "blink.cmp"
     ---@type blink.cmp.Config
     opts = {
+        cmdline = { enabled = false },
+        signature = { enabled = true },
         appearance = {
             nerd_font_variant = "normal",
             kind_icons = Util.icons.kinds,
@@ -18,12 +20,6 @@ return {
                     score_offset = 100,
                 },
             },
-        },
-        cmdline = {
-            enabled = false,
-        },
-        signature = {
-            enabled = true,
         },
     },
 }

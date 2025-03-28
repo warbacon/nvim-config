@@ -38,11 +38,6 @@ return {
                     layout = require("snacks.picker.config.layouts").default.layout,
                 }
             end,
-            formatters = {
-                file = {
-                    filename_first = true,
-                },
-            },
             sources = {
                 files = {
                     hidden = true,

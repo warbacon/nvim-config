@@ -98,13 +98,7 @@ return {
                 self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
                 self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
             end,
-            update = {
-                "DiagnosticChanged",
-                "BufEnter",
-                callback = vim.schedule_wrap(function()
-                    vim.api.nvim__redraw({ statusline = true })
-                end),
-            },
+            update = { "DiagnosticChanged", "BufEnter" },
             {
                 provider = function(self)
                     return self.errors > 0 and (self.error_icon .. " " .. self.errors .. " ") or ""

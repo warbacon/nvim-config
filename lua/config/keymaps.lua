@@ -9,12 +9,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local opts = { buffer = ev.buf }
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
         vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, opts)
-        if vim.fn.has("nvim-0.11") == 0 then
-            vim.keymap.set("n", "gra", vim.lsp.buf.code_action, opts)
-            vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts)
-            vim.keymap.set("n", "grr", vim.lsp.buf.references, opts)
-            vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts)
-        end
     end,
 })
 

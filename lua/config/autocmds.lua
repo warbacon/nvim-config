@@ -9,7 +9,7 @@ autocmd("TextYankPost", {
     group = augroup("HightlightYank"),
     desc = "Automatically highlight text after yanking it",
     callback = function()
-        (vim.hl or vim.highlight).on_yank()
+        vim.hl.on_yank()
     end,
 })
 

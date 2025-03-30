@@ -23,11 +23,11 @@ return {
         ---@type quicker.SetupOptions
         opts = {
             type_icons = {
-                E = Util.icons.diagnostics.ERROR,
-                W = Util.icons.diagnostics.WARN,
-                I = Util.icons.diagnostics.INFO,
-                N = Util.icons.diagnostics.INFO,
-                H = Util.icons.diagnostics.INFO,
+                E = vim.diagnostic.config().signs.text["ERROR"],
+                W = vim.diagnostic.config().signs.text["WARN"],
+                I = vim.diagnostic.config().signs.text["INFO"],
+                N = vim.diagnostic.config().signs.text["INFO"],
+                H = vim.diagnostic.config().signs.text["HINT"],
             },
         },
     },

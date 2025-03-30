@@ -87,10 +87,10 @@ return {
         local Diagnostics = {
             condition = conditions.has_diagnostics,
             static = {
-                error_icon = Util.icons.diagnostics.ERROR,
-                warn_icon = Util.icons.diagnostics.WARN,
-                info_icon = Util.icons.diagnostics.INFO,
-                hint_icon = Util.icons.diagnostics.HINT,
+                error_icon = vim.diagnostic.config().signs.text["ERROR"],
+                warn_icon = vim.diagnostic.config().signs.text["WARN"],
+                info_icon = vim.diagnostic.config().signs.text["INFO"],
+                hint_icon = vim.diagnostic.config().signs.text["HINT"],
             },
             init = function(self)
                 self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })

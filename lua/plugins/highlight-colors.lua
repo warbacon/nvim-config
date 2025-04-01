@@ -2,11 +2,13 @@ return {
     "brenoprata10/nvim-highlight-colors",
     event = "LazyFile",
     opts = {
-        enable_short_hex = false,
         enable_hsl_without_function = false,
         enable_named_colors = false,
+        enable_ansi = false,
         enable_tailwind = true,
+        enable_var_usage = false,
         exclude_filetypes = { "lazy" },
+        exclude_buftypes = { "nofile" },
     },
     config = function(_, opts)
         vim.defer_fn(function()

@@ -17,9 +17,10 @@ return {
         filetypes = { "css", "html", "php" },
     },
     html = {},
-    intelephense = {
-        init_options = { globalStoragePath = vim.fn.stdpath("data") },
-    },
+    phpactor = {},
+    -- intelephense = {
+    --     init_options = { globalStoragePath = vim.fn.stdpath("data") },
+    -- },
     jsonls = {
         on_new_config = function(new_config)
             new_config.settings.json.schemas = require("schemastore").json.schemas()

@@ -14,6 +14,7 @@ return {
         formatters_by_ft = {
             fish = { "fish_indent" },
             lua = { "stylua" },
+            php = { "pint" },
             ["*"] = { "injected" },
             ["_"] = { "trim_whitespace", "trim_newlines" },
         },

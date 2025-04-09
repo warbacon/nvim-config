@@ -19,9 +19,10 @@ return {
             height = 0.8,
         },
         ensure_installed = {
+            "pint",
+            "markdownlint",
             "shellcheck",
             "stylua",
-            "markdownlint",
         },
     },
     config = function(_, opts)

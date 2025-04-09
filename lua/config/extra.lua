@@ -2,9 +2,7 @@
 ---@type vim.diagnostic.Opts
 vim.diagnostic.config({
     severity_sort = true,
-    virtual_text = {
-        current_line = true,
-    },
+    virtual_text = true,
     signs = {
         text = {
             ERROR = "",

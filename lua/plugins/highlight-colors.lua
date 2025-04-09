@@ -3,10 +3,10 @@ return {
     event = "LazyFile",
     opts = {
         enable_hsl_without_function = false,
-        enable_named_colors = false,
-        enable_ansi = false,
-        enable_tailwind = true,
         enable_var_usage = false,
+        enable_named_colors = false,
+        enable_tailwind = true,
+        enable_ansi = false,
         exclude_filetypes = { "lazy" },
         exclude_buftypes = { "nofile" },
     },

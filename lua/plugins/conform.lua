@@ -16,10 +16,7 @@ return {
             lua = { "stylua" },
             php = { "pint" },
             ["*"] = { "injected" },
-            ["_"] = { "trim_whitespace", "trim_newlines" },
-        },
-        default_format_opts = {
-            lsp_format = "fallback",
+            ["_"] = { "trim_whitespace", "trim_newlines", lsp_format = "prefer" },
         },
     },
 }

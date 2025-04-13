@@ -22,29 +22,31 @@ return {
     --     init_options = { globalStoragePath = vim.fn.stdpath("data") },
     -- },
     jsonls = {
-        on_new_config = function(new_config)
-            new_config.settings.json.schemas = require("schemastore").json.schemas()
-        end,
+        settings = {
+            json = {
+                schemas = require("schemastore").json.schemas(),
+            },
+        },
     },
     lua_ls = {
         settings = {
             Lua = {
-                workspace = { checkThirdParty = false }
+                workspace = { checkThirdParty = false },
             },
         },
     },
     powershell_es = { autostart = false },
     tailwindcss = {
-        filetypes = { "css", "html", "astro" }
+        filetypes = { "css", "html", "astro" },
     },
     vtsls = {},
     yamlls = {
-        on_new_config = function(new_config)
-            new_config.settings.yaml.schemas = require("schemastore").yaml.schemas()
-        end,
         filetypes = { "yaml" },
         settings = {
-            yaml = { schemaStore = { enable = false, url = "" } }
+            yaml = {
+                schemas = require("schemastore").yaml.schemas(),
+                schemaStore = { enable = false, url = "" },
+            },
         },
     },
 }

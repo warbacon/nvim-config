@@ -1,5 +1,6 @@
 return {
     "williamboman/mason.nvim",
+    enabled = not vim.uv.fs_stat("/etc/NIXOS"),
     build = ":MasonUpdate",
     event = { "LazyFile", "VeryLazy" },
     keys = {
@@ -18,7 +19,6 @@ return {
             height = 0.8,
         },
         ensure_installed = {
-            "pint",
             "markdownlint",
             "shellcheck",
             "stylua",

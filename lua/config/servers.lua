@@ -17,10 +17,9 @@ return {
         filetypes = { "css", "html", "php" },
     },
     html = {},
-    phpactor = {},
-    -- intelephense = {
-    --     init_options = { globalStoragePath = vim.fn.stdpath("data") },
-    -- },
+    intelephense = {
+        init_options = { globalStoragePath = vim.fn.stdpath("data") },
+    },
     jsonls = {
         settings = {
             json = {
@@ -35,6 +34,7 @@ return {
             },
         },
     },
+    nixd = {},
     powershell_es = { autostart = false },
     tailwindcss = {
         filetypes = { "css", "html", "astro" },

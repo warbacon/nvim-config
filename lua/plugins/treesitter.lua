@@ -27,6 +27,7 @@ return {
                 "make",
                 "markdown",
                 "markdown_inline",
+                "nix",
                 "php",
                 "powershell",
                 "printf",

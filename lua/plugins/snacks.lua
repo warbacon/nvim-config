@@ -21,8 +21,27 @@ return {
     opts = {
         image = {
             enabled = vim.env.TERM == "xterm-kitty",
+            formats = {
+                "png",
+                "jpg",
+                "jpeg",
+                "gif",
+                "bmp",
+                "webp",
+                "tiff",
+                "heic",
+                "avif",
+                "mp4",
+                "mov",
+                "avi",
+                "mkv",
+                "webm",
+            },
             doc = {
                 inline = false,
+            },
+            math = {
+                enabled = false,
             },
         },
         notifier = {},

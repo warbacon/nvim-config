@@ -45,7 +45,7 @@ return {
         registry.refresh(function()
             for _, pkg_name in ipairs(ensure_installed) do
                 pkg_name = require("mason-lspconfig.mappings.server").lspconfig_to_package[pkg_name] or pkg_name
-                if not registry.is_installed(pkg_name) then
+                if not registry.is_installed(pkg_name) and pkg_name ~= "nixd" then
                     registry.get_package(pkg_name):install()
                 end
             end

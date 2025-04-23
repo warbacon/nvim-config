@@ -26,7 +26,7 @@ require("lazy").setup({
         { import = "plugins" },
     },
     defaults = {
-        cond = Util.is_lin and vim.env.DISPLAY ~= nil,
+        cond = (not Util.is_lin) or vim.env.DISPLAY ~= nil,
     },
     install = {
         colorscheme = { "tokyonight-night" },

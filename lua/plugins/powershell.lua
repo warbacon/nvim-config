@@ -1,6 +1,7 @@
 return {
     "TheLeoP/powershell.nvim",
     ft = "ps1",
+    enabled = false,
     opts = function()
         return {
             bundle_path = vim.env.MASON .. "/packages/powershell-editor-services",

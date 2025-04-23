@@ -28,7 +28,7 @@ return {
         require("mason").setup(opts)
         require("mason-lspconfig").setup()
 
-        local ensure_installed = vim.list_extend(opts.ensure_installed, vim.tbl_keys(require("config.servers")))
+        local ensure_installed = vim.list_extend(opts.ensure_installed, Util.lsp_servers)
         local registry = require("mason-registry")
 
         registry:on("package:install:success", function()

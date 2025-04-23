@@ -2,11 +2,10 @@ return {
     "neovim/nvim-lspconfig",
     event = "LazyFile",
     config = function()
-        local servers = vim.deepcopy(require("config.servers"), true)
+        local servers = Util.lsp_servers
 
-        for server_name, opts in pairs(servers) do
-            vim.lsp.config(server_name, opts)
-            vim.lsp.enable(server_name)
+        for _, server in ipairs(servers) do
+            vim.lsp.enable(server)
         end
     end,
 }

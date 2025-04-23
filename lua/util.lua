@@ -33,4 +33,27 @@ M.icons = {
     },
 }
 
+M.lsp_servers = (function()
+    local servers = {}
+    local lsp_path = vim.fn.stdpath("config") .. "/lsp"
+
+    local fd = vim.uv.fs_scandir(lsp_path)
+    if not fd then
+        return servers
+    end
+
+    while true do
+        local name, t = vim.uv.fs_scandir_next(fd)
+        if not name then
+            break
+        end
+        if t == "file" and name:match("%.lua$") then
+            local server = name:gsub("%.lua$", "")
+            table.insert(servers, server)
+        end
+    end
+
+    return servers
+end)()
+
 return M

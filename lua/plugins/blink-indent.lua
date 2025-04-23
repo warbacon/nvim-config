@@ -1,5 +1,7 @@
 return {
     "saghen/blink.nvim",
+    name = "blink.indent",
+    event = "LazyFile",
     opts = {
         indent = {
             enabled = true,

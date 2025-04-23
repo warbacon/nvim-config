@@ -22,6 +22,7 @@ return {
             "markdownlint",
             "shellcheck",
             "stylua",
+            Util.is_win and "powershell-editor-services",
         },
     },
     config = function(_, opts)

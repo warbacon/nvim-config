@@ -1,5 +1,8 @@
+---@diagnostic disable: missing-fields
 return {
     "folke/snacks.nvim",
+    ---@module "snacks"
+    ---@type snacks.Config
     opts = {
         notifier = {},
         image = {

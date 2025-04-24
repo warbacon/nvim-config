@@ -25,6 +25,11 @@ return {
             git_icons = true,
             cwd_prompt = false,
         },
+        lsp = {
+            symbols = {
+                symbol_icons = Util.icons.kinds,
+            }
+        },
         keymap = {
             builtin = {
                 ["<F1>"] = "toggle-help",

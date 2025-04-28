@@ -9,6 +9,7 @@ return {
             highlight = { enable = true },
             ensure_installed = {
                 "bash",
+                "blade",
                 "c",
                 "cpp",
                 "css",

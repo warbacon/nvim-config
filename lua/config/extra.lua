@@ -41,6 +41,7 @@ vim.filetype.add({
         dunstrc = "dosini",
     },
     pattern = {
+        ["%.env.*"] = "sh",
         ["docker%-compose%.ya?ml"] = "yaml.docker-compose",
     },
 })

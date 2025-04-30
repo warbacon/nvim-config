@@ -35,17 +35,38 @@ return {
             {
                 "<leader>e",
                 function()
-                    require("mini.files").open()
+                    pcall(MiniFiles.open, vim.api.nvim_buf_get_name(0), false)
+                    MiniFiles.reveal_cwd()
+                end,
+            },
+            {
+                "<leader>E",
+                function()
+                    MiniFiles.open(nil, false)
                 end,
             },
         },
-        opts = {
-            mappings = {
-                go_in = "L",
-                go_in_plus = "l",
-                go_out = "H",
-                go_out_plus = "h",
-            },
-        },
+        opts = function()
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "MiniFilesActionRename",
+                callback = function(event)
+                    Snacks.rename.on_rename_file(event.data.from, event.data.to)
+                end,
+            })
+
+            return {
+                windows = {
+                    preview = true,
+                    width_focus = 30,
+                    width_preview = 60,
+                },
+                mappings = {
+                    go_in = "L",
+                    go_in_plus = "l",
+                    go_out = "H",
+                    go_out_plus = "h",
+                },
+            }
+        end,
     },
 }

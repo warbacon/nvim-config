@@ -19,6 +19,7 @@ return {
             height = 0.8,
         },
         ensure_installed = {
+            "blade-formatter",
             "markdownlint",
             "shellcheck",
             "stylua",

@@ -45,7 +45,7 @@ return {
     },
     {
         "windwp/nvim-ts-autotag",
-        ft = { "html", "astro", "php" },
+        ft = { "html", "astro", "php", "blade" },
         opts = {
             opts = {
                 enable_cose = false,

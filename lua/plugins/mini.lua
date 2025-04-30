@@ -35,7 +35,7 @@ return {
             {
                 "<leader>e",
                 function()
-                    pcall(MiniFiles.open, vim.api.nvim_buf_get_name(0), false)
+                    pcall(MiniFiles.open, vim.api.nvim_buf_get_name(0), true)
                     MiniFiles.reveal_cwd()
                 end,
             },
@@ -55,10 +55,15 @@ return {
             })
 
             return {
+                content = {
+                    filter = function(fs_entry)
+                        return not (fs_entry.fs_type == "directory" and fs_entry.name == ".git")
+                    end,
+                },
                 windows = {
                     preview = true,
                     width_focus = 30,
-                    width_preview = 60,
+                    width_preview = 40,
                 },
                 mappings = {
                     go_in = "L",

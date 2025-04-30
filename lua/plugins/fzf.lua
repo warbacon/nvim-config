@@ -1,7 +1,6 @@
 return {
     "ibhagwan/fzf-lua",
     event = "VeryLazy",
-    cmd = "FzfLua",
     keys = {
         { "<leader>,", "<cmd>FzfLua buffers<cr>" },
         { "<leader>f", "<cmd>FzfLua files<cr>" },

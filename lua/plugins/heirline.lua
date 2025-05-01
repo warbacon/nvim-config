@@ -153,6 +153,7 @@ return {
 
         local StatusLine = {
             FileNameBlock,
+            Space,
             Align,
             Diagnostics,
             Ruler,

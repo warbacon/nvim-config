@@ -1,10 +1,10 @@
 return {
     "neovim/nvim-lspconfig",
     event = "LazyFile",
+    cmd = { "LspInfo", "LspLog", "LspStop", "LspStart" },
     config = function()
-        local servers = Util.lsp_servers
-
-        for _, server in ipairs(servers) do
+        for server, opts in pairs(Util.lsp_servers) do
+            vim.lsp.config(server, opts)
             vim.lsp.enable(server)
         end
     end,

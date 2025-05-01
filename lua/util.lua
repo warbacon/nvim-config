@@ -33,9 +33,10 @@ M.icons = {
     },
 }
 
+---@type table<string, table>
 M.lsp_servers = (function()
     local servers = {}
-    local lsp_path = vim.fn.stdpath("config") .. "/lsp"
+    local lsp_path = vim.fn.stdpath("config") .. "/lua/lsp"
 
     local fd = vim.uv.fs_scandir(lsp_path)
     if not fd then
@@ -49,7 +50,12 @@ M.lsp_servers = (function()
         end
         if t == "file" and name:match("%.lua$") then
             local server = name:gsub("%.lua$", "")
-            table.insert(servers, server)
+            local ok, config = pcall(require, "lsp." .. server)
+            if ok and type(config) == "table" then
+                servers[server] = config
+            else
+                vim.notify("Error loading LSP config for: " .. server, vim.log.levels.ERROR)
+            end
         end
     end
 

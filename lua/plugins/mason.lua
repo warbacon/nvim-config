@@ -20,8 +20,9 @@ return {
         },
         ensure_installed = {
             "blade-formatter",
-            "markdownlint",
+            "clang-format",
             "shellcheck",
+            "shfmt",
             "stylua",
             Util.is_win and "powershell-editor-services",
         },

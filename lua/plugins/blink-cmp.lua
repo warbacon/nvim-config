@@ -11,7 +11,9 @@ return {
             kind_icons = Util.icons.kinds,
         },
         sources = {
-            default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+            per_filetype = {
+                lua = { inherit_defaults = true, "lazydev" },
+            },
             providers = {
                 lazydev = {
                     name = "LazyDev",

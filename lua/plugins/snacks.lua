@@ -29,15 +29,5 @@ return {
             convert = { notify = false },
             math = { enabled = false },
         },
-        scope = {
-            treesitter = {
-                enabled = false,
-            },
-        },
-        indent = {
-            indent = { char = "▏" },
-            scope = { char = "▏" },
-        },
-        input = {},
     },
 }

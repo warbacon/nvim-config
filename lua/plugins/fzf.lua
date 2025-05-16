@@ -13,7 +13,6 @@ return {
     opts = {
         fzf_colors = true,
         defaults = {
-            file_icons = "mini",
             winopts = {
                 preview = {
                     flip_columns = 120,

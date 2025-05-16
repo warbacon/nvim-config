@@ -35,12 +35,12 @@ return {
             {
                 init = function(self)
                     if vim.bo.filetype == "oil" then
-                        self.icon, self.hl = require("mini.icons").get("directory", self.filename)
+                        self.icon, self.hl = MiniIcons.get("directory", self.filename)
                         return
                     end
-                    local icon, hl, is_default = require("mini.icons").get("file", self.filename)
+                    local icon, hl, is_default = MiniIcons.get("file", self.filename)
                     if is_default or vim.bo.filetype == "help" then
-                        icon, hl = require("mini.icons").get("filetype", vim.bo.filetype)
+                        icon, hl = MiniIcons.get("filetype", vim.bo.filetype)
                     end
                     self.icon, self.hl = icon, hl
                 end,

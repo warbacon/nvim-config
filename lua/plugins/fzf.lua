@@ -17,6 +17,7 @@ return {
             winopts = {
                 preview = {
                     flip_columns = 120,
+                    hidden = true,
                 },
             },
         },
@@ -27,7 +28,7 @@ return {
         lsp = {
             symbols = {
                 symbol_icons = Util.icons.kinds,
-            }
+            },
         },
         keymap = {
             builtin = {

@@ -35,6 +35,7 @@ return {
                 "python",
                 "rasi",
                 "regex",
+                "svelte",
                 "toml",
                 "vim",
                 "vimdoc",

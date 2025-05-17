@@ -37,6 +37,7 @@ return {
                 "regex",
                 "svelte",
                 "toml",
+                "typescript",
                 "vim",
                 "vimdoc",
                 "xml",

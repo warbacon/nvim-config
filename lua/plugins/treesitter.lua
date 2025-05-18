@@ -30,7 +30,6 @@ return {
                 "markdown_inline",
                 "nix",
                 "php",
-                "powershell",
                 "printf",
                 "python",
                 "rasi",

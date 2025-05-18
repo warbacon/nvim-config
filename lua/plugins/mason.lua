@@ -25,7 +25,6 @@ return {
             "shellcheck",
             "shfmt",
             "stylua",
-            Util.is_win and "powershell-editor-services",
         },
     },
     config = function(_, opts)

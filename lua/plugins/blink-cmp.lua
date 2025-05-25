@@ -1,7 +1,6 @@
 return {
     "saghen/blink.cmp",
-    version = "*",
-    event = { "LazyFile", "InsertEnter" },
+    version = "1.*",
     ---@module "blink.cmp"
     ---@type blink.cmp.Config
     opts = {

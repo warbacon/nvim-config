@@ -1,7 +1,7 @@
----@diagnostic disable: missing-fields
 return {
     {
         "kevinhwang91/nvim-bqf",
+        enabled = false,
         ft = "qf",
         ---@module "bqf"
         ---@type BqfConfig

@@ -24,9 +24,12 @@ autocmd("VimLeave", {
 
 autocmd("FileType", {
     group = augroup("Treesitter"),
-    desc = "Enable treesitter highlighting",
+    desc = "Enable treesitter",
     callback = function()
-        pcall(vim.treesitter.start)
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        if pcall(vim.treesitter.start) then
+           if vim.treesitter.query.get(vim.treesitter.get_parser():lang(), "indents") then
+                vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            end
+        end
     end,
 })

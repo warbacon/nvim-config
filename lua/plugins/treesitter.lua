@@ -3,9 +3,8 @@ return {
         "nvim-treesitter/nvim-treesitter",
         branch = "main",
         build = ":TSUpdate",
-        config = function()
-            require("nvim-treesitter").setup()
-            require("nvim-treesitter").install({
+        opts = {
+            ensure_installed = {
                 "bash",
                 "blade",
                 "c",
@@ -39,15 +38,24 @@ return {
                 "vimdoc",
                 "xml",
                 "yaml",
-            })
+            },
+        },
+        config = function(_, opts)
+            local installed_parsers = require("nvim-treesitter.config").installed_parsers()
+            local to_install = vim.iter(opts.ensure_installed)
+                :filter(function(parser)
+                    return not vim.tbl_contains(installed_parsers, parser)
+                end)
+                :totable()
+            require("nvim-treesitter").install(to_install)
         end,
     },
     {
         "windwp/nvim-ts-autotag",
-        ft = { "html", "astro", "php", "blade" },
+        event = "LazyFile",
         opts = {
             opts = {
-                enable_cose = false,
+                enable_close = false,
             },
         },
     },

@@ -21,3 +21,12 @@ autocmd("VimLeave", {
         io.write("\x1b[ q")
     end,
 })
+
+autocmd("FileType", {
+    group = augroup("Treesitter"),
+    desc = "Enable treesitter highlighting",
+    callback = function()
+        pcall(vim.treesitter.start)
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end,
+})

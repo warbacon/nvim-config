@@ -1,9 +1,5 @@
 return {
     "rebelot/heirline.nvim",
-    event = "VeryLazy",
-    init = function()
-        vim.o.statusline = " "
-    end,
     config = function()
         local conditions = require("heirline.conditions")
         local utils = require("heirline.utils")

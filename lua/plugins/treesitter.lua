@@ -6,8 +6,8 @@ return {
         opts = {
             ensure_installed = {
                 "bash",
-                "blade",
                 "c",
+                "cmake",
                 "cpp",
                 "css",
                 "dockerfile",
@@ -26,7 +26,6 @@ return {
                 "markdown",
                 "markdown_inline",
                 "nix",
-                "php",
                 "printf",
                 "python",
                 "rasi",
@@ -41,13 +40,7 @@ return {
             },
         },
         config = function(_, opts)
-            local installed_parsers = require("nvim-treesitter.config").installed_parsers()
-            local to_install = vim.iter(opts.ensure_installed)
-                :filter(function(parser)
-                    return not vim.tbl_contains(installed_parsers, parser)
-                end)
-                :totable()
-            require("nvim-treesitter").install(to_install)
+            require("nvim-treesitter").install(opts.ensure_installed)
         end,
     },
     {

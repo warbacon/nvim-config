@@ -41,6 +41,18 @@ return {
         },
         config = function(_, opts)
             require("nvim-treesitter").install(opts.ensure_installed)
+
+            vim.api.nvim_create_autocmd("FileType", {
+                group = vim.api.nvim_create_augroup("Treesitter", { clear = true }),
+                desc = "Enable treesitter highlighting and indent when supported",
+                callback = function()
+                    if pcall(vim.treesitter.start) then
+                        if vim.treesitter.query.get(vim.treesitter.get_parser():lang(), "indents") then
+                            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                        end
+                    end
+                end,
+            })
         end,
     },
     {

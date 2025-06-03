@@ -20,10 +20,6 @@ return {
                 },
             },
         },
-        files = {
-            git_icons = true,
-            cwd_prompt = false,
-        },
         lsp = {
             symbols = {
                 symbol_icons = Util.icons.kinds,

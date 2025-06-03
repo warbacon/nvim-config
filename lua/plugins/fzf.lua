@@ -25,6 +25,9 @@ return {
                 symbol_icons = Util.icons.kinds,
             },
         },
+        diagnostics = {
+            diag_icons = Util.icons.signs,
+        },
         keymap = {
             builtin = {
                 ["<F1>"] = "toggle-help",

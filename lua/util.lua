@@ -5,6 +5,7 @@ M.is_lin = vim.uv.os_uname().sysname:find("Linux") ~= nil
 
 M.icons = {
     indent = "▏",
+    signs = { "", "", "", "" },
     kinds = {
         Class = "",
         Color = "",

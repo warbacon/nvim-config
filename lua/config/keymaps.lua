@@ -15,10 +15,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- Disable the `q:` command-line window
 vim.keymap.set("n", "q:", "<cmd>echoe 'q:'<CR>", { noremap = true })
 
--- Debugging
-vim.keymap.set("n", "<space>xX", "<cmd>source %<CR>")
-vim.keymap.set("n", "<space>xx", "<cmd>.lua<CR>")
-vim.keymap.set("v", "<space>x", "<cmd>lua<CR>")
-
 -- <C-t> annoys me
 vim.keymap.set("i", "<C-t>", "<nop>", { noremap = true })

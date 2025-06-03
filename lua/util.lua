@@ -34,33 +34,66 @@ M.icons = {
     },
 }
 
----@type table<string, table>
-M.lsp_servers = (function()
-    local servers = {}
-    local lsp_path = vim.fn.stdpath("config") .. "/lua/lsp"
-
-    local fd = vim.uv.fs_scandir(lsp_path)
-    if not fd then
-        return servers
-    end
-
-    while true do
-        local name, t = vim.uv.fs_scandir_next(fd)
-        if not name then
-            break
-        end
-        if t == "file" and name:match("%.lua$") then
-            local server = name:gsub("%.lua$", "")
-            local ok, config = pcall(require, "lsp." .. server)
-            if ok and type(config) == "table" then
-                servers[server] = config
-            else
-                vim.notify("Error loading LSP config for: " .. server, vim.log.levels.ERROR)
+---@type table<string, vim.lsp.Config>
+M.lsp_servers = {
+    astro = {},
+    basedpyright = {},
+    bashls = {
+        on_attach = function(client, bufnr)
+            local filename = vim.api.nvim_buf_get_name(bufnr)
+            local basename = vim.fn.fnamemodify(filename, ":t")
+            if basename:match("^%.env") then
+                ---@diagnostic disable-next-line: missing-parameter
+                client.stop()
             end
-        end
-    end
-
-    return servers
-end)()
+        end,
+    },
+    clangd = {},
+    cssls = {
+        on_attach = function(client, bufnr)
+            local filename = vim.api.nvim_buf_get_name(bufnr)
+            if string.match(filename, "/waybar/.*%.css$") then
+                ---@diagnostic disable-next-line: missing-parameter
+                client.stop()
+            end
+        end,
+    },
+    docker_compose_language_service = {},
+    dockerls = {},
+    emmet_language_server = {},
+    html = {},
+    jsonls = {
+        before_init = function(_, config)
+            config.settings = {
+                json = {
+                    schemas = require("schemastore").json.schemas(),
+                },
+            }
+        end,
+    },
+    lua_ls = {
+        settings = {
+            Lua = {
+                workspace = { checkThirdParty = false },
+            },
+        },
+    },
+    nixd = {},
+    svelte = {},
+    tailwindcss = {},
+    vtsls = {},
+    yamls = {
+        filetypes = { "yaml" },
+        settings = {
+            yaml = {
+                schemaStore = { enable = false, url = "" },
+            },
+        },
+        before_init = function(_, config)
+            ---@diagnostic disable-next-line: inject-field
+            config.settings.yaml.schemas = require("schemastore").yaml.schemas()
+        end,
+    },
+}
 
 return M

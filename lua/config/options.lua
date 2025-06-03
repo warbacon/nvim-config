@@ -58,5 +58,4 @@ vim.o.scrolloff = 5
 vim.o.pumheight = 10
 
 -- Folding
-vim.o.foldlevel = 99
 vim.o.foldtext = ""

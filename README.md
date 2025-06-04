@@ -8,7 +8,8 @@
 </p>
 
 <p align="center">
-  A fast, no-nonsense Neovim configuration for those who want performance and elegance — nothing else.
+  A fast, no-nonsense Neovim configuration for those who want performance and
+  elegance.
 </p>
 
 > [!WARNING]
@@ -25,7 +26,7 @@
   never in your way. Designed to let you focus entirely on code, not on your
   editor.
 - 🧠 **Neovim-first philosophy.** Miovim builds on Neovim's own capabilities
-  and embraces its native features as the default path.  Instead of imitating
+  and embraces its native features as the default path. Instead of imitating
   traditional IDE behavior, Miovim enhances Neovim *as Neovim*, while staying
   consistent and powerful.
 
@@ -33,9 +34,9 @@
 
 > [!IMPORTANT]
 > **Miovim does not use
-> [Mason.nvim](https://github.com/mason-org/mason.nvim).**  Language servers
+> [Mason.nvim](https://github.com/mason-org/mason.nvim).** Language servers
 > and external tools must be installed manually or through your system's package
-> manager.  This configuration is primarily developed and used on **NixOS**, but
+> manager. This configuration is primarily developed and used on **NixOS**, but
 > it's adaptable to other environments.
 
 Make sure you have the following dependencies installed:

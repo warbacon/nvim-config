@@ -31,7 +31,7 @@
 
 ## 📦 Dependencies
 
-> [!INFO]
+> [!IMPORTANT]
 > **Miovim does not use
 > [Mason.nvim](https://github.com/mason-org/mason.nvim).**  Language servers
 > and external tools must be installed manually or through your system's package

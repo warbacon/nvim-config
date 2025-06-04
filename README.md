@@ -50,13 +50,17 @@ Make sure you have the following dependencies installed:
 
 ## ⚙️ Installation
 
-### 🐧 Linux
+### 🐧 Unix-like systems (Linux, macOS, WSL...)
 
 ```bash
 git clone https://github.com/warbacon/nvim-config "$HOME/.config/nvim"
 ```
 
 ### 🪟 Windows
+
+> [!IMPORTANT]
+> Neovim is slower on Windows. Using
+> [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) is recommended.
 
 ```bash
 git clone https://github.com/warbacon/nvim-config "$HOME\AppData\Local\nvim"

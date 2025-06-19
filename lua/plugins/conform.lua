@@ -12,12 +12,11 @@ return {
     ---@type conform.setupOpts
     opts = {
         formatters_by_ft = {
-            blade = { "blade-formatter" },
+            c = { "clang-format" },
+            cpp = { "clang-format" },
             fish = { "fish_indent" },
             lua = { "stylua" },
             sh = { "shfmt" },
-            c = { "clang-format" },
-            cpp = { "clang-format" },
             ["*"] = { "injected" },
             ["_"] = { "trim_whitespace", "trim_newlines", lsp_format = "prefer" },
         },

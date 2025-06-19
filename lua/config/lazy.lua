@@ -26,16 +26,10 @@ require("lazy").setup({
         { import = "plugins" },
     },
     defaults = {
-        cond = (not Util.is_lin) or vim.env.DISPLAY ~= nil,
+        cond = vim.env.XDG_SESSION_TYPE ~= "tty",
     },
     install = {
         colorscheme = { "tokyonight-night" },
-    },
-    rocks = {
-        enabled = false,
-    },
-    change_detection = {
-        notify = false,
     },
 })
 

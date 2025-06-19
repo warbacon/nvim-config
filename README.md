@@ -41,12 +41,11 @@
 
 Make sure you have the following dependencies installed:
 
-- A **C compiler** – required by nvim-treesitter for compiling parsers.
-- `tree-sitter` CLI – for installing tree-sitter parsers.
-- [`fzf`](https://github.com/junegunn/fzf) – for
-  [fzf-lua](https://github.com/ibhagwan/fzf-lua).
-- [`ripgrep`](https://github.com/BurntSushi/ripgrep) – for faster file searching
-  in fzf-lua.
+- A **C compiler**
+- [`tree-sitter`](https://tree-sitter.github.io/tree-sitter/) CLI
+- [`fzf`](https://github.com/junegunn/fzf)
+- [`ripgrep`](https://github.com/BurntSushi/ripgrep) *(optional on Linux/macOS, but recommended)*
+- [`fd`](https://github.com/sharkdp/fd) *(optional but recommended)*
 
 ## ⚙️ Installation
 

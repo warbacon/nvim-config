@@ -29,7 +29,7 @@ require("lazy").setup({
         cond = vim.env.XDG_SESSION_TYPE ~= "tty",
     },
     install = {
-        colorscheme = { "tokyonight-night" },
+        colorscheme = { "tokyonight-night", "retrobox" },
     },
 })
 

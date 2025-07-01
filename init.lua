@@ -22,6 +22,13 @@ if vim.fn.has("nvim-0.11") == 0 then
     return
 end
 
+if vim.fn.has("nvim-0.12") == 1 then
+    ---@diagnostic disable-next-line: duplicate-set-field
+    vim.deprecate = function() end
+
+    require("vim._extui").enable({})
+end
+
 _G.Util = require("util")
 
 require("config.options")

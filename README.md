@@ -42,7 +42,6 @@
 Make sure you have the following dependencies installed:
 
 - A **C compiler**
-- [`tree-sitter`](https://tree-sitter.github.io/tree-sitter/) CLI
 - [`fzf`](https://github.com/junegunn/fzf)
 - [`ripgrep`](https://github.com/BurntSushi/ripgrep) *(optional on Linux/macOS, but recommended)*
 - [`fd`](https://github.com/sharkdp/fd) *(optional but recommended)*

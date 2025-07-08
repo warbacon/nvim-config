@@ -46,8 +46,7 @@ vim.g.lsp_servers = {
     svelte = {},
     tailwindcss = {},
     vtsls = {},
-    yamls = {
-        filetypes = { "yaml" },
+    yamlls = {
         settings = {
             yaml = {
                 schemaStore = { enable = false, url = "" },

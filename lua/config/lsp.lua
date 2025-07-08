@@ -22,8 +22,6 @@ vim.g.lsp_servers = {
             end
         end,
     },
-    docker_compose_language_service = {},
-    dockerls = {},
     emmet_language_server = {},
     html = {},
     jsonls = {

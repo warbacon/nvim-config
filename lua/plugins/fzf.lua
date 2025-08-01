@@ -8,7 +8,6 @@ return {
         { "<leader>sh", "<cmd>FzfLua helptags<cr>" },
         { "<leader>sd", "<cmd>FzfLua diagnostics_workspace<cr>" },
         { "z=", "<cmd>FzfLua spell_suggest<cr>" },
-        { "<c-p>", "<cmd>FzfLua builtin<cr>" },
     },
     opts = {
         fzf_colors = true,

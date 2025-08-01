@@ -43,6 +43,10 @@ vim.g.lsp_servers = {
     nixd = {},
     svelte = {},
     tailwindcss = {},
+    -- tsgo = {
+    --     cmd = { "tsgo", "--lsp", "--stdio" },
+    --     filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+    -- },
     vtsls = {},
     yamlls = {
         settings = {

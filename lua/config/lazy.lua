@@ -31,6 +31,9 @@ require("lazy").setup({
     install = {
         colorscheme = { "tokyonight-night", "retrobox" },
     },
+    rocks = {
+        enabled = false,
+    },
 })
 
 -- Set keymap

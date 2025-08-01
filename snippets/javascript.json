@@ -1,23 +1,86 @@
 {
+    "Constructor": {
+        "prefix": "ctor",
+        "body": [
+            "/**",
+            " *",
+            " */",
+            "constructor() {",
+            "\tsuper();",
+            "\t$0",
+            "}"
+        ],
+        "description": "Constructor"
+    },
+    "Class Definition": {
+        "prefix": "class",
+        "isFileTemplate": true,
+        "body": [
+            "class ${1:name} {",
+            "\tconstructor(${2:parameters}) {",
+            "\t\t$0",
+            "\t}",
+            "}"
+        ],
+        "description": "Class Definition"
+    },
+    "Method Definition": {
+        "prefix": "method",
+        "body": [
+            "/**",
+            " * ",
+            " */",
+            "${1:name}() {",
+            "\t$0",
+            "}"
+        ],
+        "description": "Method Definition"
+    },
+    "Import Statement": {
+        "prefix": "import",
+        "body": [
+            "import { $0 } from \"${1:module}\";"
+        ],
+        "description": "Import external module"
+    },
     "Log to the console": {
         "prefix": "log",
         "body": [
-            "console.log($1);"
+            "console.log($1);",
+            "$0"
         ],
         "description": "Log to the console"
+    },
+    "Log warning to console": {
+        "prefix": "warn",
+        "body": [
+            "console.warn($1);",
+            "$0"
+        ],
+        "description": "Log warning to the console"
+    },
+    "Log error to console": {
+        "prefix": "error",
+        "body": [
+            "console.error($1);",
+            "$0"
+        ],
+        "description": "Log error to the console"
     },
     "Throw Exception": {
         "prefix": "throw",
         "body": [
-            "throw new Error(\"$1\");"
+            "throw new Error(\"$1\");",
+            "$0"
         ],
         "description": "Throw Exception"
     },
     "For Loop": {
         "prefix": "for",
         "body": [
-            "for (let ${1:i} = 0; ${1:i} < ${2:array}.length; ${1:i}++) {",
-            "    $0",
+            "for (let ${1:index} = 0; ${1:index} < ${2:array}.length; ${1:index}++) {",
+            "\tconst ${3:element} = ${2:array}[${1:index}];",
+            "\t$TM_SELECTED_TEXT$0",
             "}"
         ],
         "description": "For Loop"
@@ -26,16 +89,28 @@
         "prefix": "foreach =>",
         "body": [
             "${1:array}.forEach(${2:element} => {",
-            "    $0",
+            "\t$TM_SELECTED_TEXT$0",
             "});"
         ],
         "description": "For-Each Loop using =>"
+    },
+    "For-In Loop": {
+        "prefix": "forin",
+        "body": [
+            "for (const ${1:key} in ${2:object}) {",
+            "\tif (Object.prototype.hasOwnProperty.call(${2:object}, ${1:key})) {",
+            "\t\tconst ${3:element} = ${2:object}[${1:key}];",
+            "\t\t$TM_SELECTED_TEXT$0",
+            "\t}",
+            "}"
+        ],
+        "description": "For-In Loop"
     },
     "For-Of Loop": {
         "prefix": "forof",
         "body": [
             "for (const ${1:element} of ${2:object}) {",
-            "    $TM_SELECTED_TEXT$0",
+            "\t$TM_SELECTED_TEXT$0",
             "}"
         ],
         "description": "For-Of Loop"
@@ -44,7 +119,7 @@
         "prefix": "forawaitof",
         "body": [
             "for await (const ${1:element} of ${2:object}) {",
-            "    $0",
+            "\t$TM_SELECTED_TEXT$0",
             "}"
         ],
         "description": "For-Await-Of Loop"
@@ -52,8 +127,8 @@
     "Function Statement": {
         "prefix": "function",
         "body": [
-            "function ${1:name}($2) {",
-            "    $0",
+            "function ${1:name}(${2:params}) {",
+            "\t$TM_SELECTED_TEXT$0",
             "}"
         ],
         "description": "Function Statement"
@@ -62,7 +137,7 @@
         "prefix": "if",
         "body": [
             "if (${1:condition}) {",
-            "    $0",
+            "\t$TM_SELECTED_TEXT$0",
             "}"
         ],
         "description": "If Statement"
@@ -71,23 +146,30 @@
         "prefix": "ifelse",
         "body": [
             "if (${1:condition}) {",
-            "    $2",
+            "\t$TM_SELECTED_TEXT$0",
             "} else {",
-            "    $0",
+            "\t",
             "}"
         ],
         "description": "If-Else Statement"
+    },
+    "New Statement": {
+        "prefix": "new",
+        "body": [
+            "const ${1:name} = new ${2:type}(${3:arguments});$0"
+        ],
+        "description": "New Statement"
     },
     "Switch Statement": {
         "prefix": "switch",
         "body": [
             "switch (${1:key}) {",
-            "    case ${2:value}:",
-            "        $0",
-            "        break;",
+            "\tcase ${2:value}:",
+            "\t\t$0",
+            "\t\tbreak;",
             "",
-            "    default:",
-            "        break;",
+            "\tdefault:",
+            "\t\tbreak;",
             "}"
         ],
         "description": "Switch Statement"
@@ -96,7 +178,7 @@
         "prefix": "while",
         "body": [
             "while (${1:condition}) {",
-            "    $0",
+            "\t$TM_SELECTED_TEXT$0",
             "}"
         ],
         "description": "While Statement"
@@ -105,7 +187,7 @@
         "prefix": "dowhile",
         "body": [
             "do {",
-            "    $0",
+            "\t$TM_SELECTED_TEXT$0",
             "} while (${1:condition});"
         ],
         "description": "Do-While Statement"
@@ -114,9 +196,9 @@
         "prefix": "trycatch",
         "body": [
             "try {",
-            "    $0",
+            "\t$TM_SELECTED_TEXT$0",
             "} catch (${1:error}) {",
-            "    ",
+            "\t",
             "}"
         ],
         "description": "Try-Catch Statement"
@@ -125,7 +207,7 @@
         "prefix": "settimeout",
         "body": [
             "setTimeout(() => {",
-            "    $0",
+            "\t$TM_SELECTED_TEXT$0",
             "}, ${1:timeout});"
         ],
         "description": "Set Timeout Function"
@@ -134,9 +216,50 @@
         "prefix": "setinterval",
         "body": [
             "setInterval(() => {",
-            "    $0",
+            "\t$TM_SELECTED_TEXT$0",
             "}, ${1:interval});"
         ],
         "description": "Set Interval Function"
+    },
+    "Region Start": {
+        "prefix": "#region",
+        "body": [
+            "//#region $0"
+        ],
+        "description": "Folding Region Start"
+    },
+    "Region End": {
+        "prefix": "#endregion",
+        "body": [
+            "//#endregion"
+        ],
+        "description": "Folding Region End"
+    },
+    "new Promise": {
+        "prefix": "newpromise",
+        "body": [
+            "new Promise((resolve, reject) => {",
+            "\t$TM_SELECTED_TEXT$0",
+            "})"
+        ],
+        "description": "Create a new Promise"
+    },
+    "Async Function Statement": {
+        "prefix": "async function",
+        "body": [
+            "async function ${1:name}(${2:params}) {",
+            "\t$TM_SELECTED_TEXT$0",
+            "}"
+        ],
+        "description": "Async Function Statement"
+    },
+    "Async Function Expression": {
+        "prefix": "async arrow function",
+        "body": [
+            "async (${1:params}) => {",
+            "\t$TM_SELECTED_TEXT$0",
+            "}"
+        ],
+        "description": "Async Function Expression"
     }
 }

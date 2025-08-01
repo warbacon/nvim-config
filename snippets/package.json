@@ -6,6 +6,10 @@
         "path": "./c.json"
       },
       {
+        "language": "cpp",
+        "path": "./cpp.json"
+      },
+      {
         "language": "javascript",
         "path": "./javascript.json"
       },

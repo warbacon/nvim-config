@@ -1,9 +1,25 @@
 return {
     "ibhagwan/fzf-lua",
+    dependencies = {
+        "elanmed/fzf-lua-frecency.nvim",
+    },
     event = "VeryLazy",
     keys = {
         { "<leader>,", "<cmd>FzfLua buffers<cr>" },
-        { "<leader>f", "<cmd>FzfLua files<cr>" },
+        {
+            "<leader>f",
+            function()
+                if Util.is_win then
+                    require("fzf-lua").files()
+                else
+                    ---@diagnostic disable-next-line: missing-fields
+                    require("fzf-lua-frecency").frecency({
+                        cwd_only = true,
+                        display_score = false,
+                    })
+                end
+            end,
+        },
         { "<leader>sg", "<cmd>FzfLua live_grep<cr>" },
         { "<leader>sh", "<cmd>FzfLua helptags<cr>" },
         { "<leader>sd", "<cmd>FzfLua diagnostics_workspace<cr>" },

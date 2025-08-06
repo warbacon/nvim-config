@@ -26,6 +26,7 @@ vim.o.sidescrolloff = 3
 vim.o.scrolloff = 5
 vim.o.wrap = false
 
+vim.o.splitbelow = true
 vim.o.splitright = true
 
 vim.opt.shortmess:append("I")

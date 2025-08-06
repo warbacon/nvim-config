@@ -4,7 +4,6 @@ vim.pack.add({
     "https://github.com/echasnovski/mini.splitjoin",
     "https://github.com/folke/tokyonight.nvim",
     "https://github.com/ibhagwan/fzf-lua",
-    "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/stevearc/conform.nvim",
     "https://github.com/stevearc/oil.nvim",
     "https://github.com/tpope/vim-sleuth",

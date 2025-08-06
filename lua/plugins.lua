@@ -9,6 +9,7 @@ vim.pack.add({
     "https://github.com/stevearc/conform.nvim",
     "https://github.com/stevearc/oil.nvim",
     "https://github.com/tpope/vim-sleuth",
+    "https://github.com/kevinhwang91/nvim-bqf",
     { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("1.*") },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 })

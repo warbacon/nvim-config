@@ -29,7 +29,7 @@ require("keymaps")
 require("misc")
 
 if vim.env.XDG_SESSION_TYPE ~= "tty" then
-    require("vim._extui").enable({})
+    -- require("vim._extui").enable({})
     require("plugins")
     require("lsp")
 end

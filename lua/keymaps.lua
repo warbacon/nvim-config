@@ -2,6 +2,9 @@
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
 vim.keymap.set({ "n", "v" }, "<leader>Y", '"+y$')
 
+-- Update plugins
+vim.keymap.set("n", "<Leader>u", vim.pack.update)
+
 -- Disable the `q:` command-line window
 vim.keymap.set("n", "q:", "<cmd>echoe 'q:'<CR>", { noremap = true })
 

@@ -116,9 +116,6 @@ require("blink.cmp").setup({
             auto_show_delay_ms = 500,
         },
     },
-    appearance = {
-        nerd_font_variant = "normal",
-    },
     sources = {
         providers = {
             path = {

@@ -1,3 +1,25 @@
+-- Automatically highlight text after yanking it
+vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+        vim.hl.on_yank({ timeout = 100 })
+    end,
+})
+
+-- Smart line number
+vim.api.nvim_create_autocmd({"InsertEnter", "InsertLeave"}, {
+    callback = function()
+        vim.o.relativenumber = not vim.o.relativenumber
+    end,
+})
+
+-- Fix the cursor when exiting Vim
+vim.api.nvim_create_autocmd("VimLeave", {
+    callback = function()
+        vim.o.guicursor = ""
+        io.write("\x1b[ q")
+    end,
+})
+
 -- Remove the `How to disable mouse` entry from the PopUp menu
 vim.cmd([[
 unmenu PopUp.-2-
@@ -15,21 +37,6 @@ vim.filetype.add({
 vim.api.nvim_create_user_command("W", "w<bang>", { bang = true })
 vim.api.nvim_create_user_command("Q", "q<bang>", { bang = true })
 vim.api.nvim_create_user_command("Wq", "wq<bang>", { bang = true })
-
--- Automatically highlight text after yanking it
-vim.api.nvim_create_autocmd("TextYankPost", {
-    callback = function()
-        vim.hl.on_yank({ timeout = 100 })
-    end,
-})
-
--- Fix the cursor when exiting Vim
-vim.api.nvim_create_autocmd("VimLeave", {
-    callback = function()
-        vim.o.guicursor = ""
-        io.write("\x1b[ q")
-    end,
-})
 
 -- HACK: move Windows entries to end of PATH in WSL to improve performance
 if vim.fn.has("wsl") == 1 then

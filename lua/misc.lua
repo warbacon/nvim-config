@@ -16,12 +16,6 @@ vim.api.nvim_create_user_command("W", "w<bang>", { bang = true })
 vim.api.nvim_create_user_command("Q", "q<bang>", { bang = true })
 vim.api.nvim_create_user_command("Wq", "wq<bang>", { bang = true })
 
--- Disable the `q:` command-line window
-vim.keymap.set("n", "q:", "<cmd>echoe 'q:'<CR>", { noremap = true })
-
--- <C-t> annoys me
-vim.keymap.set("i", "<C-t>", "<nop>", { noremap = true })
-
 -- Automatically highlight text after yanking it
 vim.api.nvim_create_autocmd("TextYankPost", {
     callback = function()

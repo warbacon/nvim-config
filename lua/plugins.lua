@@ -1,4 +1,5 @@
 vim.pack.add({
+    "https://github.com/echasnovski/mini.diff",
     "https://github.com/echasnovski/mini.icons",
     "https://github.com/echasnovski/mini.move",
     "https://github.com/echasnovski/mini.splitjoin",
@@ -84,6 +85,12 @@ require("mini.splitjoin").setup({
         toggle = "gs",
     },
 })
+require("mini.diff").setup({
+    view = {
+        style = "sign",
+    },
+})
+vim.keymap.set("n", "ghp", require("mini.diff").toggle_overlay)
 
 -- FZF-LUA ---------------------------------------------------------------------
 require("fzf-lua").setup({

@@ -22,7 +22,9 @@ if vim.fn.has("nvim-0.12") == 0 then
     return
 end
 
-vim.loader.enable(true)
+if not vim.loader.enabled then
+    vim.loader.enable()
+end
 
 require("options")
 require("keymaps")

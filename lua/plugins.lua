@@ -1,18 +1,16 @@
 vim.pack.add({
-    "https://github.com/echasnovski/mini.diff",
-    "https://github.com/echasnovski/mini.icons",
-    "https://github.com/MeanderingProgrammer/render-markdown.nvim",
-    "https://github.com/echasnovski/mini.move",
-    "https://github.com/echasnovski/mini.splitjoin",
-    "https://github.com/folke/tokyonight.nvim",
-    "https://github.com/ibhagwan/fzf-lua",
-    "https://github.com/neovim/nvim-lspconfig",
-    "https://github.com/stevearc/conform.nvim",
-    "https://github.com/stevearc/oil.nvim",
-    "https://github.com/tpope/vim-sleuth",
-    "https://github.com/kevinhwang91/nvim-bqf",
+    { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
     { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("1.*") },
+    { src = "https://github.com/Saghen/blink.indent" },
+    { src = "https://github.com/echasnovski/mini.nvim" },
+    { src = "https://github.com/folke/tokyonight.nvim" },
+    { src = "https://github.com/ibhagwan/fzf-lua" },
+    { src = "https://github.com/kevinhwang91/nvim-bqf" },
+    { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+    { src = "https://github.com/stevearc/conform.nvim" },
+    { src = "https://github.com/stevearc/oil.nvim" },
+    { src = "https://github.com/tpope/vim-sleuth" },
 })
 
 -- TOKYONIGHT ------------------------------------------------------------------
@@ -21,6 +19,9 @@ require("tokyonight").setup({
         hl.MatchParen = {
             bg = c.fg_gutter,
             bold = true,
+        }
+        hl.BlinkIndentBlue = {
+            fg = c.blue1,
         }
     end,
     plugins = {
@@ -89,6 +90,20 @@ require("blink.cmp").setup({
     },
 })
 
+-- BLINK.INDENT ---------------------------------------------------------------
+require("blink.indent").setup({
+    static = {
+        char = "▏",
+    },
+    scope = {
+        char = "▏",
+        highlights = { "BlinkIndentBlue" },
+    },
+    -- blocked = {
+    --     filetypes = { "markdown" },
+    -- },
+})
+
 -- OIL -------------------------------------------------------------------------
 require("oil").setup({
     delete_to_trash = true,
@@ -133,12 +148,10 @@ vim.keymap.set("n", "<Leader>cf", require("conform").format)
 
 -- RENDER-MARKDOWN ------------------------------------------------------------
 require("render-markdown").setup({
-    -- preset = "obsidian",
     completions = {
         lsp = { enabled = true },
     },
     heading = {
-        -- icons = {},
         sign = false,
     },
     code = {

@@ -1,6 +1,7 @@
 vim.pack.add({
     "https://github.com/echasnovski/mini.diff",
     "https://github.com/echasnovski/mini.icons",
+    "https://github.com/MeanderingProgrammer/render-markdown.nvim",
     "https://github.com/echasnovski/mini.move",
     "https://github.com/echasnovski/mini.splitjoin",
     "https://github.com/folke/tokyonight.nvim",
@@ -24,9 +25,10 @@ require("tokyonight").setup({
     end,
     plugins = {
         all = false,
+        ["render-markdown"] = true,
+        blink = true,
         fzf = true,
         mini_icons = true,
-        blink = true,
     },
 })
 vim.cmd.colorscheme("tokyonight-night")
@@ -128,3 +130,18 @@ require("conform").setup({
     },
 })
 vim.keymap.set("n", "<Leader>cf", require("conform").format)
+
+-- RENDER-MARKDOWN ------------------------------------------------------------
+require("render-markdown").setup({
+    -- preset = "obsidian",
+    completions = {
+        lsp = { enabled = true },
+    },
+    heading = {
+        -- icons = {},
+        sign = false,
+    },
+    code = {
+        sign = false,
+    },
+})

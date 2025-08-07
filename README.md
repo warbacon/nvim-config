@@ -8,27 +8,26 @@
 </p>
 
 <p align="center">
-  A fast, no-nonsense Neovim configuration for those who want performance and
-  elegance.
+  A no-nonsense Neovim setup for people who just want to code.
 </p>
 
 > [!WARNING]
-> Miovim is not compatible with **Neovim versions older than 0.11**. Make sure
-> you're running a recent build to avoid issues.
+> Miovim is not compatible with **Neovim versions older than 0.12**. Make sure
+> you're running nightly to avoid issues.
 
-## 🚩 Goals
+## 🚩 Introduction
 
-- ⚡ **Maximum performance.** No unnecessary plugins, no bloat. Only what’s
-  needed to stay fast, focused, and efficient.
-- 🚀 **Startup under 100ms.** Opens faster than you can blink. Most of the time
-  it feels instant — because it practically is.
-- 🎯 **Minimalist, beautiful interface.** Clean UI with helpful visuals, but
-  never in your way. Designed to let you focus entirely on code, not on your
-  editor.
-- 🧠 **Neovim-first philosophy.** Miovim builds on Neovim's own capabilities
-  and embraces its native features as the default path. Instead of imitating
-  traditional IDE behavior, Miovim enhances Neovim *as Neovim*, while staying
-  consistent and powerful.
+**Miovim** doesn't rely on `lazy.nvim` or any external plugin manager.  Instead,
+it uses [`vim.pack`](https://neovim.io/doc/user/pack.html#_plugin-manager) —
+Neovim's upcoming **native plugin manager**, still under development. Expect
+some rough edges.
+
+This approach enables an extremely minimal configuration, but comes with a
+trade-off: **native lazy loading isn't yet supported**.
+
+To mitigate this, `vim.loader` is enabled for faster startup. In the future, I
+might build a pseudo-plugin manager on top of `vim.pack` to support lazy loading
+— unless Neovim eventually implements this functionality natively.
 
 ## 📦 Dependencies
 
@@ -43,7 +42,8 @@ Make sure you have the following dependencies installed:
 
 - A **C compiler**
 - [`fzf`](https://github.com/junegunn/fzf)
-- [`ripgrep`](https://github.com/BurntSushi/ripgrep) *(optional on Linux/macOS, but recommended)*
+- [`ripgrep`](https://github.com/BurntSushi/ripgrep) *(optional on Linux/macOS,
+  but recommended)*
 - [`fd`](https://github.com/sharkdp/fd) *(optional but recommended)*
 
 ## ⚙️ Installation
@@ -63,8 +63,3 @@ git clone https://github.com/warbacon/nvim-config "$HOME/.config/nvim"
 ```bash
 git clone https://github.com/warbacon/nvim-config "$HOME\AppData\Local\nvim"
 ```
-
----
-
-> [!NOTE]
-> After cloning, launch `nvim` and let it install plugins automatically.

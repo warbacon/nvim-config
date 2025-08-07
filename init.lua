@@ -9,7 +9,7 @@
 -- https://github.com/warbacon/nvim-config
 
 if vim.fn.has("nvim-0.12") == 0 then
-    vim.defer_fn(function()
+    vim.schedule(function()
         local v = vim.version()
         local msg = string.format(
             "This config requires Neovim v0.12.x or higher. You have v%d.%d.%d.",
@@ -17,8 +17,8 @@ if vim.fn.has("nvim-0.12") == 0 then
             v.minor,
             v.patch
         )
-        vim.notify(msg, vim.log.levels.WARN)
-    end, 100)
+        vim.notify(msg, vim.log.levels.ERROR)
+    end)
     return
 end
 
@@ -26,13 +26,14 @@ if not vim.loader.enabled then
     vim.loader.enable()
 end
 
-require("options")
-require("keymaps")
-require("misc")
+_G.Util = require("util")
+
+require("config.options")
+require("config.keymaps")
+require("config.misc")
 
 if vim.env.XDG_SESSION_TYPE ~= "tty" then
     -- require("vim._extui").enable({})
-    require("plugins")
-    require("lsp")
-    require("treesitter")
+    require("config.plugins")
+    require("config.lsp")
 end

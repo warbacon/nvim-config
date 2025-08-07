@@ -50,45 +50,52 @@ require("mini.diff").setup({
 vim.keymap.set("n", "ghp", require("mini.diff").toggle_overlay)
 
 -- FZF-LUA ---------------------------------------------------------------------
-require("fzf-lua").setup({
-    fzf_colors = true,
-    keymap = {
-        builtin = {
-            ["<F1>"] = "toggle-help",
-            ["<M-m>"] = "toggle-fullscreen",
-            ["<M-p>"] = "toggle-preview",
+Util.later(function()
+    require("fzf-lua").setup({
+        fzf_colors = true,
+        keymap = {
+            builtin = {
+                ["<F1>"] = "toggle-help",
+                ["<M-m>"] = "toggle-fullscreen",
+                ["<M-p>"] = "toggle-preview",
+            },
         },
-    },
-})
-require("fzf-lua").register_ui_select()
+    })
+    require("fzf-lua").register_ui_select()
 
-vim.keymap.set("n", "<Leader>f", "<Cmd>FzfLua files<CR>")
-vim.keymap.set("n", "<Leader>sd", "<Cmd>FzfLua diagnostics_workspace<CR>")
-vim.keymap.set("n", "<Leader>sg", "<Cmd>FzfLua live_grep<CR>")
-vim.keymap.set("n", "<Leader>sg", "<Cmd>FzfLua live_grep<CR>")
-vim.keymap.set("n", "<Leader>sh", "<Cmd>FzfLua helptags<CR>")
-vim.keymap.set("n", "<Leader>sh", "<Cmd>FzfLua helptags<CR>")
-vim.keymap.set("n", "z=", "<Cmd>FzfLua spell_suggest<CR>")
+    vim.keymap.set("n", "<Leader>f", "<Cmd>FzfLua files<CR>")
+    vim.keymap.set("n", "<Leader>sd", "<Cmd>FzfLua diagnostics_workspace<CR>")
+    vim.keymap.set("n", "<Leader>sg", "<Cmd>FzfLua live_grep<CR>")
+    vim.keymap.set("n", "<Leader>sg", "<Cmd>FzfLua live_grep<CR>")
+    vim.keymap.set("n", "<Leader>sh", "<Cmd>FzfLua helptags<CR>")
+    vim.keymap.set("n", "<Leader>sh", "<Cmd>FzfLua helptags<CR>")
+    vim.keymap.set("n", "z=", "<Cmd>FzfLua spell_suggest<CR>")
+end)
 
 -- BLINK.CMP -------------------------------------------------------------------
-require("blink.cmp").setup({
-    cmdline = { enabled = false },
-    completion = {
-        documentation = {
-            auto_show = true,
-            auto_show_delay_ms = 500,
+Util.later(function()
+    require("blink.cmp").setup({
+        cmdline = { enabled = false },
+        appearance = {
+            nerd_font_variant = "normal",
         },
-    },
-    sources = {
-        providers = {
-            path = {
-                opts = {
-                    show_hidden_files_by_default = true,
+        completion = {
+            documentation = {
+                auto_show = true,
+                auto_show_delay_ms = 500,
+            },
+        },
+        sources = {
+            providers = {
+                path = {
+                    opts = {
+                        show_hidden_files_by_default = true,
+                    },
                 },
             },
         },
-    },
-})
+    })
+end)
 
 -- BLINK.INDENT ---------------------------------------------------------------
 require("blink.indent").setup({
@@ -99,9 +106,6 @@ require("blink.indent").setup({
         char = "▏",
         highlights = { "BlinkIndentBlue" },
     },
-    -- blocked = {
-    --     filetypes = { "markdown" },
-    -- },
 })
 
 -- OIL -------------------------------------------------------------------------
@@ -145,6 +149,59 @@ require("conform").setup({
     },
 })
 vim.keymap.set("n", "<Leader>cf", require("conform").format)
+
+-- TREE-SITTER ----------------------------------------------------------------
+local ts_parsers = {
+    "astro",
+    "bash",
+    "c",
+    "cpp",
+    "css",
+    "dockerfile",
+    "fish",
+    "gitcommit",
+    "html",
+    "hyprlang",
+    "ini",
+    "javascript",
+    "json",
+    "jsonc",
+    "lua",
+    "markdown",
+    "markdown_inline",
+    "nix",
+    "printf",
+    "python",
+    "rasi",
+    "regex",
+    "svelte",
+    "toml",
+    "typescript",
+    "vim",
+    "vimdoc",
+    "xml",
+    "yaml",
+}
+
+require("nvim-treesitter").install(ts_parsers):wait(300000)
+
+vim.api.nvim_create_autocmd("PackChanged", {
+    callback = function(ev)
+        if ev.data.kind == "update" and ev.data.spec.name == "nvim-treesitter" then
+            vim.cmd("TSUpdate")
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+    callback = function()
+        if pcall(vim.treesitter.start) then
+            if vim.treesitter.query.get(vim.treesitter.get_parser():lang(), "indents") then
+                vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            end
+        end
+    end,
+})
 
 -- RENDER-MARKDOWN ------------------------------------------------------------
 require("render-markdown").setup({

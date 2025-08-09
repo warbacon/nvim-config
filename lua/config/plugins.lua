@@ -78,6 +78,7 @@ Util.later(function()
     require("blink.cmp").setup({
         cmdline = { enabled = false },
         appearance = {
+            kind_icons = Util.icons.kinds,
             nerd_font_variant = "normal",
         },
         completion = {
@@ -101,10 +102,10 @@ end)
 -- BLINK.INDENT ---------------------------------------------------------------
 require("blink.indent").setup({
     static = {
-        char = "▏",
+        char = Util.icons.indent,
     },
     scope = {
-        char = "▏",
+        char = Util.icons.indent,
         highlights = { "BlinkIndentBlue" },
     },
 })

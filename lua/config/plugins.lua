@@ -216,4 +216,14 @@ require("render-markdown").setup({
     code = {
         sign = false,
     },
+    overrides = {
+        buftype = {
+            nofile = {
+                code = {
+                    language = false,
+                    border = "none",
+                },
+            },
+        },
+    },
 })

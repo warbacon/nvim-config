@@ -185,7 +185,7 @@ local ts_parsers = {
     "yaml",
 }
 
-require("nvim-treesitter").install(ts_parsers):wait(300000)
+require("nvim-treesitter").install(ts_parsers)
 
 vim.api.nvim_create_autocmd("PackChanged", {
     callback = function(ev)

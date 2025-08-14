@@ -14,7 +14,7 @@ vim.pack.add({
     { src = "https://github.com/tpope/vim-sleuth" },
 })
 
--- TOKYONIGHT ------------------------------------------------------------------
+-- TOKYONIGHT ---------------------------------------------------------------{{{
 require("tokyonight").setup({
     on_highlights = function(hl, c)
         hl.MatchParen = {
@@ -34,8 +34,9 @@ require("tokyonight").setup({
     },
 })
 vim.cmd.colorscheme("tokyonight-night")
+-- }}}
 
--- MINI ------------------------------------------------------------------------
+-- MINI ---------------------------------------------------------------------{{{
 require("mini.icons").setup()
 require("mini.move").setup()
 require("mini.splitjoin").setup({
@@ -49,8 +50,9 @@ require("mini.diff").setup({
     },
 })
 vim.keymap.set("n", "ghp", require("mini.diff").toggle_overlay)
+-- }}}
 
--- FZF-LUA ---------------------------------------------------------------------
+-- FZF-LUA ------------------------------------------------------------------{{{
 Util.later(function()
     require("fzf-lua").setup({
         fzf_colors = true,
@@ -72,8 +74,9 @@ Util.later(function()
     vim.keymap.set("n", "<Leader>sh", "<Cmd>FzfLua helptags<CR>")
     vim.keymap.set("n", "z=", "<Cmd>FzfLua spell_suggest<CR>")
 end)
+-- }}}
 
--- BLINK.CMP -------------------------------------------------------------------
+-- BLINK.CMP ----------------------------------------------------------------{{{
 Util.later(function()
     require("blink.cmp").setup({
         cmdline = { enabled = false },
@@ -98,8 +101,9 @@ Util.later(function()
         },
     })
 end)
+-- }}}
 
--- BLINK.INDENT ---------------------------------------------------------------
+-- BLINK.INDENT -------------------------------------------------------------{{{
 require("blink.indent").setup({
     static = {
         char = Util.icons.indent,
@@ -109,8 +113,9 @@ require("blink.indent").setup({
         highlights = { "BlinkIndentBlue" },
     },
 })
+-- }}}
 
--- OIL -------------------------------------------------------------------------
+-- OIL ----------------------------------------------------------------------{{{
 require("oil").setup({
     delete_to_trash = true,
     skip_confirm_for_simple_edits = true,
@@ -127,8 +132,9 @@ require("oil").setup({
     },
 })
 vim.keymap.set("n", "-", "<Cmd>Oil<CR>")
+-- }}}
 
--- CONFORM ---------------------------------------------------------------------
+-- CONFORM ------------------------------------------------------------------{{{
 require("conform").setup({
     formatters_by_ft = {
         c = { "clang-format" },
@@ -151,8 +157,33 @@ require("conform").setup({
     },
 })
 vim.keymap.set("n", "<Leader>cf", require("conform").format)
+-- }}}
 
--- TREE-SITTER ----------------------------------------------------------------
+-- RENDER-MARKDOWN ----------------------------------------------------------{{{
+require("render-markdown").setup({
+    completions = {
+        lsp = { enabled = true },
+    },
+    heading = {
+        sign = false,
+    },
+    code = {
+        sign = false,
+    },
+    overrides = {
+        buftype = {
+            nofile = {
+                code = {
+                    language = false,
+                    border = "none",
+                },
+            },
+        },
+    },
+})
+-- }}}
+
+-- TREE-SITTER --------------------------------------------------------------{{{
 local ts_parsers = {
     "astro",
     "bash",
@@ -204,26 +235,35 @@ vim.api.nvim_create_autocmd("FileType", {
         end
     end,
 })
+-- }}}
 
--- RENDER-MARKDOWN ------------------------------------------------------------
-require("render-markdown").setup({
-    completions = {
-        lsp = { enabled = true },
-    },
-    heading = {
-        sign = false,
-    },
-    code = {
-        sign = false,
-    },
-    overrides = {
-        buftype = {
-            nofile = {
-                code = {
-                    language = false,
-                    border = "none",
-                },
-            },
-        },
-    },
+-- LSP ----------------------------------------------------------------------{{{
+vim.lsp.enable({
+    "astro",
+    "basedpyright",
+    "bashls",
+    "clangd",
+    "cssls",
+    "emmet_language_server",
+    "html",
+    "jsonls",
+    "lua_ls",
+    "nixd",
+    "svelte",
+    "tailwindcss",
+    "vtsls",
+    "yamlls",
 })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+        if client and client:supports_method("textDocument/documentColor") then
+            vim.lsp.document_color.enable(true, args.buf)
+        end
+    end,
+})
+-- }}}
+
+-- vim: foldmethod=marker

@@ -3,6 +3,7 @@ vim.pack.add({
     { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("1.*") },
     { src = "https://github.com/Saghen/blink.indent" },
     { src = "https://github.com/echasnovski/mini.nvim" },
+    { src = "https://github.com/fei6409/log-highlight.nvim" },
     { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/kevinhwang91/nvim-bqf" },

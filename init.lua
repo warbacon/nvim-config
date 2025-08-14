@@ -35,5 +35,4 @@ require("config.misc")
 if vim.env.XDG_SESSION_TYPE ~= "tty" then
     -- require("vim._extui").enable({})
     require("config.plugins")
-    require("config.lsp")
 end

@@ -96,6 +96,7 @@ vim.lsp.enable({
     "cssls",
     "emmet_language_server",
     "html",
+    "jdtls",
     "jsonls",
     "lua_ls",
     "nixd",

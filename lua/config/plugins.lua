@@ -169,6 +169,7 @@ end)
 -- MINI ---------------------------------------------------------------------{{{
 require("mini.icons").setup()
 require("mini.move").setup()
+require("mini.misc").setup_termbg_sync()
 require("mini.splitjoin").setup({
     mappings = {
         toggle = "gs",

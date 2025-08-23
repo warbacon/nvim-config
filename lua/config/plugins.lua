@@ -1,7 +1,6 @@
 vim.pack.add({
     { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
     { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("1.*") },
-    { src = "https://github.com/Saghen/blink.indent" },
     { src = "https://github.com/echasnovski/mini.nvim" },
     { src = "https://github.com/fei6409/log-highlight.nvim" },
     { src = "https://github.com/folke/tokyonight.nvim" },
@@ -21,9 +20,6 @@ require("tokyonight").setup({
         hl.MatchParen = {
             bg = c.fg_gutter,
             bold = true,
-        }
-        hl.BlinkIndentBlue = {
-            fg = c.blue1,
         }
     end,
     plugins = {
@@ -211,18 +207,6 @@ Util.later(function()
         },
     })
 end)
--- }}}
-
--- BLINK.INDENT -------------------------------------------------------------{{{
-require("blink.indent").setup({
-    static = {
-        char = Util.icons.indent,
-    },
-    scope = {
-        char = Util.icons.indent,
-        highlights = { "BlinkIndentBlue" },
-    },
-})
 -- }}}
 
 -- OIL ----------------------------------------------------------------------{{{

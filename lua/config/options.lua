@@ -34,12 +34,12 @@ vim.o.foldtext = ""
 vim.o.winborder = "rounded"
 
 vim.opt.fillchars = {
-  foldopen = "",
-  foldclose = "",
-  fold = " ",
-  foldsep = " ",
-  diff = "╱",
-  eob = " ",
+    foldopen = "",
+    foldclose = "",
+    fold = " ",
+    foldsep = " ",
+    diff = "╱",
+    eob = " ",
 }
 
 vim.opt.shortmess:append("I")

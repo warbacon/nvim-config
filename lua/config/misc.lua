@@ -5,13 +5,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
--- Smart line number
-vim.api.nvim_create_autocmd({"InsertEnter", "InsertLeave"}, {
-    callback = function()
-        vim.o.relativenumber = not vim.o.relativenumber
-    end,
-})
-
 -- Fix the cursor when exiting Vim
 vim.api.nvim_create_autocmd("VimLeave", {
     callback = function()

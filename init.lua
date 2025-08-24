@@ -26,13 +26,13 @@ if not vim.loader.enabled then
     vim.loader.enable()
 end
 
-_G.Util = require("util")
+require("vim._extui").enable({})
 
+_G.Util = require("util")
 require("config.options")
 require("config.keymaps")
 require("config.misc")
 
 if vim.env.XDG_SESSION_TYPE ~= "tty" then
-    require("vim._extui").enable({})
     require("config.plugins")
 end

@@ -15,6 +15,7 @@ vim.pack.add({
 }, { confirm = false })
 
 -- TOKYONIGHT ---------------------------------------------------------------{{{
+
 require("tokyonight").setup({
     on_highlights = function(hl, c)
         hl.MatchParen = {
@@ -30,10 +31,13 @@ require("tokyonight").setup({
         mini_icons = true,
     },
 })
+
 vim.cmd.colorscheme("tokyonight-night")
+
 -- }}}
 
 -- TREE-SITTER --------------------------------------------------------------{{{
+
 local ts_parsers = {
     "astro",
     "bash",
@@ -85,9 +89,11 @@ vim.api.nvim_create_autocmd("FileType", {
         end
     end,
 })
+
 -- }}}
 
 -- LSP ----------------------------------------------------------------------{{{
+
 vim.lsp.enable({
     "astro",
     "basedpyright",
@@ -116,9 +122,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
     end,
 })
+
 -- }}}
 
 -- CONFORM ------------------------------------------------------------------{{{
+
 require("conform").setup({
     formatters_by_ft = {
         c = { "clang-format" },
@@ -140,10 +148,13 @@ require("conform").setup({
         },
     },
 })
+
 vim.keymap.set("n", "<Leader>cf", require("conform").format)
+
 -- }}}
 
 -- FZF-LUA ------------------------------------------------------------------{{{
+
 Util.later(function()
     require("fzf-lua").setup({
         fzf_colors = true,
@@ -165,26 +176,33 @@ Util.later(function()
     vim.keymap.set("n", "<Leader>sh", "<Cmd>FzfLua helptags<CR>")
     vim.keymap.set("n", "z=", "<Cmd>FzfLua spell_suggest<CR>")
 end)
+
 -- }}}
 
 -- MINI ---------------------------------------------------------------------{{{
 require("mini.icons").setup()
+
 require("mini.move").setup()
+
 require("mini.misc").setup_termbg_sync()
+
 require("mini.splitjoin").setup({
     mappings = {
         toggle = "gs",
     },
 })
+
 require("mini.diff").setup({
     view = {
         style = "sign",
     },
 })
 vim.keymap.set("n", "ghp", require("mini.diff").toggle_overlay)
+
 -- }}}
 
 -- BLINK.CMP ----------------------------------------------------------------{{{
+
 Util.later(function()
     require("blink.cmp").setup({
         cmdline = { enabled = false },
@@ -209,9 +227,11 @@ Util.later(function()
         },
     })
 end)
+
 -- }}}
 
 -- OIL ----------------------------------------------------------------------{{{
+
 require("oil").setup({
     delete_to_trash = true,
     skip_confirm_for_simple_edits = true,
@@ -227,10 +247,13 @@ require("oil").setup({
         show_hidden = true,
     },
 })
+
 vim.keymap.set("n", "-", "<Cmd>Oil<CR>")
+
 -- }}}
 
 -- RENDER-MARKDOWN ----------------------------------------------------------{{{
+
 require("render-markdown").setup({
     completions = {
         lsp = { enabled = true },
@@ -252,6 +275,7 @@ require("render-markdown").setup({
         },
     },
 })
+
 -- }}}
 
 -- vim: foldmethod=marker

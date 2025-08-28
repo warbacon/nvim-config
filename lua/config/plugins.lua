@@ -2,6 +2,7 @@ vim.pack.add({
     { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
     { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("1.*") },
     { src = "https://github.com/fei6409/log-highlight.nvim" },
+    { src = "https://github.com/fladson/vim-kitty" },
     { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/kevinhwang91/nvim-bqf" },
@@ -180,6 +181,29 @@ end)
 -- }}}
 
 -- MINI ---------------------------------------------------------------------{{{
+
+-- require("mini.base16").setup({
+--     palette = {
+--         base00 = "#1a1825", -- background
+--         base01 = "#1f1d2e", -- color0 (darker background)
+--         base02 = "#2d2a3e", -- inactive_tab_background
+--         base03 = "#3e3a54", -- color8 (bright black)
+--         base04 = "#6e6a86", -- color7 (white)
+--         base05 = "#e2e0f7", -- foreground
+--         base06 = "#b4aecc", -- color15 (bright white)
+--         base07 = "#f2e9e1", -- cursor
+--         base08 = "#eb6f92", -- color1 (red)
+--         base09 = "#f6c177", -- color3 (yellow)
+--         base0A = "#ffcc88", -- color11 (bright yellow)
+--         base0B = "#56c390", -- color2 (green)
+--         base0C = "#7db3d3", -- color6 (cyan)
+--         base0D = "#569cd6", -- color4 (blue)
+--         base0E = "#c4a7e7", -- color5 (magenta)
+--         base0F = "#9893a5", -- inactive_tab_foreground
+--     },
+--     use_cterm = true,
+-- })
+
 require("mini.icons").setup()
 
 require("mini.move").setup()

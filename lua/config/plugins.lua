@@ -6,6 +6,7 @@ vim.pack.add({
     { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/kevinhwang91/nvim-bqf" },
+    { src = "https://github.com/lewis6991/gitsigns.nvim" },
     { src = "https://github.com/mfussenegger/nvim-jdtls" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/nvim-mini/mini.nvim" },
@@ -29,6 +30,7 @@ require("tokyonight").setup({
         ["render-markdown"] = true,
         blink = true,
         fzf = true,
+        gitsigns = true,
         mini_icons = true,
     },
 })
@@ -156,58 +158,29 @@ vim.keymap.set("n", "<Leader>cf", require("conform").format)
 
 -- FZF-LUA ------------------------------------------------------------------{{{
 
-Util.later(function()
-    require("fzf-lua").setup({
-        fzf_colors = true,
-        keymap = {
-            builtin = {
-                ["<F1>"] = "toggle-help",
-                ["<M-m>"] = "toggle-fullscreen",
-                ["<M-p>"] = "toggle-preview",
-            },
+require("fzf-lua").setup({
+    fzf_colors = true,
+    keymap = {
+        builtin = {
+            ["<F1>"] = "toggle-help",
+            ["<M-m>"] = "toggle-fullscreen",
+            ["<M-p>"] = "toggle-preview",
         },
-    })
-    require("fzf-lua").register_ui_select()
-
-    vim.keymap.set("n", "<Leader>f", "<Cmd>FzfLua files<CR>")
-    vim.keymap.set("n", "<Leader>sd", "<Cmd>FzfLua diagnostics_workspace<CR>")
-    vim.keymap.set("n", "<Leader>sg", "<Cmd>FzfLua live_grep<CR>")
-    vim.keymap.set("n", "<Leader>sg", "<Cmd>FzfLua live_grep<CR>")
-    vim.keymap.set("n", "<Leader>sh", "<Cmd>FzfLua helptags<CR>")
-    vim.keymap.set("n", "<Leader>sh", "<Cmd>FzfLua helptags<CR>")
-    vim.keymap.set("n", "z=", "<Cmd>FzfLua spell_suggest<CR>")
-end)
+    },
+})
+vim.ui.select = require("fzf-lua.providers.ui_select").ui_select
+vim.keymap.set("n", "<Leader>f", "<Cmd>FzfLua files<CR>")
+vim.keymap.set("n", "<Leader>sd", "<Cmd>FzfLua diagnostics_workspace<CR>")
+vim.keymap.set("n", "<Leader>sg", "<Cmd>FzfLua live_grep<CR>")
+vim.keymap.set("n", "<Leader>sh", "<Cmd>FzfLua helptags<CR>")
+vim.keymap.set("n", "z=", "<Cmd>FzfLua spell_suggest<CR>")
 
 -- }}}
 
 -- MINI ---------------------------------------------------------------------{{{
 
--- require("mini.base16").setup({
---     palette = {
---         base00 = "#1a1825", -- background
---         base01 = "#1f1d2e", -- color0 (darker background)
---         base02 = "#2d2a3e", -- inactive_tab_background
---         base03 = "#3e3a54", -- color8 (bright black)
---         base04 = "#6e6a86", -- color7 (white)
---         base05 = "#e2e0f7", -- foreground
---         base06 = "#b4aecc", -- color15 (bright white)
---         base07 = "#f2e9e1", -- cursor
---         base08 = "#eb6f92", -- color1 (red)
---         base09 = "#f6c177", -- color3 (yellow)
---         base0A = "#ffcc88", -- color11 (bright yellow)
---         base0B = "#56c390", -- color2 (green)
---         base0C = "#7db3d3", -- color6 (cyan)
---         base0D = "#569cd6", -- color4 (blue)
---         base0E = "#c4a7e7", -- color5 (magenta)
---         base0F = "#9893a5", -- inactive_tab_foreground
---     },
---     use_cterm = true,
--- })
-
 require("mini.icons").setup()
-
 require("mini.move").setup()
-
 require("mini.misc").setup_termbg_sync()
 
 require("mini.splitjoin").setup({
@@ -216,41 +189,32 @@ require("mini.splitjoin").setup({
     },
 })
 
-require("mini.diff").setup({
-    view = {
-        style = "sign",
-    },
-})
-vim.keymap.set("n", "ghp", require("mini.diff").toggle_overlay)
-
 -- }}}
 
 -- BLINK.CMP ----------------------------------------------------------------{{{
 
-Util.later(function()
-    require("blink.cmp").setup({
-        cmdline = { enabled = false },
-        appearance = {
-            kind_icons = Util.icons.kinds,
-            nerd_font_variant = "normal",
+require("blink.cmp").setup({
+    cmdline = { enabled = false },
+    appearance = {
+        kind_icons = Util.icons.kinds,
+        nerd_font_variant = "normal",
+    },
+    completion = {
+        documentation = {
+            auto_show = true,
+            auto_show_delay_ms = 500,
         },
-        completion = {
-            documentation = {
-                auto_show = true,
-                auto_show_delay_ms = 500,
-            },
-        },
-        sources = {
-            providers = {
-                path = {
-                    opts = {
-                        show_hidden_files_by_default = true,
-                    },
+    },
+    sources = {
+        providers = {
+            path = {
+                opts = {
+                    show_hidden_files_by_default = true,
                 },
             },
         },
-    })
-end)
+    },
+})
 
 -- }}}
 
@@ -273,6 +237,78 @@ require("oil").setup({
 })
 
 vim.keymap.set("n", "-", "<Cmd>Oil<CR>")
+
+-- }}}
+
+-- GITSIGNS -----------------------------------------------------------------{{{
+
+require("gitsigns").setup({
+    on_attach = function(bufnr)
+        local gitsigns = require("gitsigns")
+
+        local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+        end
+
+        -- Navigation
+        map("n", "]c", function()
+            if vim.wo.diff then
+                vim.cmd.normal({ "]c", bang = true })
+            else
+                gitsigns.nav_hunk("next")
+            end
+        end)
+
+        map("n", "[c", function()
+            if vim.wo.diff then
+                vim.cmd.normal({ "[c", bang = true })
+            else
+                gitsigns.nav_hunk("prev")
+            end
+        end)
+
+        -- Actions
+        map("n", "<leader>hs", gitsigns.stage_hunk)
+        map("n", "<leader>hr", gitsigns.reset_hunk)
+
+        map("v", "<leader>hs", function()
+            gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+        end)
+
+        map("v", "<leader>hr", function()
+            gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+        end)
+
+        map("n", "<leader>hS", gitsigns.stage_buffer)
+        map("n", "<leader>hR", gitsigns.reset_buffer)
+        map("n", "<leader>hp", gitsigns.preview_hunk)
+        map("n", "<leader>hi", gitsigns.preview_hunk_inline)
+
+        map("n", "<leader>hb", function()
+            gitsigns.blame_line({ full = true })
+        end)
+
+        map("n", "<leader>hd", gitsigns.diffthis)
+
+        map("n", "<leader>hD", function()
+            gitsigns.diffthis("~")
+        end)
+
+        map("n", "<leader>hQ", function()
+            gitsigns.setqflist("all")
+        end)
+        map("n", "<leader>hq", gitsigns.setqflist)
+
+        -- Toggles
+        map("n", "<leader>tb", gitsigns.toggle_current_line_blame)
+        map("n", "<leader>tw", gitsigns.toggle_word_diff)
+
+        -- Text object
+        map({ "o", "x" }, "ih", gitsigns.select_hunk)
+    end,
+})
 
 -- }}}
 

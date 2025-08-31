@@ -25,9 +25,8 @@ some rough edges.
 This approach enables an extremely minimal configuration, but comes with a
 trade-off: **native lazy loading isn't yet supported**.
 
-To mitigate this, `vim.loader` is enabled for faster startup. In the future, I
-might build a pseudo-plugin manager on top of `vim.pack` to support lazy loading
-— unless Neovim eventually implements this functionality natively.
+To mitigate this, `vim.loader` is enabled for faster startup. I might take a
+look at [`lz.n`](https://github.com/nvim-neorocks/lz.n) at some point.
 
 ## 📦 Dependencies
 

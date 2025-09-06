@@ -9,6 +9,9 @@ vim.keymap.set({ "n", "v" }, "<leader>P", '"+P')
 -- Update plugins
 vim.keymap.set("n", "<Leader>u", vim.pack.update)
 
+-- Restart Neovim
+vim.keymap.set("n", "<Leader>rr", "<Cmd>restart<CR>")
+
 -- Use <Esc> to exit terminal mode
 vim.keymap.set("t", "<M-q>", "<C-\\><C-n>")
 

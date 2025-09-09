@@ -48,19 +48,3 @@ if vim.fn.has("wsl") == 1 then
 
     vim.env.PATH = table.concat(vim.list_extend(linux_paths, windows_paths), path_sep)
 end
-
--- Make clipboard work in WSL
-if vim.fn.has("wsl") == 1 then
-    vim.g.clipboard = {
-        name = "WslClipboard",
-        copy = {
-            ["+"] = "clip.exe",
-            ["*"] = "clip.exe",
-        },
-        paste = {
-            ["+"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-            ["*"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-        },
-        cache_enabled = 0,
-    }
-end

@@ -2,7 +2,7 @@ vim.pack.add({
     { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
     { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("1.*") },
     { src = "https://github.com/fei6409/log-highlight.nvim" },
-    { src = "https://github.com/folke/tokyonight.nvim" },
+    -- { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/kevinhwang91/nvim-bqf" },
     { src = "https://github.com/lewis6991/gitsigns.nvim" },
@@ -13,28 +13,46 @@ vim.pack.add({
     { src = "https://github.com/stevearc/conform.nvim" },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/tpope/vim-sleuth" },
+    { src = "https://github.com/rose-pine/neovim" },
 }, { confirm = false })
 
 -- TOKYONIGHT ---------------------------------------------------------------{{{
 
-require("tokyonight").setup({
-    on_highlights = function(hl, c)
-        hl.MatchParen = {
-            bg = c.fg_gutter,
-            bold = true,
-        }
-    end,
-    plugins = {
-        all = false,
-        ["render-markdown"] = true,
-        blink = true,
-        fzf = true,
-        gitsigns = true,
-        mini_icons = true,
+-- require("tokyonight").setup({
+--     on_highlights = function(hl, c)
+--         hl.MatchParen = {
+--             bg = c.fg_gutter,
+--             bold = true,
+--         }
+--     end,
+--     plugins = {
+--         all = false,
+--         ["render-markdown"] = true,
+--         blink = true,
+--         fzf = true,
+--         gitsigns = true,
+--         mini_icons = true,
+--     },
+-- })
+
+-- vim.cmd.colorscheme("tokyonight-night")
+
+-- }}}
+
+-- ROSE-PINE ----------------------------------------------------------------{{{
+
+require("rose-pine").setup({
+    enable = {
+        legacy_highlights = false,
+        migrations = false,
+    },
+    highlight_groups = {
+        StatusLine = { fg = "foam", bg = "foam", blend = 10 },
+        -- StatusLineNC = { fg = "subtle", bg = "surface" },
     },
 })
 
-vim.cmd.colorscheme("tokyonight-night")
+vim.cmd.colorscheme("rose-pine")
 
 -- }}}
 

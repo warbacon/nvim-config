@@ -2,7 +2,6 @@ vim.pack.add({
     { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
     { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("1.*") },
     { src = "https://github.com/fei6409/log-highlight.nvim" },
-    { src = "https://github.com/fladson/vim-kitty" },
     { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/kevinhwang91/nvim-bqf" },
@@ -47,22 +46,22 @@ local ts_parsers = {
     "c",
     "cpp",
     "css",
-    "dockerfile",
     "fish",
     "gitcommit",
     "html",
     "hyprlang",
     "ini",
+    "java",
     "javascript",
     "json",
     "jsonc",
+    "kitty",
     "lua",
     "markdown",
     "markdown_inline",
     "nix",
     "printf",
     "python",
-    "rasi",
     "regex",
     "svelte",
     "toml",
@@ -72,6 +71,18 @@ local ts_parsers = {
     "xml",
     "yaml",
 }
+
+vim.api.nvim_create_autocmd("User", {
+    pattern = "TSUpdate",
+    callback = function()
+        require("nvim-treesitter.parsers").kitty = {
+            install_info = {
+                url = "https://github.com/OXY2DEV/tree-sitter-kitty",
+                queries = "queries/",
+            },
+        }
+    end,
+})
 
 require("nvim-treesitter").install(ts_parsers)
 

@@ -102,7 +102,9 @@ vim.api.nvim_create_autocmd("User", {
     end,
 })
 
-require("nvim-treesitter").install(ts_parsers)
+if vim.fn.has("win32") == 0 then
+    require("nvim-treesitter").install(ts_parsers)
+end
 
 vim.api.nvim_create_autocmd("PackChanged", {
     callback = function(ev)

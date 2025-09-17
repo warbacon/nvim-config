@@ -221,7 +221,6 @@ require("mini.splitjoin").setup({
 -- BLINK.CMP ----------------------------------------------------------------{{{
 
 require("blink.cmp").setup({
-    cmdline = { enabled = false },
     appearance = {
         kind_icons = Util.icons.kinds,
         nerd_font_variant = "normal",

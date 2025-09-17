@@ -110,6 +110,7 @@ vim.api.nvim_create_autocmd("PackChanged", {
     callback = function(ev)
         if ev.data.kind == "update" and ev.data.spec.name == "nvim-treesitter" then
             vim.cmd("TSUpdate")
+            require("nvim-treesitter").update(nil, { summary = true })
         end
     end,
 })

@@ -65,6 +65,7 @@ local ts_parsers = {
     "css",
     "fish",
     "gitcommit",
+    "go",
     "html",
     "hyprlang",
     "ini",
@@ -114,9 +115,12 @@ vim.api.nvim_create_autocmd("PackChanged", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-    callback = function()
-        if pcall(vim.treesitter.start) then
-            if vim.treesitter.query.get(vim.treesitter.get_parser():lang(), "indents") then
+    callback = function(ev)
+        local lang = vim.treesitter.language.get_lang(ev.match)
+
+        if Util.treesitter.get_installed()[lang] then
+            vim.treesitter.start()
+            if lang and vim.treesitter.query.get(lang, "indents") then
                 vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
             end
         end

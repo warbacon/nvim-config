@@ -33,6 +33,8 @@ vim.o.splitright = true
 vim.o.foldtext = ""
 vim.o.winborder = "rounded"
 
+vim.opt.confirm = true
+
 vim.opt.fillchars = {
     foldopen = "",
     foldclose = "",

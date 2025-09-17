@@ -26,7 +26,7 @@ if not vim.loader.enabled then
     vim.loader.enable()
 end
 
-require("vim._extui").enable({})
+-- require("vim._extui").enable({})
 
 _G.Util = require("util")
 require("config.options")

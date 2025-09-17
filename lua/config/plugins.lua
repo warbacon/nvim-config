@@ -48,7 +48,6 @@ require("rose-pine").setup({
     },
     highlight_groups = {
         StatusLine = { fg = "foam", bg = "foam", blend = 10 },
-        -- StatusLineNC = { fg = "subtle", bg = "surface" },
     },
 })
 
@@ -135,6 +134,7 @@ vim.lsp.enable({
     "clangd",
     "cssls",
     "emmet_language_server",
+    "gopls",
     "html",
     "jdtls",
     "jsonls",

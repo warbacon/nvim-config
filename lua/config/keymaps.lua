@@ -13,6 +13,9 @@ vim.keymap.set({ "n", "v" }, "<leader>Y", '"+y$')
 vim.keymap.set({ "n", "v" }, "<leader>p", '"+p')
 vim.keymap.set({ "n", "v" }, "<leader>P", '"+P')
 
+-- Fuzzy finder replacement
+vim.keymap.set("n", "<Leader>f", ":find **/", { noremap = true })
+
 -- Update plugins
 vim.keymap.set("n", "<Leader>u", vim.pack.update)
 

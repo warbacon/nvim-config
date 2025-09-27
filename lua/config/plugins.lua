@@ -148,6 +148,7 @@ require("conform").setup({
         fish = { "fish_indent" },
         lua = { "stylua" },
         sh = { "shfmt" },
+        toml = { "taplo" },
         ["*"] = { "injected" },
         ["_"] = { "trim_whitespace", "trim_newlines", lsp_format = "prefer" },
     },

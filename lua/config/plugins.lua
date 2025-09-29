@@ -72,27 +72,15 @@ local ts_parsers = {
     "yaml",
 }
 
-vim.api.nvim_create_autocmd("User", {
-    pattern = "TSUpdate",
-    callback = function()
-        require("nvim-treesitter.parsers").kitty = {
-            install_info = {
-                url = "https://github.com/OXY2DEV/tree-sitter-kitty",
-                queries = "queries/",
-            },
-        }
-    end,
-})
-
 if vim.fn.has("win32") == 0 then
-    require("nvim-treesitter").install(ts_parsers)
+    require("nvim-treesitter").install(ts_parsers):wait(100000)
 end
 
 vim.api.nvim_create_autocmd("PackChanged", {
     callback = function(ev)
         if ev.data.kind == "update" and ev.data.spec.name == "nvim-treesitter" then
             vim.cmd("TSUpdate")
-            require("nvim-treesitter").update(nil, { summary = true })
+            require("nvim-treesitter").update()
         end
     end,
 })

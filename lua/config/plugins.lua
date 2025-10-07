@@ -107,6 +107,7 @@ vim.lsp.enable({
     "astro",
     "basedpyright",
     "bashls",
+    "biome",
     "clangd",
     "cssls",
     "emmet_language_server",

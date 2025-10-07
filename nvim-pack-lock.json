@@ -17,6 +17,10 @@
       "rev": "1ee5c1f",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
+    "lazydev.nvim": {
+      "rev": "258d2a5",
+      "src": "https://github.com/folke/lazydev.nvim"
+    },
     "mini.nvim": {
       "rev": "79654ef",
       "src": "https://github.com/nvim-mini/mini.nvim"

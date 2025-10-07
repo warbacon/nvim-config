@@ -1,6 +1,7 @@
 vim.pack.add({
     { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
     { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("1.*") },
+    { src = "https://github.com/folke/lazydev.nvim" },
     { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/kevinhwang91/nvim-bqf" },
@@ -125,6 +126,12 @@ vim.lsp.enable({
 
 vim.lsp.on_type_formatting.enable()
 
+require("lazydev").setup({
+    library = {
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+    },
+})
+
 -- }}}
 
 -- CONFORM ------------------------------------------------------------------{{{
@@ -202,11 +209,19 @@ require("blink.cmp").setup({
     completion = {
         documentation = {
             auto_show = true,
-            auto_show_delay_ms = 500,
+            auto_show_delay_ms = 200,
         },
     },
     sources = {
+        per_filetype = {
+            lua = { inherit_defaults = true, "lazydev" },
+        },
         providers = {
+            lazydev = {
+                name = "LazyDev",
+                module = "lazydev.integrations.blink",
+                score_offset = 100,
+            },
             path = {
                 opts = {
                     show_hidden_files_by_default = true,

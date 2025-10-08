@@ -258,23 +258,25 @@ end)
 
 -- OIL ----------------------------------------------------------------------{{{
 
-require("oil").setup({
-    delete_to_trash = true,
-    skip_confirm_for_simple_edits = true,
-    lsp_file_methods = {
-        autosave_changes = "unmodified",
-    },
-    keymaps = {
-        ["`"] = false,
-        ["~"] = false,
-        [","] = { "actions.cd", mode = "n" },
-    },
-    view_options = {
-        show_hidden = true,
-    },
-})
+now_if_args(function()
+    require("oil").setup({
+        delete_to_trash = true,
+        skip_confirm_for_simple_edits = true,
+        lsp_file_methods = {
+            autosave_changes = "unmodified",
+        },
+        keymaps = {
+            ["`"] = false,
+            ["~"] = false,
+            [","] = { "actions.cd", mode = "n" },
+        },
+        view_options = {
+            show_hidden = true,
+        },
+    })
 
-vim.keymap.set("n", "-", "<Cmd>Oil<CR>")
+    vim.keymap.set("n", "-", "<Cmd>Oil<CR>")
+end)
 
 -- }}}
 

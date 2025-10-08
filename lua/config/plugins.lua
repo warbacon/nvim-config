@@ -148,12 +148,26 @@ end)
 later(function()
     require("conform").setup({
         formatters_by_ft = {
+            css = { "biome" },
+            html = { "biome" },
+            javascript = { "biome" },
+            javascriptreact = { "biome" },
+            json = { "biome" },
+            jsonc = { "biome" },
+            typescript = { "biome" },
+            typescriptreact = { "biome" },
+
             c = { "clang-format" },
             cpp = { "clang-format" },
+
             fish = { "fish_indent" },
+
             lua = { "stylua" },
+
             sh = { "shfmt" },
+
             toml = { "taplo" },
+
             ["*"] = { "injected" },
             ["_"] = { "trim_whitespace", "trim_newlines", lsp_format = "prefer" },
         },

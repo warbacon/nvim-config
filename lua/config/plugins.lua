@@ -114,7 +114,6 @@ now_if_args(function()
         "astro",
         "basedpyright",
         "bashls",
-        "biome",
         "clangd",
         "cssls",
         "emmet_language_server",
@@ -148,15 +147,6 @@ end)
 later(function()
     require("conform").setup({
         formatters_by_ft = {
-            css = { "biome" },
-            html = { "biome" },
-            javascript = { "biome" },
-            javascriptreact = { "biome" },
-            json = { "biome" },
-            jsonc = { "biome" },
-            typescript = { "biome" },
-            typescriptreact = { "biome" },
-
             c = { "clang-format" },
             cpp = { "clang-format" },
 

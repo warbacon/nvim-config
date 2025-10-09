@@ -13,7 +13,7 @@ vim.pack.add({
     { src = "https://github.com/stevearc/conform.nvim" },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/tpope/vim-sleuth" },
-})
+}, { confirm = false })
 
 local later = require("mini.deps").later
 local now = require("mini.deps").now

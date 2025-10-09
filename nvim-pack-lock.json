@@ -10,7 +10,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "fzf-lua": {
-      "rev": "c0c0926",
+      "rev": "db3ccff",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
@@ -18,11 +18,11 @@
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "lazydev.nvim": {
-      "rev": "258d2a5",
+      "rev": "e28ce52",
       "src": "https://github.com/folke/lazydev.nvim"
     },
     "mini.nvim": {
-      "rev": "fbb6ad0",
+      "rev": "ef89bb1",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nvim-bqf": {
@@ -30,7 +30,7 @@
       "src": "https://github.com/kevinhwang91/nvim-bqf"
     },
     "nvim-jdtls": {
-      "rev": "eca50f5",
+      "rev": "380ac14",
       "src": "https://github.com/mfussenegger/nvim-jdtls"
     },
     "nvim-lspconfig": {
@@ -47,11 +47,11 @@
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "render-markdown.nvim": {
-      "rev": "f3321d0",
+      "rev": "2064980",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "tokyonight.nvim": {
-      "rev": "4d15961",
+      "rev": "00d92e6",
       "src": "https://github.com/folke/tokyonight.nvim"
     },
     "vim-sleuth": {

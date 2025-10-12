@@ -1,5 +1,6 @@
 Util.bootstrap_lazy()
 
+---@type LazySpec
 local plugins = {
     { "MeanderingProgrammer/render-markdown.nvim" },
     { "Saghen/blink.cmp", version = "1.*" },
@@ -23,8 +24,7 @@ local plugins = {
     { "tpope/vim-sleuth" },
 }
 
-require("lazy").setup({
-    spec = plugins,
+require("lazy").setup(plugins, {
     install = { colorscheme = { "tokyonight-night" } },
     ui = { border = vim.o.winborder },
 })
@@ -42,14 +42,6 @@ require("tokyonight").setup({
             bold = true,
         }
     end,
-    plugins = {
-        all = false,
-        ["render-markdown"] = true,
-        blink = true,
-        fzf = true,
-        gitsigns = true,
-        mini_icons = true,
-    },
 })
 
 vim.cmd.colorscheme("tokyonight-night")

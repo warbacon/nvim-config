@@ -12,8 +12,8 @@
 </p>
 
 > [!WARNING]
-> Miovim is not compatible with **Neovim versions older than 0.11**. Make sure
-> you're running nightly to avoid issues.
+> **Miovim** is not compatible with **Neovim versions older than 0.11**. Make
+> sure you're running at least the latest stable release.
 
 ## 🚩 Introduction
 

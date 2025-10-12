@@ -1,19 +1,35 @@
-vim.pack.add({
-    { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
-    { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("1.*") },
-    { src = "https://github.com/folke/lazydev.nvim" },
-    { src = "https://github.com/folke/tokyonight.nvim" },
-    { src = "https://github.com/ibhagwan/fzf-lua" },
-    { src = "https://github.com/kevinhwang91/nvim-bqf" },
-    { src = "https://github.com/lewis6991/gitsigns.nvim" },
-    { src = "https://github.com/mfussenegger/nvim-jdtls" },
-    { src = "https://github.com/neovim/nvim-lspconfig" },
-    { src = "https://github.com/nvim-mini/mini.nvim" },
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
-    { src = "https://github.com/stevearc/conform.nvim" },
-    { src = "https://github.com/stevearc/oil.nvim" },
-    { src = "https://github.com/tpope/vim-sleuth" },
-}, { confirm = false })
+Util.bootstrap_lazy()
+
+local plugins = {
+    { "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+    { "https://github.com/Saghen/blink.cmp", version = "1.*" },
+    { "https://github.com/folke/lazydev.nvim" },
+    { "https://github.com/folke/tokyonight.nvim" },
+    { "https://github.com/ibhagwan/fzf-lua" },
+    { "https://github.com/kevinhwang91/nvim-bqf" },
+    { "https://github.com/lewis6991/gitsigns.nvim" },
+    { "https://github.com/mfussenegger/nvim-jdtls" },
+    { "https://github.com/neovim/nvim-lspconfig" },
+    { "https://github.com/nvim-mini/mini.nvim" },
+    {
+        "https://github.com/nvim-treesitter/nvim-treesitter",
+        branch = "main",
+        build = function()
+            require("nvim-treesitter").update()
+        end,
+    },
+    { "https://github.com/stevearc/conform.nvim" },
+    { "https://github.com/stevearc/oil.nvim" },
+    { "https://github.com/tpope/vim-sleuth" },
+}
+
+require("lazy").setup({
+    spec = plugins,
+    {
+        install = { colorscheme = { "tokyonight-night" } },
+        ui = { border = vim.o.winborder },
+    },
+})
 
 local later = require("mini.deps").later
 local now = require("mini.deps").now
@@ -81,15 +97,6 @@ now_if_args(function()
     if vim.fn.has("win32") == 0 then
         require("nvim-treesitter").install(ts_parsers):wait(100000)
     end
-
-    vim.api.nvim_create_autocmd("PackChanged", {
-        callback = function(ev)
-            if ev.data.kind == "update" and ev.data.spec.name == "nvim-treesitter" then
-                vim.cmd("TSUpdate")
-                require("nvim-treesitter").update()
-            end
-        end,
-    })
 
     vim.api.nvim_create_autocmd("FileType", {
         callback = function(ev)

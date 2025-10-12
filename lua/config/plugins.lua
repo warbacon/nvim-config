@@ -138,7 +138,9 @@ now_if_args(function()
         "yamlls",
     })
 
-    vim.lsp.on_type_formatting.enable()
+    if vim.fn.has("0.12") == 1 then
+        vim.lsp.on_type_formatting.enable()
+    end
 
     require("lazydev").setup({
         library = {

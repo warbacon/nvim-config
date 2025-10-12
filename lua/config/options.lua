@@ -32,7 +32,9 @@ vim.o.splitright = true
 
 vim.o.foldtext = ""
 vim.o.winborder = "rounded"
-vim.o.pumborder = "rounded"
+if vim.fn.has("0.12") == 1 then
+    vim.o.pumborder = "rounded"
+end
 
 vim.opt.confirm = true
 

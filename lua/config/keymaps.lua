@@ -16,9 +16,6 @@ vim.keymap.set({ "n", "v" }, "<leader>P", '"+P')
 -- Fuzzy finder replacement
 vim.keymap.set("n", "<Leader>f", ":find **/", { noremap = true })
 
--- Update plugins
-vim.keymap.set("n", "<Leader>u", vim.pack.update)
-
 -- Restart Neovim
 vim.keymap.set("n", "<Leader>rr", "<Cmd>restart<CR>")
 

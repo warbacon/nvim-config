@@ -136,7 +136,7 @@ now_if_args(function()
         "yamlls",
     })
 
-    if vim.fn.has("0.12") == 1 then
+    if vim.fn.has("nvim-0.12") == 1 then
         vim.lsp.on_type_formatting.enable()
     end
 

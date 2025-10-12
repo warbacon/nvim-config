@@ -32,6 +32,7 @@ vim.o.splitright = true
 
 vim.o.foldtext = ""
 vim.o.winborder = "rounded"
+vim.o.pumborder = "rounded"
 
 vim.opt.confirm = true
 

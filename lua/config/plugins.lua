@@ -1,34 +1,32 @@
 Util.bootstrap_lazy()
 
 local plugins = {
-    { "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
-    { "https://github.com/Saghen/blink.cmp", version = "1.*" },
-    { "https://github.com/folke/lazydev.nvim" },
-    { "https://github.com/folke/tokyonight.nvim" },
-    { "https://github.com/ibhagwan/fzf-lua" },
-    { "https://github.com/kevinhwang91/nvim-bqf" },
-    { "https://github.com/lewis6991/gitsigns.nvim" },
-    { "https://github.com/mfussenegger/nvim-jdtls" },
-    { "https://github.com/neovim/nvim-lspconfig" },
-    { "https://github.com/nvim-mini/mini.nvim" },
+    { "MeanderingProgrammer/render-markdown.nvim" },
+    { "Saghen/blink.cmp", version = "1.*" },
+    { "folke/lazydev.nvim" },
+    { "folke/tokyonight.nvim" },
+    { "ibhagwan/fzf-lua" },
+    { "kevinhwang91/nvim-bqf" },
+    { "lewis6991/gitsigns.nvim" },
+    { "mfussenegger/nvim-jdtls" },
+    { "neovim/nvim-lspconfig" },
+    { "nvim-mini/mini.nvim" },
     {
-        "https://github.com/nvim-treesitter/nvim-treesitter",
+        "nvim-treesitter/nvim-treesitter",
         branch = "main",
         build = function()
             require("nvim-treesitter").update()
         end,
     },
-    { "https://github.com/stevearc/conform.nvim" },
-    { "https://github.com/stevearc/oil.nvim" },
-    { "https://github.com/tpope/vim-sleuth" },
+    { "stevearc/conform.nvim" },
+    { "stevearc/oil.nvim" },
+    { "tpope/vim-sleuth" },
 }
 
 require("lazy").setup({
     spec = plugins,
-    {
-        install = { colorscheme = { "tokyonight-night" } },
-        ui = { border = vim.o.winborder },
-    },
+    install = { colorscheme = { "tokyonight-night" } },
+    ui = { border = vim.o.winborder },
 })
 
 local later = require("mini.deps").later

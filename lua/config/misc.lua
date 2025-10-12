@@ -13,6 +13,13 @@ vim.api.nvim_create_autocmd("VimLeave", {
     end,
 })
 
+-- Enter insert mode when a terminal is opened
+vim.api.nvim_create_autocmd("TermOpen", {
+    callback = function()
+        vim.fn.feedkeys("i")
+    end,
+})
+
 -- Remove the `How to disable mouse` entry from the PopUp menu
 vim.cmd([[
 unmenu PopUp.-2-

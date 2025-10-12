@@ -17,25 +17,21 @@
 
 ## 🚩 Introduction
 
-**Miovim** doesn't rely on `lazy.nvim` or any external plugin manager.  Instead,
-it uses [`vim.pack`](https://neovim.io/doc/user/pack.html#_plugin-manager) —
-Neovim's upcoming **native plugin manager**, still under development. Expect
-some rough edges.
+**Miovim** relies on `lazy.nvim` for plugin installation, but it doesn't use its
+built-in lazy-loading mechanisms. Instead, it leverages the `later()` and
+`now()` functions from the `mini.deps` module of the `mini.nvim` library.
 
-This approach enables an extremely minimal configuration, but comes with a
-trade-off: **native lazy loading isn't yet supported**.
-
-To mitigate this, `vim.loader` is enabled for faster startup. I might take a
-look at [`lz.n`](https://github.com/nvim-neorocks/lz.n) at some point.
+This approach provides greater flexibility, simplifies the configuration, and
+makes it easier to transition to `vim.pack` — the upcoming built-in plugin
+manager currently in development for Neovim nightly.
 
 ## 📦 Dependencies
 
 > [!IMPORTANT]
-> **Miovim does not use
-> [Mason.nvim](https://github.com/mason-org/mason.nvim).** Language servers
-> and external tools must be installed manually or through your system's package
-> manager. This configuration is primarily developed and used on **NixOS**, but
-> it's adaptable to other environments.
+> **Miovim does not use [Mason.nvim](https://github.com/mason-org/mason.nvim).**
+> Language servers and external tools must be installed manually or through your
+> system's package manager. This configuration is primarily developed and used
+> on **NixOS**, but it's adaptable to other environments.
 
 Make sure you have the following dependencies installed:
 
@@ -58,6 +54,10 @@ git clone https://github.com/warbacon/nvim-config "$HOME/.config/nvim"
 > [!IMPORTANT]
 > Neovim is slower on Windows. Using
 > [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) is recommended.
+
+> [!WARNING]
+> Additional Tree-sitter parsers aren't installed because building them
+> requires MSVC — and honestly, I'd rather not deal with that.
 
 ```bash
 git clone https://github.com/warbacon/nvim-config "$HOME\AppData\Local\nvim"

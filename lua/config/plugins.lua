@@ -12,6 +12,9 @@ local plugins = {
     { "mfussenegger/nvim-jdtls" },
     { "neovim/nvim-lspconfig" },
     { "nvim-mini/mini.nvim" },
+    { "stevearc/conform.nvim" },
+    { "stevearc/oil.nvim" },
+    { "tpope/vim-sleuth" },
     {
         "nvim-treesitter/nvim-treesitter",
         branch = "main",
@@ -19,9 +22,6 @@ local plugins = {
             require("nvim-treesitter").update()
         end,
     },
-    { "stevearc/conform.nvim" },
-    { "stevearc/oil.nvim" },
-    { "tpope/vim-sleuth" },
 }
 
 require("lazy").setup(plugins, {

@@ -383,4 +383,15 @@ require("render-markdown").setup({
 
 -- }}}
 
+-- UNDOTREE -----------------------------------------------------------------{{{
+
+if vim.fn.has("nvim-0.12") == 1 then
+    later(function()
+        vim.cmd.packadd("nvim.undotree")
+        vim.keymap.set("n", "<Leader>u", "<Cmd>Undotree<CR>", { silent = true, noremap = true })
+    end)
+end
+
+-- }}}
+
 -- vim: foldmethod=marker

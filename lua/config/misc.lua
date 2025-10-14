@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd("VimLeave", {
 -- Enter insert mode when a terminal is opened
 vim.api.nvim_create_autocmd("TermOpen", {
     callback = function()
-        vim.fn.feedkeys("i")
+        vim.cmd("startinsert")
     end,
 })
 

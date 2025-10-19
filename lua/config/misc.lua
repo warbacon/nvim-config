@@ -40,18 +40,17 @@ vim.api.nvim_create_user_command("Wq", "wq<bang>", { bang = true })
 
 -- HACK: move Windows entries to end of PATH in WSL to improve performance
 if vim.fn.has("wsl") == 1 then
-    local path_sep = ":"
     local original_path = vim.env.PATH
     local linux_paths = {}
     local windows_paths = {}
 
-    for entry in string.gmatch(original_path, "([^" .. path_sep .. "]+)") do
-        if entry:match("^/mnt/") then
-            table.insert(windows_paths, entry)
+    for entry in original_path:gmatch("([^:]+)") do
+        if entry:sub(1, 5) == "/mnt/" then
+            windows_paths[#windows_paths + 1] = entry
         else
-            table.insert(linux_paths, entry)
+            linux_paths[#linux_paths + 1] = entry
         end
     end
 
-    vim.env.PATH = table.concat(vim.list_extend(linux_paths, windows_paths), path_sep)
+    vim.env.PATH = table.concat(linux_paths, ":") .. ":" .. table.concat(windows_paths, ":")
 end

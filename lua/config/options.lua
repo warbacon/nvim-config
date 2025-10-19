@@ -31,10 +31,6 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 vim.o.foldtext = ""
-vim.o.winborder = "rounded"
-if vim.fn.has("nvim-0.12") == 1 then
-    vim.o.pumborder = "rounded"
-end
 
 vim.opt.confirm = true
 

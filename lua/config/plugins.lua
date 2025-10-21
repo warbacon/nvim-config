@@ -248,7 +248,6 @@ require("snacks").setup({
                     "*.ttf",
                     "*.woff*",
                     "*.pdf",
-                    ".git/",
                     "node_modules/",
                     "vendor/",
                 },
@@ -265,7 +264,6 @@ require("snacks").setup({
         },
     },
     image = { enabled = vim.fn.has("win32") == 0 },
-    notifier = { enabled = true },
 })
 
 vim.keymap.set("n", "<Leader>f", Snacks.picker.files)

@@ -478,7 +478,6 @@ local function get_highlight(name)
 end
 
 local conditions = require("heirline.conditions")
-local utils = require("heirline.utils")
 
 local Space = { provider = " " }
 
@@ -569,10 +568,6 @@ local FileBlock = {
             end
 
             local filepath = vim.fn.fnamemodify(self.filepath, ":.")
-
-            if vim.fn.has("win32") == 1 then
-                filepath = filepath:gsub("/", "\\")
-            end
 
             return filepath
         end,

@@ -25,6 +25,7 @@ local plugins = {
     { "MeanderingProgrammer/render-markdown.nvim" },
     { "Saghen/blink.cmp", version = "1.*" },
     { "folke/lazydev.nvim" },
+    { "rebelot/heirline.nvim" },
     { "folke/snacks.nvim" },
     { "folke/tokyonight.nvim" },
     { "kevinhwang91/nvim-bqf" },
@@ -467,6 +468,155 @@ if vim.fn.has("nvim-0.12") == 1 then
         vim.keymap.set("n", "<Leader>u", "<Cmd>Undotree<CR>", { silent = true, noremap = true })
     end)
 end
+
+-- }}}
+
+-- HEIRLINE -----------------------------------------------------------------{{{
+
+vim.o.showmode = false
+
+local function get_highlight(name)
+    return vim.api.nvim_get_hl(0, { name = name })
+end
+
+local conditions = require("heirline.conditions")
+local utils = require("heirline.utils")
+
+local Space = { provider = " " }
+
+local Align = { provider = "%=" }
+
+local ViMode = {
+    init = function(self)
+        self.mode = vim.fn.mode(1)
+    end,
+    static = {
+        mode_hl_group = {
+            -- Normal
+            n = "MiniStatuslineModeNormal",
+            no = "MiniStatuslineModeNormal",
+            nov = "MiniStatuslineModeNormal",
+            noV = "MiniStatuslineModeNormal",
+            ["no\22"] = "MiniStatuslineModeNormal",
+            niI = "MiniStatuslineModeNormal",
+            niR = "MiniStatuslineModeNormal",
+            niV = "MiniStatuslineModeNormal",
+            nt = "MiniStatuslineModeNormal",
+            ntT = "MiniStatuslineModeNormal",
+            -- Visual
+            v = "MiniStatuslineModeVisual",
+            vs = "MiniStatuslineModeVisual",
+            V = "MiniStatuslineModeVisual",
+            Vs = "MiniStatuslineModeVisual",
+            ["\22"] = "MiniStatuslineModeVisual",
+            ["\22s"] = "MiniStatuslineModeVisual",
+            -- Select
+            s = "MiniStatuslineModeVisual",
+            S = "MiniStatuslineModeVisual",
+            ["\19"] = "MiniStatuslineModeVisual",
+            -- Insert
+            i = "MiniStatuslineModeInsert",
+            ic = "MiniStatuslineModeInsert",
+            ix = "MiniStatuslineModeInsert",
+            -- Replace
+            R = "MiniStatuslineModeReplace",
+            Rc = "MiniStatuslineModeReplace",
+            Rx = "MiniStatuslineModeReplace",
+            Rv = "MiniStatuslineModeReplace",
+            Rvc = "MiniStatuslineModeReplace",
+            Rvx = "MiniStatuslineModeReplace",
+            -- Command
+            c = "MiniStatuslineModeCommand",
+            cv = "MiniStatuslineModeCommand",
+            ce = "MiniStatuslineModeCommand",
+            -- Terminal
+            t = "MiniStatuslineModeOther",
+            -- Other
+            r = "MiniStatuslineModeOther",
+            rm = "MiniStatuslineModeOther",
+            ["r?"] = "MiniStatuslineModeOther",
+            ["!"] = "MiniStatuslineModeOther",
+        },
+    },
+    provider = " ",
+    hl = function(self)
+        local mode = self.mode:sub(1, 1)
+        return self.mode_hl_group[mode]
+    end,
+    update = {
+        "ModeChanged",
+        pattern = "*:*",
+        callback = vim.schedule_wrap(function()
+            vim.cmd("redrawstatus")
+        end),
+    },
+}
+
+local FileBlock = {
+    init = function(self)
+        self.filepath = vim.api.nvim_buf_get_name(0)
+    end,
+    {
+        init = function(self)
+            self.icon, self.hl = MiniIcons.get("file", self.filepath)
+        end,
+        provider = function(self)
+            return self.icon .. " "
+        end,
+    },
+    {
+        provider = function(self)
+            if self.filepath == "" then
+                return "[Sin nombre]"
+            end
+
+            local filepath = vim.fn.fnamemodify(self.filepath, ":.")
+
+            if vim.fn.has("win32") == 1 then
+                filepath = filepath:gsub("/", "\\")
+            end
+
+            return filepath
+        end,
+    },
+    {
+        condition = function()
+            return vim.bo.readonly
+        end,
+        provider = " 󰌾",
+        hl = "DiagnosticError",
+    },
+    {
+        condition = function()
+            return vim.bo.modified
+        end,
+        provider = " [+]",
+    },
+}
+
+local StatusLine = {
+    condition = conditions.is_active,
+    ViMode,
+    Space,
+    FileBlock,
+    Align,
+    ViMode,
+}
+
+local StatusLineNC = {
+    FileBlock,
+    hl = { fg = get_highlight("StatusLineNC").fg, force = true },
+}
+
+local StatusLines = {
+    fallthrough = false,
+    StatusLine,
+    StatusLineNC,
+}
+
+require("heirline").setup({
+    statusline = StatusLines,
+})
 
 -- }}}
 

@@ -253,6 +253,15 @@ require("snacks").setup({
                 },
             },
         },
+        icons = {
+            diagnostics = {
+                Error = Util.icons.signs[1],
+                Warn = Util.icons.signs[2],
+                Info = Util.icons.signs[3],
+                Hint = Util.icons.signs[4],
+            },
+            kinds = Util.icons.kinds,
+        },
     },
     image = { enabled = vim.fn.has("win32") == 0 },
     notifier = { enabled = true },

@@ -26,6 +26,12 @@ unmenu PopUp.-2-
 unmenu PopUp.How-to\ disable\ mouse
 ]])
 
+vim.diagnostic.config({
+    signs = {
+        text = Util.icons.signs
+    }
+})
+
 -- Improve filetype support
 vim.filetype.add({
     pattern = {

@@ -48,9 +48,20 @@ local plugins = {
 
 require("lazy").setup(plugins, {
     install = { colorscheme = { "tokyonight-night" } },
-    ui = { border = "rounded" },
+    ui = { border = vim.o.winborder },
 })
+
 vim.keymap.set("n", "<Leader>l", require("lazy").show)
+
+vim.api.nvim_create_autocmd("FileType", {
+    desc = "User: fix backdrop for lazy window",
+    pattern = "lazy_backdrop",
+    group = vim.api.nvim_create_augroup("lazynvim-fix", { clear = true }),
+    callback = function(ctx)
+        local win = vim.fn.win_findbuf(ctx.buf)[1]
+        vim.api.nvim_win_set_config(win, { border = "none" })
+    end,
+})
 
 -- }}}
 
@@ -62,6 +73,7 @@ local now_if_args = vim.fn.argc(-1) > 0 and now or later
 
 require("tokyonight").setup({
     on_highlights = function(hl, c)
+        hl.PmenuBorder = { link = "FloatBorder" }
         hl.MatchParen = {
             bg = c.fg_gutter,
             bold = true,
@@ -210,7 +222,7 @@ require("snacks").setup({
         win = {
             input = {
                 keys = {
-                    ["<Esc>"] = { "close", mode = { "n", "i" } }
+                    ["<Esc>"] = { "close", mode = { "n", "i" } },
                 },
             },
             preview = {

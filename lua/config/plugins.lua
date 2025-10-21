@@ -25,8 +25,8 @@ local plugins = {
     { "MeanderingProgrammer/render-markdown.nvim" },
     { "Saghen/blink.cmp", version = "1.*" },
     { "folke/lazydev.nvim" },
+    { "folke/snacks.nvim" },
     { "folke/tokyonight.nvim" },
-    { "ibhagwan/fzf-lua" },
     { "kevinhwang91/nvim-bqf" },
     { "lewis6991/gitsigns.nvim" },
     { "mfussenegger/nvim-jdtls" },
@@ -202,26 +202,56 @@ end)
 
 -- }}}
 
--- FZF-LUA ------------------------------------------------------------------{{{
+-- SNACKS -------------------------------------------------------------------{{{
 
-later(function()
-    require("fzf-lua").setup({
-        fzf_colors = true,
-        keymap = {
-            builtin = {
-                ["<F1>"] = "toggle-help",
-                ["<M-m>"] = "toggle-fullscreen",
-                ["<M-p>"] = "toggle-preview",
+require("snacks").setup({
+    picker = {
+        enabled = true,
+        win = {
+            input = {
+                keys = {
+                    ["<Esc>"] = { "close", mode = { "n", "i" } }
+                },
+            },
+            preview = {
+                wo = { signcolumn = "no" },
             },
         },
-    })
-    vim.ui.select = require("fzf-lua.providers.ui_select").ui_select
-    vim.keymap.set("n", "<Leader>f", "<Cmd>FzfLua files<CR>")
-    vim.keymap.set("n", "<Leader>sd", "<Cmd>FzfLua diagnostics_workspace<CR>")
-    vim.keymap.set("n", "<Leader>sg", "<Cmd>FzfLua live_grep<CR>")
-    vim.keymap.set("n", "<Leader>sh", "<Cmd>FzfLua helptags<CR>")
-    vim.keymap.set("n", "z=", "<Cmd>FzfLua spell_suggest<CR>")
-end)
+        layout = function()
+            return {
+                preview = vim.o.columns >= 120 and true or false,
+                layout = require("snacks.picker.config.layouts").default.layout,
+            }
+        end,
+        sources = {
+            files = {
+                hidden = true,
+                exclude = {
+                    "*.class",
+                    "*.exe",
+                    "*.a",
+                    "*.o",
+                    "*.otf",
+                    "*.ttf",
+                    "*.woff*",
+                    "*.pdf",
+                    ".git/",
+                    "node_modules/",
+                    "vendor/",
+                },
+            },
+        },
+    },
+    image = { enabled = vim.fn.has("win32") == 0 },
+    notifier = { enabled = true },
+})
+
+vim.keymap.set("n", "<Leader>f", Snacks.picker.files)
+vim.keymap.set("n", "<Leader>,", Snacks.picker.buffers)
+vim.keymap.set("n", "<Leader>sd", Snacks.picker.diagnostics)
+vim.keymap.set("n", "<Leader>sg", Snacks.picker.grep)
+vim.keymap.set("n", "<Leader>sh", Snacks.picker.help)
+vim.keymap.set("n", "z=", Snacks.picker.spelling)
 
 -- }}}
 

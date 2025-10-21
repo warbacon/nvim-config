@@ -36,7 +36,6 @@ manager currently in development for Neovim nightly.
 Make sure you have the following dependencies installed:
 
 - A **C compiler**
-- [`fzf`](https://github.com/junegunn/fzf)
 - [`ripgrep`](https://github.com/BurntSushi/ripgrep) *(optional on Linux/macOS,
   but recommended)*
 - [`fd`](https://github.com/sharkdp/fd) *(optional but recommended)*

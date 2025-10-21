@@ -569,6 +569,10 @@ local FileBlock = {
 
             local filepath = vim.fn.fnamemodify(self.filepath, ":.")
 
+            if vim.fn.has("win32") == 1 then
+                filepath = filepath:gsub("\\", "/")
+            end
+
             return filepath
         end,
     },

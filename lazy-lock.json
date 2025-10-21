@@ -12,7 +12,7 @@
   "nvim-treesitter": { "branch": "main", "commit": "30c466ad571b8b99fd06e3df8b2336e3ae63a53a" },
   "oil.nvim": { "branch": "master", "commit": "7e1cd7703ff2924d7038476dcbc04b950203b902" },
   "render-markdown.nvim": { "branch": "main", "commit": "475d3ad8cae486b0df6fc6050cf5b5ea1de42db8" },
-  "snacks.nvim": { "branch": "main", "commit": "80286bfcc38a996f6a7c2335fb1cd8e1c0c44ee2" },
+  "snacks.nvim": { "branch": "main", "commit": "92a08cece72aeb67cf2a527991cbffdab093db5e" },
   "tokyonight.nvim": { "branch": "main", "commit": "e63c42a42b11cd6225f009dd949b9ee0fccc15ef" },
   "vim-sleuth": { "branch": "master", "commit": "be69bff86754b1aa5adcbb527d7fcd1635a84080" }
 }

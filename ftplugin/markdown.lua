@@ -1,3 +1,7 @@
-vim.wo.colorcolumn = "80"
 vim.bo.textwidth = 80
-vim.b.indent_guide = false
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    callback = function()
+        vim.wo.colorcolumn = vim.bo.filetype == "markdown" and "80" or ""
+    end,
+})

@@ -22,17 +22,20 @@ if vim.fn.has("nvim-0.11") == 0 then
     return
 end
 
+_G.Util = require("util")
+
 vim.loader.enable()
 
 if vim.fn.has("nvim-0.12") == 1 then
     require("vim._extui").enable({})
+    vim.lsp.on_type_formatting.enable()
 end
 
-_G.Util = require("util")
 require("config.options")
 require("config.keymaps")
 require("config.misc")
 
 if vim.env.XDG_SESSION_TYPE ~= "tty" then
-    require("config.plugins")
+    vim.diagnostic.config({ signs = { text = Util.icons.signs } })
+    require("config.lazy")
 end

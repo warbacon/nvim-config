@@ -17,7 +17,7 @@ vim.keymap.set({ "n", "v" }, "<leader>P", '"+P')
 vim.keymap.set("n", "<Leader>f", ":find **/", { noremap = true })
 
 -- Restart Neovim
-if vim.fn.has("nvim-0.12") then
+if vim.fn.has("nvim-0.12") == 1 then
     vim.keymap.set("n", "<Leader>rr", "<Cmd>restart<CR>")
 end
 

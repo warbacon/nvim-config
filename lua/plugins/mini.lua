@@ -14,16 +14,18 @@ return {
     {
         "nvim-mini/mini.move",
         keys = {
-            { "<A-k>" },
-            { "<A-j>" },
-            { "<A-h>" },
-            { "<A-l>" },
+            { "<A-k>", mode = { "n", "v" } },
+            { "<A-j>", mode = { "n", "v" } },
+            { "<A-h>", mode = { "n", "v" } },
+            { "<A-l>", mode = { "n", "v" } },
         },
         opts = {},
     },
     {
         "nvim-mini/mini.splitjoin",
-        keys = { "gs" },
+        keys = {
+            { "gs", mode = { "n", "v" } },
+        },
         opts = {
             mappings = {
                 toggle = "gs",

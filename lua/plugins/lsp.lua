@@ -1,7 +1,8 @@
 return {
     {
         "neovim/nvim-lspconfig",
-        dependencies = { "mfussenegger/nvim-jdtls" },
+        lazy = vim.fn.argc(-1) == 0,
+        event = "VeryLazy",
         config = function()
             vim.lsp.enable({
                 "astro",
@@ -37,5 +38,9 @@ return {
                 { path = "mini.icons", words = { "MiniIcons" } },
             },
         },
+    },
+    {
+        "mfussenegger/nvim-jdtls",
+        ft = "java",
     },
 }

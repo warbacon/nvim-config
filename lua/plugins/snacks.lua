@@ -29,7 +29,10 @@ return {
             layout = function()
                 return {
                     preview = vim.o.columns >= 120 and true or false,
-                    layout = require("snacks.picker.config.layouts").default.layout,
+                    layout = {
+                        min_width = 0,
+                    },
+                    preset = "default",
                 }
             end,
             sources = {

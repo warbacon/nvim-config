@@ -16,7 +16,7 @@ return {
                 "intelephense",
                 "jdtls",
                 "jsonls",
-                "lua_ls",
+                "emmylua_ls",
                 "nixd",
                 "qmlls",
                 "svelte",

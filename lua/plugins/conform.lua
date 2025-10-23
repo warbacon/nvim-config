@@ -9,14 +9,12 @@ return {
             end,
         },
     },
-    ---@module "conform"
     ---@type conform.setupOpts
     opts = {
         formatters_by_ft = {
             c = { "clang-format" },
             cpp = { "clang-format" },
             fish = { "fish_indent" },
-            lua = { "stylua" },
             sh = { "shfmt" },
             toml = { "taplo" },
             ["*"] = { "injected" },

@@ -25,7 +25,10 @@ end
 vim.keymap.set("t", "<M-q>", "<C-\\><C-n>")
 
 -- Disable the `q:` command-line window
-vim.keymap.set("n", "q:", "<cmd>echoe 'q:'<CR>", { noremap = true })
+vim.keymap.set("n", "q:", "<Cmd>echoe 'q:'<CR>", { noremap = true })
+
+-- Open netrw
+vim.keymap.set("n", "-", "<Cmd>Explore<CR>", { noremap = true })
 
 -- <C-t> annoys me
 vim.keymap.set("i", "<C-t>", "<nop>", { noremap = true })

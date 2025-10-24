@@ -1,6 +1,7 @@
 return {
     "folke/tokyonight.nvim",
     priority = 1000,
+    ---@module "tokyonight"
     ---@type tokyonight.Config
     opts = {
         on_highlights = function(hl, c)

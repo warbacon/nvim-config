@@ -11,6 +11,7 @@ return {
         { "<Leader>sh", function() Snacks.picker.help() end },
         { "z=", function() Snacks.picker.spelling() end },
     },
+    ---@module "snacks"
     ---@type snacks.Config
     opts = {
         picker = {

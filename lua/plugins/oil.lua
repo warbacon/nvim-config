@@ -4,6 +4,7 @@ return {
     keys = {
         { "-", "<Cmd>Oil<CR>" },
     },
+    ---@module "oil"
     ---@type oil.SetupOpts
     opts = {
         delete_to_trash = true,

@@ -31,6 +31,7 @@ return {
             end
         end,
     },
+    ---@module "lazydev"
     ---@type lazydev.Config
     {
         "folke/lazydev.nvim",

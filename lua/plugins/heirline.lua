@@ -17,12 +17,12 @@ return {
 
         if not lualine_ok then
             lualine_mode_opts = {
-                normal = { a = {} },
-                visual = { a = {} },
-                terminal = { a = {} },
-                insert = { a = {} },
-                replace = { a = {} },
-                command = { a = {} },
+                normal = { a = { bg = "" } },
+                visual = { a = { bg = "" } },
+                terminal = { a = { bg = "" } },
+                insert = { a = { bg = "" } },
+                replace = { a = { bg = "" } },
+                command = { a = { bg = "" } },
             }
         else
             vim.o.showmode = false
@@ -38,28 +38,28 @@ return {
             static = {
                 mode_hl_group = {
                     -- Normal
-                    n = lualine_mode_opts.normal.a,
+                    n = lualine_mode_opts.normal.a.bg,
                     -- Visual
-                    v = lualine_mode_opts.visual.a,
-                    V = lualine_mode_opts.visual.a,
-                    ["\22"] = lualine_mode_opts.visual.a,
+                    v = lualine_mode_opts.visual.a.bg,
+                    V = lualine_mode_opts.visual.a.bg,
+                    ["\22"] = lualine_mode_opts.visual.a.bg,
                     -- Select
-                    s = lualine_mode_opts.visual.a,
-                    S = lualine_mode_opts.visual.a,
-                    ["\19"] = lualine_mode_opts.visual.a,
+                    s = lualine_mode_opts.visual.a.bg,
+                    S = lualine_mode_opts.visual.a.bg,
+                    ["\19"] = lualine_mode_opts.visual.a.bg,
                     -- Insert
-                    i = lualine_mode_opts.insert.a,
+                    i = lualine_mode_opts.insert.a.bg,
                     -- Replace
-                    R = lualine_mode_opts.replace.a,
+                    R = lualine_mode_opts.replace.a.bg,
                     -- Command
-                    c = lualine_mode_opts.command.a,
+                    c = lualine_mode_opts.command.a.bg,
                     -- Terminal
-                    t = lualine_mode_opts.terminal and lualine_mode_opts.terminal.a,
+                    t = lualine_mode_opts.terminal and lualine_mode_opts.terminal.a.bg,
                 },
             },
             provider = " ",
             hl = function(self)
-                return self.mode_hl_group[self.mode] or lualine_mode_opts.normal.a
+                return { bg = self.mode_hl_group[self.mode] or lualine_mode_opts.normal.a.bg }
             end,
             update = {
                 "ModeChanged",
@@ -85,7 +85,7 @@ return {
             {
                 provider = function(self)
                     if self.filepath == "" then
-                        return "[Sin nombre]"
+                        return vim.env.LANG  == "es_ES.UTF-8" and "[Sin nombre]" or "[No name]"
                     end
 
                     if vim.bo.filetype == "help" then

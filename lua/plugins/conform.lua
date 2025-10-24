@@ -16,6 +16,7 @@ return {
             c = { "clang-format" },
             cpp = { "clang-format" },
             fish = { "fish_indent" },
+            lua = { "stylua" },
             sh = { "shfmt" },
             toml = { "taplo" },
             ["*"] = { "injected" },

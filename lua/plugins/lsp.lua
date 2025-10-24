@@ -16,7 +16,7 @@ return {
                 "intelephense",
                 "jdtls",
                 "jsonls",
-                "emmylua_ls",
+                "lua_ls",
                 "nixd",
                 "qmlls",
                 "svelte",
@@ -24,9 +24,13 @@ return {
                 "vtsls",
                 "yamlls",
             })
+
+            if vim.fn.executable("emmylua_ls") == 1 then
+                vim.lsp.enable("lua_ls", false)
+                vim.lsp.enable("emmylua_ls")
+            end
         end,
     },
-    ---@module "lazydev"
     ---@type lazydev.Config
     {
         "folke/lazydev.nvim",

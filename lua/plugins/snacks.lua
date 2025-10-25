@@ -9,6 +9,8 @@ return {
         { "<Leader>sd", function() Snacks.picker.diagnostics() end },
         { "<Leader>sg", function() Snacks.picker.grep() end },
         { "<Leader>sh", function() Snacks.picker.help() end },
+        { "<Leader>e", function() Snacks.picker.explorer() end },
+        { "<Leader>n", function() Snacks.notifier.show_history() end },
         { "z=", function() Snacks.picker.spelling() end },
     },
     ---@module "snacks"
@@ -29,9 +31,7 @@ return {
             layout = function()
                 return {
                     preview = vim.o.columns >= 120 and true or false,
-                    layout = {
-                        min_width = 0,
-                    },
+                    layout = { min_width = 0 },
                     preset = "default",
                 }
             end,
@@ -63,7 +63,6 @@ return {
             },
         },
         image = {
-            enabled = vim.fn.has("win32") == 0,
             doc = {
                 inline = false,
                 max_width = 60,

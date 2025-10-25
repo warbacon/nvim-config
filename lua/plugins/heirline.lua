@@ -85,7 +85,7 @@ return {
             {
                 provider = function(self)
                     if self.filepath == "" then
-                        return vim.env.LANG  == "es_ES.UTF-8" and "[Sin nombre]" or "[No name]"
+                        return vim.env.LANG == "es_ES.UTF-8" and "[Sin nombre]" or "[No name]"
                     end
 
                     if vim.bo.filetype == "help" then

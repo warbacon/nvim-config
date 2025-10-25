@@ -9,14 +9,9 @@ return {
         local Space = { provider = " " }
         local Align = { provider = "%=" }
 
-        local lualine_ok = false
-        local lualine_mode_opts = {}
-        if vim.g.colors_name then
-            lualine_ok, lualine_mode_opts = pcall(require, "lualine.themes." .. vim.g.colors_name)
-        end
-
+        local lualine_ok, lualine_theme = pcall(require, "lualine.themes." .. (vim.g.colors_name or ""))
         if not lualine_ok then
-            lualine_mode_opts = {
+            lualine_theme = {
                 normal = { a = { bg = "" } },
                 visual = { a = { bg = "" } },
                 terminal = { a = { bg = "" } },
@@ -25,6 +20,9 @@ return {
                 command = { a = { bg = "" } },
             }
         else
+            if not lualine_theme.terminal then
+                lualine_theme.terminal = lualine_theme.insert
+            end
             vim.o.showmode = false
         end
 
@@ -38,28 +36,28 @@ return {
             static = {
                 mode_hl_group = {
                     -- Normal
-                    n = lualine_mode_opts.normal.a.bg,
+                    n = lualine_theme.normal.a.bg,
                     -- Visual
-                    v = lualine_mode_opts.visual.a.bg,
-                    V = lualine_mode_opts.visual.a.bg,
-                    ["\22"] = lualine_mode_opts.visual.a.bg,
+                    v = lualine_theme.visual.a.bg,
+                    V = lualine_theme.visual.a.bg,
+                    ["\22"] = lualine_theme.visual.a.bg,
                     -- Select
-                    s = lualine_mode_opts.visual.a.bg,
-                    S = lualine_mode_opts.visual.a.bg,
-                    ["\19"] = lualine_mode_opts.visual.a.bg,
+                    s = lualine_theme.visual.a.bg,
+                    S = lualine_theme.visual.a.bg,
+                    ["\19"] = lualine_theme.visual.a.bg,
                     -- Insert
-                    i = lualine_mode_opts.insert.a.bg,
+                    i = lualine_theme.insert.a.bg,
                     -- Replace
-                    R = lualine_mode_opts.replace.a.bg,
+                    R = lualine_theme.replace.a.bg,
                     -- Command
-                    c = lualine_mode_opts.command.a.bg,
+                    c = lualine_theme.command.a.bg,
                     -- Terminal
-                    t = lualine_mode_opts.terminal and lualine_mode_opts.terminal.a.bg,
+                    t = lualine_theme.terminal.a.bg,
                 },
             },
             provider = " ",
             hl = function(self)
-                return { bg = self.mode_hl_group[self.mode] or lualine_mode_opts.normal.a.bg }
+                return { bg = self.mode_hl_group[self.mode] or lualine_theme.normal.a.bg }
             end,
             update = {
                 "ModeChanged",
@@ -85,7 +83,7 @@ return {
             {
                 provider = function(self)
                     if self.filepath == "" then
-                        return vim.env.LANG == "es_ES.UTF-8" and "[Sin nombre]" or "[No name]"
+                        return "%f"
                     end
 
                     if vim.bo.filetype == "help" then

@@ -198,7 +198,6 @@ return {
         }
 
         require("heirline").setup({
-            ---@diagnostic disable-next-line: missing-fields
             statusline = {
                 fallthrough = false,
                 StatusLine,

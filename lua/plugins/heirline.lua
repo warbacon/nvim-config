@@ -74,7 +74,11 @@ return {
             end,
             {
                 init = function(self)
-                    self.icon, self.hl = MiniIcons.get("file", self.filepath)
+                    if vim.bo.filetype == "oil" or vim.bo.filetype == "netrw" then
+                        self.icon, self.hl = MiniIcons.get("directory", self.filepath)
+                    else
+                        self.icon, self.hl = MiniIcons.get("file", self.filepath)
+                    end
                 end,
                 provider = function(self)
                     return self.icon .. " "
@@ -91,6 +95,10 @@ return {
                     end
 
                     local filepath = vim.fn.fnamemodify(self.filepath, ":."):gsub(vim.env.HOME, "~")
+
+                    if vim.bo.filetype == "oil" then
+                        filepath = filepath:sub(7)
+                    end
 
                     if not conditions.width_percent_below(#filepath, 0.40) then
                         filepath = vim.fn.pathshorten(filepath)

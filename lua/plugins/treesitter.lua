@@ -7,7 +7,6 @@ return {
         require("nvim-treesitter").update()
     end,
     config = function()
-        -- Define languages which will have parsers installed and auto enabled
         local ts_parsers = {
             "astro",
             "bash",
@@ -40,23 +39,26 @@ return {
             "xml",
             "yaml",
         }
+
+        local installed_parsers = require("nvim-treesitter").get_installed()
+
         if vim.fn.has("win32") == 0 then
-            local isnt_installed = function(lang)
-                return #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".*", false) == 0
-            end
-            local to_install = vim.tbl_filter(isnt_installed, ts_parsers)
+            local to_install = vim.tbl_filter(function(lang)
+                return not installed_parsers[lang]
+            end, ts_parsers)
+
             if #to_install > 0 then
-                require("nvim-treesitter").install(to_install)
+                require("nvim-treesitter.install").install(to_install)
             end
         end
 
-        -- Enable tree-sitter after opening a file for a target language
         local filetypes = {}
-        for _, lang in ipairs(ts_parsers) do
+        for _, lang in ipairs(installed_parsers) do
             for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
                 table.insert(filetypes, ft)
             end
         end
+
         vim.api.nvim_create_autocmd("FileType", {
             pattern = filetypes,
             callback = function(ev)

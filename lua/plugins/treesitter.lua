@@ -8,6 +8,10 @@ return {
             require("nvim-treesitter").update()
         end,
         config = function()
+            if vim.fn.has("win32") == 1 then
+                return
+            end
+
             local ts_parsers = {
                 "astro",
                 "bash",
@@ -43,14 +47,12 @@ return {
 
             local installed_parsers = require("nvim-treesitter").get_installed()
 
-            if vim.fn.has("win32") == 0 then
-                local to_install = vim.tbl_filter(function(lang)
-                    return not installed_parsers[lang]
-                end, ts_parsers)
+            local to_install = vim.tbl_filter(function(lang)
+                return not installed_parsers[lang]
+            end, ts_parsers)
 
-                if #to_install > 0 then
-                    require("nvim-treesitter.install").install(to_install)
-                end
+            if #to_install > 0 then
+                require("nvim-treesitter.install").install(to_install)
             end
 
             local filetypes = {}

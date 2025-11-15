@@ -6,7 +6,6 @@ return {
     opts = {
         on_highlights = function(hl, c)
             hl.PmenuBorder = { link = "FloatBorder" }
-            hl.BlinkIndentScope = { fg = hl.FloatBorder.fg }
             hl.MatchParen = {
                 bg = c.fg_gutter,
                 bold = true,

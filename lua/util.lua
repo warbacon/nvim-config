@@ -7,7 +7,7 @@ local M = {}
 
 ---@type Icons
 M.icons = {
-    indent = "▏",
+    indent = "│",
     signs = { "", "", "", "" },
     kinds = {
         Class = "",

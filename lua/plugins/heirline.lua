@@ -71,6 +71,9 @@ return {
         local FileBlock = {
             init = function(self)
                 self.filepath = vim.api.nvim_buf_get_name(0)
+                if vim.bo.filetype == "oil" then
+                    self.filepath = self.filepath:sub(7, #self.filepath - 1)
+                end
             end,
             {
                 init = function(self)
@@ -85,30 +88,61 @@ return {
                 end,
             },
             {
-                provider = function(self)
-                    if self.filepath == "" then
-                        return "%f"
-                    end
-
-                    if vim.bo.filetype == "help" then
-                        return vim.fn.fnamemodify(self.filepath, ":t")
-                    end
-
+                init = function(self)
                     local filepath = vim.fn.fnamemodify(self.filepath, ":."):gsub(vim.env.HOME, "~")
-
-                    if vim.bo.filetype == "oil" then
-                        filepath = filepath:sub(7, #filepath-1)
-                    end
-
-                    if not conditions.width_percent_below(#filepath, 0.40) then
-                        filepath = vim.fn.pathshorten(filepath)
-                    end
 
                     if vim.fn.has("win32") == 1 then
                         filepath = filepath:gsub("\\", "/")
                     end
 
-                    return filepath
+                    local dirname = vim.fs.dirname(filepath)
+                    if dirname == "." then
+                        self.dirname = ""
+                        self.dirname_short = ""
+                        return
+                    end
+
+                    self.dirname = dirname .. "/"
+
+                    local protocol = dirname:match("^(%w+://)")
+                    local path = protocol and dirname:sub(#protocol + 1) or dirname
+
+                    local parts = {}
+                    for part in path:gmatch("[^/]+") do
+                        parts[#parts + 1] = part
+                    end
+
+                    if #parts > 0 then
+                        self.dirname_short = (protocol or "") .. "…/" .. parts[#parts] .. "/"
+                    else
+                        self.dirname_short = self.dirname
+                    end
+                end,
+                provider = function(self)
+                    if vim.bo.filetype == "help" or self.dirname == "" then
+                        return ""
+                    end
+
+                    if not conditions.width_percent_below(#self.dirname, 0.20) then
+                        return self.dirname_short
+                    end
+
+                    return self.dirname
+                end,
+            },
+            {
+                init = function(self)
+                    if self.filepath == "" then
+                        self.basename = "%f"
+                    else
+                        self.basename = vim.fs.basename(self.filepath)
+                    end
+                end,
+                provider = function(self)
+                    return self.basename
+                end,
+                hl = function()
+                    return vim.bo.modified and "CursorLineNr" or { bold = true }
                 end,
             },
             {
@@ -126,12 +160,6 @@ return {
                 end,
                 provider = " 󰌾",
                 hl = "DiagnosticError",
-            },
-            {
-                condition = function()
-                    return vim.bo.modified
-                end,
-                provider = " ",
             },
             { provider = "%<" },
         }

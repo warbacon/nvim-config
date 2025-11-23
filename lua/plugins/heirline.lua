@@ -71,13 +71,13 @@ return {
         local FileBlock = {
             init = function(self)
                 self.filepath = vim.api.nvim_buf_get_name(0)
-                if vim.bo.filetype == "oil" then
-                    self.filepath = self.filepath:sub(7, #self.filepath - 1)
+                if vim.bo.filetype == "fyler" then
+                    self.filepath = self.filepath:sub(9, #self.filepath)
                 end
             end,
             {
                 init = function(self)
-                    if vim.bo.filetype == "oil" or vim.bo.filetype == "netrw" then
+                    if vim.bo.filetype == "fyler" or vim.bo.filetype == "netrw" then
                         self.icon, self.hl = MiniIcons.get("directory", self.filepath)
                     else
                         self.icon, self.hl = MiniIcons.get("file", self.filepath)

@@ -71,34 +71,46 @@ return {
         local FileBlock = {
             init = function(self)
                 self.filepath = vim.api.nvim_buf_get_name(0)
-                if vim.bo.filetype == "fyler" then
-                    self.filepath = self.filepath:sub(9, #self.filepath)
+                if vim.bo.filetype == "oil" then
+                    self.filepath = self.filepath:sub(7)
+                    if self.filepath ~= "/" then
+                        self.filepath = self.filepath:sub(1, -2)
+                    end
+                end
+
+                self.relative_filepath = vim.fn.fnamemodify(self.filepath, ":."):gsub(vim.env.HOME, "~")
+
+                if vim.fn.has("win32") == 1 then
+                    self.relative_filepath = self.relative_filepath:gsub("\\", "/")
                 end
             end,
+
+            -- File icon
             {
                 init = function(self)
-                    if vim.bo.filetype == "fyler" or vim.bo.filetype == "netrw" then
-                        self.icon, self.hl = MiniIcons.get("directory", self.filepath)
-                    else
-                        self.icon, self.hl = MiniIcons.get("file", self.filepath)
-                    end
+                    local filetype = vim.bo.filetype
+                    local is_directory = filetype == "oil" or filetype == "netrw"
+                    local icon_type = is_directory and "directory" or "file"
+                    self.icon, self.hl = MiniIcons.get(icon_type, self.filepath)
                 end,
                 provider = function(self)
                     return self.icon .. " "
                 end,
             },
+
+            -- Dirname
             {
                 init = function(self)
-                    local filepath = vim.fn.fnamemodify(self.filepath, ":."):gsub(vim.env.HOME, "~")
-
-                    if vim.fn.has("win32") == 1 then
-                        filepath = filepath:gsub("\\", "/")
-                    end
-
-                    local dirname = vim.fs.dirname(filepath)
-                    if dirname == "." then
+                    local dirname = vim.fs.dirname(self.relative_filepath)
+                    if dirname == "." or self.filepath == "/" then
                         self.dirname = ""
                         self.dirname_short = ""
+                        return
+                    end
+
+                    if dirname == "/" then
+                        self.dirname = "/"
+                        self.dirname_short = "/"
                         return
                     end
 
@@ -123,28 +135,36 @@ return {
                         return ""
                     end
 
-                    if not conditions.width_percent_below(#self.dirname, 0.20) then
+                    if not conditions.width_percent_below(#self.relative_filepath, 0.40) then
                         return self.dirname_short
                     end
 
                     return self.dirname
                 end,
             },
+
+            -- Filename
             {
                 init = function(self)
-                    if self.filepath == "" then
-                        self.basename = "%f"
+                    if self.filepath == "/" then
+                        self.filename = "/"
                     else
-                        self.basename = vim.fs.basename(self.filepath)
+                        self.filename = self.filepath == "" and "%f" or vim.fs.basename(self.relative_filepath)
                     end
                 end,
                 provider = function(self)
-                    return self.basename
+                    return self.filename
                 end,
                 hl = function()
-                    return vim.bo.modified and "CursorLineNr" or { bold = true }
+                    if vim.bo.modified then
+                        return { fg = get_highlight("CursorLineNr").fg, bold = true }
+                    end
+
+                    return { bold = true }
                 end,
             },
+
+            -- Help hint
             {
                 condition = function()
                     return vim.bo.filetype == "help"
@@ -154,6 +174,8 @@ return {
                     self.provider = " " .. self.provider
                 end,
             },
+
+            -- Readonly
             {
                 condition = function()
                     return vim.bo.readonly
@@ -161,6 +183,8 @@ return {
                 provider = " 󰌾",
                 hl = "DiagnosticError",
             },
+
+            -- Trim other info
             { provider = "%<" },
         }
 

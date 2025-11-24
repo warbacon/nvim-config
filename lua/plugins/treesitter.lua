@@ -7,11 +7,8 @@ return {
         build = function()
             require("nvim-treesitter").update()
         end,
+        cond = vim.fn.has("win32") == 0,
         config = function()
-            if vim.fn.has("win32") == 1 then
-                return
-            end
-
             local ts_parsers = {
                 "astro",
                 "bash",

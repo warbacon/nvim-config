@@ -160,7 +160,7 @@ return {
                         return { fg = get_highlight("CursorLineNr").fg, bold = true }
                     end
 
-                    return { bold = true }
+                    return { fg = get_highlight("Normal").fg, bold = true }
                 end,
             },
 

@@ -7,12 +7,21 @@ return {
         cmdline = { enabled = false },
         appearance = {
             kind_icons = Util.icons.kinds,
-            nerd_font_variant = "normal",
         },
         completion = {
             documentation = {
                 auto_show = true,
                 auto_show_delay_ms = 200,
+            },
+            menu = {
+                scrollbar = false,
+                draw = {
+                    gap = 2,
+                    columns = {
+                        { "kind_icon" },
+                        { "label", "label_description", gap = 2 },
+                    },
+                },
             },
         },
         sources = {

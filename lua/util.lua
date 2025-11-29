@@ -2,13 +2,18 @@ local M = {}
 
 ---@class Icons
 ---@field indent string
----@field signs string[]
+---@field diagnostic table<string, string>
 ---@field kinds table<string, string>
 
 ---@type Icons
 M.icons = {
     indent = "│",
-    signs = { "", "", "", "" },
+    diagnostic = {
+        ERROR = "",
+        WARN = "",
+        INFO = "",
+        HINT = "",
+    },
     kinds = {
         Class = "",
         Color = "",

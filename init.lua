@@ -36,6 +36,5 @@ require("config.keymaps")
 require("config.misc")
 
 if vim.env.XDG_SESSION_TYPE ~= "tty" then
-    vim.diagnostic.config({ signs = { text = Util.icons.signs } })
     require("config.lazy")
 end

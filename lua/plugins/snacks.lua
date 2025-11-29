@@ -53,6 +53,7 @@ return {
                 },
             },
             icons = {
+                diagnostics = Util.icons.diagnostic,
                 kinds = Util.icons.kinds,
             },
         },

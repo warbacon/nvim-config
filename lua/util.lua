@@ -9,10 +9,10 @@ local M = {}
 M.icons = {
     indent = "│",
     diagnostic = {
-        ERROR = "",
-        WARN = "",
-        INFO = "",
-        HINT = "",
+        Error = "",
+        Warn = "",
+        Info = "",
+        Hint = "",
     },
     kinds = {
         Class = "",

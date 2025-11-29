@@ -11,6 +11,7 @@ return {
                 "clangd",
                 "cssls",
                 "emmet_language_server",
+                "eslint",
                 "gopls",
                 "html",
                 "intelephense",

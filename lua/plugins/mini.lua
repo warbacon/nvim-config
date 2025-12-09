@@ -1,15 +1,12 @@
 return {
     {
-        "nvim-mini/mini.icons",
-        priority = 1000,
-        opts = {},
-    },
-    {
-        "nvim-mini/mini.misc",
-        event = "VeryLazy",
-        config = function()
-            require("mini.misc").setup_termbg_sync()
-        end,
+        "nvim-mini/mini.cmdline",
+        event = "CmdlineEnter",
+        opts = {
+            autopeek = {
+                enable = false,
+            },
+        },
     },
     {
         "nvim-mini/mini.move",
@@ -31,5 +28,17 @@ return {
                 toggle = "gs",
             },
         },
+    },
+    {
+        "nvim-mini/mini.misc",
+        event = "VeryLazy",
+        config = function()
+            require("mini.misc").setup_termbg_sync()
+        end,
+    },
+    {
+        "nvim-mini/mini.icons",
+        priority = 1000,
+        opts = {},
     },
 }

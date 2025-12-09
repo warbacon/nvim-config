@@ -14,22 +14,14 @@ return {
                 "eslint",
                 "gopls",
                 "html",
-                "intelephense",
                 "jdtls",
                 "jsonls",
                 "lua_ls",
-                "nixd",
-                "qmlls",
                 "svelte",
                 "tailwindcss",
                 "vtsls",
                 "yamlls",
             })
-
-            if vim.fn.executable("emmylua_ls") == 1 then
-                vim.lsp.enable("lua_ls", false)
-                vim.lsp.enable("emmylua_ls")
-            end
         end,
     },
     ---@module "lazydev"

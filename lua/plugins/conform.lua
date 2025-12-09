@@ -1,17 +1,16 @@
 return {
     "stevearc/conform.nvim",
+    event = "BufWritePre",
     cmd = "ConformInfo",
-    keys = {
-        {
-            "<Leader>cf",
-            function()
-                require("conform").format()
-            end,
-        },
-    },
     ---@module "conform"
     ---@type conform.setupOpts
     opts = {
+        format_on_save = {
+            format_on_save = {
+                lsp_format = "fallback",
+                timeout_ms = 500,
+            },
+        },
         formatters_by_ft = {
             c = { "clang-format" },
             cpp = { "clang-format" },

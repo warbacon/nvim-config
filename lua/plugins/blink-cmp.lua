@@ -4,7 +4,18 @@ return {
     ---@module "blink-cmp"
     ---@type blink.cmp.Config
     opts = {
-        cmdline = { enabled = false },
+        cmdline = {
+            completion = {
+                list = {
+                    selection = {
+                        preselect = false,
+                    },
+                },
+                menu = {
+                    auto_show = true,
+                },
+            },
+        },
         appearance = {
             kind_icons = Util.icons.kinds,
         },
@@ -14,7 +25,6 @@ return {
                 auto_show_delay_ms = 200,
             },
             menu = {
-                scrollbar = false,
                 draw = {
                     gap = 2,
                     columns = {

@@ -1,14 +1,5 @@
 return {
     {
-        "nvim-mini/mini.cmdline",
-        event = "CmdlineEnter",
-        opts = {
-            autopeek = {
-                enable = false,
-            },
-        },
-    },
-    {
         "nvim-mini/mini.move",
         keys = {
             { "<A-k>", mode = { "n", "v" } },

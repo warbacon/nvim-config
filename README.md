@@ -35,15 +35,16 @@ Miovim is powered by [`lazy.nvim`](https://github.com/folke/lazy.nvim).
 > [!IMPORTANT]
 > **Miovim does not use [Mason.nvim](https://github.com/mason-org/mason.nvim).**
 > Language servers and external tools must be installed manually or through your
-> system's package manager. This configuration is primarily developed and tested
-> on **NixOS**, but it's easily adaptable to other environments.
+> system's package manager.
 
 Make sure you have the following dependencies installed:
 
-- A **C compiler**
-- [`ripgrep`](https://github.com/BurntSushi/ripgrep) — optional on Linux/macOS,
-but recommended
-- [`fd`](https://github.com/sharkdp/fd) — optional but recommended
+- A **C compiler**:
+  - Any compiler should work on Linux/macOS
+  - **MSVC** is required on Windows
+- [`tree-sitter`](https://github.com/tree-sitter/tree-sitter)
+- [`ripgrep`](https://github.com/BurntSushi/ripgrep)
+- [`fd`](https://github.com/sharkdp/fd)
 
 ## 🛠️ Installation
 
@@ -58,11 +59,6 @@ git clone https://github.com/warbacon/nvim-config "$HOME/.config/nvim"
 > [!IMPORTANT]
 > Neovim tends to run slower on Windows. Using
 > [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) is recommended.
-
-> [!WARNING]
-> Additional Tree-sitter parsers are not installed on Windows, since building
-> them requires MSVC — and honestly, it's just not worth the hassle (use any
-> other OS if you want to code).
 
 ```bash
 git clone https://github.com/warbacon/nvim-config "$HOME\AppData\Local\nvim"

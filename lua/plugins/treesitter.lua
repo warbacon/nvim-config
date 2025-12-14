@@ -1,7 +1,6 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        branch = "main",
         lazy = vim.fn.argc(-1) == 0,
         event = "VeryLazy",
         build = function()

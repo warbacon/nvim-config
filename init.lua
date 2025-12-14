@@ -31,12 +31,6 @@ if vim.fn.has("nvim-0.12") == 1 then
     vim.lsp.on_type_formatting.enable()
 end
 
-vim.diagnostic.config({
-    virtual_text = {
-        virt_text_pos = "eol_right_align",
-    },
-})
-
 require("config.options")
 require("config.keymaps")
 require("config.misc")

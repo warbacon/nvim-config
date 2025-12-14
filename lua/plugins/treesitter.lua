@@ -61,6 +61,11 @@ return {
                     local lang = vim.treesitter.language.get_lang(ev.match)
 
                     vim.treesitter.start()
+
+                    vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+                    vim.wo[0][0].foldlevel = 99
+                    vim.wo[0][0].foldmethod = "expr"
+
                     if lang and vim.treesitter.query.get(lang, "indents") then
                         vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
                     end

@@ -47,10 +47,6 @@ vim.opt.fillchars = {
     eob = "~",
 }
 
-vim.o.foldmethod = "expr"
-vim.o.foldlevel = 99
-vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-
 vim.opt.shortmess:append("I")
 
 vim.api.nvim_create_autocmd("FileType", {

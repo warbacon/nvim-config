@@ -6,7 +6,8 @@ return {
         config = function()
             vim.lsp.enable({
                 "astro",
-                "basedpyright",
+                "ty",
+                "ruff",
                 "bashls",
                 "clangd",
                 "cssls",

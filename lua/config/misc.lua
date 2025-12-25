@@ -1,12 +1,12 @@
--- Automatically highlight text after yanking it
 vim.api.nvim_create_autocmd("TextYankPost", {
+    desc = "Automatically highlight text after yanking it",
     callback = function()
         vim.hl.on_yank({ timeout = 100 })
     end,
 })
 
--- Fix the cursor when exiting Vim
 vim.api.nvim_create_autocmd("VimLeave", {
+    desc = "Fix the cursor when exiting Vim",
     callback = function()
         vim.o.guicursor = ""
         io.write("\x1b[ q")

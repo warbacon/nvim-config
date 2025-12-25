@@ -74,7 +74,7 @@ return {
                 local is_win = vim.fn.has("win32") == 1
 
                 -- Handle oil.nvim
-                if vim.bo.filetype == "oil" then
+                if vim.bo.filetype == "oil" and filepath:sub(1, 6) == "oil://" then
                     filepath = filepath:sub(7)
                     if filepath ~= "/" then
                         filepath = filepath:sub(1, -2)

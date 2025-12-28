@@ -8,7 +8,6 @@ return {
         end,
         config = function()
             local ts_parsers = {
-                "astro",
                 "bash",
                 "c",
                 "cpp",
@@ -30,6 +29,7 @@ return {
                 "regex",
                 "svelte",
                 "toml",
+                "tsx",
                 "typescript",
                 "vim",
                 "vimdoc",

@@ -30,3 +30,20 @@ vim.filetype.add({
 vim.api.nvim_create_user_command("W", "w<bang>", { bang = true })
 vim.api.nvim_create_user_command("Q", "q<bang>", { bang = true })
 vim.api.nvim_create_user_command("Wq", "wq<bang>", { bang = true })
+
+-- HACK: move Windows entries to end of PATH in WSL to improve performance
+if vim.fn.has("wsl") == 1 then
+    local original_path = vim.env.PATH
+    local linux_paths = {}
+    local windows_paths = {}
+
+    for entry in original_path:gmatch("([^:]+)") do
+        if entry:sub(1, 5) == "/mnt/" then
+            windows_paths[#windows_paths + 1] = entry
+        else
+            linux_paths[#linux_paths + 1] = entry
+        end
+    end
+
+    vim.env.PATH = table.concat(linux_paths, ":") .. ":" .. table.concat(windows_paths, ":")
+end

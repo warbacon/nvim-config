@@ -8,11 +8,11 @@
 -- Made by Warbacon
 -- https://github.com/warbacon/nvim-config
 
-if vim.fn.has("nvim-0.12") == 0 then
+if vim.fn.has("nvim-0.11") == 0 then
     vim.schedule(function()
         local v = vim.version()
         local msg = string.format(
-            "This config requires Neovim v0.12.x or higher. You have v%d.%d.%d.",
+            "This config requires Neovim v0.11.x or higher. You have v%d.%d.%d.",
             v.major,
             v.minor,
             v.patch
@@ -34,6 +34,6 @@ require("config.options")
 require("config.keymaps")
 require("config.misc")
 
-if vim.env.XDG_SESSION_TYPE ~= "tty" then
+if vim.env.XDG_SESSION_TYPE ~= "tty" and vim.fn.has("nvim-0.12") == 1 then
     require("config.plugins")
 end

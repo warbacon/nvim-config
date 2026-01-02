@@ -25,6 +25,7 @@ require("tokyonight").setup({
     plugins = {
         all = false,
         blink = true,
+        mini_diff = true,
         mini_icons = true,
         treesitter = true,
     },

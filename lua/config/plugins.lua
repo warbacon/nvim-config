@@ -71,7 +71,22 @@ vim.keymap.set("n", "z=", require("mini.extra").pickers.spellsuggest)
 
 -- lsp
 require("lazydev").setup()
-vim.lsp.enable({ "lua_ls" })
+vim.lsp.enable({
+    "bashls",
+    "clangd",
+    "cssls",
+    "emmet_language_server",
+    "jdtls",
+    "jsonls",
+    "lua_ls",
+    "nixd",
+    "oxlint",
+    "qmlls",
+    "svelte",
+    "tailwindcss",
+    "tsgo",
+    "yamlls",
+})
 
 -- conform.nvim
 require("conform").setup({

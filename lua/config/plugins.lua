@@ -102,6 +102,15 @@ require("nvim-treesitter").install({
     "xml",
     "yaml",
 })
+
+vim.api.nvim_create_autocmd("PackChanged", {
+    callback = function(ev)
+        if ev.data.spec.name == "nvim-treesitter" then
+            vim.cmd("TSUpdate")
+        end
+    end,
+})
+
 require("nvim-ts-autotag").setup()
 
 vim.api.nvim_create_autocmd("FileType", {

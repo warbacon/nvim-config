@@ -15,12 +15,14 @@ vim.pack.add({
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("*") },
 })
 
-vim.keymap.set("n", "<Leader>pu", vim.pack.update)
+vim.keymap.set("n", "<Leader>pu", vim.pack.update, { desc = "Update plugins" })
 vim.keymap.set("n", "<Leader>pr", function()
     vim.pack.update(nil, { target = "lockfile" })
-end)
+end, { desc = "Restore plugins from lockfile" })
 
--- tokyonight.nvim
+-----------------------------------------------------------------------------------------------------------------------
+-- TOKYONIGHT.NVIM
+-----------------------------------------------------------------------------------------------------------------------
 require("tokyonight").setup({
     plugins = {
         all = false,
@@ -39,8 +41,37 @@ require("tokyonight").setup({
 })
 vim.cmd.colorscheme("tokyonight-night")
 
--- mini.nvim
+-----------------------------------------------------------------------------------------------------------------------
+-- MINI.NVIM
+-----------------------------------------------------------------------------------------------------------------------
 require("mini.icons").setup()
+require("mini.clue").setup({
+    triggers = {
+        { mode = { "n", "x" }, keys = "<Leader>" },
+        { mode = { "n", "x" }, keys = "[" },
+        { mode = { "n", "x" }, keys = "]" },
+        { mode = "i", keys = "<C-x>" },
+        { mode = { "n", "x" }, keys = "g" },
+        { mode = { "n", "x" }, keys = "'" },
+        { mode = { "n", "x" }, keys = "`" },
+        { mode = { "n", "x" }, keys = '"' },
+        { mode = { "i", "c" }, keys = "<C-r>" },
+        { mode = "n", keys = "<C-w>" },
+        { mode = { "n", "x" }, keys = "z" },
+    },
+    clues = {
+        { mode = { "n" }, keys = "<Leader>p", desc = "vim.pack" },
+        { mode = { "n" }, keys = "<Leader>s", desc = "mini.pick" },
+        { mode = { "n" }, keys = "<Leader>r", desc = "Restart Neovim" },
+        require("mini.clue").gen_clues.builtin_completion(),
+        require("mini.clue").gen_clues.g(),
+        require("mini.clue").gen_clues.marks(),
+        require("mini.clue").gen_clues.registers(),
+        require("mini.clue").gen_clues.square_brackets(),
+        require("mini.clue").gen_clues.windows({ submode_resize = true }),
+        require("mini.clue").gen_clues.z(),
+    },
+})
 require("mini.move").setup()
 require("mini.diff").setup({
     view = {
@@ -60,16 +91,18 @@ require("mini.pick").setup({
         choose_marked = "<C-Q>",
     },
 })
-vim.keymap.set("n", "<Leader>f", "<Cmd>Pick files<CR>")
-vim.keymap.set("n", "<Leader>sg", "<Cmd>Pick grep_live<CR>")
-vim.keymap.set("n", "<Leader>sh", "<Cmd>Pick help<CR>")
-vim.keymap.set("n", "<Leader>,", "<Cmd>Pick buffers<CR>")
+vim.keymap.set("n", "<Leader>f", "<Cmd>Pick files<CR>", { desc = "Pick files" })
+vim.keymap.set("n", "<Leader>sg", "<Cmd>Pick grep_live<CR>", { desc = "Live grep" })
+vim.keymap.set("n", "<Leader>sh", "<Cmd>Pick help<CR>", { desc = "Search help tags" })
+vim.keymap.set("n", "<Leader>,", "<Cmd>Pick buffers<CR>", { desc = "Show buffers" })
 vim.keymap.set("n", "<Leader>sd", function()
     require("mini.extra").pickers.diagnostic({ scope = "all" })
-end)
-vim.keymap.set("n", "z=", require("mini.extra").pickers.spellsuggest)
+end, { desc = "Show workspace diagnostics" })
+vim.keymap.set("n", "z=", require("mini.extra").pickers.spellsuggest, { desc = "Show spell suggestions" })
 
--- lsp
+-----------------------------------------------------------------------------------------------------------------------
+-- LSP
+-----------------------------------------------------------------------------------------------------------------------
 require("lazydev").setup()
 vim.lsp.enable({
     "bashls",
@@ -88,7 +121,9 @@ vim.lsp.enable({
     "yamlls",
 })
 
--- conform.nvim
+-----------------------------------------------------------------------------------------------------------------------
+-- CONFORM.NVIM
+-----------------------------------------------------------------------------------------------------------------------
 require("conform").setup({
     format_on_save = {
         timeout_ms = 500,
@@ -99,9 +134,13 @@ require("conform").setup({
     },
 })
 
--- treesitter
+----------------------------------------------------------------------------------------------------
+-- TREESITTER
+----------------------------------------------------------------------------------------------------
 require("nvim-treesitter").install({
+    "bash",
     "diff",
+    "fish",
     "gitcommit",
     "html",
     "ini",
@@ -112,13 +151,14 @@ require("nvim-treesitter").install({
     "nix",
     "powershell",
     "toml",
+    "vim",
     "vimdoc",
-    "vimscript",
     "xml",
     "yaml",
 })
 
 vim.api.nvim_create_autocmd("PackChanged", {
+    desc = "Auto-update Treesitter parsers when the plugin is updated",
     callback = function(ev)
         if ev.data.spec.name == "nvim-treesitter" then
             vim.cmd("TSUpdate")
@@ -126,9 +166,8 @@ vim.api.nvim_create_autocmd("PackChanged", {
     end,
 })
 
-require("nvim-ts-autotag").setup()
-
 vim.api.nvim_create_autocmd("FileType", {
+    desc = "Enable Treesitter when available",
     callback = function(ev)
         local is_active = vim.treesitter.highlighter.active[ev.buf] ~= nil
 
@@ -148,7 +187,11 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
--- oil.nvim
+require("nvim-ts-autotag").setup()
+
+-----------------------------------------------------------------------------------------------------------------------
+-- OIL.NVIM
+-----------------------------------------------------------------------------------------------------------------------
 require("oil").setup({
     delete_to_trash = true,
     skip_confirm_for_simple_edits = true,
@@ -161,12 +204,11 @@ require("oil").setup({
         show_hidden = true,
     },
 })
-vim.keymap.set("n", "-", "<cmd>Oil<CR>", { noremap = true })
+vim.keymap.set("n", "-", "<cmd>Oil<CR>", { noremap = true, desc = "Open Oil file manager" })
 
--- quicker.nvim
-require("quicker").setup()
-
--- blink.cmp
+-----------------------------------------------------------------------------------------------------------------------
+-- BLINK.CMP
+-----------------------------------------------------------------------------------------------------------------------
 vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
     callback = function()
         require("blink.cmp").setup({
@@ -220,3 +262,8 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
         })
     end,
 })
+
+-----------------------------------------------------------------------------------------------------------------------
+-- QUICKER.NVIM
+-----------------------------------------------------------------------------------------------------------------------
+require("quicker").setup()

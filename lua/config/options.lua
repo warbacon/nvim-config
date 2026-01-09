@@ -53,3 +53,7 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.formatoptions:remove({ "o" })
     end,
 })
+
+if vim.fn.has("linux") == 1 and vim.fn.executable("fish") then
+    vim.o.shell = "fish"
+end

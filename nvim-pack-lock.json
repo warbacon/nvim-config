@@ -18,7 +18,7 @@
       "src": "https://github.com/folke/lazydev.nvim"
     },
     "mini.nvim": {
-      "rev": "fb4ccfed03c1f0d9db702f93a65cb4c0c6c2832b",
+      "rev": "a0ae5a65507d009a22b245cb0e9e347690a5f94e",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nvim-bqf": {
@@ -30,11 +30,11 @@
       "src": "https://github.com/mfussenegger/nvim-jdtls"
     },
     "nvim-lspconfig": {
-      "rev": "0b38bc74487e73489624d61396af7805af9cc75f",
+      "rev": "92ee7d42320edfbb81f3cad851314ab197fa324a",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
-      "rev": "b033ab331ca0bccbd93c3c2b4f886fdfc09abec0",
+      "rev": "2ba5ec184609a96b513bf4c53a20512d64e27f39",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-ts-autotag": {

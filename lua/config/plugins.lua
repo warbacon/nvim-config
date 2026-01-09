@@ -19,6 +19,16 @@ vim.keymap.set("n", "<Leader>pu", vim.pack.update, { desc = "Update plugins" })
 vim.keymap.set("n", "<Leader>pr", function()
     vim.pack.update(nil, { target = "lockfile" })
 end, { desc = "Restore plugins from lockfile" })
+vim.keymap.set("n", "<Leader>px", function()
+    vim.pack.del(vim.iter(vim.pack.get())
+        :filter(function(x)
+            return not x.active
+        end)
+        :map(function(x)
+            return x.spec.name
+        end)
+        :totable())
+end, { desc = "Delete non-active plugins" })
 
 -----------------------------------------------------------------------------------------------------------------------
 -- TOKYONIGHT.NVIM

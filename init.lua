@@ -35,5 +35,6 @@ require("config.keymaps")
 require("config.misc")
 
 if vim.env.XDG_SESSION_TYPE ~= "tty" and vim.fn.has("nvim-0.12") == 1 then
+    vim.cmd.colorscheme("pino")
     require("config.plugins")
 end

@@ -22,11 +22,6 @@ vim.o.cursorlineopt = "number"
 vim.o.list = true
 vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "+" }
 
-vim.o.winborder = "rounded"
-if vim.fn.has("nvim-0.12") == 1 then
-    vim.o.pumborder = vim.o.winborder
-end
-
 vim.o.sidescrolloff = 3
 vim.o.scrolloff = 5
 vim.o.wrap = false

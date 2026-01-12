@@ -1,5 +1,4 @@
 vim.pack.add({
-    { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/nvim-mini/mini.nvim" },
     { src = "https://github.com/Darazaki/indent-o-matic" },
     { src = "https://github.com/dstein64/vim-startuptime" },
@@ -29,28 +28,6 @@ vim.keymap.set("n", "<Leader>px", function()
         end)
         :totable())
 end, { desc = "Delete non-active plugins" })
-
------------------------------------------------------------------------------------------------------------------------
--- TOKYONIGHT.NVIM
------------------------------------------------------------------------------------------------------------------------
-
-require("tokyonight").setup({
-    plugins = {
-        all = false,
-        blink = true,
-        mini_diff = true,
-        mini_icons = true,
-        treesitter = true,
-    },
-    on_highlights = function(hl, c)
-        hl.PmenuBorder = { link = "FloatBorder" }
-        hl.MatchParen = {
-            bg = c.fg_gutter,
-            bold = true,
-        }
-    end,
-})
-vim.cmd.colorscheme("tokyonight-night")
 
 -----------------------------------------------------------------------------------------------------------------------
 -- MINI.NVIM
@@ -146,8 +123,8 @@ require("conform").setup({
     formatters_by_ft = {
         lua = { "stylua" },
         toml = { "taplo" },
-        ["*"] = { "injected" },
-        ["_"] = { "trim_whitespace", "trim_newlines", lsp_format = "prefer" },
+        -- ["*"] = { "injected" },
+        -- ["_"] = { "trim_whitespace", "trim_newlines", lsp_format = "prefer" },
     },
 })
 

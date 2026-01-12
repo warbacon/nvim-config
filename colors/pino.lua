@@ -79,8 +79,10 @@ local colors = {
     ["@markup.heading.6.markdown"] = { fg = palette.iris },
     ["@markup.link"] = { underline = false },
     ["@markup.link.label"] = { fg = palette.foam },
+    ["@markup.heading.gitcommit"] = { fg = palette.text, bold = true },
     ["@markup.link.url"] = { fg = palette.iris, sp = palette.iris, underline = true },
     ["@string.special.url"] = { link = "@markup.link.url" },
+    ["@string.special.path"] = { fg = palette.pine, underline = true },
     ["@markup.raw"] = { bg = palette.overlay },
     ["@markup.raw.block"] = { bg = palette.none },
     ["@tag.attribute"] = { fg = palette.foam },
@@ -104,7 +106,7 @@ local colors = {
     DiagnosticUnderlineError = { sp = palette.love, undercurl = true },
 
     -- Messages
-    ModeMsg = { fg = palette.gold },
+    ModeMsg = { fg = palette.gold, bold = true },
     ErrorMsg = { fg = palette.love },
     OkMsg = { fg = palette.leaf },
     WarningMsg = { fg = palette.gold },
@@ -123,7 +125,6 @@ local colors = {
     MiniIconsYellow = { fg = palette.gold },
 
     -- Blink.cmp
-    BlinkCmpKindText = { fg = palette.text },
     BlinkCmpKindMethod = { fg = palette.iris },
     BlinkCmpKindFunction = { fg = palette.rose },
     BlinkCmpKindConstructor = { fg = palette.rose },

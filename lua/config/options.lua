@@ -38,7 +38,7 @@ vim.opt.fillchars = {
     fold = " ",
     foldsep = " ",
     diff = "╱",
-    eob = "~",
+    eob = " ",
 }
 
 vim.opt.shortmess:append("I")

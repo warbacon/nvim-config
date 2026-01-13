@@ -2,49 +2,50 @@
 
 <p align="center">
   <i>
-    From the Spanish word <strong>'mío'</strong>, meaning <em>'mine'</em> —<br/>
-    so it loosely translates to <strong>MyVim</strong>.
+    From the Spanish word <strong>"mío"</strong>, meaning <em>"mine"</em> —<br/>
+    because this is <strong>my</strong> way of using Vim.
   </i>
 </p>
 
 <p align="center">
-  A no-nonsense Neovim setup for people who just want to code.
+  A no-nonsense Neovim setup for people who just want to sit down and code.
 </p>
 
 > [!WARNING]
-> **Miovim** is not compatible with **Neovim versions older than 0.11**.
-> Make sure you're running at least the latest stable release.
->
-> Miovim is continuously updated with the newest features from nightly builds!
+> **Miovim** isn't compatible with **Neovim versions earlier than 0.12** Make
+> sure you are running nightly.
 
-## 🚩 Introduction
+## 🤨 Why Miovim?
 
-**Miovim** is built around one guiding principle: **keep it simple**. If a
-configuration requires too much thinking to understand, **it gets discarded**.
+**Miovim** is built to be simple.
 
-This makes Miovim **easy to maintain**, **friendly for newcomers**, and
-**pleasant to tweak**. Simplicity always comes before cleverness.
+If a piece of configuration is hard to understand or maintain, it doesn't belong
+here. There are no clever tricks, no hidden abstractions, just a clean Neovim
+setup that stays out of your way and lets you focus on writing code.
 
-Lazy loading is used **only** when it's simple to implement or when a plugin is
-particularly heavy.
+Miovim ships with `pino.nvim`, a muted, fast, and opinionated colorscheme
+inspired by *rose-pine*, tuned for long coding sessions, minimal visual fatigue,
+and ANSI-compatible terminal colors.
 
-Miovim is powered by [`lazy.nvim`](https://github.com/folke/lazy.nvim).
+For now, `pino.nvim` is exclusive to Miovim. It may be released in the future
+once it feels polished and distinct enough to stand on its own—most likely as a
+separate fork rather than a direct derivative.
 
 ## 📦 Dependencies
 
 > [!IMPORTANT]
-> **Miovim does not use [Mason.nvim](https://github.com/mason-org/mason.nvim).**
-> Language servers and external tools must be installed manually or through your
-> system's package manager.
+> **Miovim deliberately avoids
+> [Mason.nvim](https://github.com/mason-org/mason.nvim).** Language servers and
+> external tools are expected to be installed by you, either manually or through
+> your system's package manager.
 
-Make sure you have the following dependencies installed:
+Before using Miovim, make sure you have:
 
-- A **C compiler**:
-  - Any compiler should work on Linux/macOS
-  - **MSVC** is required on Windows
+- A **C compiler**
+  - Any standard compiler on Linux/macOS
+  - **MSVC** on Windows
 - [`tree-sitter`](https://github.com/tree-sitter/tree-sitter)
 - [`ripgrep`](https://github.com/BurntSushi/ripgrep)
-- [`fd`](https://github.com/sharkdp/fd)
 
 ## 🛠️ Installation
 
@@ -57,8 +58,9 @@ git clone https://github.com/warbacon/nvim-config "$HOME/.config/nvim"
 ### 🪟 Windows
 
 > [!IMPORTANT]
-> Neovim tends to run slower on Windows. Using
-> [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) is recommended.
+> Neovim runs slower on Windows. Using
+> [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) is highly
+> recommended.
 
 ```bash
 git clone https://github.com/warbacon/nvim-config "$HOME\AppData\Local\nvim"

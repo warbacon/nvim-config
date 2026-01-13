@@ -49,6 +49,10 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+if vim.env.XDG_SESSION_TYPE ~= "tty" then
+    vim.o.termguicolors = true
+end
+
 if vim.fn.has("linux") == 1 and vim.fn.executable("fish") then
     vim.o.shell = "fish"
 end

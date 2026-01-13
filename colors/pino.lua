@@ -68,7 +68,7 @@ local colors = {
     Statement = { fg = palette.subtle, italic = true },
     String = { fg = palette.gold },
     Title = { fg = palette.pine, bold = true },
-    Type = { italic = true },
+    Type = { italic = true, bold = true },
     Conceal = { fg = palette.subtle },
     Tag = { fg = palette.love, bold = true },
 
@@ -84,13 +84,16 @@ local colors = {
     ["@markup.link.label"] = { fg = palette.foam },
     ["@markup.link.url"] = { fg = palette.iris, sp = palette.iris, underline = true },
     ["@markup.raw"] = { bg = palette.overlay },
-    ["@markup.raw.block"] = { fg = palette.subtle, bg = palette.none },
+    ["@markup.raw.block"] = { bg = palette.none },
     ["@string.special"] = { link = "String" },
     ["@string.special.url"] = { link = "@markup.link.url" },
     ["@tag.attribute"] = { fg = palette.foam },
     ["@tag.delimiter"] = { link = "Delimiter" },
     ["@variable.builtin"] = { fg = palette.love, bold = true },
     ["@variable.member"] = { fg = palette.foam },
+    ["@lsp.typemod.variable.readonly"] = { link = "Constant" },
+    ["@lsp.type.type"] = { link = "Type" },
+    ["@type.builtin"] = { link = "Type" },
 
     -- Diagnostics
     DiagnosticInfo = { fg = palette.foam },
@@ -125,23 +128,15 @@ local colors = {
     MiniIconsYellow = { fg = palette.gold },
 
     -- Blink.cmp
-    BlinkCmpKindMethod = { fg = palette.iris },
-    BlinkCmpKindFunction = { fg = palette.rose },
-    BlinkCmpKindConstructor = { fg = palette.rose },
+    BlinkCmpKindMethod = { link = "Function" },
+    BlinkCmpKindFunction = { link = "Function" },
+    BlinkCmpKindConstructor = { link = "Function" },
     BlinkCmpKindField = { fg = palette.foam },
-    BlinkCmpKindVariable = { fg = palette.pine },
-    BlinkCmpKindClass = { fg = palette.gold },
-    BlinkCmpKindInterface = { fg = palette.gold },
-    BlinkCmpKindModule = { fg = palette.foam },
     BlinkCmpKindProperty = { fg = palette.foam },
-    BlinkCmpKindValue = { fg = palette.gold },
     BlinkCmpKindEnum = { fg = palette.gold },
     BlinkCmpKindFolder = { link = "Directory" },
-    BlinkCmpKindEnumMember = { fg = palette.foam },
-    BlinkCmpKindConstant = { fg = palette.gold },
-    BlinkCmpKindStruct = { fg = palette.gold },
-    BlinkCmpKindEvent = { fg = palette.leaf },
-    BlinkCmpKindTypeParameter = { fg = palette.iris },
+    BlinkCmpKindConstant = { link = "Constant" },
+    BlinkCmpKindStruct = { fg = palette.foam },
 }
 
 for group, hl in pairs(colors) do

@@ -71,6 +71,7 @@ local colors = {
     Type = { italic = true, bold = true },
     Conceal = { fg = palette.subtle },
     Tag = { fg = palette.love, bold = true },
+    Folded = { bg = palette.surface },
 
     -- Syntax: Treesitter / Semantic
     ["@function.builtin"] = { link = "Function" },

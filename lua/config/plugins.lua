@@ -129,25 +129,43 @@ require("conform").setup({
 -- TREESITTER
 ----------------------------------------------------------------------------------------------------
 
-require("nvim-treesitter").install({
-    "bash",
+local ts_parsers = {
+    "c",
+    "cpp",
+    "css",
     "diff",
-    "fish",
     "gitcommit",
     "html",
     "ini",
+    "javascript",
     "json",
     "lua",
     "markdown",
     "markdown_inline",
-    "nix",
-    "powershell",
+    "svelte",
     "toml",
+    "typescript",
     "vim",
     "vimdoc",
     "xml",
     "yaml",
-})
+}
+
+if vim.fn.has("linux") == 1 then
+    vim.list_extend(ts_parsers, {
+        "bash",
+        "fish",
+        "nix",
+    })
+end
+
+if vim.fn.has("windows") == 1 then
+    vim.list_extend(ts_parsers, {
+        "powershell",
+    })
+end
+
+require("nvim-treesitter").install(ts_parsers)
 
 vim.api.nvim_create_autocmd("PackChanged", {
     desc = "Auto-update Treesitter parsers when the plugin is updated",

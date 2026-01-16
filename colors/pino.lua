@@ -29,26 +29,26 @@ local palette = {
 ---@type table<string, vim.api.keyset.highlight>
 local colors = {
     -- UI: Base and Editor
+    ColorColumn = { bg = palette.surface },
+    CursorLine = { bg = palette.overlay },
+    CursorLineNr = { fg = palette.gold, bold = true },
+    LineNr = { fg = palette.muted },
+    MatchParen = { bg = palette.highlight_med, bold = true },
+    NonText = { fg = palette.muted },
     Normal = { fg = palette.text, bg = palette.base },
     Visual = { bg = palette.highlight_med },
-    CursorLine = { bg = palette.overlay },
-    LineNr = { fg = palette.muted },
-    CursorLineNr = { fg = palette.gold, bold = true },
-    NonText = { fg = palette.muted },
-    ColorColumn = { bg = palette.surface },
     WinSeparator = { fg = palette.highlight_med },
-    MatchParen = { bg = palette.highlight_med, bold = true },
 
     -- UI: Float, Menus and StatusLine
     Pmenu = { bg = palette.surface },
     PmenuExtra = { fg = palette.subtle, bg = palette.surface },
-    PmenuBorder = { fg = palette.foam, bg = palette.surface },
+    PmenuBorder = { fg = palette.pine, bg = palette.surface },
     PmenuKind = { fg = palette.subtle },
     PmenuSbar = { bg = palette.overlay },
     PmenuSel = { bg = palette.overlay },
     PmenuThumb = { bg = palette.muted },
     NormalFloat = { bg = palette.surface },
-    FloatBorder = { fg = palette.foam, bg = palette.surface },
+    FloatBorder = { fg = palette.pine, bg = palette.surface },
     FloatTitle = { bg = palette.surface },
     StatusLine = { fg = palette.subtle, bg = palette.surface },
     StatusLineNC = { fg = palette.muted, bg = palette.surface },
@@ -58,23 +58,26 @@ local colors = {
     Boolean = { fg = palette.rose },
     Changed = { fg = palette.foam },
     Comment = { fg = palette.muted, italic = true },
+    Conceal = { fg = palette.subtle },
     Constant = { fg = palette.gold },
     Delimiter = { fg = palette.subtle },
     Directory = { fg = palette.pine },
+    Folded = { bg = palette.surface },
     Function = { fg = palette.rose },
     Identifier = { fg = palette.foam },
+    Operator = { link = "Delimiter" },
     Removed = { fg = palette.love },
     Special = { fg = palette.subtle },
     Statement = { fg = palette.subtle, italic = true },
     String = { fg = palette.gold },
+    Tag = { fg = palette.love, bold = true },
     Title = { fg = palette.pine, bold = true },
     Type = { italic = true, bold = true },
-    Conceal = { fg = palette.subtle },
-    Tag = { fg = palette.love, bold = true },
-    Folded = { bg = palette.surface },
 
     -- Syntax: Treesitter / Semantic
     ["@function.builtin"] = { link = "Function" },
+    ["@lsp.type.type"] = { link = "Type" },
+    ["@lsp.typemod.variable.readonly"] = { link = "Constant" },
     ["@markup.heading.1.markdown"] = { fg = palette.pine, bold = true },
     ["@markup.heading.2.markdown"] = { fg = palette.gold, bold = true },
     ["@markup.heading.3.markdown"] = { fg = palette.leaf, bold = true },
@@ -90,11 +93,9 @@ local colors = {
     ["@string.special.url"] = { link = "@markup.link.url" },
     ["@tag.attribute"] = { fg = palette.foam },
     ["@tag.delimiter"] = { link = "Delimiter" },
+    ["@type.builtin"] = { link = "Type" },
     ["@variable.builtin"] = { fg = palette.love, bold = true },
     ["@variable.member"] = { fg = palette.foam },
-    ["@lsp.typemod.variable.readonly"] = { link = "Constant" },
-    ["@lsp.type.type"] = { link = "Type" },
-    ["@type.builtin"] = { link = "Type" },
 
     -- Diagnostics
     DiagnosticInfo = { fg = palette.foam },
@@ -110,12 +111,12 @@ local colors = {
     DiagnosticUnderlineError = { sp = palette.love, undercurl = true },
 
     -- Messages
-    ModeMsg = { fg = palette.gold, bold = true },
     ErrorMsg = { fg = palette.love },
-    OkMsg = { fg = palette.leaf },
-    WarningMsg = { fg = palette.gold },
+    ModeMsg = { fg = palette.gold, bold = true },
     MoreMsg = { fg = palette.pine },
+    OkMsg = { fg = palette.leaf },
     Question = { fg = palette.pine },
+    WarningMsg = { fg = palette.gold },
 
     -- Mini Icons
     MiniIconsAzure = { fg = palette.pine },
@@ -129,15 +130,16 @@ local colors = {
     MiniIconsYellow = { fg = palette.gold },
 
     -- Blink.cmp
-    BlinkCmpKindMethod = { link = "Function" },
-    BlinkCmpKindFunction = { link = "Function" },
-    BlinkCmpKindConstructor = { link = "Function" },
-    BlinkCmpKindField = { fg = palette.foam },
-    BlinkCmpKindProperty = { fg = palette.foam },
-    BlinkCmpKindEnum = { fg = palette.gold },
-    BlinkCmpKindFolder = { link = "Directory" },
     BlinkCmpKindConstant = { link = "Constant" },
+    BlinkCmpKindConstructor = { link = "Function" },
+    BlinkCmpKindEnum = { fg = palette.gold },
+    BlinkCmpKindField = { fg = palette.foam },
+    BlinkCmpKindFolder = { link = "Directory" },
+    BlinkCmpKindFunction = { link = "Function" },
+    BlinkCmpKindMethod = { link = "Function" },
+    BlinkCmpKindProperty = { fg = palette.foam },
     BlinkCmpKindStruct = { fg = palette.foam },
+    BlinkCmpMenuBorder = { link = "PmenuBorder" },
 }
 
 for group, hl in pairs(colors) do

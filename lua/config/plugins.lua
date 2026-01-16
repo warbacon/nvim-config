@@ -101,7 +101,6 @@ vim.lsp.enable({
     "jsonls",
     "lua_ls",
     "nixd",
-    "oxlint",
     "qmlls",
     "svelte",
     "tailwindcss",

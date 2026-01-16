@@ -114,14 +114,29 @@ vim.lsp.enable({
 
 require("conform").setup({
     format_on_save = {
-        timeout_ms = 500,
+        timeout_ms = 1000,
         lsp_format = "fallback",
     },
     formatters_by_ft = {
         lua = { "stylua" },
         toml = { "taplo" },
-        -- ["*"] = { "injected" },
-        -- ["_"] = { "trim_whitespace", "trim_newlines", lsp_format = "prefer" },
+        css = { "prettier" },
+        html = { "prettier" },
+        javascript = { "prettier" },
+        javascriptreact = { "prettier" },
+        json = { "prettier" },
+        jsonc = { "prettier" },
+        typescript = { "prettier" },
+        typescriptreact = { "prettier" },
+        c = { "clang-format" },
+        cpp = { "clang-format" },
+    },
+    formatters = {
+        ["clang-format"] = {
+            append_args = {
+                "-style={IndentWidth: 4, BreakBeforeBraces: Linux, ColumnLimit: 80}",
+            },
+        },
     },
 })
 

@@ -87,6 +87,7 @@ local colors = {
     ["@markup.link"] = { fg = palette.iris },
     ["@markup.link.label"] = { fg = palette.foam },
     ["@markup.link.url"] = { fg = palette.iris, sp = palette.iris, underline = true },
+    ["@markup.list.checked.markdown"] = { fg = palette.pine, bold = true },
     ["@markup.raw"] = { bg = palette.overlay },
     ["@markup.raw.block"] = { bg = palette.none },
     ["@string.special"] = { link = "String" },

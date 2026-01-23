@@ -21,7 +21,7 @@ local palette = {
     gold = "#f6c177",
     leaf = "#94c68d",
     foam = "#9ccfd8",
-    pine = "#00b3d3",
+    pine = "#3a94b7",
     iris = "#c4a7e7",
 
     none = "NONE",

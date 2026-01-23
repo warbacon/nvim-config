@@ -6,23 +6,24 @@ vim.g.colors_name = "pino"
 
 ---@type table<string, string>
 local palette = {
-    _nc = "#16141f",
+    cave = "#0E0D14",
     base = "#191724",
-    surface = "#1f1d2e",
-    overlay = "#26233a",
-    muted = "#6e6a86",
-    subtle = "#908caa",
-    text = "#e0def4",
+    surface = "#252235",
+    overlay = "#312D47",
+    highlight = "#4a4667",
+    muted = "#585476",
+    subtle = "#928eb4",
+    text = "#d1cfe9",
+
     love = "#eb6f92",
-    gold = "#f6c177",
     rose = "#ebbcba",
-    pine = "#419bbe",
+    dawn = "#ffb58d",
+    gold = "#f6c177",
+    leaf = "#94c68d",
     foam = "#9ccfd8",
+    pine = "#00b3d3",
     iris = "#c4a7e7",
-    leaf = "#95bf88",
-    highlight_low = "#21202e",
-    highlight_med = "#403d52",
-    highlight_high = "#524f67",
+
     none = "NONE",
 }
 
@@ -30,18 +31,18 @@ local palette = {
 local colors = {
     -- UI: Base and Editor
     ColorColumn = { bg = palette.surface },
-    CursorLine = { bg = palette.overlay },
+    CursorLine = { bg = palette.surface },
     CursorLineNr = { fg = palette.gold, bold = true },
     LineNr = { fg = palette.muted },
-    MatchParen = { bg = palette.highlight_med, bold = true },
+    MatchParen = { bg = palette.highlight, bold = true },
     NonText = { fg = palette.muted },
     Normal = { fg = palette.text, bg = palette.base },
-    Visual = { bg = palette.highlight_med },
-    WinSeparator = { fg = palette.highlight_med },
+    Visual = { bg = palette.overlay },
+    WinSeparator = { fg = palette.highlight },
 
     -- UI: Float, Menus and StatusLine
     Pmenu = { bg = palette.surface },
-    PmenuExtra = { fg = palette.subtle, bg = palette.surface },
+    PmenuExtra = { fg = palette.subtle },
     PmenuBorder = { fg = palette.pine, bg = palette.surface },
     PmenuKind = { fg = palette.subtle },
     PmenuSbar = { bg = palette.overlay },
@@ -95,6 +96,7 @@ local colors = {
     ["@tag.attribute"] = { fg = palette.foam },
     ["@tag.delimiter"] = { link = "Delimiter" },
     ["@type.builtin"] = { link = "Type" },
+    ["@variable"] = { link = "Normal" },
     ["@variable.builtin"] = { fg = palette.love, bold = true },
     ["@variable.member"] = { fg = palette.foam },
 
@@ -129,6 +131,9 @@ local colors = {
     MiniIconsPurple = { fg = palette.iris },
     MiniIconsRed = { fg = palette.love },
     MiniIconsYellow = { fg = palette.gold },
+
+    -- Mini Pick
+    MiniPickMatchCurrent = { bg = palette.overlay },
 
     -- Blink.cmp
     BlinkCmpKindConstant = { link = "Constant" },

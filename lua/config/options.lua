@@ -53,6 +53,6 @@ if vim.env.XDG_SESSION_TYPE ~= "tty" then
     vim.o.termguicolors = true
 end
 
-if vim.fn.has("linux") == 1 and vim.fn.executable("fish") then
+if vim.fn.has("linux") == 1 and vim.fn.executable("fish") == 1 then
     vim.o.shell = "fish"
 end

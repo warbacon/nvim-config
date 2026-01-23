@@ -130,6 +130,7 @@ require("conform").setup({
         typescriptreact = { "prettier" },
         c = { "clang-format" },
         cpp = { "clang-format" },
+        ["_"] = { "trim_whitespace", "trim_newlines", "squeeze_blanks", lsp_format = "last" },
     },
     formatters = {
         ["clang-format"] = {

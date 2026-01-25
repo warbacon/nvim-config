@@ -112,22 +112,20 @@ vim.lsp.enable({
 -- CONFORM.NVIM
 -----------------------------------------------------------------------------------------------------------------------
 
+local PRETTIER = { "prettier", lsp_format = "fallback", timeout = 1000 }
 require("conform").setup({
-    format_on_save = {
-        timeout_ms = 1000,
-        lsp_format = "fallback",
-    },
+    format_on_save = true,
     formatters_by_ft = {
         lua = { "stylua" },
+        css = PRETTIER,
+        html = PRETTIER,
+        javascript = PRETTIER,
+        javascriptreact = PRETTIER,
+        json = PRETTIER,
+        jsonc = PRETTIER,
+        typescript = PRETTIER,
+        typescriptreact = PRETTIER,
         toml = { "taplo" },
-        css = { "prettier" },
-        html = { "prettier" },
-        javascript = { "prettier" },
-        javascriptreact = { "prettier" },
-        json = { "prettier" },
-        jsonc = { "prettier" },
-        typescript = { "prettier" },
-        typescriptreact = { "prettier" },
         c = { "clang-format" },
         cpp = { "clang-format" },
         ["_"] = { "trim_whitespace", "trim_newlines", "squeeze_blanks", lsp_format = "last" },

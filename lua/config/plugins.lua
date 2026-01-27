@@ -298,6 +298,12 @@ require("quicker").setup()
 -----------------------------------------------------------------------------------------------------------------------
 -- UNDOTREE
 -----------------------------------------------------------------------------------------------------------------------
+local undotree = function()
+    if not vim.g.loaded_undotree_plugin then
+        vim.cmd("packadd nvim.undotree")
+    end
+    require("undotree").open()
+end
 
-vim.cmd("packadd nvim.undotree")
-vim.keymap.set("n", "<Leader>u", "<Cmd>Undotree<CR>")
+vim.keymap.set("n", "<Leader>u", undotree, { desc = "Undotree" })
+vim.api.nvim_create_user_command("Undotree", undotree, {})

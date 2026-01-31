@@ -2,7 +2,6 @@ vim.pack.add({
     { src = "https://github.com/nvim-mini/mini.nvim" },
     { src = "https://github.com/Darazaki/indent-o-matic" },
     { src = "https://github.com/dstein64/vim-startuptime" },
-    { src = "https://github.com/folke/lazydev.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/stevearc/conform.nvim" },
     { src = "https://github.com/windwp/nvim-ts-autotag" },
@@ -92,7 +91,6 @@ vim.keymap.set("n", "z=", require("mini.extra").pickers.spellsuggest, { desc = "
 -- LSP
 -----------------------------------------------------------------------------------------------------------------------
 
-require("lazydev").setup()
 vim.lsp.enable({
     "bashls",
     "clangd",
@@ -269,15 +267,9 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
             },
             sources = {
                 per_filetype = {
-                    lua = { inherit_defaults = true, "lazydev" },
                     vim = { inherit_defaults = true, "cmdline" },
                 },
                 providers = {
-                    lazydev = {
-                        name = "LazyDev",
-                        module = "lazydev.integrations.blink",
-                        score_offset = 100,
-                    },
                     path = {
                         opts = {
                             show_hidden_files_by_default = true,

@@ -114,7 +114,11 @@ local PRETTIER = { "prettier", lsp_format = "fallback", timeout = 1000 }
 require("conform").setup({
     format_on_save = true,
     formatters_by_ft = {
+        c = { "clang-format" },
+        cpp = { "clang-format" },
+        fish = { "fish_indent" },
         lua = { "stylua" },
+        toml = { "taplo" },
         css = PRETTIER,
         html = PRETTIER,
         javascript = PRETTIER,
@@ -123,9 +127,6 @@ require("conform").setup({
         jsonc = PRETTIER,
         typescript = PRETTIER,
         typescriptreact = PRETTIER,
-        toml = { "taplo" },
-        c = { "clang-format" },
-        cpp = { "clang-format" },
         ["_"] = { "trim_whitespace", "trim_newlines", "squeeze_blanks", lsp_format = "last" },
     },
     formatters = {

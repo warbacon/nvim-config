@@ -1,7 +1,7 @@
 {
   "plugins": {
     "blink.cmp": {
-      "rev": "b19413d214068f316c78978b08264ed1c41830ec",
+      "rev": "bc54f81b6d92f91dac06c77c3ffccec5291e98cd",
       "src": "https://github.com/saghen/blink.cmp",
       "version": ">=0.0.0"
     },
@@ -14,11 +14,11 @@
       "src": "https://github.com/Darazaki/indent-o-matic"
     },
     "mini.nvim": {
-      "rev": "9b935c218ddba02e5dc75c94f90143bce1f7c646",
+      "rev": "f28cd08c8be826355d64080400fab1764c9693dd",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nvim-bqf": {
-      "rev": "daa1a130632dc2b05a9a73538bac058dfa4e0b86",
+      "rev": "f65fba733268ffcf9c5b8ac381287eca7c223422",
       "src": "https://github.com/kevinhwang91/nvim-bqf"
     },
     "nvim-lspconfig": {

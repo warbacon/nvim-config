@@ -25,7 +25,7 @@ end
 vim.loader.enable()
 
 if vim.fn.has("nvim-0.12") == 1 then
-    require("vim._extui").enable({})
+    require("vim._core.ui2").enable({})
     vim.lsp.on_type_formatting.enable()
 end
 

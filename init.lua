@@ -35,7 +35,7 @@ require("config.keymaps")
 require("config.misc")
 
 if vim.o.termguicolors then
-    vim.cmd.colorscheme("pino")
+    vim.cmd.colorscheme("clearpine")
 
     if vim.fn.has("nvim-0.12") == 1 then
         require("config.plugins")

@@ -40,10 +40,6 @@
     "quicker.nvim": {
       "rev": "fc041830fa7cf093786b0d5990d99cf3c7b0c129",
       "src": "https://github.com/stevearc/quicker.nvim"
-    },
-    "vim-startuptime": {
-      "rev": "b6f0d93f6b8cf6eee0b4c94450198ba2d6a05ff6",
-      "src": "https://github.com/dstein64/vim-startuptime"
     }
   }
 }

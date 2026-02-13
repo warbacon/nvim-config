@@ -1,7 +1,8 @@
 local M = {}
 
 local function get_git_root()
-    local handle = io.popen("git rev-parse --show-toplevel 2>nul")
+    local null_device = vim.fn.has("win32") == 1 and "nul" or "/dev/null"
+    local handle = io.popen("git rev-parse --show-toplevel 2>" .. null_device)
     if not handle then
         return vim.fn.getcwd()
     end

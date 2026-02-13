@@ -32,6 +32,8 @@ vim.o.splitright = true
 vim.o.foldtext = ""
 vim.o.foldlevel = 99
 
+vim.o.conceallevel = 3
+
 vim.opt.fillchars = {
     foldopen = "",
     foldclose = "",

@@ -74,6 +74,7 @@ return {
 
     -- Treesitter
     ["@function.builtin"] = { fg = palette.pine, italic = true },
+    ["@lsp.typemod.variable.defaultLibrary"] = { link = "@variable.builtin" },
     ["@markup.heading.1.markdown"] = { fg = palette.pine, bold = true },
     ["@markup.heading.2.markdown"] = { fg = palette.gold, bold = true },
     ["@markup.heading.3.markdown"] = { fg = palette.leaf, bold = true },
@@ -86,6 +87,7 @@ return {
     ["@markup.quote.markdown"] = { fg = palette.subtle },
     ["@markup.raw"] = { bg = palette.overlay },
     ["@markup.raw.block"] = { bg = "none" },
+    ["@module.builtin"] = { fg = palette.love },
     ["@punctuation"] = { link = "Delimiter" },
     ["@punctuation.special"] = { link = "Delimiter" },
     ["@tag"] = { fg = palette.love, bold = true },
@@ -94,7 +96,6 @@ return {
     ["@variable"] = { fg = palette.text },
     ["@variable.builtin"] = { fg = palette.love, bold = true },
     ["@variable.member"] = { fg = palette.foam },
-    ["@module.builtin"] = { fg = palette.love },
 
     -- LSP
     ["@lsp.typemod.variable.readonly"] = { link = "Constant" },

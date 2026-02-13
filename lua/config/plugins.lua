@@ -264,7 +264,7 @@ safely("event:InsertEnter,CmdlineEnter", function()
                 draw = {
                     gap = 2,
                     columns = {
-                        { "kind_icon", "kind", gap = 2 },
+                        { "kind_icon" },
                         { "label", "label_description", gap = 2 },
                     },
                 },

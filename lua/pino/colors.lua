@@ -91,7 +91,7 @@ return {
     ["@tag"] = { fg = palette.love, bold = true },
     ["@tag.attribute"] = { fg = palette.foam },
     ["@tag.delimiter"] = { link = "Delimiter" },
-    ["@variable"] = { fg = "none" },
+    ["@variable"] = { fg = palette.text },
     ["@variable.builtin"] = { fg = palette.love, bold = true },
     ["@variable.member"] = { fg = palette.foam },
     ["@module.builtin"] = { fg = palette.love },

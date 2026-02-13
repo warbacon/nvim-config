@@ -9,6 +9,8 @@ vim.pack.add({
     { src = "https://github.com/stevearc/quicker.nvim" },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("*") },
+    { src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
+    { src = "https://github.com/folke/tokyonight.nvim" },
 })
 
 vim.keymap.set("n", "<Leader>pu", vim.pack.update, { desc = "Update plugins" })

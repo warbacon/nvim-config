@@ -9,6 +9,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Copy to system clipboard" })
 vim.keymap.set({ "n", "v" }, "<leader>Y", '"+y$', { desc = "Copy until the end to system clipboard" })
 
+-- Allow <C-v> to paste text
+vim.keymap.set("i", "<C-v>", "<C-r>+", { desc = "Paste using system's clipboard" })
+
+-- Allow <C-z> to undo
+vim.keymap.set("i", "<C-z>", "<Cmd>undo<CR>", { desc = "Undo last change" })
+
+-- Sensible word deleting in insert and command-line mode
+vim.keymap.set({ "i", "c" }, "<C-BS>", "<C-w>", { desc = "Delete backward word" })
+vim.keymap.set({ "i", "c" }, "<M-BS>", "<C-w>", { desc = "Delete backward word" })
+
 -- Fuzzy finder replacement
 vim.keymap.set("n", "<Leader>f", ":find **/", { noremap = true, desc = "Find files" })
 

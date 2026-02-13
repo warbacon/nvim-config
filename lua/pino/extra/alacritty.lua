@@ -33,7 +33,7 @@ background = "${surface}"
 
 [colors.selection]
 text = "CellForeground"
-background = "${surface}"
+background = "${overlay}"
 
 [colors.normal]
 black = "${overlay}"

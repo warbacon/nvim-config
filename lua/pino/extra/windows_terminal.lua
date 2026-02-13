@@ -11,7 +11,7 @@ function M.generate(palette)
     "background": "${base}",
     "foreground": "${text}",
     "cursorColor": "${text}",
-    "selectionBackground": "${surface}",
+    "selectionBackground": "${overlay}",
     "black": "${overlay}",
     "red": "${love}",
     "green": "${leaf}",

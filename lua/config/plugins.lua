@@ -11,6 +11,7 @@ vim.pack.add({
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("*") },
     { src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
     { src = "https://github.com/folke/tokyonight.nvim" },
+    { src = "https://github.com/nvim-lualine/lualine.nvim" },
 })
 
 vim.keymap.set("n", "<Leader>pu", vim.pack.update, { desc = "Update plugins" })
@@ -28,11 +29,14 @@ vim.keymap.set("n", "<Leader>px", function()
         :totable())
 end, { desc = "Delete non-active plugins" })
 
+local safely = require("mini.misc").safely
+
 -----------------------------------------------------------------------------------------------------------------------
 -- MINI.NVIM
 -----------------------------------------------------------------------------------------------------------------------
 
 require("mini.icons").setup()
+require("mini.icons").mock_nvim_web_devicons()
 require("mini.clue").setup({
     triggers = {
         { mode = { "n", "x" }, keys = "<Leader>" },
@@ -235,53 +239,51 @@ vim.keymap.set("n", "-", "<cmd>Oil<CR>", { noremap = true, desc = "Open Oil file
 -- BLINK.CMP
 -----------------------------------------------------------------------------------------------------------------------
 
-vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
-    callback = function()
-        require("blink.cmp").setup({
-            cmdline = {
-                completion = {
-                    list = {
-                        selection = {
-                            preselect = false,
-                        },
-                    },
-                    menu = {
-                        auto_show = true,
-                    },
-                },
-            },
-            appearance = {
-                kind_icons = Util.icons.kinds,
-            },
+safely("event:InsertEnter,CmdlineEnter", function()
+    require("blink.cmp").setup({
+        cmdline = {
             completion = {
-                documentation = {
-                    auto_show = true,
+                list = {
+                    selection = {
+                        preselect = false,
+                    },
                 },
                 menu = {
-                    draw = {
-                        gap = 2,
-                        columns = {
-                            { "kind_icon" },
-                            { "label", "label_description", gap = 2 },
-                        },
+                    auto_show = true,
+                },
+            },
+        },
+        appearance = {
+            kind_icons = Util.icons.kinds,
+        },
+        completion = {
+            documentation = {
+                auto_show = true,
+            },
+            menu = {
+                draw = {
+                    gap = 2,
+                    columns = {
+                        { "kind_icon", "kind", gap = 2 },
+                        { "label", "label_description", gap = 2 },
                     },
                 },
             },
-            sources = {
-                per_filetype = {
-                    vim = { inherit_defaults = true, "cmdline" },
-                },
-                providers = {
-                    path = {
-                        opts = {
-                            show_hidden_files_by_default = true,
-                        },
+        },
+        sources = {
+            per_filetype = {
+                vim = { inherit_defaults = true, "cmdline" },
+            },
+            providers = {
+                path = {
+                    opts = {
+                        show_hidden_files_by_default = true,
                     },
                 },
             },
-        })
-    end,
-})
+        },
+    })
+end)
 
 -----------------------------------------------------------------------------------------------------------------------
 -- QUICKER.NVIM
@@ -301,3 +303,29 @@ end
 
 vim.keymap.set("n", "<Leader>u", undotree, { desc = "Undotree" })
 vim.api.nvim_create_user_command("Undotree", undotree, {})
+
+-----------------------------------------------------------------------------------------------------------------------
+-- LUALINE
+-----------------------------------------------------------------------------------------------------------------------
+vim.o.statusline = " "
+vim.o.showmode = false
+safely("later", function()
+    require("lualine").setup({
+        options = {
+            section_separators = { left = "", right = "" },
+            component_separators = { left = "", right = "" },
+        },
+        sections = {
+            lualine_a = { "mode" },
+            lualine_b = { "branch" },
+            lualine_c = { "%f" },
+            lualine_x = { "diagnostics", "filetype" },
+            lualine_y = { "progress" },
+            lualine_z = { "location" },
+        },
+        inactive_sections = {
+            lualine_c = { "%f" },
+            lualine_x = { "location" },
+        },
+    })
+end)

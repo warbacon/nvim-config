@@ -1,4 +1,4 @@
-local utils = require("clearpine.utils")
+local utils = require("pino.utils")
 
 local colors = {
     base = "21.35% 0.025 291",
@@ -6,8 +6,8 @@ local colors = {
     overlay = "29.35% 0.044 291",
     highlight = "33.35% 0.052 291",
     text = "85% 0.035 291",
-    subtle = "65% 0.052 291",
-    muted = "45% 0.056 291",
+    subtle = "70% 0.053 291",
+    muted = "55% 0.055 291",
     gold = "84.29% 0.11 77",
     mango = "85% 0.15 45",
     pine = "70% 0.0926 228",

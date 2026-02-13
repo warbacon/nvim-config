@@ -68,4 +68,18 @@ M.convertColors = function(colors)
     return convert(colors)
 end
 
+M.template = function(str, table)
+    return str:gsub("($%b{})", function(w)
+        local keys = vim.split(w:sub(3, -2), ".", { plain = true })
+        local value = table
+        for _, key in ipairs(keys) do
+            if type(value) ~= "table" then
+                return w
+            end
+            value = value[key]
+        end
+        return value or w
+    end)
+end
+
 return M

@@ -75,6 +75,7 @@ return {
     -- Treesitter
     ["@function.builtin"] = { fg = palette.pine, italic = true },
     ["@lsp.typemod.variable.defaultLibrary"] = { link = "@variable.builtin" },
+    ["@lsp.type.variable"] = { fg = "none" },
     ["@markup.heading.1.markdown"] = { fg = palette.pine, bold = true },
     ["@markup.heading.2.markdown"] = { fg = palette.gold, bold = true },
     ["@markup.heading.3.markdown"] = { fg = palette.leaf, bold = true },

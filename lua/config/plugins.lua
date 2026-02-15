@@ -8,10 +8,10 @@ vim.pack.add({
     { src = "https://github.com/kevinhwang91/nvim-bqf" },
     { src = "https://github.com/stevearc/quicker.nvim" },
     { src = "https://github.com/stevearc/oil.nvim" },
+    { src = "https://github.com/nvim-lualine/lualine.nvim" },
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("*") },
     { src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
     { src = "https://github.com/folke/tokyonight.nvim" },
-    { src = "https://github.com/nvim-lualine/lualine.nvim" },
 })
 
 vim.keymap.set("n", "<Leader>pu", vim.pack.update, { desc = "Update plugins" })
@@ -294,6 +294,7 @@ require("quicker").setup()
 -----------------------------------------------------------------------------------------------------------------------
 -- UNDOTREE
 -----------------------------------------------------------------------------------------------------------------------
+
 local undotree = function()
     if not vim.g.loaded_undotree_plugin then
         vim.cmd("packadd nvim.undotree")
@@ -307,9 +308,21 @@ vim.api.nvim_create_user_command("Undotree", undotree, {})
 -----------------------------------------------------------------------------------------------------------------------
 -- LUALINE
 -----------------------------------------------------------------------------------------------------------------------
+
 vim.o.statusline = " "
-vim.o.showmode = false
 safely("later", function()
+    vim.o.showmode = false
+
+    local function macro()
+        local register = vim.fn.reg_recording()
+
+        if register == "" then
+            return ""
+        end
+
+        return string.format("@%s", register)
+    end
+
     require("lualine").setup({
         options = {
             section_separators = { left = "", right = "" },
@@ -319,7 +332,7 @@ safely("later", function()
             lualine_a = { "mode" },
             lualine_b = { "branch" },
             lualine_c = { "%f" },
-            lualine_x = { "diagnostics", "filetype" },
+            lualine_x = { "diagnostics", { macro, color = "ModeMsg" }, "filetype" },
             lualine_y = { "progress" },
             lualine_z = { "location" },
         },

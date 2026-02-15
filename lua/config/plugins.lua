@@ -86,7 +86,7 @@ require("mini.pick").setup({
 vim.keymap.set("n", "<Leader>f", "<Cmd>Pick files<CR>", { desc = "Pick files" })
 vim.keymap.set("n", "<Leader>sg", "<Cmd>Pick grep_live<CR>", { desc = "Live grep" })
 vim.keymap.set("n", "<Leader>sh", "<Cmd>Pick help<CR>", { desc = "Search help tags" })
-vim.keymap.set("n", "<Leader>,", "<Cmd>Pick buffers<CR>", { desc = "Show buffers" })
+vim.keymap.set("n", "<Leader>,", "<Cmd>Pick buffers<CR>", { desc = "Show open buffers" })
 vim.keymap.set("n", "<Leader>sd", function()
     require("mini.extra").pickers.diagnostic({ scope = "all" })
 end, { desc = "Show workspace diagnostics" })

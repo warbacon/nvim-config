@@ -48,6 +48,7 @@ vim.opt.shortmess:append("I")
 vim.o.winborder = "single"
 if vim.fn.has("nvim-0.12") == 1 then
     vim.o.pumborder = vim.o.pumborder
+    vim.o.cmdheight = 0
 end
 
 vim.api.nvim_create_autocmd("FileType", {

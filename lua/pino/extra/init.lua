@@ -1,72 +1,68 @@
 local M = {}
 
-local function get_git_root()
-    local null_device = vim.fn.has("win32") == 1 and "nul" or "/dev/null"
-    local handle = io.popen("git rev-parse --show-toplevel 2>" .. null_device)
-    if not handle then
-        return vim.fn.getcwd()
-    end
-    local result = handle:read("*a")
-    handle:close()
-    result = result:gsub("[\n\r]", "")
-    return result ~= "" and result or vim.fn.getcwd()
+local function get_project_root()
+    local root = vim.fs.find(".git", { path = vim.fn.getcwd(), upward = true })[1]
+    return root and vim.fs.dirname(root) or vim.fn.getcwd()
 end
 
 ---@param path string
 ---@param content string
 local function write_file(path, content)
-    local dir = vim.fn.fnamemodify(path, ":h")
-    vim.fn.mkdir(dir, "p")
+    vim.fn.mkdir(vim.fs.dirname(path), "p")
     local file = io.open(path, "w")
-    if file then
-        file:write(content)
-        file:close()
-        return true
+    if not file then
+        return false
     end
-    return false
+
+    file:write(content)
+    file:close()
+    return true
 end
 
-function M.setup()
-    local root = get_git_root()
-    local palette = require("pino.palette")
+function M.build()
+    local root = get_project_root()
+    local colors = require("pino.colors").get()
 
-    local extra_path = vim.fn.fnamemodify(debug.getinfo(1).source:sub(2), ":h")
+    local current_script = debug.getinfo(1, "S").source:sub(2)
+    local extra_path = vim.fs.dirname(current_script)
 
-    local generated = 0
-    local failed = 0
+    local stats = { generated = 0, failed = 0 }
 
-    for name, ftype in vim.fs.dir(extra_path) do
-        if ftype == "file" and name:match("%.lua$") and name ~= "init.lua" then
+    for name, type in vim.fs.dir(extra_path) do
+        if type == "file" and name:match("%.lua$") and name ~= "init.lua" then
             local module_name = name:gsub("%.lua$", "")
             local ok, plugin = pcall(require, "pino.extra." .. module_name)
 
             if ok then
-                local success, result = pcall(plugin.generate, palette)
+                local gen_ok, result = pcall(plugin.generate, colors)
 
-                if success and type(result) == "table" then
+                if gen_ok and type(result) == "table" then
                     for _, output in ipairs(result) do
-                        local filepath = root .. "/extras/" .. module_name .. "/" .. output.filename
+                        local dest_path = vim.fs.joinpath(root, "extras", module_name, output.filename)
 
-                        if write_file(filepath, output.content) then
-                            print(string.format("Generated: extras/%s/%s", module_name, output.filename))
-                            generated = generated + 1
+                        if write_file(dest_path, output.content) then
+                            vim.notify("Generated: " .. dest_path, vim.log.levels.INFO)
+                            stats.generated = stats.generated + 1
                         else
-                            print(string.format("Failed to write: extras/%s/%s", module_name, output.filename))
-                            failed = failed + 1
+                            vim.notify("Write failed: " .. dest_path, vim.log.levels.ERROR)
+                            stats.failed = stats.failed + 1
                         end
                     end
                 else
-                    print(string.format("Failed to generate: pino.extra.%s", module_name))
-                    failed = failed + 1
+                    vim.notify("Generate failed: pino.extra." .. module_name, vim.log.levels.ERROR)
+                    stats.failed = stats.failed + 1
                 end
             else
-                print(string.format("Failed to load: pino.extra.%s", module_name))
-                failed = failed + 1
+                vim.notify("Load failed: pino.extra." .. module_name, vim.log.levels.ERROR)
+                stats.failed = stats.failed + 1
             end
         end
     end
 
-    print(string.format("\nGenerated %d theme(s), %d failed", generated, failed))
+    vim.notify(
+        string.format("Pino Extras: %d generated, %d failed", stats.generated, stats.failed),
+        vim.log.levels.INFO
+    )
 end
 
 return M

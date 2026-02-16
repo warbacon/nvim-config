@@ -1,1 +1,1 @@
-require("pino").init()
+require("pino").load()

@@ -1,6 +1,6 @@
 local M = {}
 
-M.oklchToHex = function(color)
+M.oklch_to_hex = function(color)
     local l, c, h = color:match("([%d.]+)%% ([%d.]+) ([%d.]+)")
     l = tonumber(l) / 100
     c = tonumber(c)
@@ -21,7 +21,7 @@ M.oklchToHex = function(color)
     local g = -1.2684380046 * l3 + 2.6097574011 * m3 - 0.3413193965 * s3
     local b_rgb = -0.0041960863 * l3 - 0.7034186147 * m3 + 1.7076147010 * s3
 
-    local function toSRGB(v)
+    local function to_SRGB(v)
         if v <= 0.0031308 then
             return 12.92 * v
         else
@@ -29,9 +29,9 @@ M.oklchToHex = function(color)
         end
     end
 
-    r = toSRGB(r)
-    g = toSRGB(g)
-    b_rgb = toSRGB(b_rgb)
+    r = to_SRGB(r)
+    g = to_SRGB(g)
+    b_rgb = to_SRGB(b_rgb)
 
     local function clamp(v)
         return math.max(0, math.min(1, v))
@@ -41,31 +41,20 @@ M.oklchToHex = function(color)
     g = clamp(g)
     b_rgb = clamp(b_rgb)
 
-    local function toHex(v)
+    local function to_hex(v)
         return string.format("%02x", math.floor(v * 255 + 0.5))
     end
 
-    return "#" .. toHex(r) .. toHex(g) .. toHex(b_rgb)
+    return "#" .. to_hex(r) .. to_hex(g) .. to_hex(b_rgb)
 end
 
-M.convertColors = function(colors)
-    local function convert(value)
-        if type(value) == "table" then
-            local out = {}
-            for k, v in pairs(value) do
-                out[k] = convert(v)
-            end
-            return out
-        end
-
-        if type(value) == "string" then
-            return M.oklchToHex(value)
-        end
-
-        return value
+---@param colors table<string,string>
+M.convert_colors = function(colors)
+    local out = {}
+    for k, v in pairs(colors) do
+        out[k] = M.oklch_to_hex(v)
     end
-
-    return convert(colors)
+    return out
 end
 
 M.template = function(str, table)
@@ -80,6 +69,26 @@ M.template = function(str, table)
         end
         return value or w
     end)
+end
+
+---@param fn function
+---@return string
+M.hash_function = function(fn)
+    if type(fn) ~= "function" then
+        return "nil"
+    end
+
+    local ok, bytecode = pcall(string.dump, fn)
+    if not ok then
+        return tostring(fn)
+    end
+
+    local hash = 0
+    for i = 1, #bytecode do
+        hash = (hash * 31 + string.byte(bytecode, i)) % 2 ^ 32
+    end
+
+    return tostring(hash)
 end
 
 return M

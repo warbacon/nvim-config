@@ -1,10 +1,8 @@
-local util = require("pino.utils")
-
 local M = {}
 
---- @param palette table
-function M.generate(palette)
-    local colorscheme = util.template(
+--- @param colors table
+function M.generate(colors)
+    local content = require("pino.util").template(
         [[
 {
     "name": "Pino",
@@ -30,10 +28,10 @@ function M.generate(palette)
     "brightWhite": "${text}"
 }
 ]],
-        palette
+        colors
     )
     return {
-        { filename = "pino-colorscheme.json", content = colorscheme },
+        { filename = "pino-colorscheme.json", content = content },
     }
 end
 

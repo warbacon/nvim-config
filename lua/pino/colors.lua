@@ -1,127 +1,32 @@
-local palette = require("pino.palette")
+local M = {}
 
----@type table<string, vim.api.keyset.highlight>[]
-return {
-    -- UI
-    ColorColumn = { bg = palette.overlay },
-    CurSearch = { fg = palette.base, bg = palette.gold },
-    CursorColumn = { link = "CursorLine" },
-    CursorLine = { bg = palette.surface },
-    FloatBorder = { fg = palette.pine, bg = palette.surface },
-    FloatTitle = { fg = palette.pine, bg = palette.surface, bold = true },
-    LineNr = { fg = palette.muted },
-    MatchParen = { bg = palette.overlay },
-    NonText = { fg = palette.muted },
-    Normal = { fg = palette.text, bg = palette.base },
-    NormalFloat = { bg = palette.surface },
-    Pmenu = { bg = palette.surface },
-    PmenuBorder = { link = "FloatBorder" },
-    PmenuKind = { fg = palette.subtle },
-    PmenuSel = { bg = palette.overlay },
-    PmenuSbar = { bg = palette.overlay },
-    PmenuThumb = { bg = palette.muted },
-    PmenuExtra = { fg = palette.subtle, italic = true },
-    StatusLine = { fg = palette.subtle, bg = palette.surface },
-    StatusLineNC = { fg = palette.muted, bg = palette.surface },
-    Visual = { bg = palette.overlay },
-    WinSeparator = { fg = palette.highlight },
+---@return table<string,string>
+M.setup = function()
+    local opts = require("pino.config").options
+    local utils = require("pino.util")
 
-    -- Syntax
-    Comment = { fg = palette.muted, italic = true },
-    Constant = { fg = palette.mango },
-    Delimiter = { fg = palette.subtle },
-    Directory = { fg = palette.pine },
-    Function = { fg = palette.pine },
-    Identifier = { fg = palette.foam },
-    Operator = { fg = palette.subtle },
-    PreProc = { italic = true },
-    Quote = { fg = palette.subtle },
-    Special = { fg = palette.iris },
-    Statement = { fg = palette.rose, italic = true },
-    String = { fg = palette.gold },
-    Title = { fg = palette.pine, bold = true },
-    Type = { fg = palette.text, bold = true },
+    local colors = {
+        base = "21.35% 0.025 291",
+        surface = "25.35% 0.035 291",
+        overlay = "29.35% 0.044 291",
+        highlight = "33.35% 0.052 291",
+        text = "85% 0.035 291",
+        subtle = "70% 0.053 291",
+        muted = "55% 0.055 291",
+        gold = "84.29% 0.11 77",
+        mango = "85% 0.15 45",
+        pine = "70% 0.0926 228",
+        foam = "82.19% 0.0543 209.56",
+        iris = "77.6% 0.0945 304.99",
+        love = "69.77% 0.1565 4.22",
+        rose = "83.63% 0.0544 21.14",
+        leaf = "77.66% 0.0952 141.53",
+    }
 
-    -- Messages
-    ErrorMsg = { fg = palette.love },
-    ModeMsg = { fg = palette.mango, bold = true },
-    MoreMsg = { fg = palette.pine },
-    OkMsg = { fg = palette.leaf },
-    WarningMsg = { fg = palette.gold },
+    colors = utils.convert_colors(colors)
+    opts.on_colors(colors)
 
-    -- Diagnostics
-    DiagnosticError = { fg = palette.love },
-    DiagnosticHint = { fg = palette.pine },
-    DiagnosticInfo = { fg = palette.foam },
-    DiagnosticWarn = { fg = palette.gold },
-    DiagnosticFloatingError = { fg = palette.love, bg = palette.surface },
-    DiagnosticFloatingHint = { fg = palette.pine, bg = palette.surface },
-    DiagnosticFloatingInfo = { fg = palette.foam, bg = palette.surface },
-    DiagnosticFloatingWarn = { fg = palette.gold, bg = palette.surface },
-    DiagnosticUnderlineError = { sp = palette.love, undercurl = true },
-    DiagnosticUnderlineHint = { sp = palette.pine, undercurl = true },
-    DiagnosticUnderlineInfo = { sp = palette.foam, undercurl = true },
-    DiagnosticUnderlineWarn = { sp = palette.gold, undercurl = true },
+    return colors
+end
 
-    -- Diff
-    Added = { fg = palette.leaf },
-    Changed = { fg = palette.foam },
-    Removed = { fg = palette.love },
-    DiffAdd = { fg = palette.base, bg = palette.leaf },
-    DiffChange = { bg = palette.overlay },
-    DiffDelete = { fg = palette.love, bold = true },
-    DiffText = { fg = palette.base, bg = palette.foam },
-
-    -- Treesitter
-    ["@function.builtin"] = { fg = palette.pine, italic = true },
-    ["@lsp.typemod.variable.defaultLibrary"] = { link = "@variable.builtin" },
-    ["@lsp.type.variable"] = { fg = "none" },
-    ["@markup.heading.1.markdown"] = { fg = palette.pine, bold = true },
-    ["@markup.heading.2.markdown"] = { fg = palette.gold, bold = true },
-    ["@markup.heading.3.markdown"] = { fg = palette.leaf, bold = true },
-    ["@markup.heading.4.markdown"] = { fg = palette.foam, bold = true },
-    ["@markup.heading.5.markdown"] = { fg = palette.iris, bold = true },
-    ["@markup.heading.6.markdown"] = { fg = palette.rose, bold = true },
-    ["@markup.link"] = { underline = false },
-    ["@markup.link.label"] = { fg = palette.foam },
-    ["@markup.link.url"] = { fg = palette.iris, underline = true },
-    ["@markup.quote.markdown"] = { fg = palette.subtle },
-    ["@markup.raw"] = { bg = palette.overlay },
-    ["@markup.raw.block"] = { bg = "none" },
-    ["@module.builtin"] = { fg = palette.love },
-    ["@punctuation"] = { link = "Delimiter" },
-    ["@punctuation.special"] = { link = "Delimiter" },
-    ["@tag"] = { fg = palette.love, bold = true },
-    ["@tag.attribute"] = { fg = palette.foam },
-    ["@tag.delimiter"] = { link = "Delimiter" },
-    ["@variable"] = { fg = palette.text },
-    ["@variable.builtin"] = { fg = palette.love, bold = true },
-    ["@variable.member"] = { fg = palette.foam },
-
-    -- LSP
-    ["@lsp.typemod.variable.readonly"] = { link = "Constant" },
-
-    -- Mini.pick
-    MiniPickMatchCurrent = { bg = palette.overlay },
-    MiniPickMatchMarked = { bg = palette.highlight },
-    MiniPickMatchRanges = { fg = palette.mango },
-    MiniPickPrompt = { fg = "none", bg = palette.surface },
-    MiniPickPromptCaret = { fg = palette.mango, bg = palette.surface },
-    MiniPickPromptPrefix = { fg = palette.mango, bg = palette.surface },
-
-    -- Blink.cmp
-    BlinkCmpMenuBorder = { link = "PmenuBorder" },
-    BlinkCmpKindConstant = { link = "Constant" },
-    BlinkCmpKindConstructor = { link = "Function" },
-    BlinkCmpKindFolder = { link = "Directory" },
-    BlinkCmpKindFunction = { link = "Function" },
-    BlinkCmpKindKeyword = { fg = palette.rose },
-    BlinkCmpKindProperty = { link = "Identifier" },
-    BlinkCmpKindEnum = { link = "Identifier" },
-    BlinkCmpKindField = { link = "Identifier" },
-
-    -- Lualine
-    LualineDiffAdd = { link = "Added" },
-    LualineDiffChange = { link = "Changed" },
-    LualineDiffDelete = { link = "Removed" },
-}
+return M

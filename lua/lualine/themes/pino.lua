@@ -1,34 +1,34 @@
-local palette = require("pino.palette")
+local colors = require("pino.colors").setup()
 
 return {
     normal = {
-        a = { bg = palette.pine, fg = palette.base, gui = "bold" },
-        b = { bg = palette.highlight, fg = palette.pine },
-        c = { bg = palette.surface, fg = palette.subtle },
+        a = { bg = colors.pine, fg = colors.base, gui = "bold" },
+        b = { bg = colors.highlight, fg = colors.pine },
+        c = { bg = colors.surface, fg = colors.subtle },
     },
     insert = {
-        a = { bg = palette.leaf, fg = palette.base, gui = "bold" },
-        b = { bg = palette.highlight, fg = palette.leaf },
+        a = { bg = colors.leaf, fg = colors.base, gui = "bold" },
+        b = { bg = colors.highlight, fg = colors.leaf },
     },
     terminal = {
-        a = { bg = palette.leaf, fg = palette.base, gui = "bold" },
-        b = { bg = palette.highlight, fg = palette.leaf },
+        a = { bg = colors.leaf, fg = colors.base, gui = "bold" },
+        b = { bg = colors.highlight, fg = colors.leaf },
     },
     command = {
-        a = { bg = palette.gold, fg = palette.base, gui = "bold" },
-        b = { bg = palette.highlight, fg = palette.gold },
+        a = { bg = colors.gold, fg = colors.base, gui = "bold" },
+        b = { bg = colors.highlight, fg = colors.gold },
     },
     replace = {
-        a = { bg = palette.love, fg = palette.base, gui = "bold" },
-        b = { bg = palette.highlight, fg = palette.love },
+        a = { bg = colors.love, fg = colors.base, gui = "bold" },
+        b = { bg = colors.highlight, fg = colors.love },
     },
     visual = {
-        a = { bg = palette.iris, fg = palette.base, gui = "bold" },
-        b = { bg = palette.highlight, fg = palette.iris },
+        a = { bg = colors.iris, fg = colors.base, gui = "bold" },
+        b = { bg = colors.highlight, fg = colors.iris },
     },
     inactive = {
-        a = { bg = palette.muted, fg = palette.base, gui = "bold" },
-        b = { bg = palette.overlay, fg = palette.muted },
-        c = { fg = palette.muted, bg = palette.surface },
+        a = { bg = colors.muted, fg = colors.base, gui = "bold" },
+        b = { bg = colors.overlay, fg = colors.muted },
+        c = { fg = colors.muted, bg = colors.surface },
     },
 }

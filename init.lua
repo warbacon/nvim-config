@@ -35,6 +35,12 @@ require("config.keymaps")
 require("config.misc")
 
 if vim.o.termguicolors then
+    require("pino").setup({
+        plugins = {
+            mason = false,
+            mini = true,
+        },
+    })
     vim.cmd.colorscheme("pino")
 
     if vim.fn.has("nvim-0.12") == 1 then

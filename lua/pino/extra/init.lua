@@ -1,7 +1,7 @@
 local M = {}
 
 local function get_project_root()
-    local current = debug.getinfo(1, "S").source:sub(2) -- Archivo actual
+    local current = debug.getinfo(1, "S").source:sub(2)
     local lua_dir = vim.fs.find("lua", {
         path = vim.fs.dirname(current),
         upward = true,
@@ -9,10 +9,9 @@ local function get_project_root()
     })[1]
 
     if lua_dir then
-        return vim.fs.dirname(lua_dir) -- Directorio padre de lua/
+        return vim.fs.dirname(lua_dir)
     end
 
-    -- Fallback: buscar desde cwd
     local lua_dir_cwd = vim.fs.find("lua", {
         path = vim.fn.getcwd(),
         upward = true,
@@ -20,20 +19,6 @@ local function get_project_root()
     })[1]
 
     return lua_dir_cwd and vim.fs.dirname(lua_dir_cwd) or nil
-end
-
----@param path string
----@param content string
-local function write_file(path, content)
-    vim.fn.mkdir(vim.fs.dirname(path), "p")
-    local file = io.open(path, "w")
-    if not file then
-        return false
-    end
-
-    file:write(content)
-    file:close()
-    return true
 end
 
 function M.build()
@@ -46,7 +31,6 @@ function M.build()
 
     local colors = require("pino.colors").setup()
 
-    -- Lista explícita de extras disponibles
     local extras = {
         "alacritty",
         "windows_terminal",
@@ -67,7 +51,7 @@ function M.build()
                 for _, output in ipairs(result) do
                     local dest_path = vim.fs.joinpath(root, "extras", extra_name, output.filename)
 
-                    if write_file(dest_path, output.content) then
+                    if require("pino.util").write_file(dest_path, output.content) then
                         vim.notify("Generated: " .. dest_path, vim.log.levels.INFO)
                         stats.generated = stats.generated + 1
                     else

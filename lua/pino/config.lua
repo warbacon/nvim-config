@@ -5,6 +5,7 @@ local M = {}
 ---@field plugins? pino.Config.Plugins
 ---@field on_colors? fun(colors: table<string,string>)
 ---@field on_highlights? fun(highlights: table<string,vim.api.keyset.highlight>, colors: table<string,string>)
+---@field cache? boolean
 
 ---@class pino.Config.Style
 ---@field italic? boolean
@@ -25,13 +26,11 @@ M.defaults = {
         bold = true,
         undercurl = true,
     },
-
     plugins = {
         blink_cmp = true,
         lualine = true,
         mason = true,
         mini = false,
-        neogit = false,
         fzf_lua = false,
         snacks = false,
     },
@@ -39,22 +38,15 @@ M.defaults = {
     on_colors = function(colors) end,
     ---@diagnostic disable-next-line: unused-local
     on_highlights = function(highlights, colors) end,
+    cache = false,
 }
 
 ---@class pino.Config
-M.options = nil
+M.options = {}
 
 ---@param opts? pino.Config
 M.setup = function(opts)
-    M.options = vim.tbl_deep_extend("force", M.defaults, opts or {})
+    M.options = vim.tbl_deep_extend("force", M.defaults, opts)
 end
-
-setmetatable(M, {
-    __index = function(_, k)
-        if k == "options" then
-            return M.defaults
-        end
-    end,
-})
 
 return M

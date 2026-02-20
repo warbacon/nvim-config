@@ -1,9 +1,8 @@
 local M = {}
 
 ---@param colors table<string,string>
----@param config pino.Config
 ---@return table<string,vim.api.keyset.highlight>
-M.get = function(colors, config)
+M.get = function(colors)
     return {
         MasonHeader = { fg = colors.surface, bg = colors.mango, bold = true },
         MasonHeaderSecondary = { fg = colors.surface, bg = colors.pine, bold = true },

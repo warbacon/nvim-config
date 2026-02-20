@@ -6,8 +6,23 @@ M.load = function()
     end
     vim.g.colors_name = "pino"
 
+    local opts = require("pino.config").options
+    local cache = require("pino.cache")
+
+    if opts.cache then
+        cache.setup()
+    end
+
     local colors = require("pino.colors").setup()
     local groups = require("pino.groups").setup(colors)
+
+    if opts.cache and vim.tbl_isempty(cache.content) then
+        local inputs = {
+            style = opts.style,
+            plugins = opts.plugins,
+        }
+        cache.write(colors, groups, inputs)
+    end
 
     for group, hl in pairs(groups) do
         vim.api.nvim_set_hl(0, group, hl)

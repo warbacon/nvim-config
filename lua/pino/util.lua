@@ -1,5 +1,7 @@
 local M = {}
 
+---@param color string
+---@return string
 M.oklch_to_hex = function(color)
     local l, c, h = color:match("([%d.]+)%% ([%d.]+) ([%d.]+)")
     l = tonumber(l) / 100
@@ -49,6 +51,7 @@ M.oklch_to_hex = function(color)
 end
 
 ---@param colors table<string,string>
+---@return table<string,string>
 M.convert_colors = function(colors)
     local out = {}
     for k, v in pairs(colors) do
@@ -58,6 +61,7 @@ M.convert_colors = function(colors)
 end
 
 ---@param c string
+---@return string[]
 local function rgb(c)
     c = string.lower(c)
     return { tonumber(c:sub(2, 3), 16), tonumber(c:sub(4, 5), 16), tonumber(c:sub(6, 7), 16) }
@@ -65,9 +69,8 @@ end
 
 ---@param foreground string foreground color
 ---@param background string background color
----@param alpha number|string number between 0 and 1. 0 results in bg, 1 results in fg
+---@param alpha number number between 0 and 1. 0 results in bg, 1 results in fg
 function M.blend(foreground, alpha, background)
-    alpha = type(alpha) == "string" and (tonumber(alpha, 16) / 0xff) or alpha
     local bg = rgb(background)
     local fg = rgb(foreground)
 
@@ -93,6 +96,24 @@ M.template = function(str, table)
         end
         return value or w
     end)
+end
+
+---@param path string
+---@param content string
+---@return boolean
+M.write_file = function(path, content)
+    vim.fn.mkdir(vim.fs.dirname(path), "p")
+    local fd = vim.uv.fs_open(path, "w", 438)
+    if not fd then
+        return false
+    end
+    local ok, err = pcall(vim.uv.fs_write, fd, content, 0)
+    vim.uv.fs_close(fd)
+    if not ok then
+        vim.notify("pino: failed to write file: " .. err, vim.log.levels.WARN)
+        return false
+    end
+    return true
 end
 
 return M

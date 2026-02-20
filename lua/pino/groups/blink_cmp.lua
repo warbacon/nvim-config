@@ -1,9 +1,8 @@
 local M = {}
 
 ---@param colors table<string,string>
----@param config pino.Config
 ---@return table<string,vim.api.keyset.highlight>
-M.get = function(colors, config)
+M.get = function(colors)
     return {
         BlinkCmpMenuBorder = { link = "PmenuBorder" },
         BlinkCmpKindConstant = { link = "Constant" },

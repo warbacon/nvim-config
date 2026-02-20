@@ -12,10 +12,12 @@ local M = {}
 ---@field undercurl? boolean
 
 ---@class pino.Config.Plugins
----@field blinkcmp? boolean
+---@field blink_cmp? boolean
 ---@field lualine? boolean
 ---@field mason? boolean
 ---@field mini? boolean
+---@field fzf_lua? boolean
+---@field snacks? boolean
 
 M.defaults = {
     style = {
@@ -25,10 +27,13 @@ M.defaults = {
     },
 
     plugins = {
-        blinkcmp = true,
+        blink_cmp = true,
         lualine = true,
         mason = true,
         mini = false,
+        neogit = false,
+        fzf_lua = false,
+        snacks = false,
     },
     ---@diagnostic disable-next-line: unused-local
     on_colors = function(colors) end,

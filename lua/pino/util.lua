@@ -57,6 +57,30 @@ M.convert_colors = function(colors)
     return out
 end
 
+---@param c string
+local function rgb(c)
+    c = string.lower(c)
+    return { tonumber(c:sub(2, 3), 16), tonumber(c:sub(4, 5), 16), tonumber(c:sub(6, 7), 16) }
+end
+
+---@param foreground string foreground color
+---@param background string background color
+---@param alpha number|string number between 0 and 1. 0 results in bg, 1 results in fg
+function M.blend(foreground, alpha, background)
+    alpha = type(alpha) == "string" and (tonumber(alpha, 16) / 0xff) or alpha
+    local bg = rgb(background)
+    local fg = rgb(foreground)
+
+    local blendChannel = function(i)
+        local ret = (alpha * fg[i] + ((1 - alpha) * bg[i]))
+        return math.floor(math.min(math.max(0, ret), 255) + 0.5)
+    end
+
+    return string.format("#%02x%02x%02x", blendChannel(1), blendChannel(2), blendChannel(3))
+end
+
+---@param str string
+---@param table table<string, string>[]
 M.template = function(str, table)
     return str:gsub("($%b{})", function(w)
         local keys = vim.split(w:sub(3, -2), ".", { plain = true })
@@ -69,26 +93,6 @@ M.template = function(str, table)
         end
         return value or w
     end)
-end
-
----@param fn function
----@return string
-M.hash_function = function(fn)
-    if type(fn) ~= "function" then
-        return "nil"
-    end
-
-    local ok, bytecode = pcall(string.dump, fn)
-    if not ok then
-        return tostring(fn)
-    end
-
-    local hash = 0
-    for i = 1, #bytecode do
-        hash = (hash * 31 + string.byte(bytecode, i)) % 2 ^ 32
-    end
-
-    return tostring(hash)
 end
 
 return M

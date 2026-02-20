@@ -4,13 +4,15 @@ local M = {}
 ---@param config pino.Config
 ---@return table<string,vim.api.keyset.highlight>
 M.get = function(colors, config)
+    local util = require("pino.util")
+
     return {
         MiniPickMatchCurrent = { bg = colors.overlay },
-        MiniPickMatchMarked = { bg = colors.highlight },
-        MiniPickMatchRanges = { fg = colors.mango },
+        MiniPickMatchMarked = { bg = util.blend(colors.pine, 0.2, colors.surface) },
+        MiniPickMatchRanges = { fg = colors.love },
         MiniPickPrompt = { fg = "none", bg = colors.surface },
-        MiniPickPromptCaret = { fg = colors.mango, bg = colors.surface },
-        MiniPickPromptPrefix = { fg = colors.mango, bg = colors.surface },
+        MiniPickPromptCaret = { fg = colors.rose, bg = colors.surface },
+        MiniPickPromptPrefix = { fg = colors.rose, bg = colors.surface },
     }
 end
 

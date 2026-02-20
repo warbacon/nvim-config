@@ -3,6 +3,7 @@ local M = {}
 ---@param colors? table<string,string>
 M.setup = function(colors)
     local opts = require("pino.config").options
+    local util = require("pino.util")
 
     if not colors then
         colors = require("pino.colors").setup()
@@ -13,8 +14,10 @@ M.setup = function(colors)
         -- UI
         ColorColumn = { bg = colors.overlay },
         CurSearch = { fg = colors.base, bg = colors.mango },
+        Search = { fg = "white", bg = util.blend(colors.mango, 0.4, colors.base) },
         CursorColumn = { link = "CursorLine" },
         CursorLine = { bg = colors.surface },
+        CursorLineNr = { fg = colors.text, bold = true },
         FloatBorder = { fg = colors.pine, bg = colors.surface },
         FloatTitle = { fg = colors.pine, bg = colors.surface, bold = opts.style.bold },
         LineNr = { fg = colors.muted },
@@ -28,13 +31,16 @@ M.setup = function(colors)
         PmenuKind = { fg = colors.subtle },
         PmenuSbar = { bg = colors.overlay },
         PmenuSel = { bg = colors.overlay },
-        PmenuThumb = { bg = colors.muted },
+        PmenuThumb = { bg = colors.rose },
         Question = { fg = colors.foam },
         QuickFixLine = { fg = colors.mango },
         StatusLine = { fg = colors.subtle, bg = colors.surface },
         StatusLineNC = { fg = colors.muted, bg = colors.surface },
-        Visual = { bg = colors.overlay },
+        Visual = { bg = util.blend(colors.pine, 0.2, colors.base) },
         WinSeparator = { fg = colors.highlight },
+        Folded = { bg = colors.highlight },
+        SignColumn = { link = "LineNr" },
+        FoldColumm = { link = "LineNr" },
 
         -- Syntax
         Comment = { fg = colors.muted, italic = opts.style.italic },
@@ -44,7 +50,7 @@ M.setup = function(colors)
         Function = { fg = colors.pine },
         Identifier = { fg = colors.foam },
         Operator = { fg = colors.subtle },
-        PreProc = { italic = opts.style.italic },
+        PreProc = { fg = colors.subtle },
         Quote = { fg = colors.subtle },
         Special = { fg = colors.iris },
         Statement = { fg = colors.rose, italic = opts.style.italic },
@@ -88,15 +94,22 @@ M.setup = function(colors)
             undercurl = opts.style.undercurl,
             underline = not opts.style.undercurl,
         },
+        DiagnosticVirtualtextError = { fg = colors.love, bg = util.blend(colors.love, 0.1, colors.base) },
+        DiagnosticVirtualtextHint = { fg = colors.pine, bg = util.blend(colors.pine, 0.1, colors.base) },
+        DiagnosticVirtualtextInfo = { fg = colors.foam, bg = util.blend(colors.foam, 0.1, colors.base) },
+        DiagnosticVirtualtextWarn = { fg = colors.gold, bg = util.blend(colors.gold, 0.1, colors.base) },
 
         -- Diff
         Added = { fg = colors.leaf },
-        Changed = { fg = colors.foam },
+        Changed = { fg = colors.pine },
         Removed = { fg = colors.love },
-        DiffAdd = { fg = colors.base, bg = colors.leaf },
-        DiffChange = { bg = colors.overlay },
-        DiffDelete = { fg = colors.love, bold = opts.style.bold },
-        DiffText = { fg = colors.base, bg = colors.foam },
+        diffChanged = { link = "Changed" },
+        diffAdded = { link = "Added" },
+        diffRemoved = { link = "Removed" },
+        DiffAdd = { bg = util.blend(colors.leaf, 0.25, colors.base) },
+        DiffChange = { bg = util.blend(colors.pine, 0.1, colors.base) },
+        DiffDelete = { bg = util.blend(colors.love, 0.25, colors.base) },
+        DiffText = { bg = util.blend(colors.pine, 0.25, colors.base) },
 
         -- Treesitter
         ["@function.builtin"] = { fg = colors.pine, italic = opts.style.italic },

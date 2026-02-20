@@ -22,12 +22,12 @@ M.load = function()
     vim.g.terminal_color_6 = colors.foam
     vim.g.terminal_color_7 = colors.subtle
     vim.g.terminal_color_8 = colors.muted
-    vim.g.terminal_color_9 = colors.love
-    vim.g.terminal_color_10 = colors.leaf
-    vim.g.terminal_color_11 = colors.gold
-    vim.g.terminal_color_12 = colors.pine
-    vim.g.terminal_color_13 = colors.iris
-    vim.g.terminal_color_14 = colors.foam
+    vim.g.terminal_color_9 = colors.bright_love
+    vim.g.terminal_color_10 = colors.bright_leaf
+    vim.g.terminal_color_11 = colors.bright_gold
+    vim.g.terminal_color_12 = colors.bright_pine
+    vim.g.terminal_color_13 = colors.bright_iris
+    vim.g.terminal_color_14 = colors.bright_foam
     vim.g.terminal_color_15 = colors.text
 end
 

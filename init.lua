@@ -39,6 +39,7 @@ if vim.o.termguicolors then
         plugins = {
             mason = false,
             mini = true,
+            fzf_lua = true,
         },
     })
     vim.cmd.colorscheme("pino")

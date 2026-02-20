@@ -31,7 +31,7 @@ background = "${surface}"
 
 [colors.selection]
 text = "CellForeground"
-background = "${overlay}"
+background = "${selection}"
 
 [colors.normal]
 black = "${overlay}"
@@ -45,12 +45,12 @@ white = "${subtle}"
 
 [colors.bright]
 black = "${muted}"
-red = "${love}"
-green = "${leaf}"
-yellow = "${gold}"
-blue = "${pine}"
-magenta = "${iris}"
-cyan = "${foam}"
+red = "${bright_love}"
+green = "${bright_leaf}"
+yellow = "${bright_gold}"
+blue = "${bright_pine}"
+magenta = "${bright_iris}"
+cyan = "${bright_foam}"
 white = "${text}"
 ]],
         colors

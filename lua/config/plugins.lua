@@ -12,6 +12,7 @@ vim.pack.add({
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("*") },
     { src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
     { src = "https://github.com/folke/tokyonight.nvim" },
+    { src = "https://github.com/ibhagwan/fzf-lua" },
 })
 
 vim.keymap.set("n", "<Leader>pu", vim.pack.update, { desc = "Update plugins" })
@@ -68,7 +69,7 @@ later(function()
         },
         clues = {
             { mode = { "n" }, keys = "<Leader>p", desc = "vim.pack" },
-            { mode = { "n" }, keys = "<Leader>s", desc = "mini.pick" },
+            { mode = { "n" }, keys = "<Leader>s", desc = "FzfLua" },
             { mode = { "n" }, keys = "<Leader>r", desc = "Restart Neovim" },
             require("mini.clue").gen_clues.builtin_completion(),
             require("mini.clue").gen_clues.g(),
@@ -92,21 +93,6 @@ later(function()
 end)
 later(function()
     require("mini.splitjoin").setup()
-end)
-later(function()
-    require("mini.pick").setup({
-        mappings = {
-            choose_marked = "<C-Q>",
-        },
-    })
-    vim.keymap.set("n", "<Leader>f", "<Cmd>Pick files<CR>", { desc = "Pick files" })
-    vim.keymap.set("n", "<Leader>sg", "<Cmd>Pick grep_live<CR>", { desc = "Live grep" })
-    vim.keymap.set("n", "<Leader>sh", "<Cmd>Pick help<CR>", { desc = "Search help tags" })
-    vim.keymap.set("n", "<Leader>,", "<Cmd>Pick buffers<CR>", { desc = "Show open buffers" })
-    vim.keymap.set("n", "<Leader>sd", function()
-        require("mini.extra").pickers.diagnostic({ scope = "all" })
-    end, { desc = "Show workspace diagnostics" })
-    vim.keymap.set("n", "z=", require("mini.extra").pickers.spellsuggest, { desc = "Show spell suggestions" })
 end)
 
 -----------------------------------------------------------------------------------------------------------------------
@@ -311,27 +297,21 @@ on_event("InsertEnter,CmdlineEnter", function()
 end)
 
 -----------------------------------------------------------------------------------------------------------------------
--- QUICKER.NVIM
------------------------------------------------------------------------------------------------------------------------
-
-on_filetype("qf", function()
-    require("quicker").setup()
-end)
-
------------------------------------------------------------------------------------------------------------------------
--- UNDOTREE
+-- FZF-LUA
 -----------------------------------------------------------------------------------------------------------------------
 
 later(function()
-    local undotree = function()
-        if not vim.g.loaded_undotree_plugin then
-            vim.cmd("packadd nvim.undotree")
-        end
-        require("undotree").open()
-    end
+    require("fzf-lua").setup({
+        fzf_colors = true,
+        ui_select = true,
+    })
 
-    vim.keymap.set("n", "<Leader>u", undotree, { desc = "Undotree" })
-    vim.api.nvim_create_user_command("Undotree", undotree, {})
+    vim.keymap.set("n", "<Leader>f", "<Cmd>FzfLua files<CR>", { desc = "FzfLua files" })
+    vim.keymap.set("n", "<Leader>sg", "<Cmd>FzfLua live_grep<CR>", { desc = "Live grep" })
+    vim.keymap.set("n", "<Leader>sh", "<Cmd>FzfLua helptags<CR>", { desc = "Search help tags" })
+    vim.keymap.set("n", "<Leader>,", "<Cmd>FzfLua buffers<CR>", { desc = "Show open buffers" })
+    vim.keymap.set("n", "<Leader>sd", "<Cmd>FzfLua diagnostics_workspace<CR>", { desc = "Show workspace diagnostics" })
+    vim.keymap.set("n", "z=", "<Cmd>FzfLua spell_suggest<CR>", { desc = "Show spell suggestions" })
 end)
 
 -----------------------------------------------------------------------------------------------------------------------
@@ -370,4 +350,28 @@ later(function()
             lualine_x = { "location" },
         },
     })
+end)
+
+-----------------------------------------------------------------------------------------------------------------------
+-- UNDOTREE
+-----------------------------------------------------------------------------------------------------------------------
+
+later(function()
+    local undotree = function()
+        if not vim.g.loaded_undotree_plugin then
+            vim.cmd("packadd nvim.undotree")
+        end
+        require("undotree").open()
+    end
+
+    vim.keymap.set("n", "<Leader>u", undotree, { desc = "Undotree" })
+    vim.api.nvim_create_user_command("Undotree", undotree, {})
+end)
+
+-----------------------------------------------------------------------------------------------------------------------
+-- QUICKER.NVIM
+-----------------------------------------------------------------------------------------------------------------------
+
+on_filetype("qf", function()
+    require("quicker").setup()
 end)

@@ -23,13 +23,10 @@ If a piece of configuration is hard to understand or maintain, it doesn't belong
 here. There are no clever tricks, no hidden abstractions, just a clean Neovim
 setup that stays out of your way and lets you focus on writing code.
 
-Miovim ships with `pino.nvim`, a muted, fast, and opinionated colorscheme
-inspired by *rose-pine*, tuned for long coding sessions, minimal visual fatigue,
-and ANSI-compatible terminal colors.
-
-For now, `pino.nvim` is exclusive to Miovim. It may be released in the future
-once it feels polished and distinct enough to stand on its own—most likely as a
-separate fork rather than a direct derivative.
+Miovim ships with `pino.nvim`, a modern and simple colorscheme inspired by
+*rose-pine*, tuned for minimal visual fatigue and ANSI-compatible terminal
+colors. For now, `pino.nvim` is exclusive to Miovim, but it will be released
+soon once it feels polished enough.
 
 ## 📦 Dependencies
 
@@ -45,7 +42,9 @@ Before using Miovim, make sure you have:
   - Any standard compiler on Linux/macOS
   - **MSVC** on Windows
 - [`tree-sitter`](https://github.com/tree-sitter/tree-sitter)
-- [`ripgrep`](https://github.com/BurntSushi/ripgrep)
+- `fzf`
+- [`ripgrep`](https://github.com/BurntSushi/ripgrep) and
+  [`fd`](https://github.com/sharkdp/fd) (optional)
 
 ## 🛠️ Installation
 

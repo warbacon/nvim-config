@@ -155,10 +155,12 @@ end)
 
 now_if_args(function()
     local ts_parsers = {
+        "bash",
         "c",
         "cpp",
         "css",
         "diff",
+        "fish",
         "gitcommit",
         "html",
         "ini",
@@ -167,6 +169,8 @@ now_if_args(function()
         "lua",
         "markdown",
         "markdown_inline",
+        "nix",
+        "powershell",
         "svelte",
         "toml",
         "typescript",
@@ -175,20 +179,6 @@ now_if_args(function()
         "xml",
         "yaml",
     }
-
-    if vim.fn.has("linux") == 1 then
-        vim.list_extend(ts_parsers, {
-            "bash",
-            "fish",
-            "nix",
-        })
-    end
-
-    if vim.fn.has("windows") == 1 then
-        vim.list_extend(ts_parsers, {
-            "powershell",
-        })
-    end
 
     require("nvim-treesitter").install(ts_parsers)
 

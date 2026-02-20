@@ -50,7 +50,6 @@ end
 
 now(function()
     require("mini.icons").setup()
-    require("mini.icons").mock_nvim_web_devicons()
 end)
 later(function()
     require("mini.clue").setup({
@@ -332,6 +331,7 @@ later(function()
         return string.format("@%s", register)
     end
 
+    require("mini.icons").mock_nvim_web_devicons()
     require("lualine").setup({
         options = {
             section_separators = { left = "", right = "" },

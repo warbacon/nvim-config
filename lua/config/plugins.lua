@@ -241,6 +241,7 @@ now(function()
         view_options = {
             show_hidden = true,
         },
+        watch_for_changes = true,
     })
     vim.keymap.set("n", "-", "<cmd>Oil<CR>", { noremap = true, desc = "Open Oil file manager" })
 end)

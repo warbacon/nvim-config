@@ -12,6 +12,15 @@ M.get = function(colors)
         MiniPickPrompt = { fg = "none", bg = colors.surface },
         MiniPickPromptCaret = { fg = colors.rose, bg = colors.surface },
         MiniPickPromptPrefix = { fg = colors.rose, bg = colors.surface },
+        MiniStatuslineModeNormal = { fg = colors.surface, bg = colors.pine },
+        MiniStatuslineModeInsert = { fg = colors.surface, bg = colors.leaf },
+        MiniStatuslineModeVisual = { fg = colors.surface, bg = colors.iris },
+        MiniStatuslineModeReplace = { fg = colors.surface, bg = colors.love },
+        MiniStatuslineModeCommand = { fg = colors.surface, bg = colors.gold },
+        MiniStatuslineModeOther = { fg = colors.surface, bg = colors.leaf },
+        MiniStatuslineDevinfo = { fg = colors.subtle, bg = colors.highlight },
+        MiniStatuslineFileinfo = { fg = colors.subtle, bg = colors.highlight },
+        MiniStatuslineFilename = { fg = colors.subtle },
     }
 end
 

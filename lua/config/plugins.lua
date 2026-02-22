@@ -296,11 +296,11 @@ later(function()
         ui_select = true,
     })
 
-    vim.keymap.set("n", "<Leader>f", "<Cmd>FzfLua files<CR>", { desc = "FzfLua files" })
-    vim.keymap.set("n", "<Leader>sg", "<Cmd>FzfLua live_grep<CR>", { desc = "Live grep" })
-    vim.keymap.set("n", "<Leader>sh", "<Cmd>FzfLua helptags<CR>", { desc = "Search help tags" })
+    vim.keymap.set("n", "<Leader><Leader>", "<Cmd>FzfLua files<CR>", { desc = "FzfLua files" })
+    vim.keymap.set("n", "<Leader>fg", "<Cmd>FzfLua live_grep<CR>", { desc = "Live grep" })
+    vim.keymap.set("n", "<Leader>fh", "<Cmd>FzfLua helptags<CR>", { desc = "Search help tags" })
     vim.keymap.set("n", "<Leader>,", "<Cmd>FzfLua buffers<CR>", { desc = "Show open buffers" })
-    vim.keymap.set("n", "<Leader>sd", "<Cmd>FzfLua diagnostics_workspace<CR>", { desc = "Show workspace diagnostics" })
+    vim.keymap.set("n", "<Leader>fd", "<Cmd>FzfLua diagnostics_workspace<CR>", { desc = "Show workspace diagnostics" })
     vim.keymap.set("n", "z=", "<Cmd>FzfLua spell_suggest<CR>", { desc = "Show spell suggestions" })
 end)
 

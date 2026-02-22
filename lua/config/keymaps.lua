@@ -20,7 +20,7 @@ vim.keymap.set({ "i", "c" }, "<C-BS>", "<C-w>", { desc = "Delete backward word" 
 vim.keymap.set({ "i", "c" }, "<M-BS>", "<C-w>", { desc = "Delete backward word" })
 
 -- Fuzzy finder replacement
-vim.keymap.set("n", "<Leader>f", ":find **/", { noremap = true, desc = "Find files" })
+vim.keymap.set("n", "<Leader><Leader>", ":find **/", { noremap = true, desc = "Find files" })
 
 -- Restart Neovim
 if vim.fn.has("nvim-0.12") == 1 then

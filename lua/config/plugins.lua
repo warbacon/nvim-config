@@ -331,13 +331,13 @@ later(function()
         sections = {
             lualine_a = { "mode" },
             lualine_b = { "branch" },
-            lualine_c = { "%f" },
+            lualine_c = { "filename" },
             lualine_x = { "diagnostics", { macro, color = "ModeMsg" }, "filetype" },
             lualine_y = { "progress" },
             lualine_z = { "location" },
         },
         inactive_sections = {
-            lualine_c = { "%f" },
+            lualine_c = { "filename" },
             lualine_x = { "location" },
         },
     })

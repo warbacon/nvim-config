@@ -37,7 +37,7 @@ M.setup = function(colors)
             PmenuKind = { fg = colors.subtle },
             PmenuSbar = { bg = colors.overlay },
             PmenuSel = { bg = colors.highlight },
-            PmenuThumb = { bg = colors.rose },
+            PmenuThumb = { bg = colors.muted },
             Question = { fg = colors.foam },
             QuickFixLine = { fg = colors.mango },
             StatusLine = { fg = colors.subtle, bg = colors.surface },

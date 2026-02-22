@@ -13,7 +13,7 @@ M.get = function(colors)
         FzfLuaFzfMatch = { fg = colors.love },
         FzfLuaFzfPointer = { fg = colors.rose },
         FzfLuaFzfPrompt = { fg = colors.rose },
-        FzfLuaFzfScrollbar = { fg = colors.rose },
+        FzfLuaFzfScrollbar = { fg = colors.muted },
         FzfLuaScrollBorderEmpty = { link = "FzfLuaFzfScrollbar" },
         FzfLuaScrollBorderFull = { link = "FzfLuaFzfScrollbar" },
         FzfLuaHeaderBind = { link = "@punctuation.special" },

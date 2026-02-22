@@ -37,6 +37,7 @@ function M.build()
         "kitty",
         "ghostty",
         "foot",
+        "lazygit",
     }
 
     local stats = { generated = 0, failed = 0 }

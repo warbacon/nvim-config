@@ -2,7 +2,7 @@ local M = {}
 
 --- @param colors table
 function M.generate(colors)
-    local content = require("pino.util").template(
+    local colorscheme = require("pino.util").template(
         [[
 {
     "name": "Pino",
@@ -30,8 +30,31 @@ function M.generate(colors)
 ]],
         colors
     )
+
+    local theme = require("pino.util").template(
+        [[
+{
+    "name": "Pino",
+    "tab": {
+        "background": "terminalBackground",
+        "unfocusedBackground": "#00000000"
+    },
+    "tabRow": {
+        "background": "${crust}",
+        "unfocusedBackground": "${overlay}"
+    },
+    "window": {
+        "frame": "${pine}",
+        "unfocusedFrame": "${highlight}"
+    }
+},
+]],
+        colors
+    )
+
     return {
-        { filename = "pino-colorscheme.json", content = content },
+        { filename = "pino-colorscheme.json", content = colorscheme },
+        { filename = "pino-theme.json", content = theme },
     }
 end
 

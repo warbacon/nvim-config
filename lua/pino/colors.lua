@@ -12,6 +12,7 @@ M.setup = function()
         local util = require("pino.util")
 
         colors = {
+            crust = "16.35% 0.014 291",
             base = "21.35% 0.025 291",
             surface = "25.35% 0.035 291",
             overlay = "29.35% 0.044 291",

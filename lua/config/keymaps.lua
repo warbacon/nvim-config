@@ -27,8 +27,8 @@ if vim.fn.has("nvim-0.12") == 1 then
     vim.keymap.set("n", "<Leader>rr", "<Cmd>restart<CR>", { desc = "Confirm restart" })
 end
 
--- Use <M-q> to exit terminal mode
-vim.keymap.set("t", "<M-q>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+-- Use <C-q> to exit terminal mode
+vim.keymap.set("t", "<C-q>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Disable the `q:` command-line window
 vim.keymap.set("n", "q:", "<Cmd>echoe 'q:'<CR>", { noremap = true, desc = "Disabled command-line window" })

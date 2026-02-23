@@ -1,5 +1,16 @@
 local M = {}
 
+local extras = {
+    "alacritty",
+    "windows_terminal",
+    "kitty",
+    "ghostty",
+    "foot",
+    "wezterm",
+    "lazygit",
+    "fzf",
+}
+
 local function get_project_root()
     local current = debug.getinfo(1, "S").source:sub(2)
     local lua_dir = vim.fs.find("lua", {
@@ -30,15 +41,6 @@ function M.build()
     end
 
     local colors = require("pino.colors").setup()
-
-    local extras = {
-        "alacritty",
-        "windows_terminal",
-        "kitty",
-        "ghostty",
-        "foot",
-        "lazygit",
-    }
 
     local stats = { generated = 0, failed = 0 }
 

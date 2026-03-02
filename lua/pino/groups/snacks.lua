@@ -10,6 +10,8 @@ M.get = function(colors)
         SnacksPickerMatch = { fg = colors.love },
         SnacksPickerPrompt = { fg = colors.rose },
         SnacksTitle = { fg = colors.rose, bg = colors.surface, bold = true },
+        SnacksIndentScope = { fg = colors.pine },
+        SnacksIndent = { fg = colors.highlight },
     }
 end
 

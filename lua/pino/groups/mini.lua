@@ -21,6 +21,7 @@ M.get = function(colors)
         MiniStatuslineDevinfo = { fg = colors.subtle, bg = colors.highlight },
         MiniStatuslineFileinfo = { fg = colors.subtle, bg = colors.highlight },
         MiniStatuslineFilename = { fg = colors.subtle },
+        MiniIndentscopeSymbol = { fg = colors.pine },
     }
 end
 

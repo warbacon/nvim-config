@@ -1,4 +1,6 @@
+-- vim.opt.rtp:prepend(vim.fs.joinpath(vim.env.HOME, "Proyectos/pino.nvim"))
 vim.pack.add({
+    { src = "https://github.com/warbacon/pino.nvim" },
     { src = "https://github.com/nvim-mini/mini.nvim" },
     { src = "https://github.com/Darazaki/indent-o-matic" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
@@ -13,6 +15,7 @@ vim.pack.add({
     { src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
     { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
+    { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 })
 
 vim.keymap.set("n", "<Leader>pu", vim.pack.update, { desc = "Update plugins" })
@@ -43,6 +46,20 @@ end
 local on_filetype = function(ft, f)
     require("mini.misc").safely("filetype:" .. ft, f)
 end
+
+-----------------------------------------------------------------------------------------------------------------------
+-- PINO.NVIM
+-----------------------------------------------------------------------------------------------------------------------
+
+require("pino").setup({
+    plugins = {
+        mason = false,
+        mini = true,
+        fzf_lua = true,
+        lazy = false,
+    },
+})
+vim.cmd.colorscheme("pino")
 
 -----------------------------------------------------------------------------------------------------------------------
 -- MINI.NVIM
@@ -294,13 +311,14 @@ later(function()
     require("fzf-lua").setup({
         fzf_colors = true,
         ui_select = true,
+        files = { formatter = "path.filename_first" },
     })
 
     vim.keymap.set("n", "<Leader><Leader>", "<Cmd>FzfLua files<CR>", { desc = "FzfLua files" })
-    vim.keymap.set("n", "<Leader>fg", "<Cmd>FzfLua live_grep<CR>", { desc = "Live grep" })
-    vim.keymap.set("n", "<Leader>fh", "<Cmd>FzfLua helptags<CR>", { desc = "Search help tags" })
+    vim.keymap.set("n", "<Leader>sg", "<Cmd>FzfLua live_grep<CR>", { desc = "Live grep" })
+    vim.keymap.set("n", "<Leader>sh", "<Cmd>FzfLua helptags<CR>", { desc = "Search help tags" })
     vim.keymap.set("n", "<Leader>,", "<Cmd>FzfLua buffers<CR>", { desc = "Show open buffers" })
-    vim.keymap.set("n", "<Leader>fd", "<Cmd>FzfLua diagnostics_workspace<CR>", { desc = "Show workspace diagnostics" })
+    vim.keymap.set("n", "<Leader>sd", "<Cmd>FzfLua diagnostics_workspace<CR>", { desc = "Show workspace diagnostics" })
     vim.keymap.set("n", "z=", "<Cmd>FzfLua spell_suggest<CR>", { desc = "Show spell suggestions" })
 end)
 

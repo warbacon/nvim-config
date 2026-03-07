@@ -23,11 +23,6 @@ If a piece of configuration is hard to understand or maintain, it doesn't belong
 here. There are no clever tricks, no hidden abstractions, just a clean Neovim
 setup that stays out of your way and lets you focus on writing code.
 
-Miovim ships with `pino.nvim`, a modern and simple colorscheme inspired by
-*rose-pine*, tuned for minimal visual fatigue and ANSI-compatible terminal
-colors. For now, `pino.nvim` is exclusive to Miovim, but it will be released
-soon once it feels polished enough.
-
 ## 📦 Dependencies
 
 > [!IMPORTANT]

@@ -132,40 +132,6 @@ now(function()
     })
 end)
 
------------------------------------------------------------------------------------------------------------------------
--- CONFORM.NVIM
------------------------------------------------------------------------------------------------------------------------
-
-later(function()
-    local PRETTIER = { "prettier", lsp_format = "fallback", timeout = 1000 }
-    require("conform").setup({
-        format_on_save = true,
-        formatters_by_ft = {
-            c = { "clang-format" },
-            cpp = { "clang-format" },
-            fish = { "fish_indent" },
-            lua = { "stylua" },
-            toml = { "taplo" },
-            css = PRETTIER,
-            html = PRETTIER,
-            javascript = PRETTIER,
-            javascriptreact = PRETTIER,
-            json = PRETTIER,
-            jsonc = PRETTIER,
-            typescript = PRETTIER,
-            typescriptreact = PRETTIER,
-            ["_"] = { "trim_whitespace", "trim_newlines", "squeeze_blanks", lsp_format = "last" },
-        },
-        formatters = {
-            ["clang-format"] = {
-                append_args = {
-                    "-style={IndentWidth: 4, BreakBeforeBraces: Linux, ColumnLimit: 80}",
-                },
-            },
-        },
-    })
-end)
-
 ----------------------------------------------------------------------------------------------------
 -- TREESITTER
 ----------------------------------------------------------------------------------------------------
@@ -233,6 +199,40 @@ now_if_args(function()
 end)
 
 -----------------------------------------------------------------------------------------------------------------------
+-- CONFORM.NVIM
+-----------------------------------------------------------------------------------------------------------------------
+
+later(function()
+    local PRETTIER = { "prettier", lsp_format = "fallback", timeout = 1000 }
+    require("conform").setup({
+        format_on_save = true,
+        formatters_by_ft = {
+            c = { "clang-format" },
+            cpp = { "clang-format" },
+            fish = { "fish_indent" },
+            lua = { "stylua" },
+            toml = { "taplo" },
+            css = PRETTIER,
+            html = PRETTIER,
+            javascript = PRETTIER,
+            javascriptreact = PRETTIER,
+            json = PRETTIER,
+            jsonc = PRETTIER,
+            typescript = PRETTIER,
+            typescriptreact = PRETTIER,
+            ["_"] = { "trim_whitespace", "trim_newlines", "squeeze_blanks", lsp_format = "last" },
+        },
+        formatters = {
+            ["clang-format"] = {
+                append_args = {
+                    "-style={IndentWidth: 4, BreakBeforeBraces: Linux, ColumnLimit: 80}",
+                },
+            },
+        },
+    })
+end)
+
+-----------------------------------------------------------------------------------------------------------------------
 -- OIL.NVIM
 -----------------------------------------------------------------------------------------------------------------------
 
@@ -251,6 +251,25 @@ now(function()
         watch_for_changes = true,
     })
     vim.keymap.set("n", "-", "<cmd>Oil<CR>", { noremap = true, desc = "Open Oil file manager" })
+end)
+
+-----------------------------------------------------------------------------------------------------------------------
+-- FZF-LUA
+-----------------------------------------------------------------------------------------------------------------------
+
+later(function()
+    require("fzf-lua").setup({
+        fzf_colors = true,
+        ui_select = true,
+        files = { formatter = "path.filename_first" },
+    })
+
+    vim.keymap.set("n", "<Leader><Leader>", "<Cmd>FzfLua files<CR>", { desc = "FzfLua files" })
+    vim.keymap.set("n", "<Leader>sg", "<Cmd>FzfLua live_grep<CR>", { desc = "Live grep" })
+    vim.keymap.set("n", "<Leader>sh", "<Cmd>FzfLua helptags<CR>", { desc = "Search help tags" })
+    vim.keymap.set("n", "<Leader>,", "<Cmd>FzfLua buffers<CR>", { desc = "Show open buffers" })
+    vim.keymap.set("n", "<Leader>sd", "<Cmd>FzfLua diagnostics_workspace<CR>", { desc = "Show workspace diagnostics" })
+    vim.keymap.set("n", "z=", "<Cmd>FzfLua spell_suggest<CR>", { desc = "Show spell suggestions" })
 end)
 
 -----------------------------------------------------------------------------------------------------------------------
@@ -301,25 +320,6 @@ on_event("InsertEnter,CmdlineEnter", function()
             },
         },
     })
-end)
-
------------------------------------------------------------------------------------------------------------------------
--- FZF-LUA
------------------------------------------------------------------------------------------------------------------------
-
-later(function()
-    require("fzf-lua").setup({
-        fzf_colors = true,
-        ui_select = true,
-        files = { formatter = "path.filename_first" },
-    })
-
-    vim.keymap.set("n", "<Leader><Leader>", "<Cmd>FzfLua files<CR>", { desc = "FzfLua files" })
-    vim.keymap.set("n", "<Leader>sg", "<Cmd>FzfLua live_grep<CR>", { desc = "Live grep" })
-    vim.keymap.set("n", "<Leader>sh", "<Cmd>FzfLua helptags<CR>", { desc = "Search help tags" })
-    vim.keymap.set("n", "<Leader>,", "<Cmd>FzfLua buffers<CR>", { desc = "Show open buffers" })
-    vim.keymap.set("n", "<Leader>sd", "<Cmd>FzfLua diagnostics_workspace<CR>", { desc = "Show workspace diagnostics" })
-    vim.keymap.set("n", "z=", "<Cmd>FzfLua spell_suggest<CR>", { desc = "Show spell suggestions" })
 end)
 
 -----------------------------------------------------------------------------------------------------------------------

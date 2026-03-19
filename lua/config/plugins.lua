@@ -289,9 +289,6 @@ on_event("InsertEnter,CmdlineEnter", function()
                 },
             },
         },
-        appearance = {
-            kind_icons = Util.icons.kinds,
-        },
         completion = {
             documentation = {
                 auto_show = true,

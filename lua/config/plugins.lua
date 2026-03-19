@@ -10,7 +10,6 @@ vim.pack.add({
     { src = "https://github.com/kevinhwang91/nvim-bqf" },
     { src = "https://github.com/stevearc/quicker.nvim" },
     { src = "https://github.com/stevearc/oil.nvim" },
-    { src = "https://github.com/nvim-lualine/lualine.nvim" },
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("*") },
     { src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
     { src = "https://github.com/folke/tokyonight.nvim" },
@@ -318,45 +317,6 @@ on_event("InsertEnter,CmdlineEnter", function()
                     },
                 },
             },
-        },
-    })
-end)
-
------------------------------------------------------------------------------------------------------------------------
--- LUALINE
------------------------------------------------------------------------------------------------------------------------
-
-vim.o.statusline = " "
-later(function()
-    vim.o.showmode = false
-
-    local function macro()
-        local register = vim.fn.reg_recording()
-
-        if register == "" then
-            return ""
-        end
-
-        return string.format("@%s", register)
-    end
-
-    require("mini.icons").mock_nvim_web_devicons()
-    require("lualine").setup({
-        options = {
-            section_separators = { left = "", right = "" },
-            component_separators = { left = "", right = "" },
-        },
-        sections = {
-            lualine_a = { "mode" },
-            lualine_b = { "branch" },
-            lualine_c = { "filename" },
-            lualine_x = { "diagnostics", { macro, color = "ModeMsg" }, "filetype" },
-            lualine_y = { "progress" },
-            lualine_z = { "location" },
-        },
-        inactive_sections = {
-            lualine_c = { "filename" },
-            lualine_x = { "location" },
         },
     })
 end)

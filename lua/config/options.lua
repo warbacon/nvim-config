@@ -43,11 +43,6 @@ vim.opt.fillchars = {
 
 vim.opt.shortmess:append("I")
 
-vim.o.winborder = "single"
-if vim.fn.has("nvim-0.12") == 1 then
-    vim.o.pumborder = vim.o.pumborder
-end
-
 vim.api.nvim_create_autocmd("FileType", {
     callback = function()
         vim.opt_local.formatoptions:remove({ "o" })

@@ -17,6 +17,10 @@
       "rev": "764da1f30b5bb4a49035c3abc9a586322296b812",
       "src": "https://github.com/Darazaki/indent-o-matic"
     },
+    "kulala.nvim": {
+      "rev": "6656c9d332735ca6a27725e0fb45a1715c4372d9",
+      "src": "https://github.com/mistweaverco/kulala.nvim"
+    },
     "lualine.nvim": {
       "rev": "47f91c416daef12db467145e16bed5bbfe00add8",
       "src": "https://github.com/nvim-lualine/lualine.nvim"

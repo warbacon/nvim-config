@@ -15,6 +15,7 @@ vim.pack.add({
     { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+    { src = "https://github.com/mistweaverco/kulala.nvim" },
 })
 
 vim.keymap.set("n", "<Leader>pu", vim.pack.update, { desc = "Update plugins" })
@@ -332,6 +333,16 @@ later(function()
 
     vim.keymap.set("n", "<Leader>u", undotree, { desc = "Undotree" })
     vim.api.nvim_create_user_command("Undotree", undotree, {})
+end)
+
+-----------------------------------------------------------------------------------------------------------------------
+-- KULALA.NVIM
+-----------------------------------------------------------------------------------------------------------------------
+
+on_filetype("http", function()
+    require("kulala").setup({
+        global_keymaps = true,
+    })
 end)
 
 -----------------------------------------------------------------------------------------------------------------------

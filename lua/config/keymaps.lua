@@ -6,8 +6,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- Copy to system clipboard
-vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Copy to system clipboard" })
-vim.keymap.set({ "n", "v" }, "<leader>Y", '"+y$', { desc = "Copy until the end to system clipboard" })
+vim.keymap.set({ "n", "v", "x" }, "<leader>y", '"+y', { desc = "Copy to system clipboard" })
+vim.keymap.set({ "n", "v", "x" }, "<leader>Y", '"+y$', { desc = "Copy until the end to system clipboard" })
 
 -- Allow <C-v> to paste text
 vim.keymap.set("i", "<C-v>", "<C-r>+", { desc = "Paste using system's clipboard" })

@@ -25,12 +25,6 @@ setup that stays out of your way and lets you focus on writing code.
 
 ## 📦 Dependencies
 
-> [!IMPORTANT]
-> **Miovim deliberately avoids
-> [Mason.nvim](https://github.com/mason-org/mason.nvim).** Language servers and
-> external tools are expected to be installed by you, either manually or through
-> your system's package manager.
-
 Before using Miovim, make sure you have:
 
 - A **C compiler**

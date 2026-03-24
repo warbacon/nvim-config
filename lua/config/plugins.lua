@@ -16,6 +16,9 @@ vim.pack.add({
     { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
     { src = "https://github.com/mistweaverco/kulala.nvim" },
+    { src = "https://github.com/mason-org/mason.nvim" },
+    { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+    { src = "https://github.com/b0o/SchemaStore.nvim" },
 })
 
 vim.keymap.set("n", "<Leader>pu", vim.pack.update, { desc = "Update plugins" })
@@ -53,84 +56,12 @@ end
 
 require("pino").setup({
     plugins = {
-        mason = false,
         mini = true,
         fzf_lua = true,
         lazy = false,
     },
 })
 vim.cmd.colorscheme("pino")
-
------------------------------------------------------------------------------------------------------------------------
--- MINI.NVIM
------------------------------------------------------------------------------------------------------------------------
-
-now(function()
-    require("mini.icons").setup()
-end)
-later(function()
-    require("mini.clue").setup({
-        triggers = {
-            { mode = { "n", "x" }, keys = "<Leader>" },
-            { mode = { "n", "x" }, keys = "[" },
-            { mode = { "n", "x" }, keys = "]" },
-            { mode = "i", keys = "<C-x>" },
-            { mode = { "n", "x" }, keys = "g" },
-            { mode = { "n", "x" }, keys = "'" },
-            { mode = { "n", "x" }, keys = "`" },
-            { mode = { "n", "x" }, keys = '"' },
-            { mode = { "i", "c" }, keys = "<C-r>" },
-            { mode = "n", keys = "<C-w>" },
-            { mode = { "n", "x" }, keys = "z" },
-        },
-        clues = {
-            { mode = { "n" }, keys = "<Leader>p", desc = "vim.pack" },
-            { mode = { "n" }, keys = "<Leader>s", desc = "FzfLua" },
-            { mode = { "n" }, keys = "<Leader>r", desc = "Restart Neovim" },
-            require("mini.clue").gen_clues.builtin_completion(),
-            require("mini.clue").gen_clues.g(),
-            require("mini.clue").gen_clues.marks(),
-            require("mini.clue").gen_clues.registers(),
-            require("mini.clue").gen_clues.square_brackets(),
-            require("mini.clue").gen_clues.windows({ submode_resize = true }),
-            require("mini.clue").gen_clues.z(),
-        },
-    })
-end)
-later(function()
-    require("mini.move").setup()
-end)
-later(function()
-    require("mini.diff").setup({
-        view = {
-            style = "sign",
-        },
-    })
-end)
-later(function()
-    require("mini.splitjoin").setup()
-end)
-
------------------------------------------------------------------------------------------------------------------------
--- LSP
------------------------------------------------------------------------------------------------------------------------
-
-now(function()
-    vim.lsp.enable({
-        "bashls",
-        "clangd",
-        "cssls",
-        "emmet_language_server",
-        "jsonls",
-        "lua_ls",
-        "nixd",
-        "qmlls",
-        "svelte",
-        "tailwindcss",
-        "tsgo",
-        "yamlls",
-    })
-end)
 
 ----------------------------------------------------------------------------------------------------
 -- TREESITTER
@@ -199,11 +130,85 @@ now_if_args(function()
 end)
 
 -----------------------------------------------------------------------------------------------------------------------
+-- MINI.NVIM
+-----------------------------------------------------------------------------------------------------------------------
+
+now(function()
+    require("mini.icons").setup()
+end)
+later(function()
+    require("mini.clue").setup({
+        triggers = {
+            { mode = { "n", "x" }, keys = "<Leader>" },
+            { mode = { "n", "x" }, keys = "[" },
+            { mode = { "n", "x" }, keys = "]" },
+            { mode = "i", keys = "<C-x>" },
+            { mode = { "n", "x" }, keys = "g" },
+            { mode = { "n", "x" }, keys = "'" },
+            { mode = { "n", "x" }, keys = "`" },
+            { mode = { "n", "x" }, keys = '"' },
+            { mode = { "i", "c" }, keys = "<C-r>" },
+            { mode = "n", keys = "<C-w>" },
+            { mode = { "n", "x" }, keys = "z" },
+        },
+        clues = {
+            { mode = { "n" }, keys = "<Leader>p", desc = "vim.pack" },
+            { mode = { "n" }, keys = "<Leader>s", desc = "FzfLua" },
+            { mode = { "n" }, keys = "<Leader>r", desc = "Restart Neovim" },
+            require("mini.clue").gen_clues.builtin_completion(),
+            require("mini.clue").gen_clues.g(),
+            require("mini.clue").gen_clues.marks(),
+            require("mini.clue").gen_clues.registers(),
+            require("mini.clue").gen_clues.square_brackets(),
+            require("mini.clue").gen_clues.windows({ submode_resize = true }),
+            require("mini.clue").gen_clues.z(),
+        },
+    })
+end)
+later(function()
+    require("mini.move").setup()
+end)
+later(function()
+    require("mini.diff").setup({
+        view = {
+            style = "sign",
+        },
+    })
+end)
+later(function()
+    require("mini.splitjoin").setup()
+end)
+
+-----------------------------------------------------------------------------------------------------------------------
+-- LSP
+-----------------------------------------------------------------------------------------------------------------------
+
+now(function()
+    vim.lsp.enable({
+        "bashls",
+        "clangd",
+        "cssls",
+        "rumdl",
+        "emmet_language_server",
+        "jsonls",
+        "lua_ls",
+        "qmlls",
+        "svelte",
+        "tailwindcss",
+        "tsgo",
+        "yamlls",
+    })
+
+    if vim.fn.has("win32") == 1 then
+        vim.lsp.enable("powershell_es")
+    end
+end)
+
+-----------------------------------------------------------------------------------------------------------------------
 -- CONFORM.NVIM
 -----------------------------------------------------------------------------------------------------------------------
 
-later(function()
-    local PRETTIER = { "prettier", lsp_format = "fallback", timeout = 1000 }
+now(function()
     require("conform").setup({
         format_on_save = true,
         formatters_by_ft = {
@@ -212,14 +217,14 @@ later(function()
             fish = { "fish_indent" },
             lua = { "stylua" },
             toml = { "taplo" },
-            css = PRETTIER,
-            html = PRETTIER,
-            javascript = PRETTIER,
-            javascriptreact = PRETTIER,
-            json = PRETTIER,
-            jsonc = PRETTIER,
-            typescript = PRETTIER,
-            typescriptreact = PRETTIER,
+            css = { "prettierd" },
+            html = { "prettierd" },
+            javascript = { "prettierd" },
+            javascriptreact = { "prettierd" },
+            json = { "prettierd" },
+            jsonc = { "prettierd" },
+            typescript = { "prettierd" },
+            typescriptreact = { "prettierd" },
             ["_"] = { "trim_whitespace", "trim_newlines", "squeeze_blanks", lsp_format = "last" },
         },
         formatters = {
@@ -230,6 +235,46 @@ later(function()
             },
         },
     })
+end)
+
+-----------------------------------------------------------------------------------------------------------------------
+-- MASON
+-----------------------------------------------------------------------------------------------------------------------
+
+now_if_args(function()
+    local mr = require("mason-registry")
+    mr.refresh()
+    require("mason").setup()
+
+    local servers = vim.lsp._enabled_configs
+    local mappings = require("mason-lspconfig").get_mappings().lspconfig_to_package
+    local formatters_by_ft = require("conform").formatters_by_ft
+
+    local to_install = {
+        shellcheck = true,
+        shfmt = true,
+    }
+
+    for _, server in ipairs(vim.tbl_keys(servers)) do
+        local package_name = mappings[server]
+        if package_name then
+            to_install[package_name] = true
+        end
+    end
+
+    for _, formatters in pairs(formatters_by_ft) do
+        for _, formatter in ipairs(formatters) do
+            if type(formatter) == "string" and mr.has_package(formatter) then
+                to_install[formatter] = true
+            end
+        end
+    end
+
+    for package_name in pairs(to_install) do
+        if not mr.is_installed(package_name) then
+            mr.get_package(package_name):install()
+        end
+    end
 end)
 
 -----------------------------------------------------------------------------------------------------------------------

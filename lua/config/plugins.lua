@@ -242,39 +242,43 @@ end)
 -----------------------------------------------------------------------------------------------------------------------
 
 now_if_args(function()
-    local mr = require("mason-registry")
-    mr.refresh()
     require("mason").setup()
+    require("mason-lspconfig").setup()
 
-    local servers = vim.lsp._enabled_configs
-    local mappings = require("mason-lspconfig").get_mappings().lspconfig_to_package
-    local formatters_by_ft = require("conform").formatters_by_ft
+    vim.keymap.set("n", "<Leader>m", "<cmd>Mason<CR>")
 
-    local to_install = {
-        shellcheck = true,
-        shfmt = true,
-    }
+    local mr = require("mason-registry")
+    mr.refresh(function()
+        local servers = vim.lsp._enabled_configs
+        local mappings = require("mason-lspconfig").get_mappings().lspconfig_to_package
+        local formatters_by_ft = require("conform").formatters_by_ft
 
-    for _, server in ipairs(vim.tbl_keys(servers)) do
-        local package_name = mappings[server]
-        if package_name then
-            to_install[package_name] = true
-        end
-    end
+        local to_install = {
+            shellcheck = true,
+            shfmt = true,
+        }
 
-    for _, formatters in pairs(formatters_by_ft) do
-        for _, formatter in ipairs(formatters) do
-            if type(formatter) == "string" and mr.has_package(formatter) then
-                to_install[formatter] = true
+        for _, server in ipairs(vim.tbl_keys(servers)) do
+            local package_name = mappings[server]
+            if package_name then
+                to_install[package_name] = true
             end
         end
-    end
 
-    for package_name in pairs(to_install) do
-        if not mr.is_installed(package_name) then
-            mr.get_package(package_name):install()
+        for _, formatters in pairs(formatters_by_ft) do
+            for _, formatter in ipairs(formatters) do
+                if type(formatter) == "string" and mr.has_package(formatter) then
+                    to_install[formatter] = true
+                end
+            end
         end
-    end
+
+        for package_name in pairs(to_install) do
+            if not mr.is_installed(package_name) then
+                mr.get_package(package_name):install()
+            end
+        end
+    end)
 end)
 
 -----------------------------------------------------------------------------------------------------------------------

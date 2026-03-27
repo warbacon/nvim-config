@@ -188,11 +188,12 @@ now(function()
         "bashls",
         "clangd",
         "cssls",
-        "rumdl",
         "emmet_language_server",
         "jsonls",
         "lua_ls",
         "qmlls",
+        "rumdl",
+        "rust_analyzer",
         "svelte",
         "tailwindcss",
         "tsgo",
@@ -256,11 +257,12 @@ now_if_args(function()
         local to_install = {
             shellcheck = true,
             shfmt = true,
+            ["rust-analyzer"] = false,
         }
 
         for _, server in ipairs(vim.tbl_keys(servers)) do
             local package_name = mappings[server]
-            if package_name then
+            if package_name and to_install[package_name] ~= false then
                 to_install[package_name] = true
             end
         end

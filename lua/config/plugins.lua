@@ -244,7 +244,9 @@ end)
 
 now_if_args(function()
     require("mason").setup()
-    require("mason-lspconfig").setup()
+    require("mason-lspconfig").setup({
+        automatic_enable = false,
+    })
 
     vim.keymap.set("n", "<Leader>m", "<cmd>Mason<CR>")
 

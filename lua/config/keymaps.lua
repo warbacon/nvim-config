@@ -23,9 +23,7 @@ vim.keymap.set({ "i", "c" }, "<M-BS>", "<C-w>", { desc = "Delete backward word" 
 vim.keymap.set("n", "<Leader><Leader>", ":find **/", { noremap = true, desc = "Find files" })
 
 -- Restart Neovim
-if vim.fn.has("nvim-0.12") == 1 then
-    vim.keymap.set("n", "<Leader>rr", "<Cmd>restart<CR>", { desc = "Confirm restart" })
-end
+vim.keymap.set("n", "<Leader>rr", "<Cmd>restart<CR>", { desc = "Confirm restart" })
 
 -- Use <C-q> to exit terminal mode
 vim.keymap.set("t", "<C-q>", "<C-\\><C-n>", { desc = "Exit terminal mode" })

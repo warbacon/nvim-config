@@ -1,6 +1,3 @@
-require("vim._core.ui2").enable({})
-vim.lsp.on_type_formatting.enable()
-
 vim.g.mapleader = " "
 
 vim.o.number = true

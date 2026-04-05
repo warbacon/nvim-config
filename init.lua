@@ -24,6 +24,10 @@ if vim.fn.has("nvim-0.12") == 0 then
     return
 end
 
+require("vim._core.ui2").enable({})
+vim.lsp.on_type_formatting.enable()
+vim.lsp.document_color.enable(true, nil, { style = "virtual" })
+
 require("config.options")
 require("config.keymaps")
 require("config.misc")

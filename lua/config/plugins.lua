@@ -2,7 +2,7 @@
 vim.pack.add({
     { src = "https://github.com/warbacon/pino.nvim" },
     { src = "https://github.com/nvim-mini/mini.nvim" },
-    { src = "https://github.com/Darazaki/indent-o-matic" },
+    { src = "https://github.com/NMAC427/guess-indent.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/stevearc/conform.nvim" },
     { src = "https://github.com/windwp/nvim-ts-autotag" },

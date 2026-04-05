@@ -190,7 +190,7 @@ now(function()
         "cssls",
         "emmet_language_server",
         "jsonls",
-        "lua_ls",
+        "emmylua_ls",
         "qmlls",
         "rust_analyzer",
         "svelte",

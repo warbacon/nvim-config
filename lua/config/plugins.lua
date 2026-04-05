@@ -100,7 +100,7 @@ now_if_args(function()
         desc = "Auto-update Treesitter parsers when the plugin is updated",
         callback = function(ev)
             if ev.data.spec.name == "nvim-treesitter" then
-                vim.cmd("TSUpdate")
+                require("nvim-treesitter").update(ts_parsers)
             end
         end,
     })

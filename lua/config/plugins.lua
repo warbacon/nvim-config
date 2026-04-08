@@ -18,7 +18,16 @@ vim.pack.add({
     { src = "https://github.com/mistweaverco/kulala.nvim" },
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
-    { src = "https://github.com/b0o/SchemaStore.nvim" },
+    { src = "https://github.com/lewis6991/gitsigns.nvim" },
+    { src = "https://github.com/petertriho/nvim-scrollbar" },
+}, {
+    load = function(plug)
+        local name = plug.spec.name
+        if Util.is_nixos and (name and name:find("mason", 1, true)) then
+            return
+        end
+        vim.cmd.packadd(name)
+    end,
 })
 
 vim.keymap.set("n", "<Leader>pu", vim.pack.update, { desc = "Update plugins" })
@@ -56,6 +65,7 @@ end
 
 require("pino").setup({
     plugins = {
+        mason = not Util.is_nixos,
         mini = true,
         fzf_lua = true,
         lazy = false,
@@ -235,48 +245,50 @@ end)
 -- MASON
 -----------------------------------------------------------------------------------------------------------------------
 
-now_if_args(function()
-    require("mason").setup()
-    require("mason-lspconfig").setup({
-        automatic_enable = false,
-    })
+if not Util.is_nixos then
+    now_if_args(function()
+        require("mason").setup()
+        require("mason-lspconfig").setup({
+            automatic_enable = false,
+        })
 
-    vim.keymap.set("n", "<Leader>m", "<cmd>Mason<CR>")
+        vim.keymap.set("n", "<Leader>m", "<cmd>Mason<CR>")
 
-    local mr = require("mason-registry")
-    mr.refresh(function()
-        local servers = vim.lsp._enabled_configs
-        local mappings = require("mason-lspconfig").get_mappings().lspconfig_to_package
-        local formatters_by_ft = require("conform").formatters_by_ft
+        local mr = require("mason-registry")
+        mr.refresh(function()
+            local servers = vim.lsp._enabled_configs
+            local mappings = require("mason-lspconfig").get_mappings().lspconfig_to_package
+            local formatters_by_ft = require("conform").formatters_by_ft
 
-        local to_install = {
-            shellcheck = true,
-            shfmt = true,
-            ["rust-analyzer"] = false,
-        }
+            local to_install = {
+                shellcheck = true,
+                shfmt = true,
+                ["rust-analyzer"] = false,
+            }
 
-        for _, server in ipairs(vim.tbl_keys(servers)) do
-            local package_name = mappings[server]
-            if package_name and to_install[package_name] ~= false then
-                to_install[package_name] = true
-            end
-        end
-
-        for _, formatters in pairs(formatters_by_ft) do
-            for _, formatter in ipairs(formatters) do
-                if type(formatter) == "string" and mr.has_package(formatter) then
-                    to_install[formatter] = true
+            for _, server in ipairs(vim.tbl_keys(servers)) do
+                local package_name = mappings[server]
+                if package_name and to_install[package_name] ~= false then
+                    to_install[package_name] = true
                 end
             end
-        end
 
-        for package_name in pairs(to_install) do
-            if not mr.is_installed(package_name) then
-                mr.get_package(package_name):install()
+            for _, formatters in pairs(formatters_by_ft) do
+                for _, formatter in ipairs(formatters) do
+                    if type(formatter) == "string" and mr.has_package(formatter) then
+                        to_install[formatter] = true
+                    end
+                end
             end
-        end
+
+            for package_name in pairs(to_install) do
+                if not mr.is_installed(package_name) then
+                    mr.get_package(package_name):install()
+                end
+            end
+        end)
     end)
-end)
+end
 
 -----------------------------------------------------------------------------------------------------------------------
 -- OIL.NVIM

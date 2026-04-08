@@ -1,5 +1,8 @@
 local M = {}
 
+---@type boolean
+M.is_nixos = vim.uv.fs_stat("/etc/NIXOS") ~= nil
+
 ---@class Icons
 ---@field indent string
 ---@field diagnostic table<string, string>

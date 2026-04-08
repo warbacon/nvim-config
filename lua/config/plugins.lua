@@ -3,15 +3,15 @@ vim.pack.add({
     { src = "https://github.com/warbacon/pino.nvim" },
     { src = "https://github.com/nvim-mini/mini.nvim" },
     { src = "https://github.com/NMAC427/guess-indent.nvim" },
+    { src = "https://github.com/b0o/SchemaStore.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
-    { src = "https://github.com/stevearc/conform.nvim" },
-    { src = "https://github.com/windwp/nvim-ts-autotag" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+    { src = "https://github.com/stevearc/oil.nvim" },
+    { src = "https://github.com/windwp/nvim-ts-autotag" },
+    { src = "https://github.com/stevearc/conform.nvim" },
     { src = "https://github.com/kevinhwang91/nvim-bqf" },
     { src = "https://github.com/stevearc/quicker.nvim" },
-    { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("*") },
-    { src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
     { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
@@ -125,9 +125,8 @@ now_if_args(function()
             end
         end,
     })
-
-    require("nvim-ts-autotag").setup()
 end)
+now_if_args(require("nvim-ts-autotag").setup)
 
 -----------------------------------------------------------------------------------------------------------------------
 -- MINI.NVIM
@@ -169,13 +168,6 @@ later(function()
     require("mini.move").setup()
 end)
 later(function()
-    require("mini.diff").setup({
-        view = {
-            style = "sign",
-        },
-    })
-end)
-later(function()
     require("mini.splitjoin").setup()
 end)
 
@@ -194,6 +186,7 @@ now(function()
         "qmlls",
         "rust_analyzer",
         "svelte",
+        "nixd",
         "tailwindcss",
         "tsgo",
         "yamlls",
@@ -386,6 +379,93 @@ later(function()
 
     vim.keymap.set("n", "<Leader>u", undotree, { desc = "Undotree" })
     vim.api.nvim_create_user_command("Undotree", undotree, {})
+end)
+
+-----------------------------------------------------------------------------------------------------------------------
+-- KULALA.NVIM
+-----------------------------------------------------------------------------------------------------------------------
+
+later(function()
+    require("gitsigns").setup({
+        sign_priority = 199,
+        on_attach = function(bufnr)
+            local gitsigns = require("gitsigns")
+
+            local function map(mode, l, r, opts)
+                opts = opts or {}
+                opts.buffer = bufnr
+                vim.keymap.set(mode, l, r, opts)
+            end
+
+            -- Navigation
+            map("n", "]c", function()
+                if vim.wo.diff then
+                    vim.cmd.normal({ "]c", bang = true })
+                else
+                    gitsigns.nav_hunk("next")
+                end
+            end)
+
+            map("n", "[c", function()
+                if vim.wo.diff then
+                    vim.cmd.normal({ "[c", bang = true })
+                else
+                    gitsigns.nav_hunk("prev")
+                end
+            end)
+
+            -- Actions
+            map("n", "<leader>hs", gitsigns.stage_hunk)
+            map("n", "<leader>hr", gitsigns.reset_hunk)
+
+            map("v", "<leader>hs", function()
+                gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+            end)
+
+            map("v", "<leader>hr", function()
+                gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+            end)
+
+            map("n", "<leader>hS", gitsigns.stage_buffer)
+            map("n", "<leader>hR", gitsigns.reset_buffer)
+            map("n", "<leader>hp", gitsigns.preview_hunk)
+            map("n", "<leader>hi", gitsigns.preview_hunk_inline)
+
+            map("n", "<leader>hb", function()
+                gitsigns.blame_line({ full = true })
+            end)
+
+            map("n", "<leader>hd", gitsigns.diffthis)
+
+            map("n", "<leader>hD", function()
+                gitsigns.diffthis("~")
+            end)
+
+            map("n", "<leader>hQ", function()
+                gitsigns.setqflist("all")
+            end)
+            map("n", "<leader>hq", gitsigns.setqflist)
+
+            -- Toggles
+            map("n", "<leader>tb", gitsigns.toggle_current_line_blame)
+            map("n", "<leader>tw", gitsigns.toggle_word_diff)
+
+            -- Text object
+            map({ "o", "x" }, "ih", gitsigns.select_hunk)
+        end,
+    })
+end)
+
+-----------------------------------------------------------------------------------------------------------------------
+-- SCROLLBAR.NVIM
+-----------------------------------------------------------------------------------------------------------------------
+
+later(function()
+    require("scrollbar").setup({
+        handlers = {
+            cursor = false,
+        },
+    })
 end)
 
 -----------------------------------------------------------------------------------------------------------------------

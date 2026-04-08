@@ -1,49 +1,268 @@
 -- vim.opt.rtp:prepend(vim.fs.joinpath(vim.env.HOME, "Proyectos/pino.nvim"))
-vim.pack.add({
-    { src = "https://github.com/warbacon/pino.nvim" },
-    { src = "https://github.com/nvim-mini/mini.nvim" },
-    { src = "https://github.com/NMAC427/guess-indent.nvim" },
-    { src = "https://github.com/b0o/SchemaStore.nvim" },
-    { src = "https://github.com/neovim/nvim-lspconfig" },
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-    { src = "https://github.com/stevearc/oil.nvim" },
-    { src = "https://github.com/windwp/nvim-ts-autotag" },
-    { src = "https://github.com/stevearc/conform.nvim" },
-    { src = "https://github.com/kevinhwang91/nvim-bqf" },
-    { src = "https://github.com/stevearc/quicker.nvim" },
-    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("*") },
+require("packy").setup({
+    -- COLORSCHEMES
+    {
+        src = "https://github.com/warbacon/pino.nvim",
+        config = function()
+            require("pino").setup({
+                plugins = {
+                    mason = not Util.is_nixos,
+                    mini = true,
+                    fzf_lua = true,
+                    lazy = false,
+                },
+            })
+            vim.cmd.colorscheme("pino")
+        end,
+    },
     { src = "https://github.com/folke/tokyonight.nvim" },
-    { src = "https://github.com/ibhagwan/fzf-lua" },
-    { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
-    { src = "https://github.com/mistweaverco/kulala.nvim" },
-    { src = "https://github.com/mason-org/mason.nvim" },
-    { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
-    { src = "https://github.com/lewis6991/gitsigns.nvim" },
-    { src = "https://github.com/petertriho/nvim-scrollbar" },
-}, {
-    load = function(plug)
-        local name = plug.spec.name
-        if Util.is_nixos and (name and name:find("mason", 1, true)) then
-            return
-        end
-        vim.cmd.packadd(name)
-    end,
-})
 
-vim.keymap.set("n", "<Leader>pu", vim.pack.update, { desc = "Update plugins" })
-vim.keymap.set("n", "<Leader>pr", function()
-    vim.pack.update(nil, { target = "lockfile" })
-end, { desc = "Restore plugins from lockfile" })
-vim.keymap.set("n", "<Leader>pc", function()
-    vim.pack.del(vim.iter(vim.pack.get())
-        :filter(function(x)
-            return not x.active
-        end)
-        :map(function(x)
-            return x.spec.name
-        end)
-        :totable())
-end, { desc = "Delete non-active plugins" })
+    -- MINI.NVIM
+    { src = "https://github.com/nvim-mini/mini.nvim" },
+
+    -- GUESS-INDENT.NVIM
+    { src = "https://github.com/NMAC427/guess-indent.nvim" },
+
+    -- LSP
+    { src = "https://github.com/b0o/SchemaStore.nvim" },
+    {
+        src = "https://github.com/neovim/nvim-lspconfig",
+        config = function()
+            vim.lsp.enable({
+                "bashls",
+                "clangd",
+                "cssls",
+                "emmet_language_server",
+                "emmylua_ls",
+                "jsonls",
+                "nixd",
+                "qmlls",
+                "rust_analyzer",
+                "svelte",
+                "tailwindcss",
+                "tsgo",
+                "yamlls",
+            })
+
+            if vim.fn.has("win32") == 1 then
+                vim.lsp.enable("powershell_es")
+            end
+        end,
+    },
+
+    -- TREESITTER
+    {
+        src = "https://github.com/nvim-treesitter/nvim-treesitter",
+        config = function()
+            local ts_parsers = {
+                "bash",
+                "c",
+                "cpp",
+                "css",
+                "diff",
+                "fish",
+                "gitcommit",
+                "html",
+                "ini",
+                "javascript",
+                "json",
+                "lua",
+                "markdown",
+                "markdown_inline",
+                "nix",
+                "powershell",
+                "svelte",
+                "toml",
+                "typescript",
+                "vim",
+                "vimdoc",
+                "xml",
+                "yaml",
+            }
+
+            require("nvim-treesitter").install(ts_parsers)
+
+            vim.api.nvim_create_autocmd("PackChanged", {
+                desc = "Auto-update Treesitter parsers when the plugin is updated",
+                callback = function(ev)
+                    if ev.data.spec.name == "nvim-treesitter" then
+                        require("nvim-treesitter").update(ts_parsers)
+                    end
+                end,
+            })
+
+            vim.api.nvim_create_autocmd("FileType", {
+                desc = "Enable Treesitter when available",
+                callback = function(ev)
+                    local is_active = vim.treesitter.highlighter.active[ev.buf] ~= nil
+
+                    if not is_active then
+                        is_active = pcall(vim.treesitter.start)
+                    end
+
+                    if is_active then
+                        vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+                        vim.wo.foldmethod = "expr"
+
+                        local lang = vim.treesitter.language.get_lang(ev.match)
+                        if lang and vim.treesitter.query.get(lang, "indents") then
+                            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                        end
+                    end
+                end,
+            })
+        end,
+    },
+    {
+        src = "https://github.com/windwp/nvim-ts-autotag",
+        config = function()
+            require("nvim-ts-autotag").setup()
+        end,
+    },
+
+    -- OIL.NVIM
+    {
+        src = "https://github.com/stevearc/oil.nvim",
+        config = function()
+            require("oil").setup({
+                delete_to_trash = true,
+                skip_confirm_for_simple_edits = true,
+                keymaps = {
+                    ["`"] = false,
+                    ["~"] = false,
+                    [","] = { "actions.cd", mode = "n" },
+                },
+                view_options = {
+                    show_hidden = true,
+                },
+                watch_for_changes = true,
+            })
+            vim.keymap.set("n", "-", "<cmd>Oil<CR>", { noremap = true, desc = "Open Oil file manager" })
+        end,
+    },
+
+    -- CONFORM.NVIM
+    {
+        src = "https://github.com/stevearc/conform.nvim",
+        config = function()
+            require("conform").setup({
+                format_on_save = true,
+                formatters_by_ft = {
+                    c = { "clang-format" },
+                    cpp = { "clang-format" },
+                    fish = { "fish_indent" },
+                    lua = { "stylua" },
+                    toml = { "taplo" },
+                    css = { "prettierd" },
+                    html = { "prettierd" },
+                    javascript = { "prettierd" },
+                    javascriptreact = { "prettierd" },
+                    json = { "prettierd" },
+                    jsonc = { "prettierd" },
+                    markdown = { "prettierd" },
+                    typescript = { "prettierd" },
+                    typescriptreact = { "prettierd" },
+                    ["_"] = { "trim_whitespace", "trim_newlines", "squeeze_blanks", lsp_format = "last" },
+                },
+                formatters = {
+                    ["clang-format"] = {
+                        append_args = {
+                            "-style={IndentWidth: 4, BreakBeforeBraces: Linux, ColumnLimit: 80}",
+                        },
+                    },
+                },
+            })
+        end,
+    },
+
+    -- QUICKFIX
+    { src = "https://github.com/kevinhwang91/nvim-bqf" },
+    {
+        src = "https://github.com/stevearc/quicker.nvim",
+        ft = { "qf" },
+        config = function()
+            require("quicker").setup()
+        end,
+    },
+    {
+        src = "https://github.com/saghen/blink.cmp",
+        version = vim.version.range("*"),
+    },
+    -- FZF-LUA
+    { src = "https://github.com/ibhagwan/fzf-lua" },
+
+    -- RENDER-MARKDOWN.NVIM
+    { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+
+    -- KULALA.NVIM
+    {
+        src = "https://github.com/mistweaverco/kulala.nvim",
+        ft = { "http" },
+        config = function()
+            require("kulala").setup({
+                global_keymaps = true,
+            })
+        end,
+    },
+
+    -- MASON
+    {
+        src = "https://github.com/mason-org/mason-lspconfig.nvim",
+        enable = not Util.is_nixos,
+    },
+    {
+        src = "https://github.com/mason-org/mason.nvim",
+        enable = not Util.is_nixos,
+        config = function()
+            require("mason").setup()
+            require("mason-lspconfig").setup({
+                automatic_enable = false,
+            })
+
+            vim.keymap.set("n", "<Leader>m", "<cmd>Mason<CR>")
+
+            local mr = require("mason-registry")
+            mr.refresh(function()
+                local servers = vim.lsp._enabled_configs
+                local mappings = require("mason-lspconfig").get_mappings().lspconfig_to_package
+                local formatters_by_ft = require("conform").formatters_by_ft
+
+                local to_install = {
+                    shellcheck = true,
+                    shfmt = true,
+                    ["rust-analyzer"] = false,
+                }
+
+                for _, server in ipairs(vim.tbl_keys(servers)) do
+                    local package_name = mappings[server]
+                    if package_name and to_install[package_name] ~= false then
+                        to_install[package_name] = true
+                    end
+                end
+
+                for _, formatters in pairs(formatters_by_ft) do
+                    for _, formatter in ipairs(formatters) do
+                        if type(formatter) == "string" and mr.has_package(formatter) then
+                            to_install[formatter] = true
+                        end
+                    end
+                end
+
+                for package_name in pairs(to_install) do
+                    if not mr.is_installed(package_name) then
+                        mr.get_package(package_name):install()
+                    end
+                end
+            end)
+        end,
+    },
+
+    -- GITSIGNS.NVIM
+    { src = "https://github.com/lewis6991/gitsigns.nvim" },
+
+    -- NVIM-SCROLLBAR
+    { src = "https://github.com/petertriho/nvim-scrollbar" },
+})
 
 local now = function(f)
     require("mini.misc").safely("now", f)
@@ -51,92 +270,9 @@ end
 local later = function(f)
     require("mini.misc").safely("later", f)
 end
-local now_if_args = vim.fn.argc(-1) > 0 and now or later
 local on_event = function(ev, f)
     require("mini.misc").safely("event:" .. ev, f)
 end
-local on_filetype = function(ft, f)
-    require("mini.misc").safely("filetype:" .. ft, f)
-end
-
------------------------------------------------------------------------------------------------------------------------
--- PINO.NVIM
------------------------------------------------------------------------------------------------------------------------
-
-require("pino").setup({
-    plugins = {
-        mason = not Util.is_nixos,
-        mini = true,
-        fzf_lua = true,
-        lazy = false,
-    },
-})
-vim.cmd.colorscheme("pino")
-
-----------------------------------------------------------------------------------------------------
--- TREESITTER
-----------------------------------------------------------------------------------------------------
-
-now_if_args(function()
-    local ts_parsers = {
-        "bash",
-        "c",
-        "cpp",
-        "css",
-        "diff",
-        "fish",
-        "gitcommit",
-        "html",
-        "ini",
-        "javascript",
-        "json",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "nix",
-        "powershell",
-        "svelte",
-        "toml",
-        "typescript",
-        "vim",
-        "vimdoc",
-        "xml",
-        "yaml",
-    }
-
-    require("nvim-treesitter").install(ts_parsers)
-
-    vim.api.nvim_create_autocmd("PackChanged", {
-        desc = "Auto-update Treesitter parsers when the plugin is updated",
-        callback = function(ev)
-            if ev.data.spec.name == "nvim-treesitter" then
-                require("nvim-treesitter").update(ts_parsers)
-            end
-        end,
-    })
-
-    vim.api.nvim_create_autocmd("FileType", {
-        desc = "Enable Treesitter when available",
-        callback = function(ev)
-            local is_active = vim.treesitter.highlighter.active[ev.buf] ~= nil
-
-            if not is_active then
-                is_active = pcall(vim.treesitter.start)
-            end
-
-            if is_active then
-                vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-                vim.wo.foldmethod = "expr"
-
-                local lang = vim.treesitter.language.get_lang(ev.match)
-                if lang and vim.treesitter.query.get(lang, "indents") then
-                    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-                end
-            end
-        end,
-    })
-end)
-now_if_args(require("nvim-ts-autotag").setup)
 
 -----------------------------------------------------------------------------------------------------------------------
 -- MINI.NVIM
@@ -179,136 +315,6 @@ later(function()
 end)
 later(function()
     require("mini.splitjoin").setup()
-end)
-
------------------------------------------------------------------------------------------------------------------------
--- LSP
------------------------------------------------------------------------------------------------------------------------
-
-now(function()
-    vim.lsp.enable({
-        "bashls",
-        "clangd",
-        "cssls",
-        "emmet_language_server",
-        "jsonls",
-        "emmylua_ls",
-        "qmlls",
-        "rust_analyzer",
-        "svelte",
-        "nixd",
-        "tailwindcss",
-        "tsgo",
-        "yamlls",
-    })
-
-    if vim.fn.has("win32") == 1 then
-        vim.lsp.enable("powershell_es")
-    end
-end)
-
------------------------------------------------------------------------------------------------------------------------
--- CONFORM.NVIM
------------------------------------------------------------------------------------------------------------------------
-
-now(function()
-    require("conform").setup({
-        format_on_save = true,
-        formatters_by_ft = {
-            c = { "clang-format" },
-            cpp = { "clang-format" },
-            fish = { "fish_indent" },
-            lua = { "stylua" },
-            toml = { "taplo" },
-            css = { "prettierd" },
-            html = { "prettierd" },
-            javascript = { "prettierd" },
-            javascriptreact = { "prettierd" },
-            json = { "prettierd" },
-            jsonc = { "prettierd" },
-            markdown = { "prettierd" },
-            typescript = { "prettierd" },
-            typescriptreact = { "prettierd" },
-            ["_"] = { "trim_whitespace", "trim_newlines", "squeeze_blanks", lsp_format = "last" },
-        },
-        formatters = {
-            ["clang-format"] = {
-                append_args = {
-                    "-style={IndentWidth: 4, BreakBeforeBraces: Linux, ColumnLimit: 80}",
-                },
-            },
-        },
-    })
-end)
-
------------------------------------------------------------------------------------------------------------------------
--- MASON
------------------------------------------------------------------------------------------------------------------------
-
-if not Util.is_nixos then
-    now_if_args(function()
-        require("mason").setup()
-        require("mason-lspconfig").setup({
-            automatic_enable = false,
-        })
-
-        vim.keymap.set("n", "<Leader>m", "<cmd>Mason<CR>")
-
-        local mr = require("mason-registry")
-        mr.refresh(function()
-            local servers = vim.lsp._enabled_configs
-            local mappings = require("mason-lspconfig").get_mappings().lspconfig_to_package
-            local formatters_by_ft = require("conform").formatters_by_ft
-
-            local to_install = {
-                shellcheck = true,
-                shfmt = true,
-                ["rust-analyzer"] = false,
-            }
-
-            for _, server in ipairs(vim.tbl_keys(servers)) do
-                local package_name = mappings[server]
-                if package_name and to_install[package_name] ~= false then
-                    to_install[package_name] = true
-                end
-            end
-
-            for _, formatters in pairs(formatters_by_ft) do
-                for _, formatter in ipairs(formatters) do
-                    if type(formatter) == "string" and mr.has_package(formatter) then
-                        to_install[formatter] = true
-                    end
-                end
-            end
-
-            for package_name in pairs(to_install) do
-                if not mr.is_installed(package_name) then
-                    mr.get_package(package_name):install()
-                end
-            end
-        end)
-    end)
-end
-
------------------------------------------------------------------------------------------------------------------------
--- OIL.NVIM
------------------------------------------------------------------------------------------------------------------------
-
-now(function()
-    require("oil").setup({
-        delete_to_trash = true,
-        skip_confirm_for_simple_edits = true,
-        keymaps = {
-            ["`"] = false,
-            ["~"] = false,
-            [","] = { "actions.cd", mode = "n" },
-        },
-        view_options = {
-            show_hidden = true,
-        },
-        watch_for_changes = true,
-    })
-    vim.keymap.set("n", "-", "<cmd>Oil<CR>", { noremap = true, desc = "Open Oil file manager" })
 end)
 
 -----------------------------------------------------------------------------------------------------------------------
@@ -394,7 +400,7 @@ later(function()
 end)
 
 -----------------------------------------------------------------------------------------------------------------------
--- KULALA.NVIM
+-- GITSIGNS.NVIM
 -----------------------------------------------------------------------------------------------------------------------
 
 later(function()
@@ -478,22 +484,4 @@ later(function()
             cursor = false,
         },
     })
-end)
-
------------------------------------------------------------------------------------------------------------------------
--- KULALA.NVIM
------------------------------------------------------------------------------------------------------------------------
-
-on_filetype("http", function()
-    require("kulala").setup({
-        global_keymaps = true,
-    })
-end)
-
------------------------------------------------------------------------------------------------------------------------
--- QUICKER.NVIM
------------------------------------------------------------------------------------------------------------------------
-
-on_filetype("qf", function()
-    require("quicker").setup()
 end)

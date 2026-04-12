@@ -79,7 +79,12 @@ require("packy").setup({
     },
 
     -- GUESS-INDENT.NVIM
-    { src = "https://github.com/NMAC427/guess-indent.nvim" },
+    {
+        src = "https://github.com/NMAC427/guess-indent.nvim",
+        config = function()
+            require("guess-indent").setup()
+        end,
+    },
 
     -- LSP
     { src = "https://github.com/b0o/SchemaStore.nvim" },

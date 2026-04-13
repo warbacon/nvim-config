@@ -9,9 +9,10 @@ local default_data = {
 
 ---@class PackySpec
 ---@field src string
+---@field dir? string
 ---@field name? string
 ---@field version? string|vim.Version
----@field event? string|string[]
+---@field event? vim.api.keyset.events|vim.api.keyset.events[]|"VeryLazy"
 ---@field build? function
 ---@field enable? boolean
 ---@field preload? boolean
@@ -31,6 +32,15 @@ local function load(plug)
             return
         end
         packadded = true
+
+        if data.dir then
+            local rtp = vim.opt.rtp:get()
+            if not vim.tbl_contains(rtp, data.dir) then
+                vim.opt.rtp:prepend(data.dir)
+            end
+            return
+        end
+
         vim.cmd.packadd(plugin_name)
     end
 
@@ -135,7 +145,11 @@ local function validate_spec(plugin, index)
         return false, string.format("Plugin #%d (%s): 'enable' must be boolean", index, plugin.src)
     end
 
-    if plugin.preload_on_startup ~= nil and type(plugin.preload) ~= "boolean" then
+    if plugin.dir ~= nil and type(plugin.dir) ~= "string" then
+        return false, string.format("Plugin #%d (%s): 'dir' must be string", index, plugin.src)
+    end
+
+    if plugin.preload ~= nil and type(plugin.preload) ~= "boolean" then
         return false, string.format("Plugin #%d (%s): 'preload' must be boolean", index, plugin.src)
     end
 
@@ -200,6 +214,21 @@ local function normalize_spec(plugin)
     return plugin
 end
 
+local function resolve_dir_path(plugin)
+    if type(plugin.dir) ~= "string" or plugin.dir == "" then
+        return nil
+    end
+
+    local dir_path = vim.fn.fnamemodify(vim.fs.normalize(vim.fn.expand(plugin.dir)), ":p")
+    local stat = vim.uv.fs_stat(dir_path)
+
+    if stat and stat.type == "directory" then
+        return dir_path
+    end
+
+    return nil
+end
+
 ---@param spec PackySpec[]
 function M.setup(spec)
     if type(spec) ~= "table" then
@@ -212,35 +241,46 @@ function M.setup(spec)
     setup_keybinds()
 
     M.resolved_spec = {}
+
     for idx, plugin in ipairs(spec) do
         local valid, err = validate_spec(plugin, idx)
         if not valid then
             vim.schedule(function()
-                vim.notify(err, vim.log.levels.ERROR)
+                if err then
+                    vim.notify(err, vim.log.levels.ERROR)
+                end
             end)
             goto continue
         end
 
         plugin = normalize_spec(plugin)
+        local dir_path = resolve_dir_path(plugin)
+        local data = vim.tbl_deep_extend("force", {}, default_data, {
+            enable = plugin.enable,
+            preload = plugin.preload,
+            event = plugin.event or {},
+            ft = plugin.ft or {},
+            config = plugin.config,
+            build = plugin.build,
+        })
+
+        if dir_path then
+            data.dir = dir_path
+        end
 
         table.insert(M.resolved_spec, {
             src = plugin.src,
             version = plugin.version,
             name = plugin.name,
-            data = vim.tbl_deep_extend("force", {}, default_data, {
-                enable = plugin.enable,
-                preload_on_startup = plugin.preload,
-                event = plugin.event or {},
-                ft = plugin.ft or {},
-                config = plugin.config,
-                build = plugin.build,
-            }),
+            data = data,
         })
 
         ::continue::
     end
 
-    vim.pack.add(M.resolved_spec, { load = load })
+    if not vim.tbl_isempty(M.resolved_spec) then
+        vim.pack.add(M.resolved_spec, { load = load })
+    end
 end
 
 return M

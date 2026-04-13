@@ -2,9 +2,10 @@
 return {
     filetypes = {
         "astro",
-        "css",
         "html",
+        "css",
         "javascriptreact",
         "typescriptreact",
+        "svelte",
     },
 }

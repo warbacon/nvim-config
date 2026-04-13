@@ -1,8 +1,8 @@
--- vim.opt.rtp:prepend(vim.fs.joinpath(vim.env.HOME, "Proyectos/pino.nvim"))
 require("packy").setup({
-    -- COLORSCHEMES
+    -- COLORSCHEMES ---------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/warbacon/pino.nvim",
+        dir = vim.fs.joinpath(vim.env.HOME, "Proyectos/pino.nvim"),
         config = function()
             require("pino").setup({
                 plugins = {
@@ -17,7 +17,7 @@ require("packy").setup({
     },
     { src = "https://github.com/folke/tokyonight.nvim" },
 
-    -- MINI.ICONS
+    -- MINI.ICONS -----------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/nvim-mini/mini.icons",
         config = function()
@@ -25,7 +25,7 @@ require("packy").setup({
         end,
     },
 
-    -- MINI.CLUE
+    -- MINI.CLUE ------------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/nvim-mini/mini.clue",
         event = "VeryLazy",
@@ -60,7 +60,7 @@ require("packy").setup({
         end,
     },
 
-    -- MINI.MOVE
+    -- MINI.MOVE ------------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/nvim-mini/mini.move",
         event = "VeryLazy",
@@ -69,7 +69,7 @@ require("packy").setup({
         end,
     },
 
-    -- MINI.SPLITJOIN
+    -- MINI.SPLITJOIN -------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/nvim-mini/mini.splitjoin",
         event = "VeryLazy",
@@ -78,7 +78,7 @@ require("packy").setup({
         end,
     },
 
-    -- GUESS-INDENT.NVIM
+    -- GUESS-INDENT.NVIM ----------------------------------------------------------------------------------------------
     {
         src = "https://github.com/NMAC427/guess-indent.nvim",
         config = function()
@@ -86,7 +86,7 @@ require("packy").setup({
         end,
     },
 
-    -- LSP
+    -- LSP ------------------------------------------------------------------------------------------------------------
     { src = "https://github.com/b0o/SchemaStore.nvim" },
     {
         src = "https://github.com/neovim/nvim-lspconfig",
@@ -97,6 +97,7 @@ require("packy").setup({
                 "cssls",
                 "emmet_language_server",
                 "emmylua_ls",
+                "eslint",
                 "jsonls",
                 "nixd",
                 "qmlls",
@@ -113,7 +114,7 @@ require("packy").setup({
         end,
     },
 
-    -- TREESITTER
+    -- TREESITTER -----------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/nvim-treesitter/nvim-treesitter",
         build = function()
@@ -177,7 +178,7 @@ require("packy").setup({
         end,
     },
 
-    -- OIL.NVIM
+    -- OIL.NVIM -------------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/stevearc/oil.nvim",
         config = function()
@@ -198,7 +199,7 @@ require("packy").setup({
         end,
     },
 
-    -- CONFORM.NVIM
+    -- CONFORM.NVIM ---------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/stevearc/conform.nvim",
         config = function()
@@ -232,7 +233,7 @@ require("packy").setup({
         end,
     },
 
-    -- QUICKFIX
+    -- QUICKFIX -------------------------------------------------------------------------------------------------------
     { src = "https://github.com/kevinhwang91/nvim-bqf" },
     {
         src = "https://github.com/stevearc/quicker.nvim",
@@ -290,7 +291,7 @@ require("packy").setup({
         end,
     },
 
-    -- FZF-LUA
+    -- FZF-LUA --------------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/ibhagwan/fzf-lua",
         event = "VeryLazy",
@@ -315,10 +316,10 @@ require("packy").setup({
         end,
     },
 
-    -- RENDER-MARKDOWN.NVIM
+    -- RENDER-MARKDOWN.NVIM -------------------------------------------------------------------------------------------
     { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 
-    -- KULALA.NVIM
+    -- KULALA.NVIM ----------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/mistweaverco/kulala.nvim",
         ft = "http",
@@ -329,7 +330,7 @@ require("packy").setup({
         end,
     },
 
-    -- MASON
+    -- MASON.NVIM -----------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/mason-org/mason-lspconfig.nvim",
         enable = not Util.is_nixos,
@@ -381,7 +382,7 @@ require("packy").setup({
         end,
     },
 
-    -- GITSIGNS.NVIM
+    -- GITSIGNS.NVIM --------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/lewis6991/gitsigns.nvim",
         event = "VeryLazy",
@@ -457,7 +458,7 @@ require("packy").setup({
         end,
     },
 
-    -- NVIM-SCROLLBAR
+    -- NVIM-SCROLLBAR -------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/petertriho/nvim-scrollbar",
         event = "VeryLazy",
@@ -468,6 +469,12 @@ require("packy").setup({
                 },
             })
         end,
+    },
+
+    -- VIM-STARTUPTIME ------------------------------------------------------------------------------------------------
+    {
+        src = "https://github.com/dstein64/vim-startuptime",
+        event = "VeryLazy",
     },
 })
 

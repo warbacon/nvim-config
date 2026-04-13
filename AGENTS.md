@@ -23,8 +23,13 @@ This repository contains **Miovim**, a personal **Neovim 0.12.x+** setup.
      - `"VeryLazy"`: triggers on `UIEnter` with `vim.schedule_wrap()` to avoid
        UI blocking
    - `ft`: triggers on filetype detection
-   - `preload`: optional, loads plugin immediately with `packadd` (without lazy
-     loading)
+   - `preload`: optional, loads plugin immediately
+     - remote plugins: via `packadd`
+     - local `dir` plugins: prepends local directory to `runtimepath`
+   - `dir`: optional local directory override for development
+     - if the directory exists, packy loads from local `runtimepath`
+     - the remote `src` is still registered in `vim.pack` to keep
+       `nvim-pack.lock.json` consistent
    - `build`: optional, executes function on `PackChanged` event (e.g., for
      compile steps)
 3. Plugin declarations and most plugin behavior live in
@@ -41,6 +46,7 @@ Each plugin spec in `lua/config/plugins.lua` is a table with the following keys:
     src = "https://github.com/user/plugin.nvim",  -- Required: GitHub repo URL
     name = "plugin",                               -- Optional: defaults to repo name
     version = "1.0.0",                             -- Optional: git tag/branch
+    dir = vim.fs.joinpath(vim.env.HOME, "src/plugin.nvim"), -- Optional: local plugin override
     enable = true,                                 -- Optional: disable plugin (default: true)
     preload = false,                               -- Optional: load immediately
     event = "VeryLazy",                            -- Optional: event or array of events
@@ -60,6 +66,9 @@ Each plugin spec in `lua/config/plugins.lua` is a table with the following keys:
   - Best for non-essential plugins (completions, decorations, etc.)
 - **Filetype-based**: `ft = "lua"` or `ft = { "lua", "json" }`
   - Loads on filetype detection
+- **Local override**: `dir = "~/src/plugin.nvim"`
+  - If the directory exists, plugin code is loaded from local `runtimepath`
+  - Remote `src` stays in `vim.pack` for lockfile consistency
 - **Build hooks**: `build = function() require("module").install() end`
   - Executes after `PackChanged` event (useful for post-install setup)
 
@@ -76,6 +85,7 @@ Common errors:
 
 - Missing `src` field
 - Invalid `event`/`ft` type (must be string or string array)
+- Invalid `dir` type (must be string)
 - `config` must be a function
 - `build` must be a function
 

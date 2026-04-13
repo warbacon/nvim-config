@@ -2,8 +2,8 @@
 
 <p align="center">
   <i>
-    From the Spanish word <strong>"mío"</strong>, meaning <em>"mine"</em> —<br/>
-    because this is <strong>my</strong> way of using Vim.
+    From the Spanish word <b>"mío"</b>, meaning "mine",<br/>
+    because this is <b>my</b> way of using Vim.
   </i>
 </p>
 

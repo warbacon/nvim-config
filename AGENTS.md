@@ -18,6 +18,11 @@ This repository contains **Miovim**, a personal **Neovim 0.12.x+** setup.
 
 1. **Plugin management is intentionally custom**: this config uses `packy`, not
    lazy.nvim or packer.nvim. Located at `lua/packy.lua`.
+   - **`packy` is designed to be MINIMAL**: It wraps `vim.pack` with lazy loading
+     and basic validation. Complexity is **not welcome**—any additions must
+     justify themselves by being essential and lightweight.
+   - Prefer fallback/silent behavior over verbose warnings.
+   - No caching, persistence, or complex state management.
 2. `packy` supports lightweight lazy loading through:
     - `event`: fires on Neovim events (`"BufRead"`, `"InsertEnter"`, etc.). Special:
       - `"VeryLazy"`: triggers on `UIEnter` with `vim.schedule_wrap()` to avoid

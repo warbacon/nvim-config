@@ -2,7 +2,13 @@ require("packy").setup({
     -- COLORSCHEMES ---------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/warbacon/pino.nvim",
-        path = vim.fs.joinpath(vim.env.HOME, "Proyectos/pino.nvim"),
+        path = (function()
+            if vim.fn.has("linux") == 1 then
+                return vim.fs.joinpath(vim.env.HOME, "Proyectos", "pino.nvim")
+            elseif vim.fn.has("win32") == 1 then
+                return vim.fs.joinpath(vim.env.USERPROFILE, "Documents", "Proyectos", "pino.nvim")
+            end
+        end)(),
         config = function()
             require("pino").setup({
                 plugins = {
@@ -259,6 +265,11 @@ require("packy").setup({
                         menu = {
                             auto_show = true,
                         },
+                    },
+                    keymap = {
+                        preset = "cmdline",
+                        ["<Left>"] = false,
+                        ["<Right>"] = false,
                     },
                 },
                 completion = {

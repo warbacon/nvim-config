@@ -150,7 +150,9 @@ local function resolve_path(path)
         return nil
     end
 
-    local normalized = vim.fn.fnamemodify(vim.fs.normalize(vim.fn.expand(path)), ":p")
+    local expanded = vim.fn.expand(path)
+    local absolute = vim.uv.fs_realpath(expanded) or vim.fn.fnamemodify(expanded, ":p")
+    local normalized = vim.fs.normalize(absolute):gsub("[/\\]+$", "")
     local stat = vim.uv.fs_stat(normalized)
 
     if stat and stat.type == "directory" then

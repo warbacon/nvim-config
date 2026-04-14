@@ -240,7 +240,10 @@ require("packy").setup({
     },
 
     -- QUICKFIX -------------------------------------------------------------------------------------------------------
-    { src = "https://github.com/kevinhwang91/nvim-bqf" },
+    {
+        src = "https://github.com/kevinhwang91/nvim-bqf",
+        ft = "qf",
+    },
     {
         src = "https://github.com/stevearc/quicker.nvim",
         ft = "qf",
@@ -344,10 +347,12 @@ require("packy").setup({
     -- MASON.NVIM -----------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/mason-org/mason-lspconfig.nvim",
+        event = { "BufReadPost", "BufNewFile", "VeryLazy" },
         enabled = not Util.is_nixos,
     },
     {
         src = "https://github.com/mason-org/mason.nvim",
+        event = { "BufReadPost", "BufNewFile", "VeryLazy" },
         enabled = not Util.is_nixos,
         config = function()
             require("mason").setup()

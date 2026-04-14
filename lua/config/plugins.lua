@@ -2,7 +2,7 @@ require("packy").setup({
     -- COLORSCHEMES ---------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/warbacon/pino.nvim",
-        dir = vim.fs.joinpath(vim.env.HOME, "Proyectos/pino.nvim"),
+        path = vim.fs.joinpath(vim.env.HOME, "Proyectos/pino.nvim"),
         config = function()
             require("pino").setup({
                 plugins = {
@@ -333,11 +333,11 @@ require("packy").setup({
     -- MASON.NVIM -----------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/mason-org/mason-lspconfig.nvim",
-        enable = not Util.is_nixos,
+        enabled = not Util.is_nixos,
     },
     {
         src = "https://github.com/mason-org/mason.nvim",
-        enable = not Util.is_nixos,
+        enabled = not Util.is_nixos,
         config = function()
             require("mason").setup()
             require("mason-lspconfig").setup({

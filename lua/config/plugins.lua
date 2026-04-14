@@ -360,41 +360,48 @@ require("packy").setup({
                 automatic_enable = false,
             })
 
-            vim.keymap.set("n", "<Leader>m", "<cmd>Mason<CR>")
+            local function sync_mason_tools()
+                local mr = require("mason-registry")
+                mr.refresh(function()
+                    local servers = vim.lsp._enabled_configs
+                    local mappings = require("mason-lspconfig").get_mappings().lspconfig_to_package
+                    local formatters_by_ft = require("conform").formatters_by_ft
 
-            local mr = require("mason-registry")
-            mr.refresh(function()
-                local servers = vim.lsp._enabled_configs
-                local mappings = require("mason-lspconfig").get_mappings().lspconfig_to_package
-                local formatters_by_ft = require("conform").formatters_by_ft
+                    local to_install = {
+                        shellcheck = true,
+                        shfmt = true,
+                        ["rust-analyzer"] = false,
+                    }
 
-                local to_install = {
-                    shellcheck = true,
-                    shfmt = true,
-                    ["rust-analyzer"] = false,
-                }
-
-                for _, server in ipairs(vim.tbl_keys(servers)) do
-                    local package_name = mappings[server]
-                    if package_name and to_install[package_name] ~= false then
-                        to_install[package_name] = true
-                    end
-                end
-
-                for _, formatters in pairs(formatters_by_ft) do
-                    for _, formatter in ipairs(formatters) do
-                        if type(formatter) == "string" and mr.has_package(formatter) then
-                            to_install[formatter] = true
+                    for _, server in ipairs(vim.tbl_keys(servers)) do
+                        local package_name = mappings[server]
+                        if package_name and to_install[package_name] ~= false then
+                            to_install[package_name] = true
                         end
                     end
-                end
 
-                for package_name in pairs(to_install) do
-                    if not mr.is_installed(package_name) then
-                        mr.get_package(package_name):install()
+                    for _, formatters in pairs(formatters_by_ft) do
+                        for _, formatter in ipairs(formatters) do
+                            if type(formatter) == "string" and mr.has_package(formatter) then
+                                to_install[formatter] = true
+                            end
+                        end
                     end
-                end
-            end)
+
+                    for package_name in pairs(to_install) do
+                        if not mr.is_installed(package_name) then
+                            mr.get_package(package_name):install()
+                        end
+                    end
+                end)
+            end
+
+            vim.api.nvim_create_user_command("Mason", function()
+                sync_mason_tools()
+                require("mason.api.command").Mason()
+            end, {})
+
+            vim.keymap.set("n", "<Leader>m", "<cmd>Mason<CR>", { desc = "Open Mason and sync required tools" })
         end,
     },
 

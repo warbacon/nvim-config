@@ -154,20 +154,19 @@ require("packy").setup({
             vim.api.nvim_create_autocmd("FileType", {
                 desc = "Enable Treesitter when available",
                 callback = function(ev)
-                    local is_active = vim.treesitter.highlighter.active[ev.buf] ~= nil
+                    local lang = vim.treesitter.language.get_lang(ev.match)
 
-                    if not is_active then
-                        is_active = pcall(vim.treesitter.start)
+                    if not lang or not vim.treesitter.language.add(lang) then
+                        return
                     end
 
-                    if is_active then
-                        vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-                        vim.wo.foldmethod = "expr"
+                    vim.treesitter.start(ev.buf, lang)
 
-                        local lang = vim.treesitter.language.get_lang(ev.match)
-                        if lang and vim.treesitter.query.get(lang, "indents") then
-                            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-                        end
+                    vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+                    vim.wo.foldmethod = "expr"
+
+                    if vim.treesitter.query.get(lang, "indents") then
+                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
                     end
                 end,
             })

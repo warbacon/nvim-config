@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "b2e84d00db4d5432f471d58898e796b478f075a7",
+      "rev": "0ce1f8aba51db6812382a4135f5b20a9f0c959ec",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "blink.cmp": {
@@ -14,7 +14,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "fzf-lua": {
-      "rev": "1e866cce085cc6df3d3e4fb59f00105fa84cef6c",
+      "rev": "69b0d5d045cc039e68ba4c82190ce471464226b6",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
@@ -38,11 +38,11 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.clue": {
-      "rev": "f8a11789cf34a7bae396dc0f828d06cdb5066793",
+      "rev": "43bd6cf1c3ccdea46d403c32dbc4629fa6afa09d",
       "src": "https://github.com/nvim-mini/mini.clue"
     },
     "mini.icons": {
-      "rev": "7fdae2443a0e2910015ca39ad74b50524ee682d3",
+      "rev": "bac6317300e205335df425296570d84322730067",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
     "mini.move": {
@@ -58,7 +58,7 @@
       "src": "https://github.com/kevinhwang91/nvim-bqf"
     },
     "nvim-lspconfig": {
-      "rev": "8a9378a822719346a0288fa004dab302ca3c0a8f",
+      "rev": "4b7fbaa239c5db6b36f424a4521ca9f1a401be33",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-scrollbar": {
@@ -70,7 +70,7 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-ts-autotag": {
-      "rev": "8e1c0a389f20bf7f5b0dd0e00306c1247bda2595",
+      "rev": "88c1453db4ba7dd24131086fe51fdf74e587d275",
       "src": "https://github.com/windwp/nvim-ts-autotag"
     },
     "oil.nvim": {
@@ -78,7 +78,7 @@
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "pino.nvim": {
-      "rev": "8da7705048098426a1db4f2d1b83c352b3efd084",
+      "rev": "38e27b5d0d82b553965e56c1b6a5fab0bb07a30a",
       "src": "https://github.com/warbacon/pino.nvim"
     },
     "quicker.nvim": {
@@ -92,10 +92,6 @@
     "tokyonight.nvim": {
       "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
       "src": "https://github.com/folke/tokyonight.nvim"
-    },
-    "vim-startuptime": {
-      "rev": "f10474b400c197787a0434548d842a2db583c333",
-      "src": "https://github.com/dstein64/vim-startuptime"
     }
   }
 }

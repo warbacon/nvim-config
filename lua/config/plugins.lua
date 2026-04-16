@@ -113,10 +113,6 @@ require("packy").setup({
                 "tsgo",
                 "yamlls",
             })
-
-            if vim.fn.has("win32") == 1 then
-                vim.lsp.enable("powershell_es")
-            end
         end,
     },
 
@@ -356,11 +352,12 @@ require("packy").setup({
         enabled = not Util.is_nixos,
         config = function()
             require("mason").setup()
-            require("mason-lspconfig").setup({
-                automatic_enable = false,
-            })
 
             local function sync_mason_tools()
+                require("mason-lspconfig").setup({
+                    automatic_enable = false,
+                })
+
                 local mr = require("mason-registry")
                 mr.refresh(function()
                     local servers = vim.lsp._enabled_configs

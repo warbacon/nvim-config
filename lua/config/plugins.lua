@@ -116,59 +116,23 @@ require("packy").setup({
         end,
     },
 
-    -- TREESITTER -----------------------------------------------------------------------------------------------------
+    -- ARBORIST.NVIM -----------------------------------------------------------------------------------------------------
     {
-        src = "https://github.com/nvim-treesitter/nvim-treesitter",
-        build = function()
-            require("nvim-treesitter").update()
-        end,
+        src = "https://github.com/arborist-ts/arborist.nvim",
         config = function()
-            local ts_parsers = {
-                "bash",
-                "c",
-                "cpp",
-                "css",
-                "diff",
-                "fish",
-                "gitcommit",
-                "html",
-                "ini",
-                "javascript",
-                "json",
-                "lua",
-                "markdown",
-                "markdown_inline",
-                "nix",
-                "powershell",
-                "svelte",
-                "toml",
-                "typescript",
-                "vim",
-                "vimdoc",
-                "xml",
-                "yaml",
-            }
-
-            require("nvim-treesitter").install(ts_parsers)
-
-            vim.api.nvim_create_autocmd("FileType", {
-                desc = "Enable Treesitter when available",
-                callback = function(ev)
-                    local lang = vim.treesitter.language.get_lang(ev.match)
-
-                    if not lang or not vim.treesitter.language.add(lang) then
-                        return
-                    end
-
-                    vim.treesitter.start()
-
-                    vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-                    vim.wo.foldmethod = "expr"
-
-                    if vim.treesitter.query.get(lang, "indents") then
-                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-                    end
-                end,
+            require("arborist").setup({
+                prefer_wasm = false,
+                install_popular = false,
+                ensure_installed = {
+                    "diff",
+                    "javascript",
+                    "css",
+                    "html",
+                    "jsdoc",
+                    "markdown_inline",
+                    "typescript",
+                    "xml",
+                },
             })
         end,
     },

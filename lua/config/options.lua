@@ -56,3 +56,5 @@ end
 if vim.fn.has("linux") == 1 and vim.fn.executable("fish") == 1 then
     vim.o.shell = "fish"
 end
+
+-- vim.o.statusline = "%!v:lua.require'statusline'.render()"

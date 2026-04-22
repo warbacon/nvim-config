@@ -367,9 +367,10 @@ require("packy").setup({
                     local formatters_by_ft = require("conform").formatters_by_ft
 
                     local to_install = {
+                        ["rust-analyzer"] = false,
+                        qmlls = false,
                         shellcheck = true,
                         shfmt = true,
-                        ["rust-analyzer"] = false,
                     }
 
                     for _, server in ipairs(vim.tbl_keys(servers)) do
@@ -387,8 +388,8 @@ require("packy").setup({
                         end
                     end
 
-                    for package_name in pairs(to_install) do
-                        if not mr.is_installed(package_name) then
+                    for package_name, value in pairs(to_install) do
+                        if value and not mr.is_installed(package_name) then
                             mr.get_package(package_name):install()
                         end
                     end

@@ -111,7 +111,7 @@ require("packy").setup({
     {
         src = "https://github.com/neovim/nvim-lspconfig",
         config = function()
-            vim.lsp.enable({
+            local servers = {
                 "bashls",
                 "clangd",
                 "cssls",
@@ -126,7 +126,10 @@ require("packy").setup({
                 "tailwindcss",
                 "tsgo",
                 "yamlls",
-            })
+                vim.fn.has("win32") == 1 and "powershell_es" or nil,
+            }
+
+            vim.lsp.enable(servers)
         end,
     },
 

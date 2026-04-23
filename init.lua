@@ -28,7 +28,6 @@ end
 
 require("vim._core.ui2").enable({})
 vim.lsp.on_type_formatting.enable()
-vim.lsp.document_color.enable(true, nil, { style = "virtual" })
 
 _G.Util = require("util")
 

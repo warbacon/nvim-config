@@ -1,3 +1,21 @@
+vim.api.nvim_create_autocmd("BufWritePre", {
+    desc = "Format code before save using LSP",
+    callback = function()
+        if not vim.bo.modified then
+            return
+        end
+
+        local clients = vim.lsp.get_clients({ bufnr = 0 })
+        local can_format = vim.iter(clients):any(function(client)
+            return client:supports_method("textDocument/formatting")
+        end)
+
+        if can_format then
+            vim.lsp.buf.format()
+        end
+    end,
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Automatically highlight text after yanking it",
     callback = function()

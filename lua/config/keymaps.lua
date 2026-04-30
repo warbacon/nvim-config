@@ -6,8 +6,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- Copy to system clipboard
-vim.keymap.set({ "n", "v", "x" }, "<leader>y", '"+y', { desc = "Copy to system clipboard" })
-vim.keymap.set({ "n", "v", "x" }, "<leader>Y", '"+y$', { desc = "Copy until the end to system clipboard" })
+vim.keymap.set({ "n", "v", "x" }, "<Leader>y", '"+y', { desc = "Copy to system clipboard" })
+vim.keymap.set({ "n", "v", "x" }, "<Leader>Y", '"+y$', { desc = "Copy until the end to system clipboard" })
 
 -- Allow <C-v> to paste text
 vim.keymap.set("i", "<C-v>", "<C-r>+", { desc = "Paste using system's clipboard" })
@@ -21,9 +21,6 @@ vim.keymap.set({ "i", "c" }, "<M-BS>", "<C-w>", { desc = "Delete backward word" 
 
 -- Fuzzy finder replacement
 vim.keymap.set("n", "<Leader><Leader>", ":find **/", { noremap = true, desc = "Find files" })
-
--- Restart Neovim
-vim.keymap.set("n", "<Leader>rr", "<Cmd>restart<CR>", { desc = "Confirm restart" })
 
 -- Use <C-q> to exit terminal mode
 vim.keymap.set("t", "<C-q>", "<C-\\><C-n>", { desc = "Exit terminal mode" })

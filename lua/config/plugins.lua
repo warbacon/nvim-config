@@ -7,10 +7,10 @@ require("packy2").setup({
         config = function()
             require("pino").setup({
                 plugins = {
-                    mini = true,
                     fzf_lua = true,
-                    mason = not Util.is_nixos,
                     lazy = false,
+                    mason = not Util.is_nixos,
+                    mini = true,
                 },
             })
             vim.cmd.colorscheme("pino")
@@ -238,6 +238,59 @@ require("packy2").setup({
                 { desc = "Show workspace diagnostics" }
             )
             vim.keymap.set("n", "z=", "<Cmd>FzfLua spell_suggest<CR>", { desc = "Show spell suggestions" })
+        end,
+    },
+    -------------------------------------------------------------------------------------------------------------------
+    -- MASON.NVIM
+    -------------------------------------------------------------------------------------------------------------------
+    {
+        src = "https://github.com/mason-org/mason-lspconfig.nvim",
+        enabled = not Util.is_nixos,
+    },
+    {
+        src = "https://github.com/mason-org/mason.nvim",
+        enabled = not Util.is_nixos,
+        config = function()
+            require("mason").setup()
+
+            local function sync_mason_tools()
+                require("mason-lspconfig").setup({
+                    automatic_enable = false,
+                })
+
+                local mr = require("mason-registry")
+                mr.refresh(function()
+                    local servers = vim.lsp._enabled_configs
+                    local mappings = require("mason-lspconfig").get_mappings().lspconfig_to_package
+
+                    local to_install = {
+                        ["rust-analyzer"] = false,
+                        qmlls = false,
+                        shellcheck = true,
+                        shfmt = true,
+                    }
+
+                    for _, server in ipairs(vim.tbl_keys(servers)) do
+                        local package_name = mappings[server]
+                        if package_name and to_install[package_name] ~= false then
+                            to_install[package_name] = true
+                        end
+                    end
+
+                    for package_name, value in pairs(to_install) do
+                        if value and not mr.is_installed(package_name) then
+                            mr.get_package(package_name):install()
+                        end
+                    end
+                end)
+            end
+
+            vim.api.nvim_create_user_command("Mason", function()
+                sync_mason_tools()
+                require("mason.api.command").Mason()
+            end, {})
+
+            vim.keymap.set("n", "<Leader>m", "<cmd>Mason<CR>", { desc = "Open Mason and sync required tools" })
         end,
     },
 })

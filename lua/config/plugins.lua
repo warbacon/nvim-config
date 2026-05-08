@@ -290,6 +290,60 @@ require("packy2").setup({
             end, {})
 
             vim.keymap.set("n", "<Leader>m", "<cmd>Mason<CR>", { desc = "Open Mason and sync required tools" })
+        end
+    },
+    -------------------------------------------------------------------------------------------------------------------
+    -- BLINK.CMP
+    -------------------------------------------------------------------------------------------------------------------
+    {
+        src = "https://github.com/saghen/blink.cmp",
+        version = vim.version.range("*"),
+        config = function()
+            require("blink.cmp").setup({
+                cmdline = {
+                    completion = {
+                        list = {
+                            selection = {
+                                preselect = false,
+                            },
+                        },
+                        menu = {
+                            auto_show = true,
+                        },
+                    },
+                    keymap = {
+                        preset = "cmdline",
+                        ["<Left>"] = false,
+                        ["<Right>"] = false,
+                    },
+                },
+                completion = {
+                    documentation = {
+                        auto_show = true,
+                    },
+                    menu = {
+                        draw = {
+                            gap = 2,
+                            columns = {
+                                { "kind_icon" },
+                                { "label", "label_description", gap = 2 },
+                            },
+                        },
+                    },
+                },
+                sources = {
+                    per_filetype = {
+                        vim = { inherit_defaults = true, "cmdline" },
+                    },
+                    providers = {
+                        path = {
+                            opts = {
+                                show_hidden_files_by_default = true,
+                            },
+                        },
+                    },
+                },
+            })
         end,
     },
 })

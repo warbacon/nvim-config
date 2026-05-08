@@ -1,23 +1,28 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "8092a4212b66b4ff2c392080ff4186ff0b7d4945",
+      "rev": "1ccbd3720b5064146b16d7761957da302ea1e86f",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "arborist.nvim": {
-      "rev": "8a5bdf7bab9b4fc11aa3e9ceabb22bf3d71d904f",
+      "rev": "6cffbf419a495c84c56b918771a3d004e892e235",
       "src": "https://github.com/arborist-ts/arborist.nvim"
     },
+    "blink.cmp": {
+      "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
+      "src": "https://github.com/saghen/blink.cmp",
+      "version": ">=0.0.0"
+    },
     "canola.nvim": {
-      "rev": "b904468fc8d4f79fe4b4dbbdcccb0e4f44e64857",
+      "rev": "3fb9d28492ad7a24cd3e0e69e0d2808ed9aaf826",
       "src": "https://github.com/barrettruth/canola.nvim"
     },
     "fzf-lua": {
-      "rev": "b437bafc981a180d609bb4092c56ce8999f7a2c4",
+      "rev": "33fe4b6f0c817c4d99a7baeea82c4d17e57efd64",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
-      "rev": "6d808f99bd63303646794406e270bd553ad7792e",
+      "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "guess-indent.nvim": {
@@ -25,11 +30,11 @@
       "src": "https://github.com/NMAC427/guess-indent.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "0c2823e0418f3d9230ff8b201c976e84de1cb401",
+      "rev": "51feb0ada33d18f3c5c71ffb46005dbf8b33bef4",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
-      "rev": "cb8445f8ce85d957416c106b780efd51c6298f89",
+      "rev": "e54f5bf5f12c560da31c17eee5b3e1bd369f3ff9",
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.icons": {
@@ -45,7 +50,7 @@
       "src": "https://github.com/nvim-mini/mini.splitjoin"
     },
     "nvim-lspconfig": {
-      "rev": "f7e89f3d19fb436e1fbeff3bf4291eef35da94e3",
+      "rev": "451d4ef9abd4f0f08e379ef0d55d1c391b6125a7",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-ts-autotag": {

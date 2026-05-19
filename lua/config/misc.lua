@@ -19,7 +19,11 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Automatically highlight text after yanking it",
     callback = function()
-        vim.hl.on_yank({ timeout = 100 })
+        if vim.fn.has("nvim-0.13") == 1 then
+            vim.hl.hl_op({ timeout = 100 })
+        else
+            vim.hl.on_yank({ timeout = 100 })
+        end
     end,
 })
 

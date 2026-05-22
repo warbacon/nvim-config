@@ -139,6 +139,41 @@ require("packy2").setup({
         end,
     },
     -------------------------------------------------------------------------------------------------------------------
+    -- CONFORM.NVIM
+    -------------------------------------------------------------------------------------------------------------------
+    {
+        src = "https://github.com/stevearc/conform.nvim",
+        config = function()
+            require("conform").setup({
+                format_on_save = true,
+                formatters_by_ft = {
+                    c = { "clang-format" },
+                    cpp = { "clang-format" },
+                    fish = { "fish_indent" },
+                    lua = { "stylua" },
+                    toml = { "taplo" },
+                    css = { "prettierd" },
+                    html = { "prettierd" },
+                    javascript = { "prettierd" },
+                    javascriptreact = { "prettierd" },
+                    json = { "prettierd" },
+                    jsonc = { "prettierd" },
+                    markdown = { "prettierd" },
+                    typescript = { "prettierd" },
+                    typescriptreact = { "prettierd" },
+                    ["_"] = { "trim_whitespace", "trim_newlines", "squeeze_blanks", lsp_format = "last" },
+                },
+                formatters = {
+                    ["clang-format"] = {
+                        append_args = {
+                            "-style={IndentWidth: 4, BreakBeforeBraces: Linux, ColumnLimit: 80}",
+                        },
+                    },
+                },
+            })
+        end,
+    },
+    -------------------------------------------------------------------------------------------------------------------
     -- GITSIGNS.NVIM
     -------------------------------------------------------------------------------------------------------------------
     {
@@ -261,6 +296,7 @@ require("packy2").setup({
                 mr.refresh(function()
                     local servers = vim.lsp._enabled_configs
                     local mappings = require("mason-lspconfig").get_mappings().lspconfig_to_package
+                    local formatters_by_ft = require("conform").formatters_by_ft
 
                     local to_install = {
                         ["rust-analyzer"] = false,
@@ -273,6 +309,14 @@ require("packy2").setup({
                         local package_name = mappings[server]
                         if package_name and to_install[package_name] ~= false then
                             to_install[package_name] = true
+                        end
+                    end
+
+                    for _, formatters in pairs(formatters_by_ft) do
+                        for _, formatter in ipairs(formatters) do
+                            if type(formatter) == "string" and mr.has_package(formatter) then
+                                to_install[formatter] = true
+                            end
                         end
                     end
 
@@ -290,7 +334,7 @@ require("packy2").setup({
             end, {})
 
             vim.keymap.set("n", "<Leader>m", "<cmd>Mason<CR>", { desc = "Open Mason and sync required tools" })
-        end
+        end,
     },
     -------------------------------------------------------------------------------------------------------------------
     -- BLINK.CMP

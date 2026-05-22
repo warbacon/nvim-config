@@ -17,6 +17,10 @@
       "rev": "88af183e96724cca98a4602511061662cd5e88f3",
       "src": "https://github.com/barrettruth/canola.nvim"
     },
+    "conform.nvim": {
+      "rev": "18aeab3d63d350dcf44d64c462cc489a3412af40",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
     "fzf-lua": {
       "rev": "71b45a044c4ef6ecb1910880ef642d5a0e1c02e9",
       "src": "https://github.com/ibhagwan/fzf-lua"

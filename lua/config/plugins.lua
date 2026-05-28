@@ -1,109 +1,68 @@
 require("packy").setup({
     -------------------------------------------------------------------------------------------------------------------
-    -- COLORSCHEMES
+    -- PINO.NVIM
     -------------------------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/warbacon/pino.nvim",
-        path = (function()
+        dev_dir = (function()
             if vim.fn.has("linux") == 1 then
-                return vim.fs.joinpath(vim.env.HOME, "Proyectos", "pino.nvim")
-            elseif vim.fn.has("win32") == 1 then
-                return vim.fs.joinpath(vim.env.USERPROFILE, "Documents", "Proyectos", "pino.nvim")
+                return vim.fs.joinpath(os.getenv("HOME") or "", "Proyectos", "pino.nvim")
             end
+
+            if vim.fn.has("win32") == 1 then
+                return "F:/pino.nvim"
+            end
+
+            return nil
         end)(),
         config = function()
             require("pino").setup({
                 plugins = {
-                    mason = not Util.is_nixos,
-                    mini = true,
                     fzf_lua = true,
                     lazy = false,
+                    mason = not Util.is_nixos,
+                    mini = true,
                 },
             })
             vim.cmd.colorscheme("pino")
         end,
     },
-    { src = "https://github.com/folke/tokyonight.nvim" },
-
     -------------------------------------------------------------------------------------------------------------------
-    -- MINI.ICONS
+    -- TREE-SITTER
     -------------------------------------------------------------------------------------------------------------------
     {
-        src = "https://github.com/nvim-mini/mini.icons",
+        src = "https://github.com/arborist-ts/arborist.nvim",
         config = function()
-            require("mini.icons").setup()
-        end,
-    },
-
-    -------------------------------------------------------------------------------------------------------------------
-    -- MINI.CLUE
-    -------------------------------------------------------------------------------------------------------------------
-    {
-        src = "https://github.com/nvim-mini/mini.clue",
-        event = "VeryLazy",
-        config = function()
-            require("mini.clue").setup({
-                triggers = {
-                    { mode = { "n", "x" }, keys = "<Leader>" },
-                    { mode = { "n", "x" }, keys = "[" },
-                    { mode = { "n", "x" }, keys = "]" },
-                    { mode = "i", keys = "<C-x>" },
-                    { mode = { "n", "x" }, keys = "g" },
-                    { mode = { "n", "x" }, keys = "'" },
-                    { mode = { "n", "x" }, keys = "`" },
-                    { mode = { "n", "x" }, keys = '"' },
-                    { mode = { "i", "c" }, keys = "<C-r>" },
-                    { mode = "n", keys = "<C-w>" },
-                    { mode = { "n", "x" }, keys = "z" },
-                },
-                clues = {
-                    { mode = { "n" }, keys = "<Leader>p", desc = "vim.pack" },
-                    { mode = { "n" }, keys = "<Leader>s", desc = "FzfLua" },
-                    { mode = { "n" }, keys = "<Leader>r", desc = "Restart Neovim" },
-                    require("mini.clue").gen_clues.builtin_completion(),
-                    require("mini.clue").gen_clues.g(),
-                    require("mini.clue").gen_clues.marks(),
-                    require("mini.clue").gen_clues.registers(),
-                    require("mini.clue").gen_clues.square_brackets(),
-                    require("mini.clue").gen_clues.windows({ submode_resize = true }),
-                    require("mini.clue").gen_clues.z(),
+            require("arborist").setup({
+                prefer_wasm = false,
+                update_cadence = "manual",
+                install_popular = false,
+                ensure_installed = {
+                    "bash",
+                    "css",
+                    "diff",
+                    "html",
+                    "ini",
+                    "javascript",
+                    "jsdoc",
+                    "json",
+                    "luadoc",
+                    "markdown_inline",
+                    "nix",
+                    "toml",
+                    "typescript",
+                    "xml",
+                    "yaml",
                 },
             })
         end,
     },
-
-    -------------------------------------------------------------------------------------------------------------------
-    -- MINI.MOVE
-    -------------------------------------------------------------------------------------------------------------------
     {
-        src = "https://github.com/nvim-mini/mini.move",
-        event = "VeryLazy",
+        src = "https://github.com/windwp/nvim-ts-autotag",
         config = function()
-            require("mini.move").setup()
+            require("nvim-ts-autotag").setup()
         end,
     },
-
-    -------------------------------------------------------------------------------------------------------------------
-    -- MINI.SPLITJOIN
-    -------------------------------------------------------------------------------------------------------------------
-    {
-        src = "https://github.com/nvim-mini/mini.splitjoin",
-        event = "VeryLazy",
-        config = function()
-            require("mini.splitjoin").setup()
-        end,
-    },
-
-    -------------------------------------------------------------------------------------------------------------------
-    -- GUESS-INDENT.NVIM
-    -------------------------------------------------------------------------------------------------------------------
-    {
-        src = "https://github.com/NMAC427/guess-indent.nvim",
-        config = function()
-            require("guess-indent").setup()
-        end,
-    },
-
     -------------------------------------------------------------------------------------------------------------------
     -- LSP
     -------------------------------------------------------------------------------------------------------------------
@@ -128,50 +87,51 @@ require("packy").setup({
                 "yamlls",
                 vim.fn.has("win32") == 1 and "powershell_es" or nil,
             }
-
             vim.lsp.enable(servers)
         end,
     },
-
     -------------------------------------------------------------------------------------------------------------------
-    -- TREE-SITTER
+    -- GUESS-INDENT.NVIM
     -------------------------------------------------------------------------------------------------------------------
     {
-        src = "https://github.com/arborist-ts/arborist.nvim",
+        src = "https://github.com/NMAC427/guess-indent.nvim",
         config = function()
-            require("arborist").setup({
-                prefer_wasm = false,
-                install_popular = false,
-                ensure_installed = {
-                    "bash",
-                    "css",
-                    "diff",
-                    "gitcommit",
-                    "html",
-                    "javascript",
-                    "jsdoc",
-                    "json",
-                    "markdown_inline",
-                    "powershell",
-                    "toml",
-                    "typescript",
-                    "xml",
-                },
-            })
+            require("guess-indent").setup()
         end,
     },
+    -------------------------------------------------------------------------------------------------------------------
+    -- MINI.ICONS
+    -------------------------------------------------------------------------------------------------------------------
     {
-        src = "https://github.com/windwp/nvim-ts-autotag",
+        src = "https://github.com/nvim-mini/mini.icons",
         config = function()
-            require("nvim-ts-autotag").setup()
+            require("mini.icons").setup()
         end,
     },
-
     -------------------------------------------------------------------------------------------------------------------
-    -- OIL.NVIM
+    -- MINI.MOVE
     -------------------------------------------------------------------------------------------------------------------
     {
-        src = "https://github.com/stevearc/oil.nvim",
+        src = "https://github.com/nvim-mini/mini.move",
+        config = function()
+            require("mini.move").setup()
+        end,
+    },
+    -------------------------------------------------------------------------------------------------------------------
+    -- MINI.SPLITJOIN
+    -------------------------------------------------------------------------------------------------------------------
+    {
+        src = "https://github.com/nvim-mini/mini.splitjoin",
+        event = "VeryLazy",
+        config = function()
+            require("mini.splitjoin").setup()
+        end,
+    },
+    -------------------------------------------------------------------------------------------------------------------
+    -- CANOLA.NVIM
+    -------------------------------------------------------------------------------------------------------------------
+    {
+        src = "https://github.com/barrettruth/canola.nvim",
         config = function()
             require("oil").setup({
                 delete_to_trash = true,
@@ -186,10 +146,9 @@ require("packy").setup({
                 },
                 watch_for_changes = true,
             })
-            vim.keymap.set("n", "-", "<cmd>Oil<CR>", { noremap = true, desc = "Open Oil file manager" })
+            vim.keymap.set("n", "-", "<Cmd>Oil<CR>", { noremap = true, desc = "Open Oil file manager" })
         end,
     },
-
     -------------------------------------------------------------------------------------------------------------------
     -- CONFORM.NVIM
     -------------------------------------------------------------------------------------------------------------------
@@ -225,85 +184,87 @@ require("packy").setup({
             })
         end,
     },
-
     -------------------------------------------------------------------------------------------------------------------
-    -- QUICKFIX
+    -- GITSIGNS.NVIM
     -------------------------------------------------------------------------------------------------------------------
     {
-        src = "https://github.com/kevinhwang91/nvim-bqf",
-        ft = "qf",
-    },
-    {
-        src = "https://github.com/stevearc/quicker.nvim",
-        ft = "qf",
+        src = "https://github.com/lewis6991/gitsigns.nvim",
         config = function()
-            require("quicker").setup()
-        end,
-    },
+            require("gitsigns").setup({
+                sign_priority = 199,
+                on_attach = function(bufnr)
+                    local gitsigns = require("gitsigns")
 
-    -------------------------------------------------------------------------------------------------------------------
-    -- BLINK.CMP
-    -------------------------------------------------------------------------------------------------------------------
-    {
-        src = "https://github.com/saghen/blink.cmp",
-        version = vim.version.range("*"),
-        preload = true,
-        event = { "CmdlineEnter", "InsertEnter" },
-        config = function()
-            require("blink.cmp").setup({
-                cmdline = {
-                    completion = {
-                        list = {
-                            selection = {
-                                preselect = false,
-                            },
-                        },
-                        menu = {
-                            auto_show = true,
-                        },
-                    },
-                    keymap = {
-                        preset = "cmdline",
-                        ["<Left>"] = false,
-                        ["<Right>"] = false,
-                    },
-                },
-                completion = {
-                    documentation = {
-                        auto_show = true,
-                    },
-                    menu = {
-                        draw = {
-                            gap = 2,
-                            columns = {
-                                { "kind_icon" },
-                                { "label", "label_description", gap = 2 },
-                            },
-                        },
-                    },
-                },
-                sources = {
-                    per_filetype = {
-                        vim = { inherit_defaults = true, "cmdline" },
-                    },
-                    providers = {
-                        path = {
-                            opts = {
-                                show_hidden_files_by_default = true,
-                            },
-                        },
-                    },
-                },
+                    local function map(mode, l, r, opts)
+                        opts = opts or {}
+                        opts.buffer = bufnr
+                        vim.keymap.set(mode, l, r, opts)
+                    end
+
+                    -- Navigation
+                    map("n", "]c", function()
+                        if vim.wo.diff then
+                            vim.cmd.normal({ "]c", bang = true })
+                        else
+                            gitsigns.nav_hunk("next")
+                        end
+                    end)
+
+                    map("n", "[c", function()
+                        if vim.wo.diff then
+                            vim.cmd.normal({ "[c", bang = true })
+                        else
+                            gitsigns.nav_hunk("prev")
+                        end
+                    end)
+
+                    -- Actions
+                    map("n", "<Leader>hs", gitsigns.stage_hunk)
+                    map("n", "<Leader>hr", gitsigns.reset_hunk)
+
+                    map("v", "<Leader>hs", function()
+                        gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+                    end)
+
+                    map("v", "<Leader>hr", function()
+                        gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+                    end)
+
+                    map("n", "<Leader>hS", gitsigns.stage_buffer)
+                    map("n", "<Leader>hR", gitsigns.reset_buffer)
+                    map("n", "<Leader>hp", gitsigns.preview_hunk)
+                    map("n", "<Leader>hi", gitsigns.preview_hunk_inline)
+
+                    map("n", "<Leader>hb", function()
+                        gitsigns.blame_line({ full = true })
+                    end)
+
+                    map("n", "<Leader>hd", gitsigns.diffthis)
+
+                    map("n", "<Leader>hD", function()
+                        gitsigns.diffthis("~")
+                    end)
+
+                    map("n", "<Leader>hQ", function()
+                        gitsigns.setqflist("all")
+                    end)
+                    map("n", "<Leader>hq", gitsigns.setqflist)
+
+                    -- Toggles
+                    map("n", "<Leader>tb", gitsigns.toggle_current_line_blame)
+                    map("n", "<Leader>tw", gitsigns.toggle_word_diff)
+
+                    -- Text object
+                    map({ "o", "x" }, "ih", gitsigns.select_hunk)
+                end,
             })
         end,
     },
-
     -------------------------------------------------------------------------------------------------------------------
     -- FZF-LUA
     -------------------------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/ibhagwan/fzf-lua",
-        event = "VeryLazy",
         config = function()
             require("fzf-lua").setup({
                 fzf_colors = true,
@@ -324,36 +285,15 @@ require("packy").setup({
             vim.keymap.set("n", "z=", "<Cmd>FzfLua spell_suggest<CR>", { desc = "Show spell suggestions" })
         end,
     },
-
-    -------------------------------------------------------------------------------------------------------------------
-    -- RENDER-MARKDOWN.NVIM
-    -------------------------------------------------------------------------------------------------------------------
-    { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
-
-    -------------------------------------------------------------------------------------------------------------------
-    -- KULALA.NVIM
-    -------------------------------------------------------------------------------------------------------------------
-    {
-        src = "https://github.com/mistweaverco/kulala.nvim",
-        ft = "http",
-        config = function()
-            require("kulala").setup({
-                global_keymaps = true,
-            })
-        end,
-    },
-
     -------------------------------------------------------------------------------------------------------------------
     -- MASON.NVIM
     -------------------------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/mason-org/mason-lspconfig.nvim",
-        event = { "BufReadPost", "BufNewFile", "VeryLazy" },
         enabled = not Util.is_nixos,
     },
     {
         src = "https://github.com/mason-org/mason.nvim",
-        event = { "BufReadPost", "BufNewFile", "VeryLazy" },
         enabled = not Util.is_nixos,
         config = function()
             require("mason").setup()
@@ -407,95 +347,56 @@ require("packy").setup({
             vim.keymap.set("n", "<Leader>m", "<cmd>Mason<CR>", { desc = "Open Mason and sync required tools" })
         end,
     },
-
     -------------------------------------------------------------------------------------------------------------------
-    -- GITSIGNS.NVIM
-    -------------------------------------------------------------------------------------------------------------------
-    {
-        src = "https://github.com/lewis6991/gitsigns.nvim",
-        event = "VeryLazy",
-        config = function()
-            require("gitsigns").setup({
-                sign_priority = 199,
-                on_attach = function(bufnr)
-                    local gitsigns = require("gitsigns")
-
-                    local function map(mode, l, r, opts)
-                        opts = opts or {}
-                        opts.buffer = bufnr
-                        vim.keymap.set(mode, l, r, opts)
-                    end
-
-                    -- Navigation
-                    map("n", "]c", function()
-                        if vim.wo.diff then
-                            vim.cmd.normal({ "]c", bang = true })
-                        else
-                            gitsigns.nav_hunk("next")
-                        end
-                    end)
-
-                    map("n", "[c", function()
-                        if vim.wo.diff then
-                            vim.cmd.normal({ "[c", bang = true })
-                        else
-                            gitsigns.nav_hunk("prev")
-                        end
-                    end)
-
-                    -- Actions
-                    map("n", "<leader>hs", gitsigns.stage_hunk)
-                    map("n", "<leader>hr", gitsigns.reset_hunk)
-
-                    map("v", "<leader>hs", function()
-                        gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-                    end)
-
-                    map("v", "<leader>hr", function()
-                        gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-                    end)
-
-                    map("n", "<leader>hS", gitsigns.stage_buffer)
-                    map("n", "<leader>hR", gitsigns.reset_buffer)
-                    map("n", "<leader>hp", gitsigns.preview_hunk)
-                    map("n", "<leader>hi", gitsigns.preview_hunk_inline)
-
-                    map("n", "<leader>hb", function()
-                        gitsigns.blame_line({ full = true })
-                    end)
-
-                    map("n", "<leader>hd", gitsigns.diffthis)
-
-                    map("n", "<leader>hD", function()
-                        gitsigns.diffthis("~")
-                    end)
-
-                    map("n", "<leader>hQ", function()
-                        gitsigns.setqflist("all")
-                    end)
-                    map("n", "<leader>hq", gitsigns.setqflist)
-
-                    -- Toggles
-                    map("n", "<leader>tb", gitsigns.toggle_current_line_blame)
-                    map("n", "<leader>tw", gitsigns.toggle_word_diff)
-
-                    -- Text object
-                    map({ "o", "x" }, "ih", gitsigns.select_hunk)
-                end,
-            })
-        end,
-    },
-
-    -------------------------------------------------------------------------------------------------------------------
-    -- NVIM-SCROLLBAR
+    -- BLINK.CMP
     -------------------------------------------------------------------------------------------------------------------
     {
-        src = "https://github.com/petertriho/nvim-scrollbar",
-        event = "VeryLazy",
+        src = "https://github.com/saghen/blink.cmp",
+        version = vim.version.range("*"),
         config = function()
-            require("scrollbar").setup({
-                handlers = {
-                    cursor = false,
+            require("blink.cmp").setup({
+                cmdline = {
+                    completion = {
+                        list = {
+                            selection = {
+                                preselect = false,
+                            },
+                        },
+                        menu = {
+                            auto_show = true,
+                        },
+                    },
+                    keymap = {
+                        preset = "cmdline",
+                        ["<Left>"] = false,
+                        ["<Right>"] = false,
+                    },
+                },
+                completion = {
+                    documentation = {
+                        auto_show = true,
+                    },
+                    menu = {
+                        draw = {
+                            gap = 2,
+                            columns = {
+                                { "kind_icon" },
+                                { "label", "label_description", gap = 2 },
+                            },
+                        },
+                    },
+                },
+                sources = {
+                    per_filetype = {
+                        vim = { inherit_defaults = true, "cmdline" },
+                    },
+                    providers = {
+                        path = {
+                            opts = {
+                                show_hidden_files_by_default = true,
+                            },
+                        },
+                    },
                 },
             })
         end,
@@ -505,13 +406,11 @@ require("packy").setup({
 -----------------------------------------------------------------------------------------------------------------------
 -- UNDOTREE
 -----------------------------------------------------------------------------------------------------------------------
-
 local undotree = function()
     if not vim.g.loaded_undotree_plugin then
         vim.cmd.packadd("nvim.undotree")
     end
     require("undotree").open()
 end
-
-vim.keymap.set("n", "<Leader>u", undotree, { desc = "Undotree" })
+vim.keymap.set("n", "<Leader>r", undotree, { desc = "Undotree" })
 vim.api.nvim_create_user_command("Undotree", undotree, {})

@@ -1,9 +1,20 @@
-require("packy2").setup({
+require("packy").setup({
     -------------------------------------------------------------------------------------------------------------------
     -- PINO.NVIM
     -------------------------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/warbacon/pino.nvim",
+        dev_dir = (function()
+            if vim.fn.has("linux") == 1 then
+                return vim.fs.joinpath(os.getenv("HOME") or "", "Proyectos", "pino.nvim")
+            end
+
+            if vim.fn.has("win32") == 1 then
+                return "F:/pino.nvim"
+            end
+
+            return nil
+        end)(),
         config = function()
             require("pino").setup({
                 plugins = {

@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "19936230448bfb3dfd4314070e8bc499ceb55928",
+      "rev": "30d47907079474907f24d4a546932119a8b9f641",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "arborist.nvim": {
@@ -54,7 +54,7 @@
       "src": "https://github.com/nvim-mini/mini.splitjoin"
     },
     "nvim-lspconfig": {
-      "rev": "07dff35e7c95288861200b788ef32d6103f107f0",
+      "rev": "229b79051b380377664edc4cbd534930154921a1",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-ts-autotag": {
@@ -64,6 +64,10 @@
     "pino.nvim": {
       "rev": "64ac7cd93350f6695370a3aa32a068b0e8b643fa",
       "src": "https://github.com/warbacon/pino.nvim"
+    },
+    "snacks.nvim": {
+      "rev": "882c996cf28183f4d63640de0b4c02ec886d01f2",
+      "src": "https://github.com/folke/snacks.nvim"
     }
   }
 }

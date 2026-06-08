@@ -134,6 +134,13 @@ require("packy").setup({
     -------------------------------------------------------------------------------------------------------------------
     { src = "https://github.com/b0o/SchemaStore.nvim" },
     {
+        src = "https://github.com/j-hui/fidget.nvim",
+        event = "LspAttach",
+        config = function()
+            require("fidget").setup()
+        end,
+    },
+    {
         src = "https://github.com/neovim/nvim-lspconfig",
         config = function()
             local servers = {

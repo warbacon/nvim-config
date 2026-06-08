@@ -18,10 +18,10 @@ require("packy").setup({
         config = function()
             require("pino").setup({
                 plugins = {
-                    fzf_lua = true,
                     lazy = false,
                     mason = not Util.is_nixos,
                     mini = true,
+                    snacks = true,
                 },
             })
             vim.cmd.colorscheme("pino")
@@ -34,10 +34,57 @@ require("packy").setup({
         src = "https://github.com/folke/snacks.nvim",
         config = function()
             require("snacks").setup({
-                image = {},
-                notifier = {},
-                quickfile = {},
+                image = { enabled = true },
+                input = {
+                    enabled = true,
+                    icon_pos = false,
+                    win = {
+                        relative = "cursor",
+                        col = -2,
+                        row = -3,
+                        title_pos = "left",
+                        width = 20,
+                        keys = {
+                            i_ctrl_a = { "<C-a>", "<Home>", mode = "i", expr = true },
+                            i_ctrl_e = { "<C-e>", "<End>", mode = "i", expr = true },
+                        },
+                    },
+                },
+                picker = {
+                    enabled = true,
+                    formatters = {
+                        file = {
+                            filename_first = true,
+                        },
+                    },
+                    layout = function()
+                        return {
+                            preview = vim.o.columns >= 120 and true or false,
+                            layout = {
+                                min_width = 0,
+                            },
+                            preset = "default",
+                        }
+                    end,
+                    win = {
+                        input = {
+                            keys = {
+                                ["<Esc>"] = { "close", mode = { "n", "i" } },
+                            },
+                        },
+                    },
+                },
+                notifier = { enabled = true },
             })
+
+            vim.keymap.set("n", "<Leader><Leader>", function()
+                Snacks.picker.files({ hidden = true })
+            end, { desc = "File picker" })
+            vim.keymap.set("n", "<Leader>sg", Snacks.picker.grep, { desc = "Live grep" })
+            vim.keymap.set("n", "<Leader>sh", Snacks.picker.help, { desc = "Search help tags" })
+            vim.keymap.set("n", "<Leader>,", Snacks.picker.buffers, { desc = "Show open buffers" })
+            vim.keymap.set("n", "<Leader>sd", Snacks.picker.diagnostics, { desc = "Show workspace diagnostics" })
+            vim.keymap.set("n", "z=", Snacks.picker.spelling, { desc = "Show spell suggestions" })
         end,
     },
     -------------------------------------------------------------------------------------------------------------------
@@ -271,31 +318,6 @@ require("packy").setup({
                     map({ "o", "x" }, "ih", gitsigns.select_hunk)
                 end,
             })
-        end,
-    },
-    -------------------------------------------------------------------------------------------------------------------
-    -- FZF-LUA
-    -------------------------------------------------------------------------------------------------------------------
-    {
-        src = "https://github.com/ibhagwan/fzf-lua",
-        config = function()
-            require("fzf-lua").setup({
-                fzf_colors = true,
-                ui_select = true,
-                files = { formatter = "path.filename_first" },
-            })
-
-            vim.keymap.set("n", "<Leader><Leader>", "<Cmd>FzfLua files<CR>", { desc = "FzfLua files" })
-            vim.keymap.set("n", "<Leader>sg", "<Cmd>FzfLua live_grep<CR>", { desc = "Live grep" })
-            vim.keymap.set("n", "<Leader>sh", "<Cmd>FzfLua helptags<CR>", { desc = "Search help tags" })
-            vim.keymap.set("n", "<Leader>,", "<Cmd>FzfLua buffers<CR>", { desc = "Show open buffers" })
-            vim.keymap.set(
-                "n",
-                "<Leader>sd",
-                "<Cmd>FzfLua diagnostics_workspace<CR>",
-                { desc = "Show workspace diagnostics" }
-            )
-            vim.keymap.set("n", "z=", "<Cmd>FzfLua spell_suggest<CR>", { desc = "Show spell suggestions" })
         end,
     },
     -------------------------------------------------------------------------------------------------------------------

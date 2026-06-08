@@ -358,7 +358,6 @@ require("packy").setup({
                     local formatters_by_ft = require("conform").formatters_by_ft
 
                     local to_install = {
-                        ["rust-analyzer"] = false,
                         qmlls = false,
                         shellcheck = true,
                         shfmt = true,

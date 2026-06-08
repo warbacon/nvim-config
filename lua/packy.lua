@@ -4,14 +4,16 @@ local M = {}
 ---@field config? function
 ---@field dev_dir? string
 ---@field enabled? boolean
+---@field event? vim.api.keyset.events|vim.api.keyset.events[]
 
 ---@class PackyResolvedSpec : vim.pack.Spec
----@field data { config: function, dev_dir: string, enabled: boolean }
+---@field data { config: function, dev_dir: string, enabled: boolean, event: vim.api.keyset.events|vim.api.keyset.events[] }
 
 local default_data = {
     config = nil,
     dev_dir = nil,
     enabled = true,
+    event = nil,
 }
 
 ---@param spec PackySpec[]
@@ -28,6 +30,7 @@ local resolve_spec = function(spec)
                 config = plugin.config,
                 dev_dir = plugin.dev_dir,
                 enabled = plugin.enabled,
+                event = plugin.event,
             }),
         })
     end
@@ -52,7 +55,13 @@ local load = function(plug)
     end
 
     if plug.spec.data.config then
-        plug.spec.data.config()
+        if plug.spec.data.event then
+            vim.api.nvim_create_autocmd(plug.spec.data.event, {
+                callback = plug.spec.data.config,
+            })
+        else
+            plug.spec.data.config()
+        end
     end
 end
 
@@ -62,6 +71,7 @@ local function setup_keybinds()
         vim.pack.update(nil, { target = "lockfile" })
     end, { desc = "Restore plugins from lockfile" })
     vim.keymap.set("n", "<Leader>pc", function()
+        ---@diagnostic disable-next-line: redundant-parameter
         vim.pack.del(vim.iter(vim.pack.get())
             :filter(function(x)
                 return not x.active

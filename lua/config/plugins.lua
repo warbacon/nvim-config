@@ -34,7 +34,13 @@ require("packy").setup({
         src = "https://github.com/folke/snacks.nvim",
         config = function()
             require("snacks").setup({
-                image = { enabled = true },
+                image = {
+                    enabled = true,
+                    doc = {
+                        inline = false,
+                        max_height = 20,
+                    }
+                },
                 input = {
                     enabled = true,
                     icon_pos = false,

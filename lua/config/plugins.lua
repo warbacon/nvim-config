@@ -182,7 +182,6 @@ require("packy").setup({
     -------------------------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/nvim-mini/mini.splitjoin",
-        event = "VeryLazy",
         config = function()
             require("mini.splitjoin").setup()
         end,
@@ -388,6 +387,7 @@ require("packy").setup({
     {
         src = "https://github.com/saghen/blink.cmp",
         version = vim.version.range("*"),
+        event = { "InsertEnter", "CmdlineEnter" },
         config = function()
             require("blink.cmp").setup({
                 cmdline = {

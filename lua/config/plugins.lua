@@ -229,6 +229,7 @@ require("packy").setup({
                     json = { "prettierd" },
                     jsonc = { "prettierd" },
                     markdown = { "prettierd" },
+                    svelte = { "prettierd" },
                     typescript = { "prettierd" },
                     typescriptreact = { "prettierd" },
                     ["_"] = { "trim_whitespace", "trim_newlines", "squeeze_blanks", lsp_format = "last" },

@@ -39,7 +39,7 @@ require("packy").setup({
                     doc = {
                         inline = false,
                         max_height = 20,
-                    }
+                    },
                 },
                 input = {
                     enabled = true,

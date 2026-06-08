@@ -447,5 +447,5 @@ local undotree = function()
     end
     require("undotree").open()
 end
-vim.keymap.set("n", "<Leader>r", undotree, { desc = "Undotree" })
+vim.keymap.set("n", "<Leader>u", undotree, { desc = "Undotree" })
 vim.api.nvim_create_user_command("Undotree", undotree, {})

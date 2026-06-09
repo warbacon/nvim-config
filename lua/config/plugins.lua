@@ -97,29 +97,60 @@ require("packy").setup({
     -- TREE-SITTER
     -------------------------------------------------------------------------------------------------------------------
     {
-        src = "https://github.com/arborist-ts/arborist.nvim",
+        src = "https://github.com/nvim-treesitter/nvim-treesitter",
         config = function()
-            require("arborist").setup({
-                prefer_wasm = false,
-                update_cadence = "manual",
-                install_popular = false,
-                ensure_installed = {
-                    "bash",
-                    "css",
-                    "diff",
-                    "html",
-                    "ini",
-                    "javascript",
-                    "jsdoc",
-                    "json",
-                    "luadoc",
-                    "markdown_inline",
-                    "nix",
-                    "toml",
-                    "typescript",
-                    "xml",
-                    "yaml",
-                },
+            local ensure_installed = {
+                "bash",
+                "c",
+                "cmake",
+                "cpp",
+                "css",
+                "diff",
+                "fish",
+                "gitcommit",
+                "gitignore",
+                "html",
+                "ini",
+                "javascript",
+                "jsdoc",
+                "json",
+                "kdl",
+                "kitty",
+                "lua",
+                "luadoc",
+                "markdown_inline",
+                "nix",
+                "powershell",
+                "printf",
+                "qmljs",
+                "svelte",
+                "toml",
+                "typescript",
+                "xml",
+                "yaml",
+                "zsh",
+            }
+
+            require("nvim-treesitter").install(ensure_installed)
+
+            vim.api.nvim_create_autocmd("FileType", {
+                desc = "Enable Treesitter when available",
+                callback = function(ev)
+                    local lang = vim.treesitter.language.get_lang(ev.match)
+
+                    if not lang or not vim.treesitter.language.add(lang) then
+                        return
+                    end
+
+                    vim.treesitter.start()
+
+                    vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+                    vim.wo.foldmethod = "expr"
+
+                    if vim.treesitter.query.get(lang, "indents") then
+                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    end
+                end,
             })
         end,
     },

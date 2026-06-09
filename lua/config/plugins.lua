@@ -4,7 +4,7 @@ require("packy").setup({
     -------------------------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/warbacon/pino.nvim",
-        dev_dir = (function()
+        dir = (function()
             if vim.fn.has("linux") == 1 then
                 return vim.fs.joinpath(os.getenv("HOME") or "", "Proyectos", "pino.nvim")
             end

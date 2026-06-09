@@ -2,16 +2,16 @@ local M = {}
 
 ---@class PackySpec : vim.pack.Spec
 ---@field config? function
----@field dev_dir? string
+---@field dir? string
 ---@field enabled? boolean
 ---@field event? vim.api.keyset.events|vim.api.keyset.events[]
 
 ---@class PackyResolvedSpec : vim.pack.Spec
----@field data { config: function, dev_dir: string, enabled: boolean, event: vim.api.keyset.events|vim.api.keyset.events[] }
+---@field data { config: function, dir: string, enabled: boolean, event: vim.api.keyset.events|vim.api.keyset.events[] }
 
 local default_data = {
     config = nil,
-    dev_dir = nil,
+    dir = nil,
     enabled = true,
     event = nil,
 }
@@ -28,7 +28,7 @@ local resolve_spec = function(spec)
             version = plugin.version,
             data = vim.tbl_extend("force", default_data, {
                 config = plugin.config,
-                dev_dir = plugin.dev_dir,
+                dir = plugin.dir,
                 enabled = plugin.enabled,
                 event = plugin.event,
             }),
@@ -48,8 +48,8 @@ local load = function(plug)
         return
     end
 
-    if plug.spec.data.dev_dir and vim.uv.fs_stat(plug.spec.data.dev_dir) then
-        vim.opt.rtp:append(plug.spec.data.dev_dir)
+    if plug.spec.data.dir and vim.uv.fs_stat(plug.spec.data.dir) then
+        vim.opt.rtp:append(plug.spec.data.dir)
     else
         vim.cmd.packadd(plug.spec.name)
     end

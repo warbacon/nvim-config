@@ -59,9 +59,16 @@ require("packy").setup({
                     formatters = { file = { filename_first = true } },
                     layout = function()
                         return {
-                            preview = vim.o.columns >= 120 and true or false,
-                            layout = { min_width = 0 },
-                            preset = "default",
+                            preview = vim.o.lines >= 25,
+                            layout = {
+                                width = 0.8,
+                                max_width = 160,
+                                min_width = 0,
+                                min_height = 0,
+                                row = 1,
+                                backdrop = true,
+                            },
+                            preset = vim.o.columns >= 120 and "default" or "vertical",
                         }
                     end,
                     win = {

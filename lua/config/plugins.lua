@@ -36,10 +36,7 @@ require("packy").setup({
             require("snacks").setup({
                 image = {
                     enabled = true,
-                    doc = {
-                        inline = false,
-                        max_height = 20,
-                    },
+                    doc = { inline = false, max_height = 20 },
                 },
                 input = {
                     enabled = true,
@@ -56,19 +53,14 @@ require("packy").setup({
                         },
                     },
                 },
+                notifier = { enabled = true },
                 picker = {
                     enabled = true,
-                    formatters = {
-                        file = {
-                            filename_first = true,
-                        },
-                    },
+                    formatters = { file = { filename_first = true } },
                     layout = function()
                         return {
                             preview = vim.o.columns >= 120 and true or false,
-                            layout = {
-                                min_width = 0,
-                            },
+                            layout = { min_width = 0 },
                             preset = "default",
                         }
                     end,
@@ -80,7 +72,6 @@ require("packy").setup({
                         },
                     },
                 },
-                notifier = { enabled = true },
             })
 
             vim.keymap.set("n", "<Leader><Leader>", function()

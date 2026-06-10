@@ -51,7 +51,7 @@ local load = function(plug)
     if plug.spec.data.dir and vim.uv.fs_stat(plug.spec.data.dir) then
         vim.opt.rtp:append(plug.spec.data.dir)
     else
-        vim.cmd.packadd(plug.spec.name)
+        vim.opt.rtp:append(plug.path)
     end
 
     if plug.spec.data.config then

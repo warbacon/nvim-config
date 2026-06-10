@@ -61,8 +61,8 @@ require("packy").setup({
                         return {
                             preview = vim.o.lines >= 25,
                             layout = {
-                                width = 0.8,
-                                max_width = 160,
+                                width = 0.85,
+                                max_width = 180,
                                 min_width = 0,
                                 min_height = 0,
                                 row = 1,

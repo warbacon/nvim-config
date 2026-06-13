@@ -229,10 +229,10 @@ require("packy").setup({
         end,
     },
     -------------------------------------------------------------------------------------------------------------------
-    -- CANOLA.NVIM
+    -- OIL.NVIM
     -------------------------------------------------------------------------------------------------------------------
     {
-        src = "https://github.com/barrettruth/canola.nvim",
+        src = "https://github.com/stevearc/oil.nvim",
         config = function()
             require("oil").setup({
                 delete_to_trash = true,

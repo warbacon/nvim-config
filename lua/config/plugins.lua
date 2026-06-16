@@ -81,6 +81,9 @@ require("packy").setup({
                         },
                     },
                 },
+                terminal = {
+                    shell = vim.fn.has("win32") == 1 and { "pwsh", "-NoLogo" } or { "fish" },
+                },
             })
 
             vim.keymap.set("n", "<Leader><Leader>", function()
@@ -91,6 +94,14 @@ require("packy").setup({
             vim.keymap.set("n", "<Leader>,", Snacks.picker.buffers, { desc = "Show open buffers" })
             vim.keymap.set("n", "<Leader>sd", Snacks.picker.diagnostics, { desc = "Show workspace diagnostics" })
             vim.keymap.set("n", "z=", Snacks.picker.spelling, { desc = "Show spell suggestions" })
+            vim.keymap.set({ "n", "t" }, "<M-i>", function()
+                Snacks.terminal.toggle(nil, {
+                    win = {
+                        style = "float",
+                        border = "rounded",
+                    },
+                })
+            end, { desc = "Toggle terminal" })
         end,
     },
     -------------------------------------------------------------------------------------------------------------------

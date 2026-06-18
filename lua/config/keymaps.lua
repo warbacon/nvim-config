@@ -22,8 +22,8 @@ vim.keymap.set({ "i", "c" }, "<M-BS>", "<C-w>", { desc = "Delete backward word" 
 -- Fuzzy finder replacement
 vim.keymap.set("n", "<Leader><Leader>", ":find **/", { noremap = true, desc = "Find files" })
 
--- Use <C-q> to exit terminal mode
-vim.keymap.set("t", "<C-q>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+-- Use <M-q> to exit terminal mode
+vim.keymap.set("t", "<M-q>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Disable the `q:` command-line window
 vim.keymap.set("n", "q:", "<Cmd>echoe 'q:'<CR>", { noremap = true, desc = "Disabled command-line window" })

@@ -500,6 +500,26 @@ require("packy").setup({
             })
         end,
     },
+    -------------------------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------------------
+    -- SCROLLBAR-NVIM
+    -------------------------------------------------------------------------------------------------------------------
+    {
+        src = "https://github.com/petertriho/nvim-scrollbar",
+        config = function()
+            require("scrollbar").setup({
+                hide_if_all_visible = true,
+                handle = {
+                    blend = 20,
+                    highlight = "CursorColumn",
+                    hide_if_all_visible = true,
+                },
+                handlers = {
+                    cursor = false,
+                },
+            })
+        end,
+    },
 })
 
 -----------------------------------------------------------------------------------------------------------------------
@@ -513,3 +533,5 @@ local undotree = function()
 end
 vim.keymap.set("n", "<Leader>u", undotree, { desc = "Undotree" })
 vim.api.nvim_create_user_command("Undotree", undotree, {})
+
+require("statusline").setup()

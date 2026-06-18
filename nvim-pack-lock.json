@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "e1a36239e4e36759546852dae5f4737375b388f6",
+      "rev": "c73e2b170a4927d1dc1b48e878bba6cf0ed9b07c",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "blink.cmp": {
@@ -38,7 +38,7 @@
       "src": "https://github.com/monkoose/matchparen.nvim"
     },
     "mini.icons": {
-      "rev": "284509648db084c5e40a31afa9abb9887c49e04a",
+      "rev": "ac38c983aed0a2bd32a65ca3e2348e12e58ca292",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
     "mini.move": {
@@ -50,7 +50,7 @@
       "src": "https://github.com/nvim-mini/mini.splitjoin"
     },
     "nvim-lspconfig": {
-      "rev": "a683e0ddf0cf64c6cd689e18ffb480ade3c162b7",
+      "rev": "96f363ce07d46c1804532ca2d1eb3a157d11ee29",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-scrollbar": {
@@ -70,7 +70,7 @@
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "pino.nvim": {
-      "rev": "aa32b87bb3973fc8332b9bd0ef96a05d156e1c7d",
+      "rev": "2414732381cad99dbf0cc89ad119fec43da5e7c6",
       "src": "https://github.com/warbacon/pino.nvim"
     },
     "quicker.nvim": {

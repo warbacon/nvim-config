@@ -451,6 +451,7 @@ require("packy").setup({
     {
         src = "https://github.com/saghen/blink.cmp",
         version = vim.version.range("*"),
+        preload = true,
         event = { "InsertEnter", "CmdlineEnter" },
         config = function()
             require("blink.cmp").setup({

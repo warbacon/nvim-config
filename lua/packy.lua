@@ -5,15 +5,17 @@ local M = {}
 ---@field dir? string
 ---@field enabled? boolean
 ---@field event? vim.api.keyset.events|vim.api.keyset.events[]
+---@field preload? boolean
 
 ---@class PackyResolvedSpec : vim.pack.Spec
----@field data { config: function, dir: string, enabled: boolean, event: vim.api.keyset.events|vim.api.keyset.events[] }
+---@field data { config: function, dir: string, enabled: boolean, event: vim.api.keyset.events|vim.api.keyset.events[], preload: boolean }
 
 local default_data = {
     config = nil,
     dir = nil,
     enabled = true,
     event = nil,
+    preload = false,
 }
 
 ---@param spec PackySpec[]
@@ -31,6 +33,7 @@ local resolve_spec = function(spec)
                 dir = plugin.dir,
                 enabled = plugin.enabled,
                 event = plugin.event,
+                preload = plugin.preload,
             }),
         })
     end
@@ -48,18 +51,39 @@ local load = function(plug)
         return
     end
 
-    if plug.spec.data.dir and vim.uv.fs_stat(plug.spec.data.dir) then
-        vim.opt.rtp:append(plug.spec.data.dir)
-    else
-        vim.opt.rtp:append(plug.path)
+    local function append_rtp()
+        if plug.spec.data.dir and vim.uv.fs_stat(plug.spec.data.dir) then
+            vim.opt.rtp:append(plug.spec.data.dir)
+        else
+            vim.opt.rtp:append(plug.path)
+        end
     end
 
-    if plug.spec.data.config then
-        if plug.spec.data.event then
+    if plug.spec.data.event then
+        if plug.spec.data.preload then
+            append_rtp()
             vim.api.nvim_create_autocmd(plug.spec.data.event, {
-                callback = plug.spec.data.config,
+                once = true,
+                callback = function()
+                    if plug.spec.data.config then
+                        plug.spec.data.config()
+                    end
+                end,
             })
         else
+            vim.api.nvim_create_autocmd(plug.spec.data.event, {
+                once = true,
+                callback = function()
+                    append_rtp()
+                    if plug.spec.data.config then
+                        plug.spec.data.config()
+                    end
+                end,
+            })
+        end
+    else
+        append_rtp()
+        if plug.spec.data.config then
             plug.spec.data.config()
         end
     end

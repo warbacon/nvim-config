@@ -210,6 +210,7 @@ require("packy").setup({
     -------------------------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/NMAC427/guess-indent.nvim",
+        event = "BufEnter",
         config = function()
             require("guess-indent").setup()
         end,
@@ -247,7 +248,10 @@ require("packy").setup({
     {
         src = "https://github.com/nvim-mini/mini.splitjoin",
         config = function()
-            require("mini.splitjoin").setup()
+            vim.keymap.set({ "n", "x" }, "gS", function()
+                require("mini.splitjoin").setup()
+                vim.api.nvim_feedkeys("gS", "m", false)
+            end)
         end,
     },
     -------------------------------------------------------------------------------------------------------------------
@@ -313,6 +317,7 @@ require("packy").setup({
     -------------------------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/lewis6991/gitsigns.nvim",
+        event = "BufEnter",
         config = function()
             require("gitsigns").setup({
                 sign_priority = 199,
@@ -506,6 +511,7 @@ require("packy").setup({
     -------------------------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/stevearc/quicker.nvim",
+        event = "BufEnter",
         config = function()
             require("quicker").setup()
         end,

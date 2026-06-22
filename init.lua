@@ -37,4 +37,5 @@ require("config.misc")
 
 if vim.o.termguicolors then
     require("config.plugins")
+    require("statusline").setup()
 end

@@ -3,17 +3,17 @@ local M = {}
 ---@class PackySpec : vim.pack.Spec
 ---@field config? function
 ---@field dir? string
----@field enabled? boolean
+---@field cond? boolean
 ---@field event? vim.api.keyset.events|vim.api.keyset.events[]
 ---@field preload? boolean
 
 ---@class PackyResolvedSpec : vim.pack.Spec
----@field data { config: function, dir: string, enabled: boolean, event: vim.api.keyset.events|vim.api.keyset.events[], preload: boolean }
+---@field data { config: function, dir: string, cond: boolean, event: vim.api.keyset.events|vim.api.keyset.events[], preload: boolean }
 
 local default_data = {
     config = nil,
     dir = nil,
-    enabled = true,
+    cond = true,
     event = nil,
     preload = false,
 }
@@ -31,7 +31,7 @@ local resolve_spec = function(spec)
             data = vim.tbl_extend("force", default_data, {
                 config = plugin.config,
                 dir = plugin.dir,
-                enabled = plugin.enabled,
+                cond = plugin.cond,
                 event = plugin.event,
                 preload = plugin.preload,
             }),
@@ -47,7 +47,7 @@ end
 
 ---@param plug { spec: PackyResolvedSpec, path: string }
 local load = function(plug)
-    if not plug.spec.data.enabled then
+    if not plug.spec.data.cond then
         return
     end
 

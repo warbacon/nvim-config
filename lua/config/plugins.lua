@@ -394,11 +394,11 @@ require("packy").setup({
     -------------------------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/mason-org/mason-lspconfig.nvim",
-        enabled = not Util.is_nixos,
+        cond = not Util.is_nixos,
     },
     {
         src = "https://github.com/mason-org/mason.nvim",
-        enabled = not Util.is_nixos,
+        cond = not Util.is_nixos,
         config = function()
             require("mason").setup()
 

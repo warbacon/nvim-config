@@ -7,15 +7,10 @@ require("packy").setup({
     {
         src = "https://github.com/warbacon/pino.nvim",
         dir = (function()
-            if vim.fn.has("linux") == 1 then
-                return vim.fs.joinpath(os.getenv("HOME") or "", "Proyectos", "pino.nvim")
+            local homedir = vim.env.HOME or vim.env.USERPROFILE
+            if homedir then
+                return vim.fs.joinpath(homedir, "Proyectos", "pino.nvim")
             end
-
-            if vim.fn.has("win32") == 1 then
-                return "F:/pino.nvim"
-            end
-
-            return nil
         end)(),
         config = function()
             require("pino").setup({

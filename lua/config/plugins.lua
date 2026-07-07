@@ -37,7 +37,7 @@ require("packy").setup({
         config = function()
             require("snacks").setup({
                 image = {
-                    enabled = true,
+                    enabled = false,
                     doc = { inline = false, max_height = 20 },
                 },
                 input = {

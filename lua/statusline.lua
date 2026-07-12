@@ -27,13 +27,12 @@ end
 ---@param bufname string
 ---@param is_active boolean
 ---@return string
-local function file_icon(bufname, bufnr, is_active)
-    local icon_type = "file"
-    if vim.bo[bufnr].filetype == "oil" then
-        icon_type = "directory"
+local function file_icon(bufname, is_active)
+    if not MiniIcons then
+        return ""
     end
 
-    local icon, hl = MiniIcons.get(icon_type, bufname)
+    local icon, hl = MiniIcons.get("file", bufname)
     if not icon then
         return ""
     end
@@ -71,13 +70,9 @@ function M.statusline()
     local bufnr = vim.api.nvim_win_get_buf(winid)
     local bufname = vim.api.nvim_buf_get_name(bufnr)
 
-    if vim.bo[bufnr].filetype == "oil" then
-        bufname = bufname:sub(7)
-    end
-
     return table.concat({
         is_active and mode() or "",
-        file_icon(bufname, bufnr, is_active),
+        file_icon(bufname, is_active),
         buffer_name(bufname),
         buffer_modifiers(bufnr),
         "%=",

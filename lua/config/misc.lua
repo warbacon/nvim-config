@@ -9,14 +9,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
-vim.api.nvim_create_autocmd("VimLeave", {
-    desc = "Fix the cursor when exiting Vim",
-    callback = function()
-        vim.o.guicursor = ""
-        io.write("\x1b[ q")
-    end,
-})
-
 -- Remove the `How to disable mouse` entry from the PopUp menu
 vim.cmd([[
 unmenu PopUp.-2-

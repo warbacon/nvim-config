@@ -6,9 +6,10 @@ local M = {}
 ---@field cond? boolean
 ---@field event? vim.api.keyset.events|vim.api.keyset.events[]
 ---@field preload? boolean
+---@field build? function
 
 ---@class PackyResolvedSpec : vim.pack.Spec
----@field data { config: function, dir: string, cond: boolean, event: vim.api.keyset.events|vim.api.keyset.events[], preload: boolean }
+---@field data { config: function, dir: string, cond: boolean, event: vim.api.keyset.events|vim.api.keyset.events[], preload: boolean, build: function }
 
 local default_data = {
     config = nil,
@@ -16,6 +17,7 @@ local default_data = {
     cond = true,
     event = nil,
     preload = false,
+    build = nil,
 }
 
 ---@param spec PackySpec[]
@@ -34,6 +36,7 @@ local resolve_spec = function(spec)
                 cond = plugin.cond,
                 event = plugin.event,
                 preload = plugin.preload,
+                build = plugin.build,
             }),
         })
     end
@@ -81,11 +84,22 @@ local load = function(plug)
                 end,
             })
         end
-    else
-        append_rtp()
-        if plug.spec.data.config then
-            plug.spec.data.config()
-        end
+        return
+    end
+
+    append_rtp()
+    if plug.spec.data.config then
+        plug.spec.data.config()
+    end
+
+    if plug.spec.data.build then
+        vim.api.nvim_create_autocmd("PackChanged", {
+            callback = function(ev)
+                if ev.data.spec.name == plug.spec.name then
+                    plug.spec.data.build()
+                end
+            end,
+        })
     end
 end
 
@@ -95,7 +109,7 @@ local function setup_keybinds()
         vim.pack.update(nil, { target = "lockfile" })
     end, { desc = "Restore plugins from lockfile" })
     vim.keymap.set("n", "<Leader>pc", function()
-        ---@diagnostic disable-next-line: redundant-parameter
+        ---@diagnostic disable-next-line: call-non-callable
         vim.pack.del(vim.iter(vim.pack.get())
             :filter(function(x)
                 return not x.active

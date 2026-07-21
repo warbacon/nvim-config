@@ -104,6 +104,9 @@ require("packy").setup({
     -------------------------------------------------------------------------------------------------------------------
     {
         src = "https://github.com/nvim-treesitter/nvim-treesitter",
+        build = function()
+            require("nvim-treesitter").update()
+        end,
         config = function()
             local ensure_installed = {
                 "bash",

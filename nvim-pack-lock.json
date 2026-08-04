@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "37dc30ebebd899905f98deccd8c29fcb62531cbf",
+      "rev": "885ecf4fa0ffcd20d052b14701540a451898fb34",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "blink.cmp": {
@@ -26,7 +26,7 @@
       "src": "https://github.com/NMAC427/guess-indent.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "7adc933dabcc7c86ae6b07aff7ee68eac398491f",
+      "rev": "67029ccdac1ef8941e13b826417bc0ffac24cc86",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
@@ -36,6 +36,10 @@
     "matchparen.nvim": {
       "rev": "75398158ea5a4cee4f0cbbeefdbf8fb1c3343e28",
       "src": "https://github.com/monkoose/matchparen.nvim"
+    },
+    "melange-nvim": {
+      "rev": "ce42f6b629beeaa00591ba73a77d3eeac4cf28ce",
+      "src": "https://github.com/savq/melange-nvim"
     },
     "mini.icons": {
       "rev": "98faae31e9be1cc054ae63485e58ceb185efcad0",
@@ -50,7 +54,7 @@
       "src": "https://github.com/nvim-mini/mini.splitjoin"
     },
     "nvim-lspconfig": {
-      "rev": "b89138d9af0a96e6048e202a15765fc6b6416bd4",
+      "rev": "1c0d8f70dbc8827263eedc3cf7021ceba0f68689",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-scrollbar": {
@@ -58,7 +62,7 @@
       "src": "https://github.com/petertriho/nvim-scrollbar"
     },
     "nvim-treesitter": {
-      "rev": "7248feaca45e4d944591497964bc19afa89ad1c6",
+      "rev": "7b6cc8949f9999c5ed91436cbe24aa5f99c42025",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-ts-autotag": {
@@ -70,7 +74,7 @@
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "pino.nvim": {
-      "rev": "2414732381cad99dbf0cc89ad119fec43da5e7c6",
+      "rev": "0a099e32c319076ab5443c3d57cd28fd32533ad8",
       "src": "https://github.com/warbacon/pino.nvim"
     },
     "quicker.nvim": {

@@ -109,6 +109,7 @@ require("packy").setup({
         end,
         config = function()
             local ensure_installed = {
+                "astro",
                 "bash",
                 "c",
                 "cmake",
@@ -124,20 +125,17 @@ require("packy").setup({
                 "jsdoc",
                 "json",
                 "kdl",
-                "kitty",
                 "lua",
                 "luadoc",
                 "markdown_inline",
                 "nix",
                 "powershell",
                 "printf",
-                "qmljs",
                 "svelte",
                 "toml",
                 "typescript",
                 "xml",
                 "yaml",
-                "zsh",
             }
 
             require("nvim-treesitter").install(ensure_installed)
@@ -184,6 +182,7 @@ require("packy").setup({
         src = "https://github.com/neovim/nvim-lspconfig",
         config = function()
             local servers = {
+                "astro",
                 "bashls",
                 "clangd",
                 "cssls",
@@ -295,7 +294,6 @@ require("packy").setup({
                     json = { "prettierd" },
                     jsonc = { "prettierd" },
                     markdown = { "prettierd" },
-                    svelte = { "prettierd" },
                     typescript = { "prettierd" },
                     typescriptreact = { "prettierd" },
                     ["_"] = { "trim_whitespace", "trim_newlines", "squeeze_blanks", lsp_format = "last" },

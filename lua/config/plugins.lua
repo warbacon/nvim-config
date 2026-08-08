@@ -62,7 +62,6 @@ require("packy").setup({
                                 max_width = 180,
                                 min_width = 0,
                                 min_height = 0,
-                                row = 1,
                                 backdrop = true,
                             },
                             preset = vim.o.columns >= 120 and "default" or "vertical",

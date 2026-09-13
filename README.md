@@ -13,15 +13,11 @@
 
 > [!WARNING]
 > **Miovim** isn't compatible with **Neovim versions earlier than 0.12**. Make
-> sure you are using the latest stable version.
+> sure you are using at least the latest stable version.
 
 ## 🤨 Why Miovim?
 
-**Miovim** is built to be simple.
-
-If a piece of configuration is hard to understand or maintain, it doesn't belong
-here. There are no clever tricks, no hidden abstractions, just a clean Neovim
-setup that stays out of your way and lets you focus on writing code.
+**Miovim** is built to be simple, fast, and fully understandable.
 
 ## 📦 Dependencies
 
@@ -31,7 +27,6 @@ Before using Miovim, make sure you have:
   - Any standard compiler on Linux/macOS
   - **MSVC** on Windows
 - [`tree-sitter`](https://github.com/tree-sitter/tree-sitter)
-- `fzf`
 - [`ripgrep`](https://github.com/BurntSushi/ripgrep) and
   [`fd`](https://github.com/sharkdp/fd) (optional)
 
@@ -50,6 +45,14 @@ git clone https://github.com/warbacon/nvim-config "$HOME/.config/nvim"
 > [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) is highly
 > recommended.
 
-```bash
-git clone https://github.com/warbacon/nvim-config "$HOME\AppData\Local\nvim"
+#### PowerShell
+
+```powershell
+git clone https://github.com/warbacon/nvim-config "$env:LOCALAPPDATA\nvim"
+```
+
+#### CMD
+
+```cmd
+git clone https://github.com/warbacon/nvim-config %LOCALAPPDATA%\nvim
 ```

@@ -296,6 +296,9 @@ require("packy").setup({
 			require("quicker").setup()
 		end,
 	},
+
+	-- RENDER-MARKDOWN.NVIM ------------------------------------------------------------------------
+	{ src = "https://github.com/meanderingprogrammer/render-markdown.nvim" },
 })
 
 -- UNDOTREE ----------------------------------------------------------------------------------------

@@ -72,6 +72,9 @@ require("packy").setup({
 	-- TREE-SITTER ---------------------------------------------------------------------------------
 	{
 		src = "https://github.com/nvim-treesitter/nvim-treesitter",
+		build = function()
+			require("nvim-treesitter").update()
+		end,
 		config = function()
 			require("nvim-treesitter").install({
 				"astro",

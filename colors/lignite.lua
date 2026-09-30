@@ -129,7 +129,7 @@ local highlights = {
 	MiniIconsBlue = { fg = palette.blue },
 	MiniIconsCyan = { fg = palette.aqua },
 	MiniIconsGreen = { fg = palette.green },
-	MiniIconsGrey = { fg = palette.gray },
+	MiniIconsGrey = { fg = palette.fg1 },
 	MiniIconsOrange = { fg = palette.orange },
 	MiniIconsPurple = { fg = palette.purple },
 	MiniIconsRed = { fg = palette.red },

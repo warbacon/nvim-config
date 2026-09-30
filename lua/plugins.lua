@@ -1,16 +1,10 @@
 require("packy").setup({
-	-- CENDRE --------------------------------------------------------------------------------------
-	{
-		src = "https://github.com/Aejkatappaja/cendre",
-		config = function()
-			vim.cmd.colorscheme("cendre")
-		end,
-	},
+	-- GRUVBOX.NVIM --------------------------------------------------------------------------------
+	{ src = "https://github.com/ellisonleao/gruvbox.nvim" },
 
 	-- PINO.NVIM -----------------------------------------------------------------------------------
 	{
 		src = "https://github.com/warbacon/pino.nvim",
-		cond = false,
 		config = function()
 			require("pino").setup({
 				plugins = {
@@ -19,7 +13,7 @@ require("packy").setup({
 					snacks = true,
 				},
 			})
-			vim.cmd.colorscheme("pino")
+			-- vim.cmd.colorscheme("pino")
 		end,
 	},
 

@@ -18,13 +18,13 @@ vim.o.scrolloff = 5
 vim.o.wrap = false
 
 -- Insert spaces instead of tab characters in Insert mode and indents
-vim.opt.expandtab = true
+vim.o.expandtab = true
 -- Indent by 4 columns per level
-vim.opt.shiftwidth = 4
+vim.o.shiftwidth = 4
 -- Display a tab character as 4 columns
-vim.opt.tabstop = 4
+vim.o.tabstop = 4
 -- Use shiftwidth for soft tab stops so <Tab> and <BS> align to 4-column increments
-vim.opt.softtabstop = -1
+vim.o.softtabstop = -1
 
 -- Ignore case in search patterns, completion, and tag lookups
 vim.o.ignorecase = true

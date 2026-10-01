@@ -33,7 +33,6 @@ require("keymaps")
 require("autocmds")
 
 if vim.env.TERM ~= "linux" then
-	vim.cmd.colorscheme("lignite")
 	require("plugins")
 	require("statusline").setup()
 end

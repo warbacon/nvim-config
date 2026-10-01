@@ -2,6 +2,15 @@ require("packy").setup({
 	-- GRUVBOX.NVIM --------------------------------------------------------------------------------
 	{ src = "https://github.com/ellisonleao/gruvbox.nvim" },
 
+	-- LIGNITE.NVIM --------------------------------------------------------------------------------
+	{
+		src = "https://github.com/warbacon/lignite.nvim",
+		dir = vim.fs.joinpath(vim.env.HOME .. "Proyectos/lignite.nvim"),
+		config = function()
+			vim.cmd.colorscheme("lignite")
+		end,
+	},
+
 	-- PINO.NVIM -----------------------------------------------------------------------------------
 	{
 		src = "https://github.com/warbacon/pino.nvim",

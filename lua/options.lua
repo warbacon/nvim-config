@@ -74,3 +74,18 @@ vim.opt.wildignore:append({
 	"*/build/*",
 	"*/target/*",
 })
+
+if vim.fn.has("win32") == 1 and vim.fn.executable("pwsh") == 1 then
+	vim.o.shelltemp = false
+	vim.o.shell = "pwsh"
+	vim.o.shellcmdflag = table.concat({
+		"-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command ",
+		"[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();",
+		"$PSDefaultParameterValues['Out-File:Encoding']='utf8';",
+		"$PSStyle.OutputRendering = 'PlainText';",
+	})
+	vim.o.shellpipe = "> %s 2>&1"
+	vim.o.shellquote = ""
+	vim.o.shellxquote = ""
+	vim.env.__SuppressAnsiEscapeSequences = "1"
+end
